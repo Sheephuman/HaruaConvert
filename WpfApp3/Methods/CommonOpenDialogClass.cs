@@ -1,29 +1,28 @@
-﻿using HaruaConvert.InterFace;
+﻿using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.IO;
-using System.Windows;
+using WpfApp3;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert
 {
-    internal class CommonOpenDialogClass:IHaruaInterFace.IMethods,IDisposable
+
+    /// <summary>
+    /// /共通 ダイアログ表示用クラス
+    /// </summary>
+    internal class CommonOpenDialogClass: IDisposableBase,IHaruaInterFace.IMethods
     {
         public CommonOpenDialogClass(bool _isFolder, string _initializeDirectory) 
         {
             this.Dispose(false);
             disposed= false;
-           //if(string.IsNullOrEmpty(_initializeDirectory))
-           //     throw new ArgumentException("Value is Null");
-            //      throw new ArgumentException("Value is Null");                        
-            
+          
            initializeDirectory = _initializeDirectory;
 
-            isFolder = _isFolder;
-        }
+            isFolder = _isFolder;}
 
 
-        //Perfect Construct Menber
+        //Completee Construct Menber
         string initializeDirectory { get; }
         bool isFolder { get;  }
 
@@ -54,28 +53,29 @@ namespace HaruaConvert
             })
 
 
-                if (!isFolder)
-                    dialog.Filters.Add(new CommonFileDialogFilter("Movie file", "Movie File, *.mp4,*.flv, *.mov"));
+            if (!isFolder)
+                    dialog.Filters.Add(new CommonFileDialogFilter("Movie file", "Movie File, *.mp4,*.flv, *.mov")) ;
+
+
 
 
             //Link ButtonName to InitakDirectory
-            switch (ParamInterfase.ButtonName )
+            switch (ClassShearingMenbers.ButtonName )
             {
-                case ParamInterfase.ButtonNameField.Convert_DropButton:
-                   ParamInterfase.InitialDirectory = ParamInterfase.InputDirectory;
-                    break;
-                case ParamInterfase.ButtonNameField.Directory_DropButon:
-                    ParamInterfase.InitialDirectory = ParamInterfase.InputDirectory;
+                case ParamFields.ButtonNameField.Convert_DropButton:                    
+                case ParamFields.ButtonNameField.Directory_DropButon:
+                    ParamFields.InitialDirectory = ParamFields.InputDirectory;
                     break;
 
-                case ParamInterfase.ButtonNameField.OutputButton:
-                    ParamInterfase.InitialDirectory = ParamInterfase.OutputDirectory;
+
+                case ParamFields.ButtonNameField.OutputButton:
+                    ParamFields.InitialDirectory = ParamFields.OutputDirectory;
                     break;
-                case ParamInterfase.ControlField.InputSelector:
-                    ParamInterfase.InitialDirectory = ParamInterfase.InputSelectorDirectory;
+                case ParamFields.ControlField.InputSelector:
+                    ParamFields.InitialDirectory = ParamFields.InputSelectorDirectory;
                     break;
-                case ParamInterfase.ControlField.OutputSelector:
-                    ParamInterfase.InitialDirectory = ParamInterfase.OutputSelectorDirectory;
+                case ParamFields.ControlField.OutputSelector:
+                    ParamFields.InitialDirectory = ParamFields.OutputSelectorDirectory;
                     break;
             }
 
@@ -91,80 +91,8 @@ namespace HaruaConvert
             }
             opFileName = dialog.FileName;
 
-
-
-
-            //switch(ParamInterfase.ButtonName)
-            //{
-            //    case "FileDrop_ConvertButton":
-
-
-            //        ParamInterfase.ConvertDirectory = dialog.FileName;
-            //       // dialog.InitialDirectory = ParamInterfase.ConvertDirectory;
-            //        break;
-            //    case "Convert_DropButon":
-            //        ParamInterfase.ConvertDirectory = Path.GetDirectoryName(dialog.FileName);
-            //       // dialog.InitialDirectory = ParamInterfase.ConvertDirectory;
-            //        break;
-
-            //    case "SavelocateButton":
-            //        ParamInterfase.OutputDirectory = dialog.FileName;
-            //       // dialog.InitialDirectory = ParamInterfase.OutputDirectory;
-            //        break;
-
-            //    case "InputSelector":
-            //        //ParamInterfase.InputSelectorDirectory = Path.GetDirectoryName(dialog.FileName);
-            //        dialog.InitialDirectory = ParamInterfase.InputSelectorDirectory;
-            //        break;
-            //    case "OutputSelector":
-            //        //ParamInterfase.OutputSelectorDirectory = dialog.FileName;
-            //        dialog.InitialDirectory = ParamInterfase.OutputSelectorDirectory;
-            //        break;
-            //}
-
-
-
-
-
-
             return result;
         }
 
-        private readonly IntPtr unmanagedResource;
-
-        private StreamWriter managedResource;
-
-        private bool disposed;
-
-          public void Dispose()
-    {
-        this.Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-        protected virtual void Dispose(bool isDisposing)
-        {
-            if (!this.disposed)
-            {
-                this.Free(this.unmanagedResource);
-
-                if (isDisposing)
-                {
-                    if (this.managedResource != null)
-                    {
-                        this.managedResource.Dispose();
-                    }
-                }
-
-                this.disposed = true;
-            }
-        }
-
-
-
-        private void Free(IntPtr unmanagedResource)
-        {
-            MessageBox.Show("CAｌｌ");       
-        }
     }
 }

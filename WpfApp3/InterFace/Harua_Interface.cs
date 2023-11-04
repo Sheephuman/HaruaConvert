@@ -1,13 +1,8 @@
-﻿using HaruaConvert;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
+using System.Windows.Controls;
 
-namespace HaruaConvert.InterFace
+namespace HaruaConvert.HaruaInterFace
 {
     public interface IHaruaInterFace
     {
@@ -15,6 +10,7 @@ namespace HaruaConvert.InterFace
         interface IMainWindwEvents
         {
             void NUDUP_Button_Click(object sender, RoutedEventArgs e);
+            void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e);
         }
         interface IMouseEvents
         {

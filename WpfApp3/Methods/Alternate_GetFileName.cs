@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
 
 namespace HaruaConvert.Methods
 {
@@ -19,8 +21,8 @@ namespace HaruaConvert.Methods
         string getSimgleFileNames(string targetFile)
         {
 
-            MessageBox.Show(targetFile.IndexOf("\\").ToString());
-            targetFile = targetFile.Remove(0, targetFile.IndexOf(@"\"));
+           
+            targetFile = targetFile.Remove(0, targetFile.IndexOf(@"\", StringComparison.Ordinal));
 
 
             return targetFile;

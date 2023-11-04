@@ -19,8 +19,7 @@ namespace HaruaConvert
             KillProcessDeligate kp = Terminate_Process;
 
             kp(_target_id);
-            //SomeDelegate a = new SomeDelegate(A);
-
+           
         }
 
         public void Terminate_Process(int Target_P)
@@ -74,12 +73,7 @@ namespace HaruaConvert
             }
         }
 
-        // // TODO: 'Dispose(bool disposing)' にアンマネージド リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします
-        // ~Terminate_ProcessClass()
-        // {
-        //     // このコードを変更しないでください。クリーンアップ コードを 'Dispose(bool disposing)' メソッドに記述します
-        //     Dispose(disposing: false);
-        // }
+       
 
         public void Dispose()
         {

@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              
-             xmlns:local ="clr-namespace:Wpf3.TextBoxBehaviorSample"             mc:Ignorable="d" 
+             
+             mc:Ignorable="d" 
              d:DesignHeight="24" d:DesignWidth="550"
              FocusManager.FocusedElement="{Binding ElementName=invisibleText}"
              >
@@ -37,8 +38,8 @@
             <ContentControl HorizontalAlignment="Left" Name="SelectorLabelCon">
                 <TextBlock  
                     Name="ParamLabel"
-                TextWrapping="Wrap"
-                    
+                TextWrapping="Wrap"                
+                ToolTip="{Binding invisibleText}"
                Grid.Row="0"
                Grid.Column="2"
                 HorizontalAlignment="Left"

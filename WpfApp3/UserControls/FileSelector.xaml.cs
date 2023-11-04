@@ -27,7 +27,7 @@ namespace HaruaConvert
 
             //if (ansest?.Name == "InputSelector" && string.IsNullOrEmpty(FilePathBox.Text))
             //{
-            //    ParamInterfase.InputFileName = "";
+            //    ParamFields.InputFileName = "";
             //}
         }
 

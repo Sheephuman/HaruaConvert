@@ -34,7 +34,11 @@ namespace HaruaConvert.UserControls
         public int selGenerate { get; set; }
 
 
-
+        /// <summary>
+        /// NumberCount UpDown procedure
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             int number = 0;
