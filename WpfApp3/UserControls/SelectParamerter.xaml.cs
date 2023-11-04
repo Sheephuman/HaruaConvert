@@ -37,7 +37,7 @@ namespace HaruaConvert
                 isImeOnConv = true;
             }
         }
-        private bool isImeOnConv = false; //IME利用中かどうか判定するフラグ
+        private bool isImeOnConv; //IME利用中かどうか判定するフラグ
         private int EnterKeyBuffer { get; set; } //IMEでの変換決定のEnterキーに反応させないためのバッファ
 
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -43,7 +43,7 @@
                     <ImageBrush
                         RenderOptions.BitmapScalingMode="Fant"
                         
-                        ImageSource="..\harua.ico" />
+                        ImageSource="\lib\harua.ico" />
                 </TextBlock.Background>
 
 
@@ -82,7 +82,7 @@
                     >
 
                     <TabControl.Background>
-                        <ImageBrush x:Name="myBrush" Opacity="0.2" ImageSource= "..\harua.jpg"/>
+                        <ImageBrush x:Name="myBrush" Opacity="0.2" ImageSource= "..\BackImage\harua.jpg"/>
                     </TabControl.Background>
 
 
@@ -116,7 +116,9 @@
                                             <StackPanel Height="30" CanVerticallyScroll="True">
                                                 <ScrollViewer>
                                                     <TextBlock x:Name= "SourcePathLabel"                                                     
-                                               Text="{Binding SourcePathText}"  
+                                               Text="{Binding SourcePathText}"
+                                               ToolTip="{Binding SourcePathText}"
+                                                               
                                                TextWrapping="Wrap"
                                                Width="350"
                                                    FontSize="16"
@@ -137,6 +139,7 @@
 
                                     <TextBox Width="390"
                                         x:Name="ParamText" Text="{Binding StartQuery}"  TextChanged="Param_TextChanged" FontSize="16"   
+                                               ToolTip="ffmpegに渡すオプションです。"
                                                />
 
 
@@ -301,7 +304,7 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="17*"/>
-                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition Width="10"/>
                                 <ColumnDefinition Width="496*"/>
                                 <ColumnDefinition Width="5*"/>
                                 <ColumnDefinition Width="16*"/>
@@ -326,14 +329,15 @@
                                 Checked="isUserOriginalParameter_Checked"
                                 Unchecked="isUserOriginalParameter_Checked"
                                 Margin="0,5,5,0"
-                                x:Name="isUserOriginalParameter"
+                                x:Name="isUserParameter"
                                 Content="拡張パラメータを有効にする"
                                 FontSize="14" FontWeight="Bold"                                    
                                       />
                                 <Label Grid.Column="2"
                                     Margin="
                                        100,0,0,0"
-                                       FontSize="16" FontWeight="Bold" Content="保存するパラメータ数"/>
+                                       FontSize="16" FontWeight="Bold" Content="
+するパラメータ数"/>
 
                                 <UserControls:WpfNumericUpDown 
                                 x:Name="NumericUpDown1" Grid.Column="2" HorizontalAlignment="Left" Margin="0,1,0,0" 
@@ -460,7 +464,7 @@
                                         </Hyperlink>
                                     </Label>
                                     <Image Margin="70,00,0,0" Height="100" Width="400" Source = "\BackImage\sheep.png"/>
-                                    <Button Height="100" Margin="10,20,10,10" Click="testButton_Click"/>
+                       
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

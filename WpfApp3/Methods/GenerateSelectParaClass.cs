@@ -29,18 +29,19 @@ namespace HaruaConvert.Methods
             selchild.Loaded += main.ParamSelect_Load;
             selchild.SlectorRadio.Checked += main.SlectorRadio_Checked;
             selchild.ArgumentEditor.TextChanged += main.ArgumentEditor_TextChanged;
-
-            //tb.ArgumentEditor.Loaded += ArgumentEditor_Loaded;
+            
+              
 
             selchild.KeyUp += main.InvisibleText_KeyDown;
             selchild.LostFocus += main.InvisibleText_LostFocus;
             selchild.SelectorLabelCon.MouseDoubleClick += main.Tb_MouseDoubleClick;
+            selchild.SelectorLabelCon.MouseMove += main.ParamSelector_MouseEnter;
+
             TextCompositionManager.AddPreviewTextInputHandler(selchild.invisibleText, main.OnPreviewTextInput);
             TextCompositionManager.AddPreviewTextInputUpdateHandler(selchild.invisibleText, main.OnPreviewTextInputUpdate);
 
 
-            // tb.invisibleText.TextChanged += invisibleText_DataContextChanged3;
-
+         
             main.SelGenerate = count;
         }
 

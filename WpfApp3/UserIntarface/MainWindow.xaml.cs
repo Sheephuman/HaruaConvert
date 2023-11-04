@@ -1,4 +1,5 @@
-﻿using FFMpegCore;
+﻿
+using FFMpegCore;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
@@ -15,28 +16,42 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using HaruaConvert.InterFace;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Methods;
 using HaruaConvert.UserControls;
-using static HaruaConvert.Items.Items;
-using System.Windows.Forms.Design;
 using WpfApp3;
+using WpfApp3.Parameter;
+using Microsoft.Win32;
+using Windows.ApplicationModel.Chat;
 
 namespace HaruaConvert
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IHaruaInterFace.IMainWindwEvents,
-        IHaruaInterFace.IMouseEvents
+    public partial class MainWindow : Window
+      
     {
         DataContextClass_HaruaConvert DCmenber;
 
+        /// <summary>
+        /// 共有箇所：LogWindow
+        /// </summary>
+        public ParamFields paramField { get; set; }
 
+        CommonOpenDialogClass cod;        
 
         string setFile { get; set; }
 
+        /// <summary>
+        ///共有箇所：Generate_ParamSelector() :
+        ///isUserOriginalParameter_Method :
+        ///コンストラクタ 
+        /// </summary>
         List<ParamSelector> selectorList;
+
+
+
 
         bool firstSet { get; set; } //初回起動用
         string baseArguments;
@@ -82,16 +97,18 @@ namespace HaruaConvert
         //paramSelectorBox　生成数       
         public int SelGenerate { get; set; }
 
-
+        
         public MainWindow()
         {
             InitializeComponent();
 
+            paramField = new ParamFields();
+            paramField.isParam_Edited = false;
 
             Ffmpc = new FfmpegQueryClass(this);
 
             isUPDownClicked = false;
-            ParamInterfase.isAutoScroll = true;
+            paramField.isAutoScroll = true;
 
 
             iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini");
@@ -135,18 +152,18 @@ namespace HaruaConvert
 
 
 
-                isUseOriginalCheckProc(isUserOriginalParameter.IsChecked.Value);
+                isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
 
                 var iniCon = new IniSettingsConst();
 
-                ParamInterfase.InputDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
-                // IniDefinition.SetValue(iniPath, "Directry", "ConvertDirectory", ParamInterfase.ConvertDirectory);
+                ParamFields.InputDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
+                // IniDefinition.SetValue(iniPath, "Directry", "ConvertDirectory", ParamFields.ConvertDirectory);
 
 
-                ParamInterfase.OutputDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
-                ParamInterfase.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
-                ParamInterfase.InputSelectorDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
+                ParamFields.OutputDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
+                ParamFields.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
+                ParamFields.InputSelectorDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
                 NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
 
 
@@ -156,7 +173,7 @@ namespace HaruaConvert
                     ////
                     /// SelectParameterBox Generate
                     ///
-                    SelGenerate = SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text);
+                    SelGenerate = SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text,CultureInfo.CurrentCulture);
 
 
 
@@ -170,7 +187,7 @@ namespace HaruaConvert
 
 
             if (firstSet)
-                ParamInterfase.isExitProcessed = true;
+                paramField. isExitProcessed = true;
 
             mainProcess = Process.GetCurrentProcess();
 
@@ -183,19 +200,19 @@ namespace HaruaConvert
                 FileList = new ObservableCollection<string>();
 
 
-                ParamInterfase.endFileNameStrings = IniDefinition.GetValueOrDefault(iniPath, "ffmpegQuery", "endStrings", "_Harua");
+                ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(iniPath, "ffmpegQuery", "endStrings", "_Harua");
                 //  Set Default Parameter on FfmpegQueryClass
                 DCmenber = new DataContextClass_HaruaConvert()
                 {
                     StartQuery = IniDefinition.GetValueOrDefault
                                     (iniPath, "ffmpegQuery", "BaseQuery", "  -b:v 1200k -pix_fmt yuv420p -acodec aac -y -threads 2"),
 
-                    OutputPath = ParamInterfase.OutputDirectory,
-                    endString = ParamInterfase.endFileNameStrings,
+                    OutputPath = ParamFields.OutputDirectory,
+                    endString = ClassShearingMenbers.endFileNameStrings,
                     SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
                                     (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File")
  ,
-
+                    invisibleText = ""
                 };
 
                 _arguments = DCmenber.StartQuery;
@@ -238,25 +255,27 @@ namespace HaruaConvert
             OutputSelector.openDialogButton.PreviewMouseDown
                  += FileSelector_MouseDown;
 
-            //AutoButton.Width = xGroup.Width+10;
-            //ReffrenceButton.Width = xGroup.Width+10;
-
             
+
             ///////
             ////https://qiita.com/tricogimmick/items/4347214669a99cd2c775
             /////
+            
             Loaded += (o, e) =>
             {
 
                 selectorList = new List<ParamSelector>();
                 childCheckBoxList = new List<CheckBox>();
 
+                childCheckBoxList.Capacity = 4;
 
+
+                //子要素を列挙するDelegate
                 this.WalkInChildren(child =>
                 {
-                    var cachedCheckbox = child.GetType().Equals(typeof(CheckBox));
+                    var checkedCheckbox = child.GetType().Equals(typeof(CheckBox));
 
-                    if (cachedCheckbox)
+                    if (checkedCheckbox)
                     {
                         childCheckBoxList.Add((CheckBox)child);
                     }
@@ -288,29 +307,14 @@ namespace HaruaConvert
 
                 GenerateSelectParaClass gsp = new GenerateSelectParaClass();
                 int count = 0;
+
+                selectorList.Capacity = selectorList.Count;
+
                 foreach (var selector in selectorList)
                 {
                     gsp.GenerateParaSelector_setPropaties(selector, this);
 
-                    //var selchild = selector;
-
-                    //selchild.Name = "ParamSelector" + $"{count}";
-                    //count++;
-                    //rehgist Event
-                    //selchild.Loaded += ParamSelect_Load;
-                    //selchild.SlectorRadio.Checked += SlectorRadio_Checked;
-                    //selchild.ArgumentEditor.TextChanged += ArgumentEditor_TextChanged;
-
-                    //tb.ArgumentEditor.Loaded += ArgumentEditor_Loaded;
-
-                    //selchild.KeyUp += InvisibleText_KeyDown;
-                    //selchild.LostFocus += InvisibleText_LostFocus;
-                    //selchild.SelectorLabelCon.MouseDoubleClick += Tb_MouseDoubleClick;
-                    //TextCompositionManager.AddPreviewTextInputHandler(selchild.invisibleText, OnPreviewTextInput);
-                    //TextCompositionManager.AddPreviewTextInputUpdateHandler(selchild.invisibleText, OnPreviewTextInputUpdate);
-
-
-                    // tb.invisibleText.TextChanged += invisibleText_DataContextChanged3;
+                    
 
                     SelGenerate = count;
                 }
@@ -356,8 +360,9 @@ namespace HaruaConvert
 
             foreach (ParamSelector sel in selectorList)
             {
-                var inText = VisualTreeHelperWrapperHelpers.FindDescendant<TextBox_Extend>((ParamSelector)sender);
-                if (inText == sel.invisibleText)
+                //var inText = VisualTreeHelperWrapperHelpers.FindDescendant<TextBox_Extend>((ParamSelector)sender);
+                var inText = sender as ParamSelector;
+                if (inText.invisibleText == sel.invisibleText)
                     sel.invisibleText.Visibility = Visibility.Hidden;
                 sel.ParamLabel.Visibility = Visibility.Visible;
 
@@ -406,13 +411,15 @@ namespace HaruaConvert
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);
+            //var ansest = sender as ParamSelector;
             if (ansest == null)
                 return;
 
-            else if (ansest.Name.Contains(rcount, StringComparison.Ordinal))
-            {
-                ParamInterfase.isUsedOriginalArgument = ansest.ArgumentEditor.Text;
-            }
+          
+               paramField.isUsedOriginalArgument = ansest.ArgumentEditor.Text;
+               
+                paramField.isParam_Edited = true;
+          
 
         }
 
@@ -424,15 +431,22 @@ namespace HaruaConvert
 
 
 
-
+        /// <summary>
+        /// Selectorを列挙して、全ての子コントロールで同じ処理をする
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Tb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var sel = sender as ContentControl;
 
+            ////https://balard.sakura.ne.jp/vb/wpf/contentcontrol.php
+            var childContent = sender as ContentControl;
 
-            var labelBlock = VisualTreeHelperWrapperHelpers.FindDescendant<TextBlock>(sel);
+            //Find Decendant Element in ContentControl (!!!Caution!!!: Required)
+            var labelBlock = VisualTreeHelperWrapperHelpers.FindDescendant<TextBlock>(childContent);
+            
 
-            if (sel != null)
+            if (childContent != null)
                 foreach (ParamSelector sp in selectorList)
                 {
                     if (string.IsNullOrEmpty(labelBlock.Text))
@@ -448,6 +462,10 @@ namespace HaruaConvert
                         labelBlock.Visibility = Visibility.Hidden;
                         sp.invisibleText.Visibility = Visibility.Visible;
 
+                        
+                        
+                        
+
                         if (sp.invisibleText.Visibility == Visibility.Visible)
                         {
                             this.Dispatcher.BeginInvoke((Action)delegate
@@ -456,11 +474,13 @@ namespace HaruaConvert
                             }, DispatcherPriority.Render);
                         }
 
+
+
                         return;
                     }
                 }
         }
-        private bool isImeOnConv = false; //IME利用中かどうか判定するフラグ
+        private bool isImeOnConv; //IME利用中かどうか判定するフラグ
         private int EnterKeyBuffer { get; set; } //IMEでの変換決定のEnterキーに反応させないためのバッファ
 
 
@@ -557,7 +577,7 @@ namespace HaruaConvert
         }
 
 
-        string rcount;
+        string rcount { get; set; }
 
         bool ParamSelector_SetText(object sender, bool _firstSet)
         {
@@ -569,28 +589,28 @@ namespace HaruaConvert
                 foreach (var selector in selectorList)
                 {
                     selector.ArgumentEditor.Text = IniDefinition.GetValueOrDefault
-                        (iniPath, ParamInterfase.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
+                        (iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
                         "");
 
 
                     //selector.ArgumentEditor.Text);
 
-                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(iniPath, ParamInterfase.ControlField.ParamSelector + "_" + $"{i}",
+                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}",
                         IniSettingsConst.ParameterLabel+ "_" + $"{i}",
                      "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
 
-                    rcount = IniDefinition.GetValueOrDefault(iniPath, "CheckState", ParamInterfase.ControlField.ParamSelector + "_Check", "0");
-                   int rcountInt = int.Parse(rcount);
+                    rcount = IniDefinition.GetValueOrDefault(iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", "0");
+                   int rcountInt = int.Parse(rcount,CultureInfo.CurrentCulture);
 
 
 
 
                     i++;
                     
-                    if (selector.Name == ParamInterfase.ControlField.ParamSelector + rcount)
+                    if (selector.Name == ParamFields.ControlField.ParamSelector + rcount)
                     {
                         selector.SlectorRadio.IsChecked = true;
-                        ParamInterfase.isUsedOriginalArgument = selector.ArgumentEditor.Text;
+                        paramField.isUsedOriginalArgument = selector.ArgumentEditor.Text;
                     }
                 }
 
@@ -616,9 +636,9 @@ namespace HaruaConvert
                 if (rd.SlectorRadio == radioSel)
                 {
                     //baseArguments = rd.ArgumentEditor.Text;
-                    if (isUserOriginalParameter.IsChecked.Value)
+                    if (isUserParameter.IsChecked.Value)
                     {
-                        ParamInterfase.isUsedOriginalArgument = rd.ArgumentEditor.Text;
+                        paramField.isUsedOriginalArgument = rd.ArgumentEditor.Text;
                         _arguments = rd.ArgumentEditor.Text;
                     }
 
@@ -706,7 +726,7 @@ namespace HaruaConvert
                     InputSelector.FilePathBox.Text = setFile;
 
 
-                if (ClickedControl.Name == InputSelector.Name +  ParamInterfase.ButtonNameField._openButton)
+                if (ClickedControl.Name == InputSelector.Name +  ParamFields.ButtonNameField._openButton)
                     InputSelector.FilePathBox.Text = setFile;
 
                
@@ -890,13 +910,13 @@ namespace HaruaConvert
         public void Directory_DropButon_Click(object sender, RoutedEventArgs e)
         {
 
-            //  ParamInterfase.identification_Obj = sender;
-            ParamInterfase.ButtonName = ((Button)sender).Name;
+            //  ParamFields.identification_Obj = sender;
+            ClassShearingMenbers.ButtonName = ((Button)sender).Name;
 
 
 
 
-            if (!ParamInterfase.isExitProcessed && !isForceExec)
+            if (!paramField.isExitProcessed && !isForceExec)
             {
                 MessageBox.Show("ffmpeg.exeが実行中です");
 
@@ -905,14 +925,14 @@ namespace HaruaConvert
 
 
 
-            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamInterfase.InputDirectory))
+            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamFields.InputDirectory))
             {
 
                 var result = ofc.CommonOpens();
 
 
 
-
+                
 
 
                 if (result == CommonFileDialogResult.Ok)  //Selected OK
@@ -921,43 +941,44 @@ namespace HaruaConvert
 
                     setFile = ofc.opFileName;
                     DCmenber.SourcePathText = setFile;
-                    SourcePathLabel.Text = setFile;
+                    SourcePathLabel.Text = DCmenber.SourcePathText;
+                    SourcePathLabel.ToolTip = DCmenber.SourcePathText;
 
 
-                    // ParamInterfase.ConvertDirectory = setFile;
+                    // ParamFields.ConvertDirectory = setFile;
 
                     Drop_Label.Content = "Convert";
 
-                    ParamInterfase.InputDirectory = Path.GetDirectoryName(setFile);
+                    ParamFields.InputDirectory = Path.GetDirectoryName(setFile);
 
 
                     //Update InputDirectory
-                    ParamInterfase.InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    ParamFields.InputDirectory = Path.GetDirectoryName(ofc.opFileName);
 
 
                 }
                 displayMediaInfo(setFile);
-                //  ParamInterfase.ConvertDirectory = ofc.opFileName;
+                //  ParamFields.ConvertDirectory = ofc.opFileName;
             }
 
         }
         private void Convert_DropButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!ParamInterfase.isExitProcessed && !isForceExec)
+            if (!paramField.isExitProcessed && !isForceExec)
             {
-                MessageBox.Show("ffmpwg.exeが実行中ですわ");
+                MessageBox.Show("ffmpwg.exeが実行中ですよ");
                 return;
             }
+           
 
 
-
-            ParamInterfase.ButtonName = ((Button)sender).Name;
+            ClassShearingMenbers.ButtonName = ((Button)sender).Name;
             //var runinng = Process.GetProcessesByName("ffmpeg.exe");
             if (!string.IsNullOrEmpty(setFile))
             {
                 //Convert Process Improvement Part
-                ParamInterfase.isExitProcessed = FileConvertExec(setFile);
+                paramField.isExitProcessed = FileConvertExec(setFile);
 
 
 
@@ -990,9 +1011,9 @@ namespace HaruaConvert
         private void OutputButton_Checked(object sender, RoutedEventArgs e)
         {
 
-            ParamInterfase.ButtonName = ((RadioButton)sender).Name;
+            ClassShearingMenbers.ButtonName = ((RadioButton)sender).Name;
 
-            var cod = new CommonOpenDialogClass(true, ParamInterfase.OutputDirectory);
+            cod = new CommonOpenDialogClass(true, ParamFields.OutputDirectory);
 
             var result = cod.CommonOpens();
 
@@ -1005,12 +1026,8 @@ namespace HaruaConvert
                 DCmenber.OutputPath = cod.opFileName;
 
 
-
-
-
-
                 //Update OutputDirectory
-                ParamInterfase.OutputDirectory = Path.GetDirectoryName(cod.opFileName);
+                ParamFields.OutputDirectory = Path.GetDirectoryName(cod.opFileName);
 
             }
             mainGrid.Height += 30;
@@ -1030,13 +1047,14 @@ namespace HaruaConvert
                 using (var tpc = new Terminate_ProcessClass())
                 {
                     ProcessKill_deligate killProcessDell = tpc.Terminate_Process;
-                    GC.Collect();
+                    
 
 
                     //ffmpegの強制終了
                     if (th1 != null)
                     {
-                        killProcessDell(ParamInterfase.ffmpeg_pid);
+                        killProcessDell(paramField.ffmpeg_pid);
+
                     }
 
                     //main Processが正常に終了されていない場合の対策
@@ -1101,7 +1119,7 @@ namespace HaruaConvert
 
             DCmenber.OutputPath = "";
             OutputPathText.Text = "";
-            ParamInterfase.OutputDirectory = "";
+            ParamFields.OutputDirectory = "";
         }
 
         private void isUseOriginalCheckProc(bool _checkState)
@@ -1172,6 +1190,7 @@ namespace HaruaConvert
                 #endregion
 
 
+
                 // ParaSelectGroup.Background.Opacity = 1;
 
                 ParaSelectGroup.IsEnabled = false;
@@ -1192,21 +1211,16 @@ namespace HaruaConvert
 
         private void isUserOriginalParameter_Checked(object sender, RoutedEventArgs e)
         {
-            isUseOriginalCheckProc(isUserOriginalParameter.IsChecked.Value);
+            isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
             if (ParaSelectGroup.Background != null)
                 ParaSelectGroup.Background.Opacity =
-                isUserOriginalParameter.IsChecked.Value ? 0 : 1;
+                isUserParameter.IsChecked.Value ? 0 : 1;
         }
 
 
-
-
-
-        private void Window_Closed(object sender, EventArgs e)
+        void ParamSave_Procedure()
         {
-
-
 
             int i = 0;
 
@@ -1214,10 +1228,10 @@ namespace HaruaConvert
             foreach (var selector in selectorList)
             {
 
-                IniDefinition.SetValue(iniPath, ParamInterfase.ControlField.ParamSelector +"_"+ $"{i}" , "Arguments_" + $"{i}",
+                IniDefinition.SetValue(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
                     selector.ArgumentEditor.Text);
 
-                IniDefinition.SetValue(iniPath, ParamInterfase.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel +"_" + $"{i}",
+                IniDefinition.SetValue(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
                     selector.ParamLabel.Text);
 
                 i++;
@@ -1227,8 +1241,8 @@ namespace HaruaConvert
                 //if Check Selector Radio, Save Check State
                 if (selector.SlectorRadio.IsChecked.Value)
                 {
-                    var radioCount = selector.Name.Remove(0,ParamInterfase.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(iniPath, "CheckState", ParamInterfase.ControlField.ParamSelector + "_Check", radioCount);
+                    var radioCount = selector.Name.Remove(0, ParamFields.ControlField.ParamSelector.Length);
+                    IniDefinition.SetValue(iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", radioCount);
 
                 }
             }
@@ -1248,14 +1262,14 @@ namespace HaruaConvert
 
 
                 //WIndow Size
-                IniDefinition.SetValue(iniPath, "WindowsLocate", "WindowLeft", Convert.ToString(Left));
-                IniDefinition.SetValue(iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top));
+                IniDefinition.SetValue(iniPath, "WindowsLocate", "WindowLeft", Convert.ToString(Left, CultureInfo.CurrentCulture));
+                IniDefinition.SetValue(iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top, CultureInfo.CurrentCulture));
 
                 //FileOpenDialog Init Path
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.ConvertDirectory , ParamInterfase.InputDirectory);
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamInterfase.OutputDirectory);
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamInterfase.OutputSelectorDirectory);
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamInterfase.InputSelectorDirectory);
+                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamFields.InputDirectory);
+                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamFields.OutputDirectory);
+                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamFields.OutputSelectorDirectory);
+                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamFields.InputSelectorDirectory);
 
                 //Save Generated Number
                 IniDefinition.SetValue(iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, NumericUpDown1.NUDTextBox.Text);
@@ -1264,15 +1278,23 @@ namespace HaruaConvert
 
                 if (!string.IsNullOrEmpty(ParamText.Text))
                     IniDefinition.SetValue(iniPath, "ffmpegQuery", "BaseQuery", ParamText.Text);
-                
+
                 if (!string.IsNullOrEmpty(endStringBox.Text))
                     IniDefinition.SetValue(iniPath, "ffmpegQuery", "endStrings", endStringBox.Text);
 
 
+
             }
-
-
         }
+
+
+            private void Window_Closed(object sender, EventArgs e)
+            {
+
+            ParamSave_Procedure();
+
+            }
+        
         private void Window_StateChanged(object sender, EventArgs e)
         {
 
@@ -1282,16 +1304,16 @@ namespace HaruaConvert
 
         private void OriginalParamExecButton_Click(object sender, RoutedEventArgs e)
         {
-            ParamInterfase.ButtonName = ((Button)sender).Name;
+            ClassShearingMenbers.ButtonName = ((Button)sender).Name;
 
-            if (!ParamInterfase.isExitProcessed && !isForceExec)
+            if (!paramField.isExitProcessed && !isForceExec)
             {
                 MessageBox.Show("ffmpwg.exeが実行中ですわ");
 
                 return;
             }
             //early return
-            else if (string.IsNullOrEmpty(ParamInterfase.isUsedOriginalArgument))
+            else if (string.IsNullOrEmpty(paramField.isUsedOriginalArgument))
             {
                 MessageBox.Show("ユーザーパラメータが空ですわ");
                 return;
@@ -1313,18 +1335,14 @@ namespace HaruaConvert
         internal FfmpegQueryClass Ffmpc { get; set; }
 
         public void FileSelector_MouseDown(object sender, RoutedEventArgs e)
-        {
-
-            //if (((FileSelector)sender).Name == "InputSelector")
-            //((Button)sender).FindAncestor<DependencyObject>() ;
+        {           
 
 
 
-            FileSelector ansest;
-            //Fined Parent Element 
-            ansest = VisualTreeHelperWrapperHelpers.FindAncestor<FileSelector>((Button)sender);
+            var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<FileSelector>((Button)sender);           
+            
 
-            ParamInterfase.ButtonName = ansest.Name;
+            ClassShearingMenbers.ButtonName = ansest.Name;
             
 
 
@@ -1344,11 +1362,11 @@ namespace HaruaConvert
                 {
                     string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileName(InputSelector.FilePathBox.Text);
 
-                    ParamInterfase.InputSelectorDirectory =  InputSelector.FilePathBox.Text;
+                    ParamFields.InputSelectorDirectory =  InputSelector.FilePathBox.Text;
                 }
                 if (ansest.Name == OutputSelector.Name)
                 {
-                    ParamInterfase.OutputSelectorDirectory = OutputSelector.FilePathBox.Text;
+                    ParamFields.OutputSelectorDirectory = OutputSelector.FilePathBox.Text;
                 }
             }
 
@@ -1361,21 +1379,21 @@ namespace HaruaConvert
 #pragma warning restore CA1822 // メンバーを static に設定します
         {
 
-            ParamInterfase.ButtonName = selector.Name;
+            ClassShearingMenbers.ButtonName = selector.Name;
 
 
-            if(selector.Name == ParamInterfase.ControlField.InputSelector)
+            if(selector.Name == ParamFields.ControlField.InputSelector)
             {
-                ParamInterfase.InitialDirectory = string.Empty;
-                ParamInterfase.InitialDirectory = Path.GetDirectoryName(ParamInterfase.InputSelectorDirectory);
+                ParamFields.InitialDirectory = string.Empty;
+                ParamFields.InitialDirectory = Path.GetDirectoryName(ParamFields.InputSelectorDirectory);
             }
-            else if(selector.Name == ParamInterfase.ControlField.OutputSelector)
+            else if(selector.Name == ParamFields.ControlField.OutputSelector)
             {
-                ParamInterfase.InitialDirectory = string.Empty;
-                ParamInterfase.InitialDirectory = Path.GetDirectoryName(ParamInterfase.OutputSelectorDirectory);
+                ParamFields.InitialDirectory = string.Empty;
+                ParamFields.InitialDirectory = Path.GetDirectoryName(ParamFields.OutputSelectorDirectory);
             }
 
-            var ofc = new CommonOpenDialogClass(isFolder, ParamInterfase.InitialDirectory);
+            var ofc = new CommonOpenDialogClass(isFolder, ParamFields.InitialDirectory);
             
             var commons = ofc.CommonOpens();
 
@@ -1392,7 +1410,7 @@ namespace HaruaConvert
 
 
                 //Update OutputSelectorDirectory
-                ParamInterfase.OutputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
+                ParamFields.OutputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
 
 
 
@@ -1402,7 +1420,7 @@ namespace HaruaConvert
             else if(!isFolder) //Clicked InputSelector 
             {
                 //Update inputSelectorDirectory
-                ParamInterfase.InputFileName = Path.GetDirectoryName(ofc.opFileName);
+                paramField.InputFileName = Path.GetDirectoryName(ofc.opFileName);
 
 
                 selector.FilePathBox.Text = ofc.opFileName;
@@ -1420,20 +1438,10 @@ namespace HaruaConvert
 
 
 
-        private void Param_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //if (!string.IsNullOrEmpty(ParamText.Text))
-            //    FfmpegQueryClass.ffmpegQuery = ParamText.Text;
-        }
+        
 
 
-
-        //static async void ExpandDelay()
-        //{         
-        //    await Task.Delay(6000).ConfigureAwait(true);
-
-        //}
-
+        
         private void RotateOption_Checked(object sender, RoutedEventArgs e)
         {
             var radio = sender as RadioButton;
@@ -1472,32 +1480,23 @@ namespace HaruaConvert
                     break;
             }
 
+
             if (!ChekOptionStruct.isNoRotate)
-            { _arguments.Replace(" -metadata:s:v:0 rotate=0 ", ""); }
+            { _arguments = _arguments.Replace(" -metadata:s:v:0 rotate=0 ", ""); }
 
-            if (!ChekOptionStruct.isRightRotate)
+         else  if (!ChekOptionStruct.isRightRotate)
             {
-                _arguments.Replace(" -vf transpose=1 ", "");
+                _arguments = _arguments.Replace(" -vf transpose=1 ", "");
             }
 
-            if (!ChekOptionStruct.isLeftRotate)
+           else if (!ChekOptionStruct.isLeftRotate)
             {
-                _arguments.Replace(" -vf transpose=2 ", "");
+                _arguments = _arguments.Replace(" -vf transpose=2 ", "");
             }
-            if (!ChekOptionStruct.isHorizontalRotate)
+           else if (!ChekOptionStruct.isHorizontalRotate)
             {
-                _arguments.Replace(" -vf transpose=3 ", "");
+                _arguments = _arguments.Replace(" -vf transpose=3 ", "");
             }
-
-        }
-
-        private void isUserOriginalParameter_Checked_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void isUserOriginalParameter_Unchecked(object sender, RoutedEventArgs e)
-        {
 
         }
 
@@ -1527,17 +1526,9 @@ namespace HaruaConvert
             return Process.Start(pi);
         }
 
-        private void LinkLabel_RequestNavigate_1(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
-        {
-
-        }
-
-        private void LinkLabel2_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
-        {
-
-        }
 
 
+        //ParameterSelevter生成用
         void Generate_ParamSelector()
         {
             if (!firstSet)
@@ -1569,7 +1560,7 @@ namespace HaruaConvert
                 sbx.ParamLabel.Width = 110;
 
 
-
+                //sbxが既に含まれていない場合にSelectorStackを追加（重複防止）
                 if (!SelectorStack.Children.Contains(sbx))
                 {
                     SelectorStack.Children.Add(sbx);
@@ -1595,22 +1586,33 @@ namespace HaruaConvert
         {
             // Generatednum = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
 
+            
+
             if (!isUPDownClicked)
             { return;  }
 
+            if (paramField.isParam_Edited)
+            {
 
-            Generate_ParamSelector();
-           
-                ParamSelector_SetText(sender,true);
-            isUPDownClicked = false;
+                if (MessageBox.Show("LabelかParameterが変更されているわ。保存するの？", "Information", MessageBoxButton.YesNo,
+                       MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    ParamSave_Procedure();
+                    paramField.isParam_Edited = false;
+                    
+                }                
+               
+                    Generate_ParamSelector();
+
+                    ParamSelector_SetText(sender, true);
+                    isUPDownClicked = false;
+
+                
             }
-
-        
-        private void AtacchStringsList_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            
 
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -1631,19 +1633,57 @@ namespace HaruaConvert
 
         }
 
-        IHaruaInterFace.IMethods IMainWindwEvents;
-        private void testButton_Click(object sender, RoutedEventArgs e)
-        {
-            IMainWindwEvents = new CommonOpenDialogClass(false, ParamInterfase.InitialDirectory);
-            var test = new testForm(IMainWindwEvents);
-            test.Show();
-        }
 
         private void InputSelector_PreviewDragOver(object sender, DragEventArgs e)
         {
             e.Effects = DragDropEffects.Copy; // マウスカーソルをコピーにする。
             e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
             // ドラッグされてきたものがFileDrop形式の場合だけ、このイベントを処理済みにする。
+        }
+
+     
+
+
+        /// <summary>
+        /// 
+     
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    internal void ParamSelect_MouseEnter(object sender, MouseEventArgs e)
+        {
+          
+        }
+
+        internal void ParamSelector_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //var ansest = sender as ParamSelector;
+            var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((ContentControl)sender);
+            if (ansest == null)
+                return;
+
+
+                if(!string.IsNullOrEmpty(ansest.ParamLabel.Text))
+                   ansest.ParamLabel.ToolTip = ansest.ParamLabel.Text;
+
+          
+
+            
+        }
+
+        private void Param_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void LinkLabel2_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+
+        }
+
+        private void AtacchStringsList_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

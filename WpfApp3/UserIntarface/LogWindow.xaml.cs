@@ -22,7 +22,7 @@ namespace HaruaConvert
     public partial class LogWindow : Window
     {
 
-        Color PreTextColor;
+     
 
         Brush TextColor;
         // Pragraph要素のインスタンスを作成します。
@@ -33,9 +33,15 @@ namespace HaruaConvert
         public LogWindow(MainWindow _main)
         {
             InitializeComponent();
+    
+            AutoScroll_Checker.IsChecked = true;
+            
             var textRange = RichTextRogs.Selection;
             // 文字色
             textRange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
+
+
+
 
             main = _main;
 
@@ -44,12 +50,12 @@ namespace HaruaConvert
 
 
 
-            PreTextColor = new Color();
-            PreTextColor = Color.FromArgb(0, 43, 201, 47);
+            //PreTextColor = new Color();
+            //PreTextColor = Color.FromArgb(0, 43, 201, 47);
 
-            TextColor = new SolidColorBrush(PreTextColor);
+            //TextColor = new SolidColorBrush(PreTextColor);
 
-            ParamInterfase.isPaused= false;
+            main.paramField.isPaused= false;
 
         }
 
@@ -61,22 +67,22 @@ namespace HaruaConvert
         {
             //var TC = new Terminate_ProcessClass();
 
-            //TC.mainTerminate_deligateExec(ParamInterfase.ffmpeg_pid);
+            //TC.mainTerminate_deligateExec(ParamFields.ffmpeg_pid);
 
 
-            StreamWriter inputWriter = main._process.StandardInput;
-            inputWriter.WriteLine("q");
+            //if (main._FfmpProcess.d == true)
+            //  return;
+
+            StreamWriter inputWriter = main._FfmpProcess.StandardInput;
+             inputWriter.WriteLine("q");
 
 
             main.Focus();
-            ParamInterfase.isExitProcessed = true;
+            main.paramField.isExitProcessed = true;
 
-            //IntPtr hwnd = Process.GetProcessById(main.pid).Handle;
+            
 
-            //SendMessage(hwnd, WM_SETTEXT, IntPtr.Zero, "q");
-
-            //Environment.Exit(ProcessIdList[0]);
-
+            
         }
 
 
@@ -123,7 +129,9 @@ namespace HaruaConvert
 
         }
 
-
+        /// <summary>
+        /// プロパティの書き方
+        /// </summary>
         public Brush NormalText
         {
             get => TextColor;
@@ -143,10 +151,10 @@ namespace HaruaConvert
 
         private void AutoScroll_Checker_Checked(object sender, RoutedEventArgs e)
         {
-            if(!ParamInterfase.isAutoScroll)
-                   ParamInterfase.isAutoScroll = true;
-            else 
-                ParamInterfase.isAutoScroll = false;
+            if (main == null)
+                return;
+
+            main.paramField.isAutoScroll = main.paramField.isAutoScroll ? false: true;
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
@@ -156,7 +164,7 @@ namespace HaruaConvert
 
         private void PauseButton_Checked(object sender, RoutedEventArgs e)
         {
-            ParamInterfase.isPaused = !ParamInterfase.isPaused ? true :false ;
+            main.paramField.isPaused = !main.paramField.isPaused ? true :false ;
 
             
         }

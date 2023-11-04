@@ -5,11 +5,7 @@ namespace HaruaConvert.ViewModel
 {
     internal class ViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        
-
-
+        public event PropertyChangedEventHandler PropertyChanged;  
 
     }
 }

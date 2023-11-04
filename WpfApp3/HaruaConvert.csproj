@@ -1,16 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <runtime>
+      <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+        <probing privatePath="dll" />
+      </assemblyBinding>
+    </runtime>
+
+   
+
+
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>HaruaConvert</AssemblyName>
-    <Platforms>AnyCPU;x86;x64</Platforms>
-    <RootNamespace>WpfApp3</RootNamespace>
-    <BaseOutputPath>E:\Coding\WpfApp3 - Copy(1)\WpfApp3\bin\x64\Debug\net6.0-windows\x64\Debug\net6.0-windows10.0.22621.0</BaseOutputPath>
+    <Platforms>AnyCPU;x86;x64;ARM64</Platforms>
+    <RootNamespace>HaruaConvert</RootNamespace>
+    <BaseOutputPath>E:\Coding\WpfApp3 - Copy(1)\WpfApp3\bin</BaseOutputPath>
     <StartupObject>HaruaConvert.App</StartupObject>
-    <ApplicationIcon>harua.ico</ApplicationIcon>
-    <IncludeSymbols>False</IncludeSymbols>
+    <ApplicationIcon>lib\harua.ico</ApplicationIcon>
+    <IncludeSymbols>True</IncludeSymbols>
     <AnalysisLevel>6.0-recommended</AnalysisLevel>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -19,53 +28,98 @@
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <SignAssembly>True</SignAssembly>
+    <NeutralLanguage>ja</NeutralLanguage>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <OutputPath>bin\Debug\net5.0-windows\</OutputPath>
     <Optimize>True</Optimize>
     <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>True</Optimize>
     <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <Optimize>True</Optimize>
+    <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Optimize>True</Optimize>
     <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>portable</DebugType>
+    <Deterministic>False</Deterministic>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Methods\Alternate_GetFileName.cs" />
+    <Compile Remove="TextBoxBehaviorSample.cs" />
+    <Compile Remove="TransparentOtherProcess.cs" />
+    <Compile Remove="ValueObject.cs" />
+    <Compile Remove="ViewModel\ViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App.config" />
     <None Remove="BackImage\sheep.png" />
-    <None Remove="harua.ico" />
+    <None Remove="CustomDictionary.xml" />
     <None Remove="harua.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="harua.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="harua.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </CodeAnalysisDictionary>
+    <None Include="E:\Coding\WpfApp3 - Copy(1)\WpfApp3\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <Content Include="BackImage\\harua.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\harua.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Methods\Alternate_GetFileName.cs" />
+    <None Include="TextBoxBehaviorSample.cs" />
+    <None Include="ValueObject.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -103,8 +157,56 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="BackImage\harua.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="dll\DotNetProjects.Wpf.Extended.Toolkit.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\FFMpegCore.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\ffprobe.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\Instances.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\Microsoft.Windows.SDK.NET.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\Microsoft.WindowsAPICodePack.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\Microsoft.WindowsAPICodePack.Shell.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.Asio.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.Core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.Midi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.Wasapi.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.WinForms.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.WinMM.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\WinRT.Runtime.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\しょどーる参上.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -115,5 +217,28 @@
   <ItemGroup>
     <Folder Include="MainWindow.Method_Group\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="E:\Coding\WpfApp3 - Copy%281%29\WpfApp3\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="E:\Coding\WpfApp3 - Copy%281%29\WpfApp3\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App.config">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="TransparentOtherProcess.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ViewModel\ViewModel.cs" />
+  </ItemGroup>
+ 
 
 </Project>

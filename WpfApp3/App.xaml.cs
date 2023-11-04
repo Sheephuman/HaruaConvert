@@ -1,5 +1,7 @@
 ﻿using System.Windows;
-
+using System.Runtime.Loader;
+using System.IO;
+using System.Reflection;
 
 namespace HaruaConvert
 {
@@ -15,8 +17,22 @@ namespace HaruaConvert
             {
                 DataContext = new MainWindow()
             };
+            string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //string dllPath = Path.Combine(exeDir, ".\\bin\\FFMpegCore.dll");
 
-            
+            string[] fileList = Directory.GetFiles(exeDir + "\\dll");
+
+
+            //  < probing privatePath = ".\\bin" />
+
+            foreach (string file in fileList)
+            {
+                if (file.Contains(".dll"))
+                    AssemblyLoadContext.Default.LoadFromAssemblyPath(file);
+            }
+
+
+
         }
     }
 }

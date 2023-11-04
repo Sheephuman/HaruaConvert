@@ -12,6 +12,7 @@ namespace HaruaConvert.Parameter
 #pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
     {
 
+        public string invisibleText { get; set; }
         public string StartQuery { get; set; }
         public string OutputPath { get; set; }
         public string endString { get; set; }
@@ -25,11 +26,11 @@ namespace HaruaConvert.Parameter
             get { return sourcePath; } 
             set{
                 
-                if(string.IsNullOrEmpty(value))
-                    {                     
-                    throw new ArgumentException("Value is Null"); }                
+                //if(string.IsNullOrEmpty(value))
+                //    {                     
+                //    throw new ArgumentException("Value is Null"); }                
 
-                else
+                //else
                     sourcePath = value;
             }           
             

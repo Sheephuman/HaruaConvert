@@ -7,23 +7,12 @@ namespace HaruaConvert.Methods
 {
     internal class IniGetSetValueClass
     {
-        //MainWindow main;
-        //public IniValueClass(MainWindow _main) 
-        //{ main = _main; }
-
-      
+        
 
 
        public class CheckboxGetSetValueClass
        {
-        List<CheckBox> ChecBoxList;
-        public List<CheckBox> AddCheckeBoxControls(CheckBox chk)
-        {
-            ChecBoxList = new List<CheckBox>();
-            ChecBoxList.Add(chk);
-
-            return ChecBoxList;
-        }
+        
 
 
 #pragma warning disable CA1822 // メンバーを static に設定します
