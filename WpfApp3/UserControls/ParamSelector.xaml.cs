@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.DirectoryServices.ActiveDirectory;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,14 +10,14 @@ namespace HaruaConvert
     /// </summary>
     public partial class ParamSelector : UserControl
     {
-        public ParamSelector()
+        public ParamSelector(MainWindow main)
         {
             InitializeComponent();
             ArgumentEditor.Text = "";
-          
+            _main = main;
         }
 
-
+        MainWindow _main;
 
         /// <summary>
         /// 【WPF備忘録】TextBoxで、IME変換確定のEnterキーでは反応しないようにする
@@ -28,31 +29,12 @@ namespace HaruaConvert
         {
 
 
-            if (e.TextComposition.CompositionText.Length == 0)
-            {
-                isImeOnConv = false;
-            }
-            else
-            {
-                isImeOnConv = true;
-            }
+           
         }
-        private bool isImeOnConv; //IME利用中かどうか判定するフラグ
-        private int EnterKeyBuffer { get; set; } //IMEでの変換決定のEnterキーに反応させないためのバッファ
-
+        
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
 
-            if (isImeOnConv)
-            {
-
-                EnterKeyBuffer = 1;
-            }
-            else
-            {
-                EnterKeyBuffer = 0;
-            }
-            isImeOnConv = false;
         }
 
         private void SelectorLabel_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -89,15 +71,7 @@ namespace HaruaConvert
 
         private void invisibleText_KeyUp(object sender, KeyEventArgs e)
         {
-            if (isImeOnConv == false && e.Key == Key.Enter && EnterKeyBuffer == 1)
-            {
-                EnterKeyBuffer = 0;
-                return;
-            }
-            else if (isImeOnConv == false && e.Key == Key.Enter && EnterKeyBuffer == 0)
-            {
-                EnterKeyBuffer = 1;
-            }
+          
 
 
         }

@@ -8,10 +8,10 @@ namespace WpfApp3.Parameter
 {
     public static class ClassShearingMenbers
     {
-        
-       public static string ButtonName { get; set; }
 
-       public static string endFileNameStrings { get; set; }
-        
+        public static string ButtonName { get; set; }
+
+        public static string endFileNameStrings { get; set; }
+
     }
 }

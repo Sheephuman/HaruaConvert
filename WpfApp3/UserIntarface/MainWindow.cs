@@ -23,6 +23,7 @@ using WpfApp3;
 using WpfApp3.Parameter;
 using Microsoft.Win32;
 using Windows.ApplicationModel.Chat;
+using System.Resources;
 
 namespace HaruaConvert
 {
@@ -38,8 +39,10 @@ namespace HaruaConvert
         /// 共有箇所：LogWindow
         /// </summary>
         public ParamFields paramField { get; set; }
+        
 
-        CommonOpenDialogClass cod;        
+
+        CommonOpenDialogClass cod { get; set; }  
 
         string setFile { get; set; }
 
@@ -55,6 +58,7 @@ namespace HaruaConvert
 
         bool firstSet { get; set; } //初回起動用
         string baseArguments;
+
         List<CheckBox> childCheckBoxList;
 
         string iniPath { get; set; }
@@ -377,32 +381,12 @@ namespace HaruaConvert
 
         }
 
-        public void OnPreviewTextInputUpdate(object sender, TextCompositionEventArgs e)
-        {
-
-
-            if (e.TextComposition.CompositionText.Length == 0)
-            {
-                isImeOnConv = false;
-            }
-            else
-            {
-                isImeOnConv = true;
-            }
-        }
+       
 
         public void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (isImeOnConv)
-            {
-
-                EnterKeyBuffer = 1;
-            }
-            else
-            {
-                EnterKeyBuffer = 0;
-            }
-            isImeOnConv = false;
+           
+           
         }
 
 
@@ -416,9 +400,9 @@ namespace HaruaConvert
                 return;
 
           
-               paramField.isUsedOriginalArgument = ansest.ArgumentEditor.Text;
+               paramField.usedOriginalArgument = ansest.ArgumentEditor.Text;
                
-                paramField.isParam_Edited = true;
+                
           
 
         }
@@ -480,8 +464,8 @@ namespace HaruaConvert
                     }
                 }
         }
-        private bool isImeOnConv; //IME利用中かどうか判定するフラグ
-        private int EnterKeyBuffer { get; set; } //IMEでの変換決定のEnterキーに反応させないためのバッファ
+     
+        
 
 
 #pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
@@ -489,6 +473,7 @@ namespace HaruaConvert
 #pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
         {
             var selecter = sender as ParamSelector;
+    
 
             if (selecter == null)
             {
@@ -521,41 +506,44 @@ namespace HaruaConvert
             }
 
 
+           
+
             ///http://www.madeinclinic.jp/c/20180421/
-            else if (e.Key == Key.Enter && isImeOnConv == false && EnterKeyBuffer == 0)
+            else　if (e.Key == Key.LeftShift)
             {
-                //  System.Windows.Forms.ImeMode ime = System.Windows.Forms.ImeMode.On;
+                paramField.isParam_Edited = true;
 
 
-                EnterKeyBuffer = 1;
-
-                //if (!isLabelEited)
-                //{
-
-                //    isLabelEited = true;
-                //    return;
-
-                //}
 
                 foreach (ParamSelector sp in selectorList)
                 {
                     //ImeEnabled = InputMethod.GetIsInputMethodEnabled(sp.invisibleText);
 
                     // if (ImeEnabled)
+                    if (string.IsNullOrEmpty(selecter.invisibleText.Text))
+                    {
+                        return; 
+                    }
 
+
+
+                    
                     //何故かNUll文字ではなく改行コードが必ず入っているため　原因不明
                     if (selecter.invisibleText.Text != Environment.NewLine)
                     {
-                        selecter.invisibleText.Visibility = Visibility.Hidden;
+                            selecter.invisibleText.Visibility = Visibility.Hidden;
 
-                        //     selecter.ParamLabel.Text = selecter.invisibleText.Text.Replace("\r\n", "", StringComparison.Ordinal);
+                            //     selecter.ParamLabel.Text = selecter.invisibleText.Text.Replace("\r\n", "", StringComparison.Ordinal);
 
 
-                        selecter.ParamLabel.Visibility = Visibility.Visible;
+                            selecter.ParamLabel.Visibility = Visibility.Visible;
 
-                        selecter.ParamLabel.Text = selecter.invisibleText.Text;
-                        //isLabelEited = false;
-                    }
+                            selecter.ParamLabel.Text = selecter.invisibleText.Text;
+                            //isLabelEited = false;
+
+                            
+                        }
+                    
                     else
                     {
                         MessageBox.Show("名前を設定してください");
@@ -595,7 +583,7 @@ namespace HaruaConvert
 
                     //selector.ArgumentEditor.Text);
 
-                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}",
+                        selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}",
                         IniSettingsConst.ParameterLabel+ "_" + $"{i}",
                      "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
 
@@ -610,7 +598,7 @@ namespace HaruaConvert
                     if (selector.Name == ParamFields.ControlField.ParamSelector + rcount)
                     {
                         selector.SlectorRadio.IsChecked = true;
-                        paramField.isUsedOriginalArgument = selector.ArgumentEditor.Text;
+                        paramField.usedOriginalArgument = selector.ArgumentEditor.Text;
                     }
                 }
 
@@ -638,7 +626,7 @@ namespace HaruaConvert
                     //baseArguments = rd.ArgumentEditor.Text;
                     if (isUserParameter.IsChecked.Value)
                     {
-                        paramField.isUsedOriginalArgument = rd.ArgumentEditor.Text;
+                        paramField.usedOriginalArgument = rd.ArgumentEditor.Text;
                         _arguments = rd.ArgumentEditor.Text;
                     }
 
@@ -978,7 +966,7 @@ namespace HaruaConvert
             if (!string.IsNullOrEmpty(setFile))
             {
                 //Convert Process Improvement Part
-                paramField.isExitProcessed = FileConvertExec(setFile);
+                paramField.isExitProcessed = FileConvertExec(setFile,sender);
 
 
 
@@ -1313,12 +1301,25 @@ namespace HaruaConvert
                 return;
             }
             //early return
-            else if (string.IsNullOrEmpty(paramField.isUsedOriginalArgument))
+            else if (string.IsNullOrEmpty(paramField.usedOriginalArgument))
             {
                 MessageBox.Show("ユーザーパラメータが空ですわ");
                 return;
             }
-            FileConvertExec(setFile);
+
+            if (string.IsNullOrEmpty(InputSelector.FilePathBox.Text))
+            {
+                MessageBox.Show("入力パスが空です");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(OutputSelector.FilePathBox.Text))
+            {
+                MessageBox.Show("出力パスが空です");
+                return;
+            }
+
+            paramField.isExitProcessed = FileConvertExec(setFile,sender);
         }
 
 
@@ -1374,6 +1375,8 @@ namespace HaruaConvert
         }
 
 
+        string outputFileName;
+
 #pragma warning disable CA1822 // メンバーを static に設定します
         CommonFileDialogResult Selector_ComonOpenMethod(bool isFolder, FileSelector selector)
 #pragma warning restore CA1822 // メンバーを static に設定します
@@ -1397,6 +1400,8 @@ namespace HaruaConvert
             
             var commons = ofc.CommonOpens();
 
+            outputFileName = ofc.opFileName;
+            outputFileName = Path.ChangeExtension(outputFileName, null);
 
 
             if (commons == CommonFileDialogResult.Cancel)
@@ -1413,17 +1418,22 @@ namespace HaruaConvert
                 ParamFields.OutputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
 
 
+            
+                string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
+                
 
 
-                selector.FilePathBox.Text = ofc.opFileName+ "\\" + DateTime.Now + ".mp4";
+                selector.FilePathBox.Text = paramField.InputFileDirectory +"\\"+  paramField.outputFileName_withoutEx + "-" + dateNows + ".mp4";
             }
             else if(!isFolder) //Clicked InputSelector 
             {
-                //Update inputSelectorDirectory
-                paramField.InputFileName = Path.GetDirectoryName(ofc.opFileName);
+                   //Update inputSelectorDirectory
+                paramField.InputFileDirectory
+                    = Path.GetDirectoryName(ofc.opFileName);
+                paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(ofc.opFileName);
 
 
-                selector.FilePathBox.Text = ofc.opFileName;
+                 selector.FilePathBox.Text = ofc.opFileName;
              
                 return commons;
             }
@@ -1547,7 +1557,7 @@ namespace HaruaConvert
 
                 Thickness marthick = new Thickness(-40, 0, 0, 0);
 
-                ParamSelector sbx = new ParamSelector()
+                ParamSelector sbx = new ParamSelector(this)
                 {
                     Margin = marthick,
                     FontSize = 14,
@@ -1555,9 +1565,11 @@ namespace HaruaConvert
                     Name = "ParamSelector" + $"{count++}"
                 };
 
-                sbx.ParamLabel.Margin = new Thickness(15, 0, 30, 0);
+                
+                sbx.ParamLabel.Margin = new Thickness(15, 3, 10, 0);
+                //Margin = "15,3,10,0"
                 sbx.ArgumentEditor.Width = 380;
-                sbx.ParamLabel.Width = 110;
+                sbx.ParamLabel.Width = double.NaN; 
 
 
                 //sbxが既に含まれていない場合にSelectorStackを追加（重複防止）
@@ -1598,18 +1610,15 @@ namespace HaruaConvert
                        MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     ParamSave_Procedure();
-                    paramField.isParam_Edited = false;
-                    
-                }                
-               
-                    Generate_ParamSelector();
-
-                    ParamSelector_SetText(sender, true);
-                    isUPDownClicked = false;
-
+                    paramField.isParam_Edited = false;                    
+                }                                         
                 
             }
-            
+            Generate_ParamSelector();
+
+            ParamSelector_SetText(sender, true);
+            isUPDownClicked = false;
+
 
         }
 
