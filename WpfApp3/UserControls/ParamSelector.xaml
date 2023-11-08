@@ -16,13 +16,13 @@
             <ColumnDefinition Width="Auto" SharedSizeGroup="Labels"  />
             
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="ArgumentEditor" Grid.Row="0" Grid.Column="2" Margin="-10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="380"/>
+        <TextBox x:Name="ArgumentEditor" Grid.Row="0" Grid.Column="2" Margin="0,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="400"/>
         
             <RadioButton             
                 GroupName="SelectorGroup" Content="" Name="SlectorRadio"  HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top"/>
         
-            <UserControls:TextBox_Extend HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Width="100" 
-                     TextWrapping="WrapWithOverflow"
+            <UserControls:TextBox_Extend HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Width="Auto" 
+                     TextWrapping="WrapWithOverflow"    
                                          Margin="13,0,0,0"
                       x:Name="invisibleText" 
                                           Visibility="Hidden"
@@ -38,12 +38,12 @@
             <ContentControl HorizontalAlignment="Left" Name="SelectorLabelCon">
                 <TextBlock  
                     Name="ParamLabel"
-                TextWrapping="Wrap"                
+                TextWrapping="WrapWithOverflow"                
                 ToolTip="{Binding invisibleText}"
                Grid.Row="0"
                Grid.Column="2"
                 HorizontalAlignment="Left"
-                 Text="パラメータ名"  Margin="15,3,15,0"/>
+                 Text="パラメータ名"  Margin="15,3,10,0"/>
             </ContentControl>
         </Grid>
 </UserControl>

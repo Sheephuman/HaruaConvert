@@ -336,8 +336,7 @@
                                 <Label Grid.Column="2"
                                     Margin="
                                        100,0,0,0"
-                                       FontSize="16" FontWeight="Bold" Content="
-するパラメータ数"/>
+                                       FontSize="16" FontWeight="Bold" Content="保存するパラメータ数"/>
 
                                 <UserControls:WpfNumericUpDown 
                                 x:Name="NumericUpDown1" Grid.Column="2" HorizontalAlignment="Left" Margin="0,1,0,0" 

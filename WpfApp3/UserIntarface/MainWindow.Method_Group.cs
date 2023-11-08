@@ -10,8 +10,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using WpfApp3;
 using WpfApp3.Parameter;
+
+using static HaruaConvert.Parameter.ParamFields;
 
 namespace HaruaConvert
 {
@@ -49,7 +50,7 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        bool FileConvertExec(string _fullPath)
+        bool FileConvertExec(string _fullPath,object sender)
         {
             th1 = new Thread(new ThreadStart(ffmpegProsseing));
             //For Kill ffmpeg Process
@@ -88,13 +89,13 @@ namespace HaruaConvert
 
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
-                isUserOriginalParameter_Method();
+                isUserOriginalParameter_Method(sender);
             }
 
             #region ファイル存在判定
 
-            IDisposable alterr = new IDisposableBase();
-            alterr.Dispose();
+            //IDisposable alterr = new IDisposableBase();
+            //alterr.Dispose();
 
 
             using (var Alternate_FileExsists = new Alternate_FileExsists())
@@ -109,20 +110,16 @@ namespace HaruaConvert
         }
 
 
-        bool isUserOriginalParameter_Method()
+        bool isUserOriginalParameter_Method(object sender)
         {
             //"FileDropButton2"
-            if ("ExecButton" == ClassShearingMenbers.ButtonName)
+            if ((ButtonNameField._ExecButton == ((Button)sender).Name))
             {
-                if (string.IsNullOrEmpty(InputSelector.FilePathBox.Text))
-                {
-                    MessageBox.Show("入力ファイルに基本パラメータ" + @"\r\n" + "が指定されていませんわ");
-                    return true;
-                }
+                               
 
                 #region foreach Scopes
                 foreach (ParamSelector sp in selectorList)
-                {
+                {             
                     if (sp.SlectorRadio.IsChecked.Value)
                     {
                         baseArguments = sp.ArgumentEditor.Text;

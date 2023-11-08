@@ -1,11 +1,4 @@
-﻿using HaruaConvert;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace HaruaConvert.Methods
 {
@@ -38,7 +31,7 @@ namespace HaruaConvert.Methods
             selchild.SelectorLabelCon.MouseMove += main.ParamSelector_MouseEnter;
 
             TextCompositionManager.AddPreviewTextInputHandler(selchild.invisibleText, main.OnPreviewTextInput);
-            TextCompositionManager.AddPreviewTextInputUpdateHandler(selchild.invisibleText, main.OnPreviewTextInputUpdate);
+           // TextCompositionManager.AddPreviewTextInputUpdateHandler(selchild.invisibleText, main.OnPreviewTextInputUpdate);
 
 
          

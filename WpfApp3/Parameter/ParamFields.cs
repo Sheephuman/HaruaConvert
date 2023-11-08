@@ -13,11 +13,18 @@ namespace HaruaConvert.Parameter
     public class ParamFields
     {   
 
+        
+        
+        
+
         public bool isExitProcessed { get; set; }
         public string output { get; set; }
 
 
-        public string InputFileName { get; set; }
+        public string InputFileDirectory { get; set; }
+#pragma warning disable CA1711 // 識別子は、不適切なサフィックスを含むことはできません
+        public string outputFileName_withoutEx { get; set; }
+#pragma warning restore CA1711 // 識別子は、不適切なサフィックスを含むことはできません
 
         public string tooltipText { get; set; }
        
@@ -36,7 +43,7 @@ namespace HaruaConvert.Parameter
         public static string OutputSelectorDirectory { get; set; }
         public bool isParam_Edited { get; set; } 
 
-        public string isUsedOriginalArgument { get; set; }
+        public string usedOriginalArgument { get; set; }
 
 
         public bool isAutoScroll { get; set; }
@@ -51,7 +58,8 @@ namespace HaruaConvert.Parameter
             public const string OutputButton = "OutputButton";
 
             public const string _openButton =   "_openButton";
-
+            public const string _ExecButton = "ExecButton";
+                                              
         }
       
         public static class ControlField
