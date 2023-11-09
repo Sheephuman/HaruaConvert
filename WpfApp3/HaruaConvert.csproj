@@ -16,7 +16,7 @@
     <AssemblyName>HaruaConvert</AssemblyName>
     <Platforms>AnyCPU;x86;x64;ARM64</Platforms>
     <RootNamespace>HaruaConvert</RootNamespace>
-    <BaseOutputPath>E:\Coding\WpfApp3 - Copy(1)\WpfApp3\bin</BaseOutputPath>
+    <BaseOutputPath></BaseOutputPath>
     <StartupObject>HaruaConvert.App</StartupObject>
     <ApplicationIcon>lib\harua.ico</ApplicationIcon>
     <IncludeSymbols>True</IncludeSymbols>
