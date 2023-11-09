@@ -58,7 +58,6 @@ namespace HaruaConvert
 
             param = new ParamCreateClasss(_fullPath);
 
-            
             baseArguments = "";
 
             if (_arguments == null)

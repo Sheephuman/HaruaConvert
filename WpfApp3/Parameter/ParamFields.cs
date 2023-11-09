@@ -11,11 +11,11 @@ namespace HaruaConvert.Parameter
 
     ////Case:use static When share used parameter on Class 
     public class ParamFields
-    {   
+    {
 
-        
-        
-        
+
+        public  string setFile { get; set; }
+
 
         public bool isExitProcessed { get; set; }
         public string output { get; set; }
