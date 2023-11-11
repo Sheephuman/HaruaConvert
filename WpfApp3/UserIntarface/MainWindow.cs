@@ -27,7 +27,7 @@ namespace HaruaConvert
     public partial class MainWindow : Window
 
     {
-        DataContextClass_HaruaConvert harua_View;
+        Harua_ViewModel harua_View;
 
         /// <summary>
         /// 共有箇所：LogWindow
@@ -55,7 +55,7 @@ namespace HaruaConvert
 
         List<CheckBox> childCheckBoxList;
 
-        string iniPath { get; set; }
+
         /// <summary>
         /// パラメータチェック用構造体
         /// Callクラス側で参照するためStatic
@@ -94,7 +94,7 @@ namespace HaruaConvert
 
         //paramSelectorBox　生成数       
         public int SelGenerate { get; set; }
-        
+
 
 
         public MainWindow()
@@ -143,9 +143,9 @@ namespace HaruaConvert
 
 
 
-                Left = IniDefinition.GetValueOrDefault(iniPath, "WindowsLocate", "WindowLeft", 25);
+                Left = IniDefinition.GetValueOrDefault(paramField.iniPath, "WindowsLocate", "WindowLeft", 25);
 
-                Top = Convert.ToInt32(IniDefinition.GetValueOrDefault(iniPath, "WindowsLocate", "WindowTop", 50));
+                Top = Convert.ToInt32(IniDefinition.GetValueOrDefault(paramField.iniPath, "WindowsLocate", "WindowTop", 50));
 
 
 
@@ -158,14 +158,14 @@ namespace HaruaConvert
 
                 var iniCon = new IniSettingsConst();
 
-                ParamFields.InputDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
-                // IniDefinition.SetValue(iniPath, "Directry", "ConvertDirectory", ParamFields.ConvertDirectory);
+                ParamFields.InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
+                // IniDefinition.SetValue(paramField.iniPath, "Directry", "ConvertDirectory", ParamFields.ConvertDirectory);
 
 
-                ParamFields.OutputDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
-                ParamFields.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
-                ParamFields.InputSelectorDirectory = IniDefinition.GetValueOrDefault(iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
-                NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
+                ParamFields.OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
+                ParamFields.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
+                ParamFields.InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
+                NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
 
 
 
@@ -201,9 +201,9 @@ namespace HaruaConvert
                 FileList = new ObservableCollection<string>();
 
 
-                ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(iniPath, "ffmpegQuery", "endStrings", "_Harua");
+                ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(paramField.iniPath, "ffmpegQuery", "endStrings", "_Harua");
                 //  Set Default Parameter on FfmpegQueryClass
-                harua_View = new DataContextClass_HaruaConvert(this);
+                harua_View = new Harua_ViewModel(this);
 
 
 
@@ -295,7 +295,7 @@ namespace HaruaConvert
                 foreach (CheckBox chk in childCheckBoxList)
                 {
 
-                    chk.IsChecked = init.CheckBoxiniGetVallue(chk, iniPath);
+                    chk.IsChecked = init.CheckBoxiniGetVallue(chk, paramField.iniPath);
                 }
 
 
@@ -386,7 +386,7 @@ namespace HaruaConvert
 
 
 
-       
+
 
 #pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
         public void InvisibleText_KeyDown(object sender, KeyEventArgs e)
@@ -497,17 +497,17 @@ namespace HaruaConvert
                 foreach (var selector in selectorList)
                 {
                     selector.ArgumentEditor.Text = IniDefinition.GetValueOrDefault
-                        (iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
+                        (paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
                         "");
 
 
                     //selector.ArgumentEditor.Text);
 
-                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}",
+                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}",
                     IniSettingsConst.ParameterLabel + "_" + $"{i}",
                  "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
 
-                    rcount = IniDefinition.GetValueOrDefault(iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", "0");
+                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", "0");
                     int rcountInt = int.Parse(rcount, CultureInfo.CurrentCulture);
 
 
@@ -949,10 +949,10 @@ namespace HaruaConvert
             foreach (var selector in selectorList)
             {
 
-                IniDefinition.SetValue(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
+                IniDefinition.SetValue(paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
                     selector.ArgumentEditor.Text);
 
-                IniDefinition.SetValue(iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
+                IniDefinition.SetValue(paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
                     selector.ParamLabel.Text);
 
                 i++;
@@ -963,7 +963,7 @@ namespace HaruaConvert
                 if (selector.SlectorRadio.IsChecked.Value)
                 {
                     var radioCount = selector.Name.Remove(0, ParamFields.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", radioCount);
+                    IniDefinition.SetValue(paramField.iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", radioCount);
 
                 }
             }
@@ -977,31 +977,31 @@ namespace HaruaConvert
                 foreach (CheckBox chk in childCheckBoxList)
                 {
 
-                    checkedSet.CheckediniSetVallue(chk, iniPath);
+                    checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
                 }
 
 
 
                 //WIndow Size
-                IniDefinition.SetValue(iniPath, "WindowsLocate", "WindowLeft", Convert.ToString(Left, CultureInfo.CurrentCulture));
-                IniDefinition.SetValue(iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top, CultureInfo.CurrentCulture));
+                IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowLeft", Convert.ToString(Left, CultureInfo.CurrentCulture));
+                IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top, CultureInfo.CurrentCulture));
 
                 //FileOpenDialog Init Path
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamFields.InputDirectory);
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamFields.OutputDirectory);
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamFields.OutputSelectorDirectory);
-                IniDefinition.SetValue(iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamFields.InputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamFields.InputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamFields.OutputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamFields.OutputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamFields.InputSelectorDirectory);
 
                 //Save Generated Number
-                IniDefinition.SetValue(iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, NumericUpDown1.NUDTextBox.Text);
+                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, NumericUpDown1.NUDTextBox.Text);
 
 
 
                 if (!string.IsNullOrEmpty(ParamText.Text))
-                    IniDefinition.SetValue(iniPath, "ffmpegQuery", "BaseQuery", ParamText.Text);
+                    IniDefinition.SetValue(paramField.iniPath, "ffmpegQuery", "BaseQuery", ParamText.Text);
 
                 if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(iniPath, "ffmpegQuery", "endStrings", endStringBox.Text);
+                    IniDefinition.SetValue(paramField.iniPath, "ffmpegQuery", "endStrings", endStringBox.Text);
 
 
 
@@ -1296,7 +1296,7 @@ namespace HaruaConvert
         }
 
         int Generatednum { get; set; }
-       
+
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

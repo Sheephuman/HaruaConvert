@@ -11,11 +11,11 @@ using WpfApp3.Parameter;
 namespace HaruaConvert.Parameter
 {
 #pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
-    public class DataContextClass_HaruaConvert : INotifyPropertyChanged
+    public class Harua_ViewModel : INotifyPropertyChanged
 #pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
     {
         MainWindow main { get; set; } = null!;
-        public DataContextClass_HaruaConvert(MainWindow _main) 
+        public Harua_ViewModel(MainWindow _main) 
         {
             
             main = _main;

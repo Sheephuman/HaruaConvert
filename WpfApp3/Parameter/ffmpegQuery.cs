@@ -38,7 +38,7 @@ namespace HaruaConvert
         /// <returns></returns>
         public string AddsetQuery(string input, string StartQuery)
         {
-     //      var dh = new DataContextClass_HaruaConvert();
+     //      var dh = new Harua_ViewModel();
             if (string.IsNullOrEmpty(UserParam))
             {
 
