@@ -1,6 +1,7 @@
 ﻿using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -62,9 +63,9 @@ namespace HaruaConvert
 
 
                     paramField.setFile = ofc.opFileName;
-                    DCmenber.SourcePathText = paramField.setFile;
-                    SourcePathLabel.Text = DCmenber.SourcePathText;
-                    SourcePathLabel.ToolTip = DCmenber.SourcePathText;
+                    harua_View.SourcePathText = paramField.setFile;
+                    SourcePathLabel.Text = harua_View.SourcePathText;
+                    SourcePathLabel.ToolTip = harua_View.SourcePathText;
 
 
                     // ParamFields.ConvertDirectory = paramField.setFile;
@@ -176,7 +177,7 @@ namespace HaruaConvert
             {
 
                 Directory_DropButon_Click(sender, e);
-                DCmenber.SourcePathText = paramField.setFile;
+                harua_View.SourcePathText = paramField.setFile;
 
             }
 
@@ -242,9 +243,30 @@ namespace HaruaConvert
             {
                 MessageBox.Show("ffmpwg.exeが実行中ですわ");
 
-                return;
+                return; 
             }
             //early return
+
+         
+            else if (string.IsNullOrEmpty(paramField.usedOriginalArgument))
+                    {
+                        MessageBox.Show("ユーザーパラメータが空欄です");
+                        return;
+                    }
+
+
+            else　if (string.IsNullOrEmpty(InputSelector.FilePathBox.Text))
+            {
+                MessageBox.Show("入力パスが空欄です");
+                return;
+            }
+
+            else if (string.IsNullOrEmpty(OutputSelector.FilePathBox.Text))
+            {
+                MessageBox.Show("出力パスが空欄です");
+                return;
+            }
+
 
             paramField.isExitProcessed = FileConvertExec(paramField.setFile, sender);
         }
@@ -274,7 +296,7 @@ namespace HaruaConvert
 
             ParamSelector_SetText(sender, true);
             isUPDownClicked = false;
-
+          
 
         }
 

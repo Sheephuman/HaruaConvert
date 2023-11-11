@@ -80,7 +80,7 @@ namespace HaruaConvert
                 //先頭パラメータを付ける
                 _arguments = param.AddParamEscape(_fullPath);
 
-                _arguments = Ffmpc.AddsetQuery(_arguments, DCmenber.StartQuery);
+                _arguments = Ffmpc.AddsetQuery(_arguments, harua_View.StartQuery);
                 _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ParamFields.OutputPath}";
 
             }
