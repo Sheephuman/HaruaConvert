@@ -27,7 +27,7 @@ namespace HaruaConvert
     public partial class MainWindow : Window
 
     {
-        DataContextClass_HaruaConvert DCmenber;
+        DataContextClass_HaruaConvert harua_View;
 
         /// <summary>
         /// 共有箇所：LogWindow
@@ -94,11 +94,14 @@ namespace HaruaConvert
 
         //paramSelectorBox　生成数       
         public int SelGenerate { get; set; }
+        
 
 
         public MainWindow()
         {
             InitializeComponent();
+
+
 
             paramField = new ParamFields();
             paramField.isParam_Edited = false;
@@ -109,7 +112,7 @@ namespace HaruaConvert
             paramField.isAutoScroll = true;
 
 
-            iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini");
+            paramField.iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini");
 
 
             {
@@ -200,22 +203,15 @@ namespace HaruaConvert
 
                 ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(iniPath, "ffmpegQuery", "endStrings", "_Harua");
                 //  Set Default Parameter on FfmpegQueryClass
-                DCmenber = new DataContextClass_HaruaConvert()
-                {
-                    StartQuery = IniDefinition.GetValueOrDefault
-                                    (iniPath, "ffmpegQuery", "BaseQuery", "  -b:v 1200k -pix_fmt yuv420p -acodec aac -y -threads 2"),
+                harua_View = new DataContextClass_HaruaConvert(this);
 
-                    OutputPath = ParamFields.OutputDirectory,
-                    endString = ClassShearingMenbers.endFileNameStrings,
-                    SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
-                                    (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File")
- ,
-                    invisibleText = ""
-                };
 
-                _arguments = DCmenber.StartQuery;
 
-                DataContext = DCmenber;
+
+                DataContext = harua_View._Main_Param;
+
+
+                _arguments = harua_View.StartQuery;
             }
 
 
@@ -643,7 +639,7 @@ namespace HaruaConvert
 
 
 
-                DCmenber.SourcePathText = paramField.setFile;
+                harua_View.SourcePathText = paramField.setFile;
 
 
                 displayMediaInfo(paramField.setFile);
@@ -794,7 +790,7 @@ namespace HaruaConvert
             {
                 OutputPathText.Text = cod.opFileName;
 
-                DCmenber.OutputPath = cod.opFileName;
+                harua_View.OutputPath = cod.opFileName;
 
 
                 //Update OutputDirectory
@@ -842,7 +838,7 @@ namespace HaruaConvert
         private void AutoLocateButton_Checked(object sender, RoutedEventArgs e)
         {
 
-            DCmenber.OutputPath = "";
+            harua_View.OutputPath = "";
             OutputPathText.Text = "";
             ParamFields.OutputDirectory = "";
         }

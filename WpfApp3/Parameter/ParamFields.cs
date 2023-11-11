@@ -13,7 +13,7 @@ namespace HaruaConvert.Parameter
     public class ParamFields
     {
 
-
+        public  string iniPath { get; set; }
         public  string setFile { get; set; }
 
 
