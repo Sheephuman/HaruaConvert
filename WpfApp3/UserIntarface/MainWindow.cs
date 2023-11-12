@@ -1034,7 +1034,7 @@ namespace HaruaConvert
 
 
 
-
+        public CommonOpenDialogClass ofc { get; set; }
         internal FfmpegQueryClass Ffmpc { get; set; }
 
         public void FileSelector_MouseDown(object sender, RoutedEventArgs e)
@@ -1047,14 +1047,15 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ansest.Name;
 
-
+            var selOpens = new Selector_OpenMethodClass(this);
 
 
             CommonFileDialogResult res = ansest.Name == "InputSelector" ?
-                 Selector_ComonOpenMethod(false, ansest) : Selector_ComonOpenMethod(true, ansest);
+                 selOpens.Selector_ComonOpenMethod(false, ansest) : selOpens.Selector_ComonOpenMethod(true, ansest);
             //三項演算子
 
 
+            
 
 
             //var param = new ParamCreateClasss(InputSelector.FilePathBox.Text);
@@ -1076,91 +1077,8 @@ namespace HaruaConvert
 
         }
 
-        CommonOpenDialogClass ofc { get; set; }
-        string outputFileName;
-
-
-#pragma warning disable CA1822 // メンバーを static に設定します
-        CommonFileDialogResult Selector_ComonOpenMethod(bool isFolder, FileSelector selector)
-#pragma warning restore CA1822 // メンバーを static に設定します
-        {
-
-          //  ClassShearingMenbers.ButtonName = selector.Name;
-
-
-
-
-            if (selector.Name == ParamField.ControlField.InputSelector)
-            {
-
-                ofc = new CommonOpenDialogClass(isFolder, ParamField.InputSelectorDirectory);
-
-
-                ParamField.InitialDirectory = string.Empty;
-                
-                ParamField.InitialDirectory = ParamField.InputSelectorDirectory;
-            }
-            else if (selector.Name == ParamField.ControlField.OutputSelector)
-            {
-                ofc = new CommonOpenDialogClass(isFolder, ParamField.OutputSelectorDirectory);
-
-                ParamField.InitialDirectory = string.Empty;
-                
-                ParamField.InitialDirectory = ParamField.OutputSelectorDirectory;
-            }
-
-            var commons = ofc.CommonOpens();
-
-            outputFileName = ofc.opFileName;
-            outputFileName = Path.ChangeExtension(outputFileName, null);
-
-
-            if (commons == CommonFileDialogResult.Cancel)
-                return commons;
-
-
-
-
-            if (isFolder) //Clicked OutputSelector 
-            {
-
-
-                //Update OutputSelectorDirectory
-              //  ParamField.OutputSelectorDirectory = ofc.opFileName;
-
-
-                ParamField.OutputSelectorDirectory =  outputFileName;
-
-                string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
-
-
-           
-                selector.FilePathBox.Text = ParamField.OutputSelectorDirectory + "\\" + paramField.outputFileName_withoutEx + ".mp4";
-           
-           
-            }
-            else if (!isFolder) //Clicked InputSelector 
-            {
-                //Update inputSelectorDirectory
-                ParamField.InputSelectorDirectory
-                    = Path.GetDirectoryName(ofc.opFileName);
-                paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(ofc.opFileName) + ClassShearingMenbers.endFileNameStrings;
-
-
-                selector.FilePathBox.Text = ofc.opFileName;
-
-                OutputSelector.FilePathBox.Text = Path.GetDirectoryName(ofc.opFileName) + "\\" + paramField.outputFileName_withoutEx + ".mp4";
-
-
-                return commons;
-            }
-
-
-
-
-
-            return commons;
-        }
+     
+        public string outputFileName { get; set; }
 
 
 
