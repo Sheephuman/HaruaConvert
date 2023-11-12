@@ -67,7 +67,7 @@ namespace HaruaConvert
         {
             //var TC = new Terminate_ProcessClass();
 
-            //TC.mainTerminate_deligateExec(ParamFields.ffmpeg_pid);
+            //TC.mainTerminate_deligateExec(ParamField.ffmpeg_pid);
 
 
             //if (main._FfmpProcess.d == true)

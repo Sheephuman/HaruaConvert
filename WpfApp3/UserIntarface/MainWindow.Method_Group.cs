@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using WpfApp3.Parameter;
 
-using static HaruaConvert.Parameter.ParamFields;
+using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert
 {
@@ -81,7 +81,7 @@ namespace HaruaConvert
                 _arguments = param.AddParamEscape(_fullPath);
 
                 _arguments = Ffmpc.AddsetQuery(_arguments, harua_View.StartQuery);
-                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ParamFields.OutputPath}";
+                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ParamField.OutputPath}";
 
             }
 
@@ -203,7 +203,7 @@ namespace HaruaConvert
                 Lw.Activate();
 
 
-                // ParamFields.isExitProcessed = false;
+                // ParamField.isExitProcessed = false;
 
                 return false;
 

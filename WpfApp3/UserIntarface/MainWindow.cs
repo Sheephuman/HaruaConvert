@@ -32,7 +32,7 @@ namespace HaruaConvert
         /// <summary>
         /// 共有箇所：LogWindow
         /// </summary>
-        public ParamFields paramField { get; set; }
+        public ParamField paramField { get; set; }
 
 
 
@@ -103,7 +103,7 @@ namespace HaruaConvert
 
 
 
-            paramField = new ParamFields();
+            paramField = new ParamField();
             paramField.isParam_Edited = false;
 
             Ffmpc = new FfmpegQueryClass(this);
@@ -158,13 +158,13 @@ namespace HaruaConvert
 
                 var iniCon = new IniSettingsConst();
 
-                ParamFields.InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
-                // IniDefinition.SetValue(paramField.iniPath, "Directry", "ConvertDirectory", ParamFields.ConvertDirectory);
+                ParamField.InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
+                // IniDefinition.SetValue(paramField.iniPath, "Directry", "ConvertDirectory", ParamField.ConvertDirectory);
 
 
-                ParamFields.OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
-                ParamFields.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
-                ParamFields.InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
+                ParamField.OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
+                ParamField.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
+                ParamField.InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
                 NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
 
 
@@ -229,7 +229,7 @@ namespace HaruaConvert
                 InputSelector.AllowDrop = true;
                 InputSelector.FilePathBox.AllowDrop = true;
 
-                InputSelector.openDialogButton.Name = InputSelector.Name + "_openButton";
+                //InputSelector.openDialogButton.Name = InputSelector.Name + "_openButton";
 
 
 
@@ -497,17 +497,17 @@ namespace HaruaConvert
                 foreach (var selector in selectorList)
                 {
                     selector.ArgumentEditor.Text = IniDefinition.GetValueOrDefault
-                        (paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
+                        (paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
                         "");
 
 
                     //selector.ArgumentEditor.Text);
 
-                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}",
+                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}",
                     IniSettingsConst.ParameterLabel + "_" + $"{i}",
                  "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
 
-                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", "0");
+                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", "0");
                     int rcountInt = int.Parse(rcount, CultureInfo.CurrentCulture);
 
 
@@ -515,7 +515,7 @@ namespace HaruaConvert
 
                     i++;
 
-                    if (selector.Name == ParamFields.ControlField.ParamSelector + rcount)
+                    if (selector.Name == ParamField.ControlField.ParamSelector + rcount)
                     {
                         selector.SlectorRadio.IsChecked = true;
                         paramField.usedOriginalArgument = selector.ArgumentEditor.Text;
@@ -634,7 +634,7 @@ namespace HaruaConvert
                     InputSelector.FilePathBox.Text = paramField.setFile;
 
 
-                if (ClickedControl.Name == InputSelector.Name + ParamFields.ButtonNameField._openButton)
+                if (ClickedControl.Name == InputSelector.Name + ParamField.ButtonNameField._openButton)
                     InputSelector.FilePathBox.Text = paramField.setFile;
 
 
@@ -780,7 +780,7 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ((RadioButton)sender).Name;
 
-            cod = new CommonOpenDialogClass(true, ParamFields.OutputDirectory);
+            cod = new CommonOpenDialogClass(true, ParamField.OutputDirectory);
 
             var result = cod.CommonOpens();
 
@@ -794,7 +794,7 @@ namespace HaruaConvert
 
 
                 //Update OutputDirectory
-                ParamFields.OutputDirectory = Path.GetDirectoryName(cod.opFileName);
+                ParamField.OutputDirectory = Path.GetDirectoryName(cod.opFileName);
 
             }
             mainGrid.Height += 30;
@@ -840,7 +840,7 @@ namespace HaruaConvert
 
             harua_View.OutputPath = "";
             OutputPathText.Text = "";
-            ParamFields.OutputDirectory = "";
+            ParamField.OutputDirectory = "";
         }
 
         private void isUseOriginalCheckProc(bool _checkState)
@@ -949,10 +949,10 @@ namespace HaruaConvert
             foreach (var selector in selectorList)
             {
 
-                IniDefinition.SetValue(paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
+                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
                     selector.ArgumentEditor.Text);
 
-                IniDefinition.SetValue(paramField.iniPath, ParamFields.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
+                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
                     selector.ParamLabel.Text);
 
                 i++;
@@ -962,8 +962,8 @@ namespace HaruaConvert
                 //if Check Selector Radio, Save Check State
                 if (selector.SlectorRadio.IsChecked.Value)
                 {
-                    var radioCount = selector.Name.Remove(0, ParamFields.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(paramField.iniPath, "CheckState", ParamFields.ControlField.ParamSelector + "_Check", radioCount);
+                    var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
+                    IniDefinition.SetValue(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
                 }
             }
@@ -987,10 +987,10 @@ namespace HaruaConvert
                 IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top, CultureInfo.CurrentCulture));
 
                 //FileOpenDialog Init Path
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamFields.InputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamFields.OutputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamFields.OutputSelectorDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamFields.InputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamField.InputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamField.OutputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamField.OutputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamField.InputSelectorDirectory);
 
                 //Save Generated Number
                 IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, NumericUpDown1.NUDTextBox.Text);
@@ -1057,27 +1057,28 @@ namespace HaruaConvert
 
 
 
-            var param = new ParamCreateClasss(InputSelector.FilePathBox.Text);
+            //var param = new ParamCreateClasss(InputSelector.FilePathBox.Text);
 
             if (res == CommonFileDialogResult.Ok)
             {
                 if (ansest.Name == InputSelector.Name)
                 {
-                    string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileName(InputSelector.FilePathBox.Text);
+                  //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileName(InputSelector.FilePathBox.Text);
 
-                    ParamFields.InputSelectorDirectory = InputSelector.FilePathBox.Text;
+                    ParamField.InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
                 }
                 if (ansest.Name == OutputSelector.Name)
                 {
-                    ParamFields.OutputSelectorDirectory = OutputSelector.FilePathBox.Text;
+                    ParamField.OutputSelectorDirectory = ofc.opFileName;
                 }
             }
 
 
         }
 
-
+        CommonOpenDialogClass ofc { get; set; }
         string outputFileName;
+
 
 #pragma warning disable CA1822 // メンバーを static に設定します
         CommonFileDialogResult Selector_ComonOpenMethod(bool isFolder, FileSelector selector)
@@ -1087,18 +1088,26 @@ namespace HaruaConvert
             ClassShearingMenbers.ButtonName = selector.Name;
 
 
-            if (selector.Name == ParamFields.ControlField.InputSelector)
-            {
-                ParamFields.InitialDirectory = string.Empty;
-                ParamFields.InitialDirectory = Path.GetDirectoryName(ParamFields.InputSelectorDirectory);
-            }
-            else if (selector.Name == ParamFields.ControlField.OutputSelector)
-            {
-                ParamFields.InitialDirectory = string.Empty;
-                ParamFields.InitialDirectory = Path.GetDirectoryName(ParamFields.OutputSelectorDirectory);
-            }
 
-            var ofc = new CommonOpenDialogClass(isFolder, ParamFields.InitialDirectory);
+
+            if (selector.Name == ParamField.ControlField.InputSelector)
+            {
+
+                ofc = new CommonOpenDialogClass(isFolder, ParamField.InputSelectorDirectory);
+
+
+                ParamField.InitialDirectory = string.Empty;
+                
+                ParamField.InitialDirectory = ParamField.InputSelectorDirectory;
+            }
+            else if (selector.Name == ParamField.ControlField.OutputSelector)
+            {
+                ofc = new CommonOpenDialogClass(isFolder, ParamField.OutputSelectorDirectory);
+
+                ParamField.InitialDirectory = string.Empty;
+                
+                ParamField.InitialDirectory = ParamField.OutputSelectorDirectory;
+            }
 
             var commons = ofc.CommonOpens();
 
@@ -1117,25 +1126,31 @@ namespace HaruaConvert
 
 
                 //Update OutputSelectorDirectory
-                ParamFields.OutputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
+              //  ParamField.OutputSelectorDirectory = ofc.opFileName;
 
 
+                ParamField.OutputSelectorDirectory =  outputFileName;
 
                 string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
 
 
-
-                selector.FilePathBox.Text = paramField.InputFileDirectory + "\\" + paramField.outputFileName_withoutEx + "-" + dateNows + ".mp4";
+                if(!string.IsNullOrEmpty(paramField.InputFileDirectory))
+                    selector.FilePathBox.Text = paramField.InputFileDirectory + "\\" + paramField.outputFileName_withoutEx + "-" + dateNows + ".mp4";
+                else if(string.IsNullOrEmpty(paramField.InputFileDirectory))
+                    selector.FilePathBox.Text = ParamField.OutputSelectorDirectory + "\\" + Path.GetFileName(InputSelector.FilePathBox.Text);
             }
             else if (!isFolder) //Clicked InputSelector 
             {
                 //Update inputSelectorDirectory
-                paramField.InputFileDirectory
+                ParamField.InputSelectorDirectory
                     = Path.GetDirectoryName(ofc.opFileName);
                 paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(ofc.opFileName);
 
 
                 selector.FilePathBox.Text = ofc.opFileName;
+
+                
+
 
                 return commons;
             }

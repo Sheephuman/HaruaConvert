@@ -63,20 +63,20 @@ namespace HaruaConvert
             //Link ButtonName to InitakDirectory
             switch (ClassShearingMenbers.ButtonName )
             {
-                case ParamFields.ButtonNameField.Convert_DropButton:                    
-                case ParamFields.ButtonNameField.Directory_DropButon:
-                    ParamFields.InitialDirectory = ParamFields.InputDirectory;
+                case ParamField.ButtonNameField.Convert_DropButton:                    
+                case ParamField.ButtonNameField.Directory_DropButon:
+                    ParamField.InitialDirectory = ParamField.InputDirectory;
                     break;
 
 
-                case ParamFields.ButtonNameField.OutputButton:
-                    ParamFields.InitialDirectory = ParamFields.OutputDirectory;
+                case ParamField.ButtonNameField.OutputButton:
+                    ParamField.InitialDirectory = ParamField.OutputDirectory;
                     break;
-                case ParamFields.ControlField.InputSelector:
-                    ParamFields.InitialDirectory = ParamFields.InputSelectorDirectory;
+                case ParamField.ControlField.InputSelector:
+                    ParamField.InitialDirectory = ParamField.InputSelectorDirectory;
                     break;
-                case ParamFields.ControlField.OutputSelector:
-                    ParamFields.InitialDirectory = ParamFields.OutputSelectorDirectory;
+                case ParamField.ControlField.OutputSelector:
+                    ParamField.InitialDirectory = ParamField.OutputSelectorDirectory;
                     break;
             }
 
