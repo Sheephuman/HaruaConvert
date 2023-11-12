@@ -11,7 +11,7 @@ namespace HaruaConvert
     /// <summary>
     /// /共通 ダイアログ表示用クラス
     /// </summary>
-    internal class CommonOpenDialogClass: IDisposableBase,IHaruaInterFace.IMethods
+    public class CommonOpenDialogClass: IDisposableBase,IHaruaInterFace.IMethods
     {
         public CommonOpenDialogClass(bool _isFolder, string _initializeDirectory) 
         {
@@ -30,8 +30,8 @@ namespace HaruaConvert
 
 
 
-        public CommonOpenFileDialog dialog;
-        public string opFileName;
+        public CommonOpenFileDialog dialog { get; set; }
+        public string opFileName { get; set; }
 
 
         public CommonFileDialogResult CommonOpens()

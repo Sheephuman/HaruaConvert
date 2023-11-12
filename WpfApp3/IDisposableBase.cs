@@ -6,7 +6,7 @@ using System.IO;
 namespace WpfApp3
 {
 
-    internal class IDisposableBase :IDisposable
+    public class IDisposableBase :IDisposable
     {
       
 
@@ -38,7 +38,7 @@ namespace WpfApp3
         private readonly IntPtr unmanagedResource;
 
 
-        public bool disposed;
+        public bool disposed { get; set; }
         private StreamWriter managedResource;
 
         private void Free(IntPtr unmanagedResource)

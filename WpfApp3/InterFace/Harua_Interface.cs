@@ -19,7 +19,7 @@ namespace HaruaConvert.HaruaInterFace
             void Directory_DropButon_Click(object sender, RoutedEventArgs e);
         }
 
-        interface IMethods 
+       public interface IMethods 
         {
             CommonFileDialogResult CommonOpens();
 
