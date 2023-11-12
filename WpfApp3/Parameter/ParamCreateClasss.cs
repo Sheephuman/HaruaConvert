@@ -54,7 +54,7 @@ namespace HaruaConvert.Parameter
 
                 output = "\"" + check_output + "\"";
 
-               ParamFields.OutputPath = output;
+               ParamField.OutputPath = output;
 
 
              arguments = inputPath;

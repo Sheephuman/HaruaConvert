@@ -33,7 +33,7 @@ namespace HaruaConvert
         public void Directory_DropButon_Click(object sender, RoutedEventArgs e)
         {
 
-            //  ParamFields.identification_Obj = sender;
+            //  ParamField.identification_Obj = sender;
             ClassShearingMenbers.ButtonName = ((Button)sender).Name;
 
 
@@ -48,7 +48,7 @@ namespace HaruaConvert
 
 
 
-            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamFields.InputDirectory))
+            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamField.InputDirectory))
             {
 
                 var result = ofc.CommonOpens();
@@ -68,20 +68,20 @@ namespace HaruaConvert
                     SourcePathLabel.ToolTip = harua_View.SourcePathText;
 
 
-                    // ParamFields.ConvertDirectory = paramField.setFile;
+                    // ParamField.ConvertDirectory = paramField.setFile;
 
                     Drop_Label.Content = "Convert";
 
-                    ParamFields.InputDirectory = Path.GetDirectoryName(paramField.setFile);
+                    ParamField.InputDirectory = Path.GetDirectoryName(paramField.setFile);
 
 
                     //Update InputDirectory
-                    ParamFields.InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    ParamField.InputDirectory = Path.GetDirectoryName(ofc.opFileName);
 
 
                 }
                 displayMediaInfo(paramField.setFile);
-                //  ParamFields.ConvertDirectory = ofc.opFileName;
+                //  ParamField.ConvertDirectory = ofc.opFileName;
             }
 
         }
