@@ -1085,7 +1085,7 @@ namespace HaruaConvert
 #pragma warning restore CA1822 // メンバーを static に設定します
         {
 
-            ClassShearingMenbers.ButtonName = selector.Name;
+          //  ClassShearingMenbers.ButtonName = selector.Name;
 
 
 
@@ -1134,22 +1134,22 @@ namespace HaruaConvert
                 string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
 
 
-                if(!string.IsNullOrEmpty(paramField.InputFileDirectory))
-                    selector.FilePathBox.Text = paramField.InputFileDirectory + "\\" + paramField.outputFileName_withoutEx + "-" + dateNows + ".mp4";
-                else if(string.IsNullOrEmpty(paramField.InputFileDirectory))
-                    selector.FilePathBox.Text = ParamField.OutputSelectorDirectory + "\\" + Path.GetFileName(InputSelector.FilePathBox.Text);
+           
+                selector.FilePathBox.Text = ParamField.OutputSelectorDirectory + "\\" + paramField.outputFileName_withoutEx + ".mp4";
+           
+           
             }
             else if (!isFolder) //Clicked InputSelector 
             {
                 //Update inputSelectorDirectory
                 ParamField.InputSelectorDirectory
                     = Path.GetDirectoryName(ofc.opFileName);
-                paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(ofc.opFileName);
+                paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(ofc.opFileName) + ClassShearingMenbers.endFileNameStrings;
 
 
                 selector.FilePathBox.Text = ofc.opFileName;
 
-                
+                OutputSelector.FilePathBox.Text = Path.GetDirectoryName(ofc.opFileName) + "\\" + paramField.outputFileName_withoutEx + ".mp4";
 
 
                 return commons;
