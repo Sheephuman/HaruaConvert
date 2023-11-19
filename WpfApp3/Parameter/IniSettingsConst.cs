@@ -9,9 +9,9 @@ namespace HaruaConvert.Parameter
    public class IniSettingsConst
     {
 
-        public const string OutputDirectory = "OutputDirectory";
-        public const string OutputSelectorDirectory = "OutputSelectorDirectory";
-        public const string InputSelectorDirectory = "InputSelectorDirectory";
+        public const string OutputDirectory = "MainTab_OutputDirectory";
+        public const string OutputSelectorDirectory = "ParamTab_OutputSelectorDirectory";
+        public const string InputSelectorDirectory = "ParamTab_InputSelectorDirectory";
         public const string ConvertDirectory = "ConvertDirectory";
         public int Selectors { get; set; }
         public const string Selector_Generate = "Selector_Generate";

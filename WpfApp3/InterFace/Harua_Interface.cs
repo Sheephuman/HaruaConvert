@@ -4,8 +4,6 @@ using System.Windows.Controls;
 
 namespace HaruaConvert.HaruaInterFace
 {
-    public interface IHaruaInterFace
-    {
         //インターフェース
         interface IMainWindwEvents
         {
@@ -30,5 +28,4 @@ namespace HaruaConvert.HaruaInterFace
 
     }
 
-    
-}
+   

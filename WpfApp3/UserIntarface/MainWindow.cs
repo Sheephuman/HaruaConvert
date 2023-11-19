@@ -158,13 +158,13 @@ namespace HaruaConvert
 
                 var iniCon = new IniSettingsConst();
 
-                ParamField.InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
+                ParamField.Maintab_InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
                 // IniDefinition.SetValue(paramField.iniPath, "Directry", "ConvertDirectory", ParamField.ConvertDirectory);
 
 
-                ParamField.OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
-                ParamField.OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
-                ParamField.InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
+                ParamField.MainTab_OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
+                ParamField.ParamTab_OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
+                ParamField.ParamTab_InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
                 NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
 
 
@@ -763,6 +763,11 @@ namespace HaruaConvert
             {
                 Console.WriteLine(ex.Message + Environment.NewLine);
             }
+
+            catch (Win32Exception ex)
+            {
+                MessageBox.Show(ex.Message + Environment.NewLine + "ffprobe.exeがないわよ");
+            }
         }
 
 
@@ -780,7 +785,7 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ((RadioButton)sender).Name;
 
-            cod = new CommonOpenDialogClass(true, ParamField.OutputDirectory);
+            cod = new CommonOpenDialogClass(true, ParamField.MainTab_OutputDirectory);
 
             var result = cod.CommonOpens();
 
@@ -793,8 +798,8 @@ namespace HaruaConvert
                 harua_View.OutputPath = cod.opFileName;
 
 
-                //Update OutputDirectory
-                ParamField.OutputDirectory = Path.GetDirectoryName(cod.opFileName);
+                //Update MainTab_OutputDirectory
+                ParamField.MainTab_OutputDirectory = cod.opFileName;
 
             }
             mainGrid.Height += 30;
@@ -840,7 +845,7 @@ namespace HaruaConvert
 
             harua_View.OutputPath = "";
             OutputPathText.Text = "";
-            ParamField.OutputDirectory = "";
+            ParamField.MainTab_OutputDirectory = "";
         }
 
         private void isUseOriginalCheckProc(bool _checkState)
@@ -987,10 +992,10 @@ namespace HaruaConvert
                 IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top, CultureInfo.CurrentCulture));
 
                 //FileOpenDialog Init Path
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamField.InputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamField.OutputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamField.OutputSelectorDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamField.InputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamField.Maintab_InputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamField.MainTab_OutputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamField.ParamTab_OutputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamField.ParamTab_InputSelectorDirectory);
 
                 //Save Generated Number
                 IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, NumericUpDown1.NUDTextBox.Text);
@@ -1066,11 +1071,11 @@ namespace HaruaConvert
                 {
                   //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileName(InputSelector.FilePathBox.Text);
 
-                    ParamField.InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
                 }
                 if (ansest.Name == OutputSelector.Name)
                 {
-                    ParamField.OutputSelectorDirectory = ofc.opFileName;
+                    ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
                 }
             }
 
