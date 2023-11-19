@@ -48,15 +48,10 @@ namespace HaruaConvert
 
 
 
-            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamField.InputDirectory))
+            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamField.Maintab_InputDirectory))
             {
 
                 var result = ofc.CommonOpens();
-
-
-
-
-
 
                 if (result == CommonFileDialogResult.Ok)  //Selected OK
                 {
@@ -72,11 +67,11 @@ namespace HaruaConvert
 
                     Drop_Label.Content = "Convert";
 
-                    ParamField.InputDirectory = Path.GetDirectoryName(paramField.setFile);
+                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(paramField.setFile);
 
 
-                    //Update InputDirectory
-                    ParamField.InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    //Update Maintab_InputDirectory
+                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
 
 
                 }

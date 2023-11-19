@@ -34,20 +34,20 @@ namespace HaruaConvert.Methods
             if (selector.Name == ParamField.ControlField.InputSelector)
             {
 
-                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.InputSelectorDirectory);
+                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_InputSelectorDirectory);
 
 
                 ParamField.InitialDirectory = string.Empty;
 
-                ParamField.InitialDirectory = ParamField.InputSelectorDirectory;
+                ParamField.InitialDirectory = ParamField.ParamTab_InputSelectorDirectory;
             }
             else if (selector.Name == ParamField.ControlField.OutputSelector)
             {
-                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.OutputSelectorDirectory);
+                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_OutputSelectorDirectory);
 
                 ParamField.InitialDirectory = string.Empty;
 
-                ParamField.InitialDirectory = ParamField.OutputSelectorDirectory;
+                ParamField.InitialDirectory = ParamField.ParamTab_OutputSelectorDirectory;
             }
 
             var commons = main.ofc.CommonOpens();
@@ -66,24 +66,24 @@ namespace HaruaConvert.Methods
             {
 
 
-                //Update OutputSelectorDirectory
-                //  ParamField.OutputSelectorDirectory = ofc.opFileName;
+                //Update ParamTab_OutputSelectorDirectory
+                //  ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
 
 
-                ParamField.OutputSelectorDirectory = main.outputFileName;
+                ParamField.ParamTab_OutputSelectorDirectory = main.outputFileName;
 
                 //string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
 
 
 
-                selector.FilePathBox.Text = ParamField.OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ".mp4";
+                selector.FilePathBox.Text = ParamField.ParamTab_OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ".mp4";
 
 
             }
             else if (!isFolder) //Clicked InputSelector 
             {
                 //Update inputSelectorDirectory
-                ParamField.InputSelectorDirectory
+                ParamField.ParamTab_InputSelectorDirectory
                     = Path.GetDirectoryName(main.ofc.opFileName);
                 main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName) + ClassShearingMenbers.endFileNameStrings;
                 selector.FilePathBox.Text = main.ofc.opFileName;

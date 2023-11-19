@@ -37,10 +37,10 @@ namespace HaruaConvert.Parameter
         public static string OutputPath { get; set; }
 
         public static string InitialDirectory { get; set; }
-        public static string InputDirectory { get; set; }
-        public static string OutputDirectory { get; set; }
-        public static string InputSelectorDirectory { get; set; }
-        public static string OutputSelectorDirectory { get; set; }
+        public static string Maintab_InputDirectory { get; set; }
+        public static string MainTab_OutputDirectory { get; set; }
+        public static string ParamTab_InputSelectorDirectory { get; set; }
+        public static string ParamTab_OutputSelectorDirectory { get; set; }
         public bool isParam_Edited { get; set; } 
 
         public string usedOriginalArgument { get; set; }
