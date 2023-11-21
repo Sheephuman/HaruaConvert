@@ -30,59 +30,6 @@ namespace HaruaConvert
         }
 
 
-        public void Directory_DropButon_Click(object sender, RoutedEventArgs e)
-        {
-
-            //  ParamField.identification_Obj = sender;
-            ClassShearingMenbers.ButtonName = ((Button)sender).Name;
-
-
-
-
-            if (!paramField.isExitProcessed && !isForceExec)
-            {
-                MessageBox.Show("ffmpeg.exeが実行中です");
-
-                return;
-            }
-
-
-
-            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamField.Maintab_InputDirectory))
-            {
-
-                var result = ofc.CommonOpens();
-
-                if (result == CommonFileDialogResult.Ok)  //Selected OK
-                {
-
-
-                    paramField.setFile = ofc.opFileName;
-                    harua_View.SourcePathText = paramField.setFile;
-                    SourcePathLabel.Text = harua_View.SourcePathText;
-                    SourcePathLabel.ToolTip = harua_View.SourcePathText;
-
-
-                    // ParamField.ConvertDirectory = paramField.setFile;
-
-                    Drop_Label.Content = "Convert";
-
-                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(paramField.setFile);
-
-
-                    //Update Maintab_InputDirectory
-                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
-
-
-                }
-                displayMediaInfo(paramField.setFile);
-                //  ParamField.ConvertDirectory = ofc.opFileName;
-            }
-
-        }
-
-
-
 
         public void NUDUP_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -143,43 +90,6 @@ namespace HaruaConvert
                 }
         }
 
-
-
-        private void Convert_DropButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (!paramField.isExitProcessed && !isForceExec)
-            {
-                MessageBox.Show("ffmpwg.exeが実行中ですよ");
-                return;
-            }
-
-
-
-            ClassShearingMenbers.ButtonName = ((Button)sender).Name;
-            //var runinng = Process.GetProcessesByName("ffmpeg.exe");
-            if (!string.IsNullOrEmpty(paramField.setFile))
-            {
-                //Convert Process Improvement Part
-                paramField.isExitProcessed = FileConvertExec(paramField.setFile, sender);
-
-
-
-                Lw.Activate();
-
-            }
-            else
-            {
-
-                Directory_DropButon_Click(sender, e);
-                harua_View.SourcePathText = paramField.setFile;
-
-            }
-
-
-
-
-        }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {

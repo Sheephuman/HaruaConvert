@@ -21,8 +21,8 @@
         >
 
     <!-- 閉じる-->
-    
-    
+
+
     <Grid x:Name="mainGrid" Background ="#FFFDEEF0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -96,9 +96,9 @@
                           Margin="0,50,0,0">
 
 
-                            <StackPanel  Height="440"  Grid.Row="1"
+                            <StackPanel  Height="440"
                                          
-                                Margin="0,-50,0,0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                                Margin="0,-46,0,-33" Orientation="Horizontal">
                                 <StackPanel x:Name="mainSelectGroup" Orientation="Vertical">
                                     <GroupBox 
                                     FontSize="16"
@@ -130,7 +130,8 @@
                                             FontSize="20" Content="参照"
                                 Drop="FileDrop"
                                 DragOver="Button_DragOver"
-                               AllowDrop="True" Click="Directory_DropButon_Click"
+                                                    
+                               AllowDrop="True"     
                                             Background="Transparent"
                                 />
 
@@ -259,18 +260,16 @@
 
                                             <!--FileDrop Buttonの位置とサイズ-->
                                             <ControlTemplate TargetType="{x:Type Label}">
-
                                                 <Button
-                                                    x:Name="Convert_DropButton"
+                                                    Name="ConvertDropButton"
                                                 AllowDrop="True"
-                                                Margin="-190,-180,0,0"
-                                                Click="Convert_DropButton_Click"
-                                                
+                                                    
+                                                Margin="-160,-180,0,0"                                                                                               
                                                 VerticalContentAlignment="Center"     
                                                 Background="Transparent"
                                                 VerticalAlignment="Center"  
                                                 Drop="FileDrop"
-                                                Height="250"                                                      
+                                                Height="230"                                                      
                                                 Width="130"
                                                 HorizontalAlignment="Center"
                                                 Content="{TemplateBinding Content}"/>
@@ -463,7 +462,7 @@
                                         </Hyperlink>
                                     </Label>
                                     <Image Margin="70,00,0,0" Height="100" Width="400" Source = "\BackImage\sheep.png"/>
-                       
+
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
