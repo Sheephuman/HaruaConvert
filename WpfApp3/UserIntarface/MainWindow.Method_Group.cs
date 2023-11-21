@@ -50,7 +50,7 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        bool FileConvertExec(string _fullPath,object sender)
+        public bool FileConvertExec(string _fullPath,object sender)
         {
             th1 = new Thread(new ThreadStart(ffmpegProsseing));
             //For Kill ffmpeg Process
@@ -246,7 +246,7 @@ namespace HaruaConvert
         }
 
 
-        LogWindow Lw;
+        public LogWindow Lw { get; set; }
 
         void ffmpegProsseing()
         {

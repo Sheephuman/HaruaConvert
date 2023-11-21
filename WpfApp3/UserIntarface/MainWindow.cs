@@ -1,5 +1,6 @@
 ﻿
 using FFMpegCore;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -27,7 +28,7 @@ namespace HaruaConvert
     public partial class MainWindow : Window
 
     {
-        Harua_ViewModel harua_View;
+       public Harua_ViewModel harua_View { get; set; }
 
         /// <summary>
         /// 共有箇所：LogWindow
@@ -704,7 +705,7 @@ namespace HaruaConvert
         }
 
 
-        private void displayMediaInfo(string setFile)
+        public void displayMediaInfo(string setFile)
         {
 
             try
@@ -1236,9 +1237,21 @@ namespace HaruaConvert
         int Generatednum { get; set; }
 
 
+        private IMainTabEvents[] mainTabEvents; 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            mainTabEvents = new IMainTabEvents[]
+            {
+
+                new Directory_ClickProcedure(this)
+            };                ;
+            var dclicks = new Directory_ClickProcedure(this);
+
+            Directory_DropButon.Click += dclicks.Directory_DropButon_Click;
+            Button dropbutton = (Button)Drop_Label.Template.FindName("ConvertDropButton",Drop_Label);
+            dropbutton.Click += dclicks.Convert_DropButton_Click;
+           
 
             AtacchStringsList.Items.Add("[]");
             AtacchStringsList.Items.Add("{}");
