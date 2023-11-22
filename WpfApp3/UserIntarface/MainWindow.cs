@@ -1048,7 +1048,7 @@ namespace HaruaConvert
 
 
 
-            var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<FileSelector>((Button)sender);
+            var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<FileSelector>((DependencyObject)sender);
 
 
             ClassShearingMenbers.ButtonName = ansest.Name;
@@ -1237,26 +1237,63 @@ namespace HaruaConvert
         int Generatednum { get; set; }
 
 
-        private IMainTabEvents[] mainTabEvents; 
 
+        IMainTabEvents[] mainTabEvents;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mainTabEvents = new IMainTabEvents[]
+
+            //get Interface instance
+           mainTabEvents = new IMainTabEvents[]
             {
 
                 new Directory_ClickProcedure(this)
             };                ;
-            var dclicks = new Directory_ClickProcedure(this);
+            //var dclicks = new Directory_ClickProcedure(this);
 
-            Directory_DropButon.Click += dclicks.Directory_DropButon_Click;
-            Button dropbutton = (Button)Drop_Label.Template.FindName("ConvertDropButton",Drop_Label);
-            dropbutton.Click += dclicks.Convert_DropButton_Click;
+            
+            //get Button name from label template
+            Button dropbutton = (Button)Drop_Label.Template.FindName("ConvertDropButton", Drop_Label);
+
+            dropbutton.Click += DropButton_ClickHandle;
+
+            
+
+
+            Directory_DropButon.Click += DropButton_ClickHandle;
+               
+                
+
+            
            
 
             AtacchStringsList.Items.Add("[]");
             AtacchStringsList.Items.Add("{}");
             AtacchStringsList.Items.Add("<>");
         }
+
+        private void DropButton_ClickHandle(object sender, RoutedEventArgs e)
+        {
+            
+            foreach (var button in mainTabEvents)
+            {
+
+                if (((Button)sender).Name == nameof(Directory_DropButon))
+                {
+                    button.Directory_DropButon_Click(sender, e);
+                    return;
+                }
+
+                else if (((Button)sender).Name == "ConvertDropButton")
+                {
+                    button.Convert_DropButton_Click(sender, e);
+                    return;
+                }
+                
+             
+            }
+
+        }
+
 
 
         public string AddParam(string locatePath)

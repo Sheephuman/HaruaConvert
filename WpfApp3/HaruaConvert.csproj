@@ -93,7 +93,6 @@
     <Compile Remove="TextBoxBehaviorSample.cs" />
     <Compile Remove="TransparentOtherProcess.cs" />
     <Compile Remove="ValueObject.cs" />
-    <Compile Remove="ViewModel\ViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -234,10 +233,6 @@
 
   <ItemGroup>
     <None Include="TransparentOtherProcess.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="ViewModel\ViewModel.cs" />
   </ItemGroup>
  
 
