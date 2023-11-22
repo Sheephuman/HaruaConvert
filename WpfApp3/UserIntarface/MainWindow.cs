@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using WpfApp3.Parameter;
+using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert
 {
@@ -212,7 +213,7 @@ namespace HaruaConvert
                 DataContext = harua_View._Main_Param;
 
 
-                _arguments = harua_View.StartQuery;
+                //_arguments = Harua_ViewModel.StartQuery;
             }
 
 
@@ -1056,7 +1057,7 @@ namespace HaruaConvert
             var selOpens = new Selector_OpenMethodClass(this);
 
 
-            CommonFileDialogResult res = ansest.Name == "InputSelector" ?
+            CommonFileDialogResult res = ansest.Name == ControlField.InputSelector ?
                  selOpens.Selector_ComonOpenMethod(false, ansest) : selOpens.Selector_ComonOpenMethod(true, ansest);
             //三項演算子
 
@@ -1221,7 +1222,7 @@ namespace HaruaConvert
                 }
 
             }
-            SelGenerate = count;
+            //SelGenerate = count;
 
 
 
@@ -1252,7 +1253,7 @@ namespace HaruaConvert
 
             
             //get Button name from label template
-            Button dropbutton = (Button)Drop_Label.Template.FindName("ConvertDropButton", Drop_Label);
+            Button dropbutton = (Button)Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, Drop_Label);
 
             dropbutton.Click += DropButton_ClickHandle;
 
@@ -1283,7 +1284,7 @@ namespace HaruaConvert
                     return;
                 }
 
-                else if (((Button)sender).Name == "ConvertDropButton")
+                else if (((Button)sender).Name == ButtonNameField.Convert_DropButton)
                 {
                     button.Convert_DropButton_Click(sender, e);
                     return;

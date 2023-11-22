@@ -261,7 +261,7 @@
                                             <!--FileDrop Buttonの位置とサイズ-->
                                             <ControlTemplate TargetType="{x:Type Label}">
                                                 <Button
-                                                    Name="ConvertDropButton"
+                                                    Name="Convert_DropButton"
                                                 AllowDrop="True"
                                                     
                                                 Margin="-160,-180,0,0"                                                                                               
