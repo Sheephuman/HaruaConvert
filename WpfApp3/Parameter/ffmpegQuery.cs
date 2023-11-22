@@ -41,7 +41,8 @@ namespace HaruaConvert
      //      var dh = new Harua_ViewModel();
             if (string.IsNullOrEmpty(UserParam))
             {
-
+                //var hview = new Harua_ViewModel(_main);
+                
                 SetQuery = "-i " + $"{input} " + StartQuery;
             }
             else

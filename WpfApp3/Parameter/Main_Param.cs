@@ -25,9 +25,10 @@ namespace HaruaConvert.Parameter
             set
             {
 
-                //if(string.IsNullOrEmpty(value))
-                //    {                     
-                //    throw new ArgumentException("Value is Null"); }                
+                //if (string.IsNullOrEmpty(value))
+                //{
+                //    throw new ArgumentException("Value is Null");
+                //}
 
                 //else
                 sourcePath = value;
@@ -35,9 +36,5 @@ namespace HaruaConvert.Parameter
 
         }
 
-        public static implicit operator ObservableCollection<object>(Main_Param v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

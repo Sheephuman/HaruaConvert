@@ -59,7 +59,7 @@ namespace HaruaConvert.HaruaInterFace
 
                     // ParamField.ConvertDirectory = paramField.setFile;
 
-                    main.Drop_Label.Content = "Convert";
+                    main.Drop_Label.Content = "変換";
 
                     ParamField.Maintab_InputDirectory =    Path.GetDirectoryName(main.paramField.setFile);
 

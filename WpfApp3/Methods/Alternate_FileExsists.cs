@@ -35,7 +35,7 @@ namespace HaruaConvert
 
         string[] getFileNames(string targetForder)
         {
-            string[] destinationFiles = null;
+            string[] destinationFiles;
 
 
             string target = targetForder;

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
@@ -79,9 +80,10 @@ namespace HaruaConvert
             {
                 //先頭パラメータを付ける
                 _arguments = param.AddParamEscape(_fullPath);
+                
 
-                _arguments = Ffmpc.AddsetQuery(_arguments, harua_View.StartQuery);
-                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ParamField.OutputPath}";
+                _arguments = Ffmpc.AddsetQuery(_arguments, harua_View._Main_Param[0].StartQuery);
+                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{OutputPath}";
 
             }
 
