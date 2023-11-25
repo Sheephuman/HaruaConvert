@@ -89,6 +89,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MainWindow.Method_Group\**" />
+    <EmbeddedResource Remove="MainWindow.Method_Group\**" />
+    <None Remove="MainWindow.Method_Group\**" />
+    <Page Remove="MainWindow.Method_Group\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Methods\Alternate_GetFileName.cs" />
     <Compile Remove="TextBoxBehaviorSample.cs" />
     <Compile Remove="TransparentOtherProcess.cs" />
@@ -217,10 +224,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MainWindow.Method_Group\" />
   </ItemGroup>
 
   <ItemGroup>
