@@ -79,7 +79,7 @@ namespace HaruaConvert
 
 
             if (!isFolder)
-                    dialog.Filters.Add(new CommonFileDialogFilter("Movie file", "Movie File, *.mp4,*.flv, *.mov")) ;
+                    dialog.Filters.Add(new CommonFileDialogFilter("Movie file", "Movie File, *.mp4,*.flv, *.mov, *.3gp")) ;
 
 
 

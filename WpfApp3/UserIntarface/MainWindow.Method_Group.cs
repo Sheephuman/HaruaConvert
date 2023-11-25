@@ -315,18 +315,18 @@ namespace HaruaConvert
                 _FfmpProcess.BeginErrorReadLine();
 
 
-                Process[] plist = Process.GetProcessesByName("ffmpeg");
+                //Process[] plist = Process.GetProcessesByName("ffmpeg");
 
-                var ProcessIdList = new List<int>();
-                ProcessIdList.Capacity = plist.Length;
+                //var ProcessIdList = new List<int>();
+                //ProcessIdList.Capacity = plist.Length;
 
-                foreach (Process cop in plist)
-                {
-                    ProcessIdList.Add(cop.Id);
-                }
+                //foreach (Process cop in plist)
+                //{
+                //    ProcessIdList.Add(cop.Id);
+                //}
 
-                if (ProcessIdList.Count != 0)
-                    paramField.ffmpeg_pid = ProcessIdList[0];
+                ////if (ProcessIdList.Count != 0)
+                //    paramField.ffmpeg_pid = ProcessIdList[0];
 
 
                 paramField.ctoken.Token.WaitHandle.WaitOne();
@@ -352,6 +352,20 @@ namespace HaruaConvert
 
 
             paramField.isExitProcessed = true;
+
+            if (paramField.isOpenFolder)
+                // Explorerのプロセスを起動
+                using (Process explorerProcess = new Process())
+                {
+                    explorerProcess.StartInfo.FileName = "explorer.exe";
+
+                    // /select オプションを使用して、ファイルを選択して表示
+                    explorerProcess.StartInfo.Arguments = $"/select, \"{param.check_output}\"";
+
+                    // Explorerプロセスを開始
+                    explorerProcess.Start();
+                }
+
         }
 
 

@@ -12,9 +12,7 @@
        WindowStyle="None"
      
         AllowsTransparency="True"
-        Opacity="0.8"
-        ResizeMode="CanResizeWithGrip"   
-        
+        Opacity="0.8"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
       Loaded="Window_Loaded"      
@@ -75,22 +73,25 @@
                             Grid.Column="1"
                             
                             VerticalAlignment="Center">
-                    
+
                     <Button 
-                        
+                        x:Name="HintButton"
+                        Content="❓"
                         Width="25" Height="25"                          
-                        Opacity="1"   />
+                        BorderBrush="{x:Null}"
+                           >
+                        
+                    </Button>
 
                 </StackPanel>
-
+    
                 <StackPanel 
                     Orientation="Horizontal"                    
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
                     Grid.Column="2">
                     <!-- 閉じる-->
-                    <Button Background="#FFFDEEF0"
-                      
+                    <Button Background="#FFFDEEF0"                      
                         BorderBrush="{x:Null}"  x:Name="CloseButton" 
                         Margin="0,5,3,0" Width="20" Height="20" 
     Click="CloseButton_Click"  HorizontalAlignment="Right" Content="✕" FontSize="15"/>
@@ -472,6 +473,20 @@
 
                     </TabItem>
 
+                    <TabItem  x:Name="SettingsTab"                              
+                              PreviewMouseDown="TabItem_MouseDown" 
+                              Header="Settings" Margin="-2,-2,2,0" >
+                        <GroupBox Header="一般設定">
+                            <CheckBox x:Name="IsOpenForuderChecker"
+                                  IsChecked="False"
+                                Checked="isOpenFolder_Checked"
+                                         Unchecked="isOpenFolder_Checked"
+                                Content="変換終了後にフォルダを自動的に開く"/>
+
+
+
+                        </GroupBox>
+                    </TabItem>
 
                     <TabItem Header="credit" x:Name="CreditTab" Width="50" HorizontalAlignment="Left">
                         <Grid>
