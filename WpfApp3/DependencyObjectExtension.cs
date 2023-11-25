@@ -32,7 +32,7 @@ namespace HaruaConvert
         public static void WalkInChildren(this DependencyObject obj, Action<DependencyObject> act)
         {
             if (act == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(obj.Dispatcher.ToString());
 
             Walk(obj, act);
         }

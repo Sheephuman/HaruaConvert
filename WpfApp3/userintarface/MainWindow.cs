@@ -1026,7 +1026,7 @@ namespace HaruaConvert
                     IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
 
                 if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, , endStringBox.Text);
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings　, endStringBox.Text);
 
 
 

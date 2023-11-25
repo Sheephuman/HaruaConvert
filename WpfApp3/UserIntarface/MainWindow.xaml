@@ -24,47 +24,80 @@
 
 
     <Grid x:Name="mainGrid" Background ="#FFFDEEF0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="0"/>
-            <RowDefinition Height="0"/>
-        </Grid.RowDefinitions>
+
+
         <StackPanel  
             VerticalAlignment="Top"
             x:Name="TitleStack"
             Height="35">
-            <TextBlock MaxHeight="35" Width="35"
-                                              
+
+            <Grid x:Name="titleGrid">
+                <Grid.ColumnDefinitions>
+
+
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+
+
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock MaxHeight="35" Width="35"
+                       Grid.Column="0 "                       
                        SnapsToDevicePixels="True"
                        HorizontalAlignment="Left"
                        Height="35" Margin="0,-1,0,0"
                        >
-                <TextBlock.Background>
-                    <ImageBrush
+                    <TextBlock.Background>
+                        <ImageBrush
                         RenderOptions.BitmapScalingMode="Fant"
                         
                         ImageSource="\lib\harua.ico" />
-                </TextBlock.Background>
+                    </TextBlock.Background>
 
 
-            </TextBlock>
+                </TextBlock>
 
-            <TextBlock Background="#FFFDEEF0"                       
+                <StackPanel Grid.Column="1">
+                    <TextBlock Background="#FFFDEEF0"             
+                       VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                   Height="25"
                        FontSize="16"
-                  TextAlignment="Left"
-                       
+                  TextAlignment="Left"                       
                    Text="はるあこんば～た"
-                       Margin="40,-30,0,0"/>
-            <StackPanel  VerticalAlignment="Top">
-                <!-- 閉じる-->
-                <Button Background="#FFFDEEF0"
+                       Margin="-70,8,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            
+                            VerticalAlignment="Center">
+                    
+                    <Button 
+                        
+                        Width="25" Height="25"                          
+                        Opacity="1"   />
+
+                </StackPanel>
+
+                <StackPanel 
+                    Orientation="Horizontal"                    
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Grid.Column="2">
+                    <!-- 閉じる-->
+                    <Button Background="#FFFDEEF0"
+                      
                         BorderBrush="{x:Null}"  x:Name="CloseButton" 
-                        Margin="0,-45,3,0" Width="20" Height="20" 
+                        Margin="0,5,3,0" Width="20" Height="20" 
     Click="CloseButton_Click"  HorizontalAlignment="Right" Content="✕" FontSize="15"/>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
         </StackPanel>
+
         <StackPanel Grid.Row="0"    Margin="0,10,0,-10" >
 
             <Grid  Margin="0,30,0,0"
@@ -442,6 +475,7 @@
 
                     <TabItem Header="credit" x:Name="CreditTab" Width="50" HorizontalAlignment="Left">
                         <Grid>
+
                             <StackPanel HorizontalAlignment="Left">
                                 <Label Content="安倍春明(あべはるあ) t／砂雲空風" FontSize="30"/>
                                 <TextBlock  FontSize="20">
@@ -465,10 +499,12 @@
 
                                 </StackPanel>
                             </StackPanel>
-                        </Grid>
-                    </TabItem>
-                </TabControl>
 
+                        </Grid>
+
+                    </TabItem>
+
+                </TabControl>
 
             </Grid>
         </StackPanel>
