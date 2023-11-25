@@ -4,6 +4,14 @@ using WpfApp3.Parameter;
 
 namespace HaruaConvert.Parameter
 {
+
+    /// <summary>
+    /// 初期化処理
+    /// メインパラメータの内容を各パラメータ用変数 "StartQuery" に渡す
+    /// ファイル末尾の文字列を変更した際の反映
+    /// 各変数の初期化
+    /// mainインスタンスのini設定内容読み込み
+    /// </summary>
 #pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
     public class Harua_ViewModel : INotifyPropertyChanged
 #pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
