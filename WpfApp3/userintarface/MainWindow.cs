@@ -18,6 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Windows.Storage.Streams;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -145,10 +146,6 @@ namespace HaruaConvert
 
 
 
-                Left = IniDefinition.GetValueOrDefault(paramField.iniPath, "WindowsLocate", "WindowLeft", 25);
-
-                Top = Convert.ToInt32(IniDefinition.GetValueOrDefault(paramField.iniPath, "WindowsLocate", "WindowTop", 50));
-
 
 
 
@@ -160,16 +157,8 @@ namespace HaruaConvert
 
                 var iniCon = new IniSettingsConst();
 
-                ParamField.Maintab_InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
-                // IniDefinition.SetValue(paramField.iniPath, "Directry", "ConvertDirectory", ParamField.ConvertDirectory);
-
-
-                ParamField.MainTab_OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
-                ParamField.ParamTab_OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
-                ParamField.ParamTab_InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
-                NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
-
-
+                var setiniReader = new IniSettings_IOClass();
+                setiniReader.IniSettingReader(paramField,this);
 
                 #region SelectParameterBox Generate
                 {
@@ -302,7 +291,7 @@ namespace HaruaConvert
 
 
                 GenerateSelectParaClass gsp = new GenerateSelectParaClass();
-                int count = 0;
+                
 
                 selectorList.Capacity = selectorList.Count;
 
@@ -312,7 +301,7 @@ namespace HaruaConvert
 
 
 
-                    SelGenerate = count;
+                    //SelGenerate = count;
                 }
 
 
@@ -768,6 +757,12 @@ namespace HaruaConvert
                 //Call explicit GC
                 GC.Collect();
             }
+            catch(FFMpegCore.Exceptions.FFMpegException ex)
+            {
+                MessageBox.Show(ex.Message);    
+
+            }
+
             catch (NullReferenceException ex)
             {
                 MessageBox.Show(ex.Message + Environment.NewLine + "Stream infomation Empty");
@@ -1006,21 +1001,8 @@ namespace HaruaConvert
                 }
 
 
-
-                //WIndow Size
-                IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowLeft", Convert.ToString(Left, CultureInfo.CurrentCulture));
-                IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowTop", Convert.ToString(Top, CultureInfo.CurrentCulture));
-
-                //FileOpenDialog Init Path
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamField.Maintab_InputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamField.MainTab_OutputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamField.ParamTab_OutputSelectorDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamField.ParamTab_InputSelectorDirectory);
-
-                //Save Generated Number
-                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, NumericUpDown1.NUDTextBox.Text);
-
-
+                var setWriter = new IniSettings_IOClass();
+                setWriter.IniSettingWriter(paramField, this);
 
                 if (!string.IsNullOrEmpty(ParamText.Text))
                     IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
@@ -1376,6 +1358,13 @@ namespace HaruaConvert
         private void AtacchStringsList_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void isOpenFolder_Checked(object sender, RoutedEventArgs e)
+        {
+            paramField.isOpenFolder = (bool)IsOpenForuderChecker.IsChecked ? true : false;
+            
+        
         }
     }
 

@@ -21,6 +21,8 @@ namespace HaruaConvert.Parameter
         public bool isExitProcessed { get; set; }
         public string output { get; set; }
 
+        public bool isOpenFolder { get; set; }
+
 
         public string InputFileDirectory { get; set; }
 #pragma warning disable CA1711 // 識別子は、不適切なサフィックスを含むことはできません
