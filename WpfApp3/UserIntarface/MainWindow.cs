@@ -203,7 +203,7 @@ namespace HaruaConvert
                 FileList = new ObservableCollection<string>();
 
 
-                ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(paramField.iniPath, "ffmpegQuery", "endStrings", "_Harua");
+                ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua");
                 //  Set Default Parameter on FfmpegQueryClass
                 harua_View = new Harua_ViewModel(this);
 
@@ -1023,10 +1023,10 @@ namespace HaruaConvert
 
 
                 if (!string.IsNullOrEmpty(ParamText.Text))
-                    IniDefinition.SetValue(paramField.iniPath, "ffmpegQuery", "BaseQuery", ParamText.Text);
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
 
                 if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, "ffmpegQuery", "endStrings", endStringBox.Text);
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, , endStringBox.Text);
 
 
 
