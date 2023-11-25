@@ -2,6 +2,7 @@
 using System.Runtime.Loader;
 using System.IO;
 using System.Reflection;
+using System;
 
 namespace HaruaConvert
 {
@@ -10,31 +11,35 @@ namespace HaruaConvert
     /// </summary>
     public partial class App : Application
     {
-        
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            var view = new MainWindow()
-            {
-                DataContext = new MainWindow()
-            };
-            string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            //string dllPath = Path.Combine(exeDir, ".\\bin\\FFMpegCore.dll");
 
-            string[] fileList = Directory.GetFiles(exeDir + "\\dll");
+            //    string exeDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //    string dllDir = Path.Combine(exeDir, "dll");
 
 
             //    try
             //    {
             //        string[] fileList = Directory.GetFiles(dllDir);
 
-            foreach (string file in fileList)
-            {
-                if (file.Contains(".dll"))
-                    AssemblyLoadContext.Default.LoadFromAssemblyPath(file);
-            }
+            //        foreach (string file in fileList)
+            //        {
+            //            if (Path.GetExtension(file).Equals(".dll", StringComparison.OrdinalIgnoreCase))
+            //            {
+            //                Assembly.LoadFrom(file);
 
-
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        // 例外処理: ファイルの読み込みやアセンブリのロードに関するエラーが発生した場合の処理
+            //        Console.WriteLine($"Error loading assemblies: {ex.Message}");
+            //    }
+            //}
 
         }
+
     }
 }
