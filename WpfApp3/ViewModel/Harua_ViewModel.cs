@@ -24,7 +24,7 @@ namespace HaruaConvert.Parameter
             _Main_Param = new ObservableCollection<Main_Param>
             {
                new Main_Param { StartQuery = IniDefinition.GetValueOrDefault
-                                       (main.paramField.iniPath, "ffmpegQuery", "BaseQuery", "  -b:v 1200k -pix_fmt yuv420p -acodec aac -y -threads 2"),
+                                       (main.paramField.iniPath, "ffmpegQuery", "BaseQuery", "  -b:v 1200k -pix_fmt yuv420p yadif=0:-1:1 -acodec aac -y -threads 2"),
                 OutputPath = ParamField.MainTab_OutputDirectory,
                 endString = ClassShearingMenbers.endFileNameStrings,
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
