@@ -16,6 +16,7 @@ namespace HaruaConvert.Parameter
         public  string iniPath { get; set; }
         public  string setFile { get; set; }
 
+       
 
         public bool isExitProcessed { get; set; }
         public string output { get; set; }
@@ -49,7 +50,13 @@ namespace HaruaConvert.Parameter
         public bool isAutoScroll { get; set; }
         public bool isPaused { get; set; }
 
-        
+
+        public static class QueryNames
+        {
+            public const string ffmpegQuery = nameof(ffmpegQuery);
+            public const string BaseQuery = nameof(BaseQuery);
+            public const string endStrings = nameof(endStrings);
+        }
 
         public static class ButtonNameField
         {
