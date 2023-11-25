@@ -23,7 +23,9 @@ namespace HaruaConvert
             string[] fileList = Directory.GetFiles(exeDir + "\\dll");
 
 
-            //  < probing privatePath = ".\\bin" />
+            //    try
+            //    {
+            //        string[] fileList = Directory.GetFiles(dllDir);
 
             foreach (string file in fileList)
             {
