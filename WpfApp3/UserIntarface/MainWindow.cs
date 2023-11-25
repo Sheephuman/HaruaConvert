@@ -431,7 +431,7 @@ namespace HaruaConvert
 
 
             ///http://www.madeinclinic.jp/c/20180421/
-            else if (e.Key == Key.LeftShift)
+            else if (e.KeyboardDevice.Modifiers == ModifierKeys.Shift && e.Key == Key.Enter)
             {
                 paramField.isParam_Edited = true;
 
@@ -581,7 +581,15 @@ namespace HaruaConvert
             set { if (_OutputfilePath != paramField.setFile) { _OutputfilePath = paramField.setFile; RaisePropertyChanged(); } }
         }
 
-        //[DllImport("user32.dll", SetLastError = true)]
+        //[DllImport("user32
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //", SetLastError = true)]
         //public static extern bool ChangeWindowMessageFilterEx(IntPtr hWnd, uint msg, ChangeWindowMessageFilterExAction action, ref CHANGEFILTERSTRUCT changeInfo);
 
         //public enum ChangeWindowMessageFilterExAction : uint
@@ -723,10 +731,20 @@ namespace HaruaConvert
                 }
 
 
+                
 
                 SorceFileDataBox.Document.Blocks.Clear();
+                
+                
+                FFOptions probe = new FFOptions();
+                probe.BinaryFolder = "dll";
 
-                var mediaInfo = FFProbe.Analyse(paramField.setFile);
+
+                var mediaInfo = FFProbe.Analyse(paramField.setFile,probe);
+
+
+
+
                 var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
                 var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
                 var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
@@ -890,7 +908,7 @@ namespace HaruaConvert
                 //
                 //ImageBrush transformImageBrush = new ImageBrush();
                 //transformImageBrush.ImageSource =
-                //    new BitmapImage(new Uri(@"harua.jpg", UriKind.Relative));
+                //    new BitmapImage(new Uri(@"m", UriKind.Relative));
 
                 //myBrush.Opacity = 0.2;
 

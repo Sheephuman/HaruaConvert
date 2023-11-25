@@ -76,7 +76,7 @@
                 <TabControl 
                 VerticalAlignment="Top"
                 Margin="0,-10,0,0"
-                Height="440"                
+                Height="440"                    
         Panel.ZIndex="0" 
                 x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" Grid.ColumnSpan="3" 
                     >
