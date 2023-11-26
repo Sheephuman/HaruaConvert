@@ -26,6 +26,7 @@ namespace HaruaConvert
         /// </summary>
         public Process _FfmpProcess { get; set; } = null!;
 
+       public EscapePath escapes { get; set; }
 
 
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
@@ -52,7 +53,9 @@ namespace HaruaConvert
             //For Kill ffmpeg Process
 
 
-            
+            escapes = new EscapePath();
+
+
 
             baseArguments = "";
 
@@ -86,7 +89,7 @@ namespace HaruaConvert
                 else
                     paramField.check_output = Path.GetDirectoryName(_fullPath) + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
 
-                var escapes = new EscapePath();
+                
 
 
 
@@ -112,19 +115,26 @@ namespace HaruaConvert
 
             //IDisposable alterr = new IDisposableBase();
             //alterr.Dispose();
-
+            bool checker = false;
 
             var ifNoFiles = new IfNoFileExsistsClass(this);
-
-            using (var Alternate_FileExsists = new Alternate_FileExsists())
+            
+            try
             {
-                return FileExsosts_and_NoDialogCheck(paramField.check_output , NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
-
+                using (var Alternate_FileExsists = new Alternate_FileExsists())
+                {
+                    checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
+                    return checker;
+                }
             }
-
+            
             #endregion
 
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
 
@@ -331,5 +341,7 @@ namespace HaruaConvert
             Debug.WriteLine(e);
         }
 
+
+        
     }
 }
