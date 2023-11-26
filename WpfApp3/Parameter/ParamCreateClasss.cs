@@ -8,12 +8,12 @@ namespace HaruaConvert.Parameter
     public class ParamCreateClasss
     {
 
-        public ParamCreateClasss(string _fullPath)
+        public ParamCreateClasss(string _fullPath , string ConvertFile)
         {
 
 
             inputPath_ReadOnly = _fullPath;
-            
+            _convertFile = ConvertFile;
 
             //check_output_Readonly = param.check_output_Readonly;
         }
@@ -21,14 +21,7 @@ namespace HaruaConvert.Parameter
         //Perfect Constructor menber
         readonly string inputPath_ReadOnly;
 
-
-        public string inputPath;
-        
-        public string check_output;
-
-
-
-        public string output;
+        public string _convertFile;
 
         public string arguments;
         /// <summary>
@@ -39,22 +32,22 @@ namespace HaruaConvert.Parameter
 
 
         
-        public string AddParamEscape()
+        public EscapePath AddParamEscape(EscapePath escape)
         {
 
 
 
 
-                //inputPath = @"""" + inputPath_ReadOnly + @"""";
-                inputPath = "\"" + inputPath_ReadOnly + "\"";
+            //inputPath = @"""" + inputPath_ReadOnly + @"""";
+            escape.inputPath = "\"" + inputPath_ReadOnly + "\"";
 
-                output = "\"" + check_output + "\"";
+                  escape.outputPath = "\"" + _convertFile + "\"";
 
-               ParamField.OutputPath = output;
+               //ParamField.OutputPath = outputPath;
 
 
-             arguments = inputPath;
-                return arguments;
+           //  arguments = inputPath;
+                return escape;
             
             
                

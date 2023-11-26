@@ -47,7 +47,7 @@ namespace HaruaConvert.Methods
                         mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + mw.InputSelector.FilePathBox.Text + @"""");
 
 
-                        var OutputMatches = new Regex("\\{" + "output" + "\\}");
+                        var OutputMatches = new Regex("\\{" + "outputPath" + "\\}");
 
                         mw.baseArguments = OutputMatches.Replace(mw.baseArguments, @"""" + mw.OutputSelector.FilePathBox.Text);
                         //Attach Output Path as Converted FileName
@@ -59,7 +59,7 @@ namespace HaruaConvert.Methods
 
 
 
-                        mw.param.check_output = mw.OutputSelector.FilePathBox.Text;
+                        mw.param._convertFile = mw.OutputSelector.FilePathBox.Text;
 
                         mw.th1.DisableComObjectEagerCleanup();
 

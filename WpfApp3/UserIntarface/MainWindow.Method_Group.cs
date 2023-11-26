@@ -52,7 +52,7 @@ namespace HaruaConvert
             //For Kill ffmpeg Process
 
 
-            param = new ParamCreateClasss(_fullPath);
+            
 
             baseArguments = "";
 
@@ -74,7 +74,8 @@ namespace HaruaConvert
             if (ClassShearingMenbers.ButtonName == chButton.Name)
             {
                 //先頭パラメータを付ける
-                _arguments = param.AddParamEscape();
+                
+
 
 
                 var con = new ConvertFileNameClass();
@@ -85,11 +86,18 @@ namespace HaruaConvert
                 else
                     paramField.check_output = Path.GetDirectoryName(_fullPath) + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
 
+                var escapes = new EscapePath();
+
+
+
+                param = new ParamCreateClasss(_fullPath, paramField.check_output);
+
+                escapes = param.AddParamEscape(escapes);
 
                 //_fullPath, harua_View
 
-                _arguments = Ffmpc.AddsetQuery(_arguments, harua_View);
-                _arguments = AddOptionClass.AddOption(_arguments) + " " + $" { paramField.check_output}";
+                _arguments = Ffmpc.AddsetQuery(escapes.inputPath, harua_View);
+                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ escapes.outputPath}";
 
             }
 
@@ -205,7 +213,7 @@ namespace HaruaConvert
                 _FfmpProcess.StartInfo.FileName = "cmd.exe";
 
 
-                _FfmpProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
+                    _FfmpProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
 
 
 
