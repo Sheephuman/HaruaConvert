@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Windows.Gaming.Input;
 
 namespace HaruaConvert
 {
@@ -168,6 +169,37 @@ namespace HaruaConvert
 
             
         }
+
+        private void BackImage_Checker_Checked(object sender, RoutedEventArgs e)
+        {
+        
+            
+            main.paramField.isBackImage = !main.paramField.isBackImage ? true : false; ;
+
+            ImageBrush image = new ImageBrush();
+            image.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri("BackImage\\harua.jpg", UriKind.Relative));
+            if (main.paramField.isBackImage)
+            {
+
+                image.Opacity = 0.6;
+
+                main.Lw.RichTextRogs.Opacity = 1;
+                main.Lw.RichTextRogs.Background = SystemColors.WindowBrush;
+                main.Lw.RichTextRogs.Foreground = Brushes.Black;
+                // ブラシを背景に設定する
+                main.Lw.RichTextRogs.Background = image;
+
+            }
+            else
+            {
+                image.Opacity = 0;
+                main.Lw.RichTextRogs.Opacity = 0.6;
+                main.Lw.RichTextRogs.Foreground = Brushes.White;
+                main.Lw.RichTextRogs.Background = Brushes.Black;
+            }
+        }
+
+       
     }
 
 

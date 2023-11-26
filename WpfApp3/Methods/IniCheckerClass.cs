@@ -5,7 +5,7 @@ using HaruaConvert.Parameter;
 
 namespace HaruaConvert.Methods
 {
-    internal class IniGetSetValueClass
+    internal class IniCheckerClass
     {
         
 

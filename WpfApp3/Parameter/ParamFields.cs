@@ -12,6 +12,9 @@ namespace HaruaConvert.Parameter
     ////Case:use static When share used parameter on Class 
     public class ParamField
     {
+        public string inputPath_ReadOnly { get;}
+
+        public string  check_output { get; set; }
 
         public  string iniPath { get; set; }
         public  string setFile { get; set; }
@@ -22,7 +25,7 @@ namespace HaruaConvert.Parameter
         public string output { get; set; }
 
         public bool isOpenFolder { get; set; }
-
+        public bool isBackImage { get; set; }
 
         public string InputFileDirectory { get; set; }
 #pragma warning disable CA1711 // 識別子は、不適切なサフィックスを含むことはできません

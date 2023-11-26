@@ -10,12 +10,14 @@
         Opacity="0.8"
         Closed="window_Closed" 
         Closing="window_Closing"
-        >
-    
+        SizeToContent="Height"       >
+
     <Grid >
         
         <RichTextBox x:Name="RichTextRogs"   
-            Width="500" Height="340"
+                     VerticalAlignment="Top"
+            Width="500" Height="348"
+                     Margin="0,25,0,0"
              FontSize="14"
              Background="Black" Foreground= "AliceBlue" SelectionTextBrush="{Binding TextColor}" Opacity="0.5" Grid.ColumnSpan="1"
                DataContextChanged="RichTextRogs_DataContextChanged"    
@@ -29,7 +31,12 @@
                               IsCheckable="True"
                               Checked="AutoScroll_Checker_Checked"
                               Unchecked="AutoScroll_Checker_Checked"/>
-                    
+                    <MenuItem Header="背景画像を表示"
+                              x:Name="BackImage_Checker"
+                              IsCheckable="True"
+                              Checked="BackImage_Checker_Checked"
+                              Unchecked="BackImage_Checker_Checked"/>
+
                 </ContextMenu>
             </RichTextBox.ContextMenu>
             <!--<FlowDocument>
@@ -50,16 +57,24 @@
         </RichTextBox>
 
         <StackPanel Orientation="Horizontal">
-        <TextBlock Margin="10,1,0,0" VerticalAlignment="Top" Width="400" Height="20" Text="RogWindow" />
-         <Button x:Name="ConvertStop" Background="Gray" BorderThickness="0"
-                    Margin="-300,1,0,0" Content="Convert Stop" Height="18" Width="80" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ConvertStop_Click"/>
+        <TextBlock 
+            x:Name="LogCaptionBlock"
+            FontSize="20"
+            Margin="10,1,0,0" VerticalAlignment="Top" Width="400" 
+            Height="26" Text="LogWindow" />
+            <Button x:Name="ConvertStop" Background="Snow" BorderThickness="0"
+                    Margin="-280,1,0,0" Height="24" Width="120" VerticalAlignment="Top"
+                    HorizontalAlignment="Left" Click="ConvertStop_Click"
+                    FontSize="18"
                     FontWeight="Bold"
-                    Margin="-300,0,0,0" Content="変換停止" 
+                    Content="Convert Stop" />
+            
             <Button x:Name="MinimizeButton" Background="Snow" BorderThickness="0"
-                    Margin="0,-354,0,0"
-             Content="最小化" Height="15" Width="80" Click="MinimizeButton_Click"/>
+                    VerticalAlignment="Top"                    
+             Content="最小化" Height="18" Width="80" Click="MinimizeButton_Click"/>
             <CheckBox
                 Style="{StaticResource {x:Type ToggleButton}}"  x:Name="PauseButton" Background="Snow" 
+                    Visibility="Hidden"
                     Checked="PauseButton_Checked"
                     Unchecked="PauseButton_Checked"
                     Margin="-220,-356,0,0"

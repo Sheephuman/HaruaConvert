@@ -4,6 +4,7 @@ using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.SymbolStore;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -24,7 +25,7 @@ namespace HaruaConvert
 
      
 
-        string _arguments;
+        public string _arguments { get; set; }
 
         /// <summary>
         /// 共有箇所：LogWindowのConvertStopButton
@@ -41,7 +42,7 @@ namespace HaruaConvert
         /// <summary>
         /// 共有箇所：LogWindowのClose時
         /// </summary>
-        private Thread th1 = null!;
+        public Thread th1 { get; set; } = null!;
 
         //   delegate string addOptionDeligate(string _argument);
 
@@ -79,18 +80,32 @@ namespace HaruaConvert
             if (ClassShearingMenbers.ButtonName == chButton.Name)
             {
                 //先頭パラメータを付ける
-                _arguments = param.AddParamEscape(_fullPath);
-                
+                _arguments = param.AddParamEscape();
 
-                _arguments = Ffmpc.AddsetQuery(_arguments, harua_View._Main_Param[0].StartQuery);
-                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{OutputPath}";
+
+
+
+                var con = new ConvertFileNameClass();
+
+                //保存先パスの有無判定
+                if (string.IsNullOrEmpty(_fullPath))
+                    paramField.check_output = _fullPath + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
+                else
+                    paramField.check_output = Path.GetDirectoryName(_fullPath) + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
+
+
+                //_fullPath, harua_View
+
+                _arguments = Ffmpc.AddsetQuery(_arguments, harua_View);
+                _arguments = AddOptionClass.AddOption(_arguments) + " " + $" { paramField.check_output}";
 
             }
 
 
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
-                isUserOriginalParameter_Method(sender);
+                var isOrigenelParam = new isUserOriginalParameter(this);
+                isOrigenelParam.isUserOriginalParameter_Method(sender);
             }
 
             #region ファイル存在判定
@@ -101,7 +116,7 @@ namespace HaruaConvert
 
             using (var Alternate_FileExsists = new Alternate_FileExsists())
             {
-                return FileExsosts_and_NoDialogCheck(param.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : IfNoFileExsists();
+                return FileExsosts_and_NoDialogCheck(paramField.check_output , NoDialogCheck.IsChecked.Value) ? DialogMethod() : IfNoFileExsists();
 
             }
 
@@ -110,63 +125,6 @@ namespace HaruaConvert
 
         }
 
-
-        bool isUserOriginalParameter_Method(object sender)
-        {
-            //"FileDropButton2"
-            if ((ButtonNameField._ExecButton == ((Button)sender).Name))
-            {
-                               
-
-                #region foreach Scopes
-                foreach (ParamSelector sp in selectorList)
-                {             
-                    if (sp.SlectorRadio.IsChecked.Value)
-                    {
-                        baseArguments = sp.ArgumentEditor.Text;
-                    }
-                }
-
-                foreach (var sp in selectorList)
-                {
-                    if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
-                    {
-
-                        var inputMatches = new Regex("\\{" + "input" + "\\}");
-                        baseArguments = inputMatches.Replace(baseArguments, @"""" + InputSelector.FilePathBox.Text + @"""");
-
-
-                        var OutputMatches = new Regex("\\{" + "output" + "\\}");
-
-                        baseArguments = OutputMatches.Replace(baseArguments, @"""" + OutputSelector.FilePathBox.Text);
-                        //Attach Output Path as Converted FileName
-
-
-
-                        baseArguments = baseArguments.Replace("{{" + "input" + "}}", @"""" + InputSelector.FilePathBox.Text + @"""");
-                        //"\"{{{input}}}}\""
-
-
-
-                        param.check_output = OutputSelector.FilePathBox.Text;
-
-                        th1.DisableComObjectEagerCleanup();
-
-                        if (baseArguments.Contains("%03d", StringComparison.Ordinal))
-                        { baseArguments += @""""; }
-
-                        else if (baseArguments.Contains("%04d", StringComparison.Ordinal))
-                        {
-                            baseArguments += @"""";
-                        }
-
-                        _arguments = baseArguments;
-                    }
-                }
-                #endregion
-            }
-            return true;
-        }
 
 
         bool IfNoFileExsists()
@@ -360,7 +318,7 @@ namespace HaruaConvert
                     explorerProcess.StartInfo.FileName = "explorer.exe";
 
                     // /select オプションを使用して、ファイルを選択して表示
-                    explorerProcess.StartInfo.Arguments = $"/select, \"{param.check_output}\"";
+                    explorerProcess.StartInfo.Arguments = $"/select, \"{paramField.check_output}\"";
 
                     // Explorerプロセスを開始
                     explorerProcess.Start();

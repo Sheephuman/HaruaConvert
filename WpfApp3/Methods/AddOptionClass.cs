@@ -53,7 +53,7 @@ namespace HaruaConvert.Methods
 
             if (MainWindow.ChekOptionStruct.isHorizontalRotate) //180度回転させる
             {
-                _arguments += " -vf transpose=3 ";
+                _arguments += " -vf hflip,vflip ";
             }
 
 
