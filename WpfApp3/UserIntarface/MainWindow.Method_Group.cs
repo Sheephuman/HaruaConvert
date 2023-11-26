@@ -2,19 +2,13 @@
 using HaruaConvert.Parameter;
 using NAudio.Wave;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.SymbolStore;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using WpfApp3.Parameter;
-
-using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert
 {

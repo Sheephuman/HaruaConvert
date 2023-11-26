@@ -5,7 +5,7 @@ namespace HaruaConvert.Parameter
 {
 
     /// <summary>
-    /// Ini関係はIniSettingConsthへ    ///
+    /// MainWindowでインスタンス化して使い回しするデータクラス  ///
     /// </summary>
     /// 
 

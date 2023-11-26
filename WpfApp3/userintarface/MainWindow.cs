@@ -45,16 +45,16 @@ namespace HaruaConvert
 
         /// <summary>
         ///共有箇所：Generate_ParamSelector() :
-        ///isUserOriginalParameter_Method :
+        ///isUserOriginalParameter :
         ///コンストラクタ 
         /// </summary>
-        List<ParamSelector> selectorList;
+       public List<ParamSelector> selectorList { get; set; }
 
 
 
 
         bool firstSet { get; set; } //初回起動用
-        string baseArguments;
+        public string baseArguments { get; set; }
 
         List<CheckBox> childCheckBoxList;
 
@@ -192,14 +192,16 @@ namespace HaruaConvert
                 FileList = new ObservableCollection<string>();
 
 
-                ClassShearingMenbers.endFileNameStrings = IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua");
+               
                 //  Set Default Parameter on FfmpegQueryClass
                 harua_View = new Harua_ViewModel(this);
 
 
 
 
-                DataContext = harua_View._Main_Param;
+        
+
+                     DataContext = harua_View._Main_Param;
 
 
                 //_arguments = Harua_ViewModel.StartQuery;
@@ -252,7 +254,7 @@ namespace HaruaConvert
                 selectorList = new List<ParamSelector>();
                 childCheckBoxList = new List<CheckBox>();
 
-                childCheckBoxList.Capacity = 4;
+                childCheckBoxList.Capacity = 5;
 
 
                 //子要素を列挙するDelegate
@@ -280,7 +282,7 @@ namespace HaruaConvert
                     Debug.WriteLine(child);
                 });
 
-                var init = new IniGetSetValueClass.CheckboxGetSetValueClass();
+                var init = new IniCheckerClass.CheckboxGetSetValueClass();
 
 
                 foreach (CheckBox chk in childCheckBoxList)
@@ -322,11 +324,16 @@ namespace HaruaConvert
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);
             //var ansest = sender as ParamSelector;
             if (ansest == null)
+            {
+            
                 return;
+            }
 
+            paramField.isParam_Edited = firstSet ? false : true;    
 
             paramField.usedOriginalArgument = ansest.ArgumentEditor.Text;
 
+            
         }
 
 
@@ -354,7 +361,7 @@ namespace HaruaConvert
         private void chk_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //var iniSet = new IniGetSetValueClass.CheckboxGetSetValueClass();
+            //var iniSet = new Checker_IniIOClass.CheckboxGetSetValueClass();
 
         }
 
@@ -720,16 +727,16 @@ namespace HaruaConvert
                 }
 
 
-                
+
 
                 SorceFileDataBox.Document.Blocks.Clear();
-                
-                
+
+
                 FFOptions probe = new FFOptions();
                 probe.BinaryFolder = "dll";
 
 
-                var mediaInfo = FFProbe.Analyse(paramField.setFile,probe);
+                var mediaInfo = FFProbe.Analyse(paramField.setFile, probe);
 
 
 
@@ -757,15 +764,19 @@ namespace HaruaConvert
                 //Call explicit GC
                 GC.Collect();
             }
-            catch(FFMpegCore.Exceptions.FFMpegException ex)
+            catch (FFMpegCore.Exceptions.FFMpegException ex)
             {
-                MessageBox.Show(ex.Message);    
+                MessageBox.Show(ex.Message + Environment.NewLine + "codec情報が欠損しているかも知れないわ");
 
             }
 
+
             catch (NullReferenceException ex)
             {
-                MessageBox.Show(ex.Message + Environment.NewLine + "Stream infomation Empty");
+                MessageBox.Show(ex.Message
+                    +Environment.NewLine + "fforobeの呼び出しに失敗したみたい" 
+                    + Environment.NewLine + 
+                    "正常な動画ファイルを使うか、動画をエンコードし直してね");
                 SorceFileDataBox.Document.Blocks.Clear();
 
             }
@@ -777,6 +788,7 @@ namespace HaruaConvert
             catch (Instances.Exceptions.InstanceProcessAlreadyExitedException ex)
             {
                 Console.WriteLine(ex.Message + Environment.NewLine);
+                MessageBox.Show(ex.Message + Environment.NewLine + "codec情報が欠損しているかも知れないわ");
             }
 
             catch (Win32Exception ex)
@@ -993,7 +1005,7 @@ namespace HaruaConvert
 
 
 
-                var checkedSet = new IniGetSetValueClass.CheckboxGetSetValueClass();
+                var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
                 foreach (CheckBox chk in childCheckBoxList)
                 {
 
@@ -1071,7 +1083,7 @@ namespace HaruaConvert
             {
                 if (ansest.Name == InputSelector.Name)
                 {
-                  //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileName(InputSelector.FilePathBox.Text);
+                  //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileNameClass(InputSelector.FilePathBox.Text);
 
                     ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
                 }
@@ -1094,66 +1106,20 @@ namespace HaruaConvert
 
 
 
-        private void RotateOption_Checked(object sender, RoutedEventArgs e)
-        {
-            var radio = sender as RadioButton;
-
-
-
-            //RadioButtonをクリックしたときにfalseを再設定する
-            switch (radio.Name)
-            {
-                case "NoRotate":
-                    ChekOptionStruct.isNoRotate = true;
-                    ChekOptionStruct.isRightRotate = false;
-                    ChekOptionStruct.isLeftRotate = false;
-                    ChekOptionStruct.isHorizontalRotate = false;
-                    break;
-
-                case "Right_Rotate":
-                    ChekOptionStruct.isNoRotate = false;
-                    ChekOptionStruct.isRightRotate = true;
-                    ChekOptionStruct.isLeftRotate = false;
-                    ChekOptionStruct.isHorizontalRotate = false;
-                    break;
-
-                case "Left_Rotate":
-                    ChekOptionStruct.isNoRotate = false;
-                    ChekOptionStruct.isRightRotate = false;
-                    ChekOptionStruct.isLeftRotate = true;
-                    ChekOptionStruct.isHorizontalRotate = false;
-                    break;
-
-                case "Horizon_Rotate":
-                    ChekOptionStruct.isNoRotate = false;
-                    ChekOptionStruct.isRightRotate = false;
-                    ChekOptionStruct.isLeftRotate = false;
-                    ChekOptionStruct.isHorizontalRotate = true;
-                    break;
-            }
-
-
-            if (!ChekOptionStruct.isNoRotate)
-            { _arguments = _arguments.Replace(" -metadata:s:v:0 rotate=0 ", ""); }
-
-            else if (!ChekOptionStruct.isRightRotate)
-            {
-                _arguments = _arguments.Replace(" -vf transpose=1 ", "");
-            }
-
-            else if (!ChekOptionStruct.isLeftRotate)
-            {
-                _arguments = _arguments.Replace(" -vf transpose=2 ", "");
-            }
-            else if (!ChekOptionStruct.isHorizontalRotate)
-            {
-                _arguments = _arguments.Replace(" -vf transpose=3 ", "");
-            }
-
-        }
 
         bool isForceExec;
-        private void isForceExec_Checked(object sender, RoutedEventArgs e)
+        private void isForceExec_
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            (object sender, RoutedEventArgs e)
         {
             isForceExec = isForceExecCheckBox.IsChecked.Value ? true : false;
         }
@@ -1366,6 +1332,7 @@ namespace HaruaConvert
             
         
         }
+
     }
 
 }
