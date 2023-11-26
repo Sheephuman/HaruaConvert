@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:HaruaConvert="clr-namespace:HaruaConvert"
-        xmlns:UserControls="clr-namespace:HaruaConvert.UserControls" x:Class="HaruaConvert.MainWindow"
+        xmlns:UserControls="clr-namespace:HaruaConvert.UserControls" xmlns:parameter="clr-namespace:HaruaConvert.Parameter" d:DataContext="{d:DesignInstance Type=parameter:Harua_ViewModel}" x:Class="HaruaConvert.MainWindow"
         mc:Ignorable="d"
         Title="はるあちゃんこんば～た" Height="440" Width="550"
         MinHeight="460"
@@ -141,9 +141,9 @@
                                             <CheckBox x:Name="isForceExecCheckBox"
                                                       Content="ffmpeg.exe を強制的に実行する"
                                                    Margin="150,0,0,0"  
-                                                      Checked="isForceExec_Checked"
+                                                      
                                                       Visibility="Hidden"
-                                                      Unchecked="isForceExec_Checked"/>
+                                                      />
 
                                             <TextBlock Grid.Row="2"
                                         Text="Drugするかボタンクリック"  Margin="0,-20,0,0"/>

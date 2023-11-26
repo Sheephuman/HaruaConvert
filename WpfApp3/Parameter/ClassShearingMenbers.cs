@@ -11,7 +11,7 @@ namespace WpfApp3.Parameter
 
         public static string ButtonName { get; set; }
 
-        public static string endFileNameStrings { get; set; }
+        public static string endString { get; set; }
 
     }
 }

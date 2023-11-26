@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using HaruaConvert.Methods;
+using System.IO;
 using WpfApp3.Parameter;
 
 namespace HaruaConvert.Parameter
@@ -31,21 +32,16 @@ namespace HaruaConvert.Parameter
 
         public string arguments;
         /// <summary>
-        /// Call ffmpegQuery Class
+        /// parameterのEscapeを行う
         /// make Parameter
         /// </summary>
-        /// <returns></returns>
-        /// 
+        /// <returns></returns>      /// 
 
-        public string AddParamEscape(string locatePath)
+
+        
+        public string AddParamEscape()
         {
-             
 
-                //保存先パスの有無判定
-                if(string.IsNullOrEmpty(locatePath))
-                    check_output = locatePath + "\\" + ConvertFileName(Path.GetFileName(inputPath_ReadOnly));
-                else
-                    check_output = Path.GetDirectoryName(inputPath_ReadOnly) +  "\\" + ConvertFileName(Path.GetFileName(inputPath_ReadOnly));
 
 
 
@@ -68,15 +64,6 @@ namespace HaruaConvert.Parameter
 
 
         }
-
-        //出力先のファイル名として変換処理
-        public string ConvertFileName(string fullPath)
-        {
-            string convertName = $"{fullPath.Replace(".mp4", "")}"+ ClassShearingMenbers. endFileNameStrings  + ".mp4";
-
-            return convertName;
-        }
-
 
 
 

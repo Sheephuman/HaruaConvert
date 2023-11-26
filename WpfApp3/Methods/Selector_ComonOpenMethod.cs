@@ -85,7 +85,7 @@ namespace HaruaConvert.Methods
                 //Update inputSelectorDirectory
                 ParamField.ParamTab_InputSelectorDirectory
                     = Path.GetDirectoryName(main.ofc.opFileName);
-                main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName) + ClassShearingMenbers.endFileNameStrings;
+                main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName) + ClassShearingMenbers.endString;
                 selector.FilePathBox.Text = main.ofc.opFileName;
 
                 main.OutputSelector.FilePathBox.Text = Path.GetDirectoryName(main.ofc.opFileName) + "\\" + main.paramField.outputFileName_withoutEx + ".mp4";

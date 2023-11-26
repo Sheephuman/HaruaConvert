@@ -36,14 +36,14 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public string AddsetQuery(string input, string StartQuery)
+        public string AddsetQuery(string input, Harua_ViewModel harua_view)
         {
      //      var dh = new Harua_ViewModel();
             if (string.IsNullOrEmpty(UserParam))
             {
                 //var hview = new Harua_ViewModel(_main);
                 
-                SetQuery = "-i " + $"{input} " + StartQuery;
+                SetQuery = "-i " + $"{input} " + harua_view._Main_Param[0].StartQuery;
             }
             else
                 SetQuery = "-i " + $"{input}" + " " + UserParam;
