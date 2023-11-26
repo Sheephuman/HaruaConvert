@@ -1059,7 +1059,8 @@ namespace HaruaConvert
         public void FileSelector_MouseDown(object sender, RoutedEventArgs e)
         {
 
-
+            //Set endFiileName Strings
+            ClassShearingMenbers.endString = harua_View._Main_Param[0].endString;
 
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<FileSelector>((DependencyObject)sender);
 
