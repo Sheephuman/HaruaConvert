@@ -53,6 +53,8 @@
         <TextBlock Margin="10,1,0,0" VerticalAlignment="Top" Width="400" Height="20" Text="RogWindow" />
          <Button x:Name="ConvertStop" Background="Gray" BorderThickness="0"
                     Margin="-300,1,0,0" Content="Convert Stop" Height="18" Width="80" VerticalAlignment="Top" HorizontalAlignment="Left" Click="ConvertStop_Click"/>
+                    FontWeight="Bold"
+                    Margin="-300,0,0,0" Content="変換停止" 
             <Button x:Name="MinimizeButton" Background="Snow" BorderThickness="0"
                     Margin="0,-354,0,0"
              Content="最小化" Height="15" Width="80" Click="MinimizeButton_Click"/>
