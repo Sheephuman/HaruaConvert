@@ -1,4 +1,5 @@
 ﻿using FFMpegCore.Arguments;
+using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,10 @@ namespace HaruaConvert.Methods
         public isUserOriginalParameter(MainWindow _main)
         {
             mw = _main;
+        
         }
 
-
+        EscapePath escapes;
 
        public bool isUserOriginalParameter_Method(object sender)
         {
@@ -42,24 +44,30 @@ namespace HaruaConvert.Methods
                 {
                     if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
                     {
-
+                        
+                        
                         var inputMatches = new Regex("\\{" + "input" + "\\}");
                         mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + mw.InputSelector.FilePathBox.Text + @"""");
 
 
-                        var OutputMatches = new Regex("\\{" + "outputPath" + "\\}");
+                        mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
 
-                        mw.baseArguments = OutputMatches.Replace(mw.baseArguments, @"""" + mw.OutputSelector.FilePathBox.Text);
+                        
+
+                        var OutputMatches = new Regex("\\{" + "output" + "\\}");
+
                         //Attach Output Path as Converted FileName
+                        mw.baseArguments = OutputMatches.Replace(mw.baseArguments, @"""" + mw.OutputSelector.FilePathBox.Text);
 
 
 
                         mw.baseArguments = mw.baseArguments.Replace("{{" + "input" + "}}", @"""" + mw.InputSelector.FilePathBox.Text + @"""");
                         //"\"{{{input}}}}\""
+                        mw.baseArguments = mw.baseArguments.Replace("{{" + "output" + "}}", @"""" + mw.OutputSelector.FilePathBox.Text);
 
 
-
-                        mw.param._convertFile = mw.OutputSelector.FilePathBox.Text;
+                        mw.baseArguments += @"""";
+                        //mw.param._convertFile = mw.OutputSelector.FilePathBox.Text;
 
                         mw.th1.DisableComObjectEagerCleanup();
 

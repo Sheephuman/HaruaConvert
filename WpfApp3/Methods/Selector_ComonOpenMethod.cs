@@ -77,7 +77,7 @@ namespace HaruaConvert.Methods
 
 
 
-                selector.FilePathBox.Text = ParamField.ParamTab_OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ".mp4";
+                selector.FilePathBox.Text = ParamField.ParamTab_OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ClassShearingMenbers.endString + ".mp4";
 
 
             }
@@ -86,10 +86,12 @@ namespace HaruaConvert.Methods
                 //Update inputSelectorDirectory
                 ParamField.ParamTab_InputSelectorDirectory
                     = Path.GetDirectoryName(main.ofc.opFileName);
-                main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName) + ClassShearingMenbers.endString;
+                main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName);
                 selector.FilePathBox.Text = main.ofc.opFileName;
 
-                main.OutputSelector.FilePathBox.Text = Path.GetDirectoryName(main.ofc.opFileName) + "\\" + main.paramField.outputFileName_withoutEx + ".mp4";
+                main.OutputSelector.FilePathBox.Text = Path.GetDirectoryName(main.ofc.opFileName) + "\\" + main.paramField.outputFileName_withoutEx
+                    + main.harua_View._Main_Param[0].endString
+                    + ".mp4";
 
 
                 return commons;
