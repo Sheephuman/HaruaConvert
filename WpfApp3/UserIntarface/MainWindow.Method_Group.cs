@@ -77,8 +77,6 @@ namespace HaruaConvert
                 _arguments = param.AddParamEscape();
 
 
-
-
                 var con = new ConvertFileNameClass();
 
                 //保存先パスの有無判定
@@ -108,9 +106,11 @@ namespace HaruaConvert
             //alterr.Dispose();
 
 
+            var ifNoFiles = new IfNoFileExsistsClass(this);
+
             using (var Alternate_FileExsists = new Alternate_FileExsists())
             {
-                return FileExsosts_and_NoDialogCheck(paramField.check_output , NoDialogCheck.IsChecked.Value) ? DialogMethod() : IfNoFileExsists();
+                return FileExsosts_and_NoDialogCheck(paramField.check_output , NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
 
             }
 
@@ -119,26 +119,6 @@ namespace HaruaConvert
 
         }
 
-
-
-        bool IfNoFileExsists()
-        {
-            //ffmpegが終了している状態のとき
-            if (paramField.isExitProcessed)
-            {
-
-                th1.Start();
-
-                Lw.Show();
-                Lw.Activate();
-            }
-            else
-            {
-                MessageBox.Show("ffmpeg.exeが実行中なのです");
-            }
-            return false;
-
-        }
 
 
         bool DialogMethod()
