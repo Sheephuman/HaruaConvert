@@ -1,10 +1,15 @@
-# HaruaConvert
+# このソフトウェアについて
+
 
 WPF/C# で制作しています。<br>
+
+元ネタは　Twitter用に動画変換するヤツ([2016_twitter_convert](https://cloth.moe/2016_twitter_convert)　)（2019）　で、ffmpegに渡すパラメータを随時変更出来、bitrate指定により動画圧縮まで可能にします。
+
 <br>
 機能の概要<br>
 a.ドラッグ&ドロップで動画をTwitter（X）に投稿可能な動画ファイルとして出力します。<br>
-　-b:v 500k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2<br>
+　-b:v 1200k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2<br>
+h264とvf yadif=0:-1:1　がポイントらしいです。
 
 ![スクリーンショット 2023-11-23 223057](https://github.com/Sheephuman/HaruaConvert/assets/34499259/f659886e-615e-410b-8055-225ecf9d745f)
 
