@@ -64,10 +64,6 @@ namespace HaruaConvert
 
 
 
-
-
-
-
             //Whether to use Original Paramerter Query
             var chButton = VisualTreeHelperWrapperHelpers.FindDescendant<Button>(Drop_Label);
 
@@ -302,15 +298,17 @@ namespace HaruaConvert
 
 
             paramField.isExitProcessed = true;
-
-            if (paramField.isOpenFolder)
-                // Explorerのプロセスを起動
+          
+              if (paramField.isOpenFolder)                
                 using (Process explorerProcess = new Process())
                 {
                     explorerProcess.StartInfo.FileName = "explorer.exe";
 
+                    
                     // /select オプションを使用して、ファイルを選択して表示
                     explorerProcess.StartInfo.Arguments = $"/select, \"{paramField.check_output}\"";
+
+
 
                     // Explorerプロセスを開始
                     explorerProcess.Start();

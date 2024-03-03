@@ -61,7 +61,7 @@ namespace HaruaConvert.HaruaInterFace
 
                     main.Drop_Label.Content = "変換";
 
-                    ParamField.Maintab_InputDirectory =    Path.GetDirectoryName(main.paramField.setFile);
+                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(main.paramField.setFile);
 
 
                     //Update Maintab_InputDirectory
@@ -69,6 +69,11 @@ namespace HaruaConvert.HaruaInterFace
 
 
                 }
+                else //Selected Cancel
+                {
+                    return;
+                }
+                    
                 main.displayMediaInfo(main.paramField.setFile);
                 //  ParamField.ConvertDirectory = ofc.opFileName;
             }
@@ -95,7 +100,7 @@ namespace HaruaConvert.HaruaInterFace
             if (!string.IsNullOrEmpty(main.paramField.setFile))
             {
                 //Convert Process Improvement Part
-                main.paramField.isExitProcessed = main.FileConvertExec(main.paramField.setFile, sender);
+               main.paramField.isExitProcessed = main.FileConvertExec(main.paramField.setFile, sender);
 
 
 
