@@ -1,7 +1,8 @@
 # このソフトウェアについて
 
-
+カジュアルな外観（かなり多分）のffmpegフロントエンドです
 WPF/C# で制作しています。<br>
+aviutlのLog表示の挙動を取り入れてます<br>
 
 元ネタは　Twitter用に動画変換するヤツ([2016_twitter_convert](https://cloth.moe/2016_twitter_convert)　)（2019）　で、ffmpegに渡すパラメータを随時変更出来、bitrate指定により動画圧縮まで可能にします。
 
