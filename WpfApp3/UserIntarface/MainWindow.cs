@@ -12,13 +12,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Windows.Storage.Streams;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -27,7 +25,10 @@ namespace HaruaConvert
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+#pragma warning disable CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
     public partial class MainWindow : Window
+#pragma warning restore CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
 
     {
        public Harua_ViewModel harua_View { get; set; }
@@ -718,6 +719,8 @@ namespace HaruaConvert
                 if (string.IsNullOrEmpty(paramField.setFile))
                 { return; }
 
+
+
                 ////InstanceProcessAlreadyExitedException 対策　効果不明
                 var ffprove_Process = Process.GetProcessesByName("ffprobe.exe");
 
@@ -739,7 +742,7 @@ namespace HaruaConvert
                 var mediaInfo = FFProbe.Analyse(paramField.setFile, probe);
 
 
-
+                
 
                 var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
                 var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
@@ -1333,6 +1336,10 @@ namespace HaruaConvert
         
         }
 
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
+        }
     }
 
 }
