@@ -96,29 +96,22 @@ namespace HaruaConvert
 
         public MainWindow()
         {
-            InitializeComponent();
-
-
-
-            paramField = new ParamField();
-            paramField.isParam_Edited = false;
-
-            Ffmpc = new FfmpegQueryClass(this);
 
             isUPDownClicked = false;
-            paramField.isAutoScroll = true;
-
-
-            paramField.iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini");
-
-
             firstSet = true;
+            InitializeComponent();
+            InitializeParameters();
+            LoadSettings();
+            InitializeViewModels();
+            SetupUIEvents();
+          
+
+           
+          
 
 
             {
-                ///
-                /////Load Setting ini
-                ///
+           
 
 
 
@@ -126,16 +119,11 @@ namespace HaruaConvert
 
 
 
-
-
-                isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
 
                 var iniCon = new IniSettingsConst();
 
-                var setiniReader = new IniSettings_IOClass();
-                setiniReader.IniSettingReader(paramField,this);
-
+            
                 #region SelectParameterBox Generate
                 {
                     ////
@@ -143,24 +131,16 @@ namespace HaruaConvert
                     ///
                     SelGenerate = SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
 
-
-
-
-
-                    Generate_ParamSelector();
                     #endregion
                 }
             }
 
 
 
-            if (firstSet)
-                paramField.isExitProcessed = true;
 
             mainProcess = Process.GetCurrentProcess();
 
 
-            //isLabelEited = false;
 
             Lw = new LogWindow(this);
 
@@ -169,46 +149,17 @@ namespace HaruaConvert
 
 
 
-                InitializeViewModels();
-
-
-                //_arguments = Harua_ViewModel.StartQuery;
             }
 
 
             #region Register Events
 
-            {
-                NumericUpDown1.NUDButtonUP.Click += NUDUP_Button_Click;
-                NumericUpDown1.NUDButtonDown.Click += NUD_DownButton_Click;
-            }
-
-
-            {
-
-
-                InputSelector.AllowDrop = true;
-                InputSelector.FilePathBox.AllowDrop = true;
-
-                //InputSelector.openDialogButton.Name = InputSelector.Name + "_openButton";
-
-
-
-                InputSelector.FilePathBox.Drop += FileDrop;
-                InputSelector.openDialogButton.Drop += FileDrop;
-            }
-
-
-            MouseLeftButtonDown += (sender, e) => { DragMove(); };
+          
 
             //No Frame Window Enable Moving
             //http://getbget.seesaa.net/article/436398354.html
 
-            InputSelector.openDialogButton.PreviewMouseDown
-                 += FileSelector_MouseDown;
-
-            OutputSelector.openDialogButton.PreviewMouseDown
-                 += FileSelector_MouseDown;
+     
 
 
 
@@ -222,7 +173,7 @@ namespace HaruaConvert
                 selectorList = new List<ParamSelector>();
                 childCheckBoxList = new List<CheckBox>();
 
-                childCheckBoxList.Capacity = 5;
+                childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
 
 
                 //子要素を列挙するDelegate
@@ -252,10 +203,10 @@ namespace HaruaConvert
 
                 var init = new IniCheckerClass.CheckboxGetSetValueClass();
 
-
                 foreach (CheckBox chk in childCheckBoxList)
                 {
 
+                    //MainWIndow内のCheckBoxの状態を自動的にLoad
                     chk.IsChecked = init.CheckBoxiniGetVallue(chk, paramField.iniPath);
                 }
 
@@ -265,10 +216,13 @@ namespace HaruaConvert
 
                 selectorList.Capacity = selectorList.Count;
 
+
+                
                 foreach (var selector in selectorList)
                 {
+                    //Selectorに各種イベントを登録する
                     gsp.GenerateParaSelector_setPropaties(selector, this);
-
+                    
 
 
                     //SelGenerate = count;
@@ -279,14 +233,14 @@ namespace HaruaConvert
 
             #endregion
 
-
+              Generate_ParamSelector();
 
 
 
         }
 
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:識別子はアンダースコアを含むことはできません", Justification = "<保留中>")]
+      
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:識別子はアンダースコアを含むことはできません", Justification = "<保留中>")]
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);
@@ -1281,10 +1235,7 @@ namespace HaruaConvert
 
         }
 
-        private void Param_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
 
         private void LinkLabel2_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
