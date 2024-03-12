@@ -1,5 +1,4 @@
-﻿using HaruaConvert.Parameter;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -7,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Windows.Gaming.Input;
 
 namespace HaruaConvert
 {

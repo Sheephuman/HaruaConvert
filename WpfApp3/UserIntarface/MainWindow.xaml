@@ -173,7 +173,7 @@
                                     </GroupBox>
 
                                     <TextBox Width="390"
-                                        x:Name="ParamText" Text="{Binding StartQuery}"  TextChanged="Param_TextChanged" FontSize="16"   
+                                        x:Name="ParamText" Text="{Binding StartQuery}"   FontSize="16"   
                                                ToolTip="ffmpegに渡すオプションです。"
                                                />
 

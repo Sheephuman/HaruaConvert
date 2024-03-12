@@ -1,11 +1,5 @@
-﻿using FFMpegCore.Arguments;
-using HaruaConvert.Parameter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -22,7 +16,7 @@ namespace HaruaConvert.Methods
         
         }
 
-        EscapePath escapes;
+       // EscapePath escapes;
 
        public bool isUserOriginalParameter_Method(object sender)
         {

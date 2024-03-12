@@ -11,7 +11,11 @@ namespace HaruaConvert.Methods
         }
         int count;
 
-
+        /// <summary>
+        /// ParamSelectorに各種イベントを登録する 
+        /// </summary>
+        /// <param name="selector"></param>
+        /// <param name="main"></param>
         public void GenerateParaSelector_setPropaties(ParamSelector selector,MainWindow main)
         { 
             var selchild = selector;
