@@ -89,13 +89,6 @@ namespace HaruaConvert
         Process mainProcess;
 
 
-        //private const uint WM_DROPFILES = 0x233;
-        //private const uint WM_COPYDATA = 0x4a;
-
-        //private const uint WM_COPYGLOBALDATA = 0x49;
-
-
-
         //paramSelectorBox　生成数       
         public int SelGenerate { get; set; }
 
@@ -118,24 +111,6 @@ namespace HaruaConvert
 
             paramField.iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini");
 
-
-            {
-                /////////
-                ////https://csharp.hotexamples.com/jp/examples/-/CHANGEFILTERSTRUCT/-/php-changefilterstruct-class-examples.html
-                /////　UACが有効でもAllowDrop 出来るようにする
-                ///////
-                //var handle = Process.GetCurrentProcess().MainWindowHandle;
-                //CHANGEFILTERSTRUCT filterStatus = new CHANGEFILTERSTRUCT();
-
-
-                ////filterStatus.size = (uint)Marshal.SizeOf(filterStatus);
-                //filterStatus.size = Convert.ToUInt32(Marshal.SizeOf(typeof(CHANGEFILTERSTRUCT)));
-                //filterStatus.info = 0;
-
-                //Allowdoep_UAC = ChangeWindowMessageFilterEx(handle, WM_DROPFILES, ChangeWindowMessageFilterExAction.Allow, ref filterStatus);
-                //ChangeWindowMessageFilterEx(handle, WM_COPYDATA, ChangeWindowMessageFilterExAction.Allow, ref filterStatus);
-                //ChangeWindowMessageFilterEx(handle, WM_COPYGLOBALDATA, ChangeWindowMessageFilterExAction.Allow, ref filterStatus);
-            }
 
             firstSet = true;
 
@@ -193,16 +168,8 @@ namespace HaruaConvert
                 FileList = new ObservableCollection<string>();
 
 
-               
-                //  Set Default Parameter on FfmpegQueryClass
-                harua_View = new Harua_ViewModel(this);
 
-
-
-
-        
-
-                     DataContext = harua_View._Main_Param;
+                InitializeViewModels();
 
 
                 //_arguments = Harua_ViewModel.StartQuery;
