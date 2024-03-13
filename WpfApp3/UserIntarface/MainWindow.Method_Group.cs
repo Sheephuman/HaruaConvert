@@ -285,7 +285,7 @@ namespace HaruaConvert
         }
 
 
-        private void ffmpeg_Exited(object sender, EventArgs e)
+        private async void ffmpeg_Exited(object sender, EventArgs e)
         {
             //wave出力の初期化
             //Usingステートメントを入れるとならなくなる　Why？
