@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -120,6 +121,7 @@ namespace HaruaConvert
                 using (var Alternate_FileExsists = new Alternate_FileExsists())
                 {
                     checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
+                    
                     return checker;
                 }
             }
@@ -171,11 +173,11 @@ namespace HaruaConvert
             // 計測開始
             sw.Start();
 
-            var alterExsists = new Alternate_FileExsists();
+            //  var alterExsists = new Alternate_FileExsists();
 
-            bool exsisted = alterExsists.FileExsists(check_output);
+            //bool exsisted = alterExsists.FileExsists(check_output);
+            bool exsisted = File.Exists(check_output);
 
-        
             bool DialogChecled = _DialogChecled;
             bool satisfied = false;
 
@@ -287,24 +289,42 @@ namespace HaruaConvert
 
         private async void ffmpeg_Exited(object sender, EventArgs e)
         {
-            //wave出力の初期化
-            //Usingステートメントを入れるとならなくなる　Why？
-            WaveOutEvent outputDevice = new WaveOutEvent();
             var current = Directory.GetCurrentDirectory();
 
-            AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav");
-            outputDevice.Init(afr);
-            outputDevice.Play();
 
+            //wave出力の初期化
+            //Usingステートメントを入れるとならなくなる　Why？
+            using (WaveOutEvent outputDevice = new WaveOutEvent())
+            using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
+            {
+                outputDevice.Init(afr);
+                var playbackCompleted = new TaskCompletionSource<bool>();
+                outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
+
+                outputDevice.Play();
+
+
+                OpenExplorer();
+                // 再生が完了するまで待機
+                await playbackCompleted.Task;
+
+            }
 
             paramField.isExitProcessed = true;
-          
-              if (paramField.isOpenFolder)                
+
+        }
+
+
+
+
+        void OpenExplorer()
+        {
+            if (paramField.isOpenFolder)
                 using (Process explorerProcess = new Process())
                 {
                     explorerProcess.StartInfo.FileName = "explorer.exe";
 
-                    
+
                     // /select オプションを使用して、ファイルを選択して表示
                     explorerProcess.StartInfo.Arguments = $"/select, \"{paramField.check_output}\"";
 
@@ -315,24 +335,6 @@ namespace HaruaConvert
                 }
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-        
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {

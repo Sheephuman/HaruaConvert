@@ -100,10 +100,12 @@ namespace HaruaConvert.HaruaInterFace
             if (!string.IsNullOrEmpty(main.paramField.setFile))
             {
                 //Convert Process Improvement Part
+               
+
                main.paramField.isExitProcessed = main.FileConvertExec(main.paramField.setFile, sender);
 
 
-
+                
                main.Lw.Activate();
 
             }

@@ -99,23 +99,17 @@ namespace HaruaConvert
 
             isUPDownClicked = false;
             firstSet = true;
+         
+
             InitializeComponent();
+
+
+
             InitializeParameters();
             LoadSettings();
             InitializeViewModels();
             SetupUIEvents();
           
-
-           
-          
-
-
-            {
-           
-
-
-
-
 
 
 
@@ -133,7 +127,7 @@ namespace HaruaConvert
 
                     #endregion
                 }
-            }
+            
 
 
 
@@ -144,13 +138,7 @@ namespace HaruaConvert
 
             Lw = new LogWindow(this);
 
-            {
-                FileList = new ObservableCollection<string>();
-
-
-
-            }
-
+            FileList = new ObservableCollection<string>();
 
             #region Register Events
 
@@ -608,15 +596,7 @@ namespace HaruaConvert
 
         private void TabItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (((TabItem)sender).Name == "ParameterTab")
-            {
-                Height = 450;
-            }
-            else
-            {
-                Height = 330;
-            }
-
+          
         }
 
 
@@ -624,11 +604,7 @@ namespace HaruaConvert
         private void mainTub_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
-            if (mainTub.ActualHeight > 0 && mainTub.ActualWidth > 0)
-            {
-                Height = 330;
-                Width = 550;
-            }
+          
         }
 
 
@@ -640,31 +616,58 @@ namespace HaruaConvert
                 if (string.IsNullOrEmpty(paramField.setFile))
                 { return; }
 
+                KillExistingFFprobeProcesses();
 
 
-                ////InstanceProcessAlreadyExitedException 対策　効果不明
-                var ffprove_Process = Process.GetProcessesByName("ffprobe.exe");
-
-                if (ffprove_Process.Length > 0)
-                {
-                    ffprove_Process[0].Kill();
-                }
-
-
-
-
-                SorceFileDataBox.Document.Blocks.Clear();
-
+                ClearSourceFileData();
 
                 FFOptions probe = new FFOptions();
                 probe.BinaryFolder = "dll";
 
 
                 var mediaInfo = FFProbe.Analyse(paramField.setFile, probe);
+                AppendMediaInfoToSourceFileData(mediaInfo);
 
 
-                
 
+
+
+                //明示的GC呼び出し
+                //Call explicit GC
+             //   GC.Collect();
+            }
+            catch (Exception ex) when (ex is FFMpegCore.Exceptions.FFMpegException ||
+                               ex is NullReferenceException ||
+                               ex is FFMpegCore.Exceptions.FormatNullException ||
+                               ex is Instances.Exceptions.InstanceProcessAlreadyExitedException ||
+                               ex is Win32Exception)
+            {
+                HandleMediaAnalysisException(ex);
+
+            }
+        }
+
+
+        private void KillExistingFFprobeProcesses()
+        {
+            var ffprobeProcesses = Process.GetProcessesByName("ffprobe.exe");
+            if (ffprobeProcesses.Length > 0)
+            {
+                ffprobeProcesses[0].Kill();
+            }
+        }
+
+
+        private void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        {
+
+            if (mediaInfo.PrimaryAudioStream == null)
+            {
+                MessageBox.Show("primary streams がhullだわ");
+                return;
+            } 
+
+         
                 var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
                 var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
                 var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
@@ -681,48 +684,43 @@ namespace HaruaConvert
                 SorceFileDataBox.AppendText(Environment.NewLine);
                 SorceFileDataBox.AppendText("Cannels:" + $"{resultCannels}");
 
+            
 
-
-
-                //明示的GC呼び出し
-                //Call explicit GC
-                GC.Collect();
-            }
-            catch (FFMpegCore.Exceptions.FFMpegException ex)
-            {
-                MessageBox.Show(ex.Message + Environment.NewLine + "codec情報が欠損しているかも知れないわ");
-
-            }
-
-
-            catch (NullReferenceException ex)
-            {
-                MessageBox.Show(ex.Message
-                    +Environment.NewLine + "fforobeの呼び出しに失敗したみたい" 
-                    + Environment.NewLine + 
-                    "正常な動画ファイルを使うか、動画をエンコードし直してね");
-                SorceFileDataBox.Document.Blocks.Clear();
-
-            }
-            catch (FFMpegCore.Exceptions.FormatNullException ex)
-            {
-                MessageBox.Show(ex.Message + Environment.NewLine + "Fomata Data Empty");
-                SorceFileDataBox.Document.Blocks.Clear();
-            }
-            catch (Instances.Exceptions.InstanceProcessAlreadyExitedException ex)
-            {
-                Console.WriteLine(ex.Message + Environment.NewLine);
-                MessageBox.Show(ex.Message + Environment.NewLine + "codec情報が欠損しているかも知れないわ");
-            }
-
-            catch (Win32Exception ex)
-            {
-                MessageBox.Show(ex.Message + Environment.NewLine + "ffprobe.exeがないわよ");
-            }
+           
         }
 
 
-        private void Num_5_Initialized(object sender, EventArgs e)
+        private void HandleMediaAnalysisException(Exception ex)
+        {
+
+            string message = ex.Message;
+
+            // 特定の例外タイプに基づいてカスタマイズされたメッセージを追加
+            if (ex is NullReferenceException)
+            {
+                message += "\nfforobeの呼び出しに失敗したみたい...";
+            }
+            else if (ex is Win32Exception)
+            {
+                message += "\nffprobe.exeがないわよ";
+            }
+            // その他の特定の例外に対する処理...
+
+            MessageBox.Show(message);
+            ClearSourceFileData();
+
+
+        }
+
+
+
+        private void ClearSourceFileData()
+        {
+            SorceFileDataBox.Document.Blocks.Clear();
+        }
+
+
+            private void Num_5_Initialized(object sender, EventArgs e)
         {
             //     Num_5.Height = Num_3.Height;
         }

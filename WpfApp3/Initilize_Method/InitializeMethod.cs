@@ -2,6 +2,7 @@
 using HaruaConvert.Parameter;
 using System;
 using System.IO;
+using System.Threading;
 using System.Windows;
 
 namespace HaruaConvert
@@ -36,11 +37,15 @@ namespace HaruaConvert
             paramField = new ParamField
             {
                 isParam_Edited = false,
+                isExitProcessed = true,
                 isAutoScroll = true,
                 iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini")
             };
             Ffmpc = new FfmpegQueryClass(this);
             firstSet = true;
+            _arguments = string.Empty;
+            th1 = new Thread(() => { });
+            escapes = new EscapePath();
         }
         private void LoadSettings()
         {
@@ -49,7 +54,7 @@ namespace HaruaConvert
             var setiniReader = new IniSettings_IOClass();
             setiniReader.IniSettingReader(paramField, this);
 
-            Generate_ParamSelector();
+         
 
         }
 

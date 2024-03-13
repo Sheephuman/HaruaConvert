@@ -19,10 +19,10 @@ namespace HaruaConvert
             var getFilesLArray = getFileNames(Path.GetDirectoryName(convertFileName));
 
 
-            isEqual = getFilesLArray.SequenceEqual(getFilesLArray);
+            
             foreach (string targetList in getFilesLArray)
             {
-                isEqual = targetList.SequenceEqual(convertFileName);
+                isEqual = targetList == convertFileName;
 
                 if (isEqual)
                     return isEqual;
