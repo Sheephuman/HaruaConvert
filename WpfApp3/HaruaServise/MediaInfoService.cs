@@ -1,4 +1,6 @@
 ﻿using FFMpegCore;
+using HaruaConvert.HaruaInterFace;
+using HaruaConvert.InterFace;
 using HaruaConvert.Parameter;
 using System;
 using System.ComponentModel;
@@ -18,7 +20,12 @@ namespace HaruaConvert.HaruaServise
             main= _main;
             }
             
-        
+       readonly IMediaInfoManager mediaInfoManager;
+       public MediaInfoService(IMediaInfoManager imedia)
+        {
+            this.mediaInfoManager = imedia ?? throw new ArgumentNullException(nameof(imedia));
+
+        }
 
         public void displayMediaInfo(string setFile)
         {
@@ -27,9 +34,7 @@ namespace HaruaConvert.HaruaServise
             {
                 if (string.IsNullOrEmpty(setFile))
                 { return; }
-                KillFFprobe killprobe = new KillFFprobe();
-                killprobe.KillExistingFFprobeProcesses();
-
+             
 
          //      ClearSourceFileData();
 

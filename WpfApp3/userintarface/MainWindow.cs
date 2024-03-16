@@ -1,9 +1,10 @@
-﻿
-using FFMpegCore;
+﻿using FFMpegCore;
 using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaServise;
+using HaruaConvert.InterFace;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
-using HaruaConvert.userintarface;
+
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -28,7 +28,7 @@ namespace HaruaConvert
     /// </summary>
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 #pragma warning disable CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMediaInfoManager
 #pragma warning restore CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
 
     {
@@ -100,7 +100,10 @@ namespace HaruaConvert
         {
             InitializeComponent();
             isUPDownClicked = false;
-           
+
+
+            // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
+         
 
             UIManager uiManager = new UIManager(this);
             uiManager.RegisterUIDropEvent();
@@ -843,6 +846,28 @@ namespace HaruaConvert
         {
             return ToString();
         }
+
+        public void AppendMediaInfoToSourceFileData()
+        {
+            var media = new MediaInfoService(this);
+
+            media.displayMediaInfo(paramField.setFile);
+
+    
+            
+        }
+
+        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                MediaInfoService media = new MediaInfoService(this);
+                media.AppendMediaInfoToSourceFileData(mediaInfo);
+
+            });
+
+
+            }
     }
 
 }
