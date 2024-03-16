@@ -1,4 +1,5 @@
-﻿using HaruaConvert.Parameter;
+﻿using HaruaConvert.HaruaServise;
+using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.IO;
 using System.Windows;
@@ -67,14 +68,16 @@ namespace HaruaConvert.HaruaInterFace
                     //Update Maintab_InputDirectory
                     ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
 
-
+                    
                 }
                 else //Selected Cancel
                 {
                     return;
                 }
                     
-                main.displayMediaInfo(main.paramField.setFile);
+                MediaInfoService media = new MediaInfoService(main);
+
+                media.displayMediaInfo(main.paramField.setFile);
                 //  ParamField.ConvertDirectory = ofc.opFileName;
             }
 

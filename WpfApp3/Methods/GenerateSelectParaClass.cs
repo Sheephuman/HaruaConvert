@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using HaruaConvert.userintarface;
+using System.Windows.Input;
 
 namespace HaruaConvert.Methods
 {
@@ -11,6 +12,7 @@ namespace HaruaConvert.Methods
         }
         int count;
 
+        UIManager uiManager;
         /// <summary>
         /// ParamSelectorに各種イベントを登録する 
         /// </summary>
@@ -18,6 +20,8 @@ namespace HaruaConvert.Methods
         /// <param name="main"></param>
         public void GenerateParaSelector_setPropaties(ParamSelector selector,MainWindow main)
         { 
+
+            uiManager = new UIManager(main);
             var selchild = selector;
 
             selchild.Name = "ParamSelector" + $"{count}";
@@ -29,7 +33,7 @@ namespace HaruaConvert.Methods
             
               
 
-            selchild.KeyUp += main.InvisibleText_KeyDown;
+            selchild.KeyUp += uiManager.InvisibleText_KeyDown;
             selchild.LostFocus += main.InvisibleText_LostFocus;
             selchild.SelectorLabelCon.MouseDoubleClick += main.Tb_MouseDoubleClick;
             selchild.SelectorLabelCon.MouseMove += main.ParamSelector_MouseEnter;

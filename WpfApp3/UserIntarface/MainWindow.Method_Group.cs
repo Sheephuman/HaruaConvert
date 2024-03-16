@@ -263,19 +263,6 @@ namespace HaruaConvert
                 _FfmpProcess.BeginErrorReadLine();
 
 
-                //Process[] plist = Process.GetProcessesByName("ffmpeg");
-
-                //var ProcessIdList = new List<int>();
-                //ProcessIdList.Capacity = plist.Length;
-
-                //foreach (Process cop in plist)
-                //{
-                //    ProcessIdList.Add(cop.Id);
-                //}
-
-                ////if (ProcessIdList.Count != 0)
-                //    paramField.ffmpeg_pid = ProcessIdList[0];
-
 
                 paramField.ctoken.Token.WaitHandle.WaitOne();
 

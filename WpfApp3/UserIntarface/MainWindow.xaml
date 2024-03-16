@@ -15,7 +15,7 @@
         Opacity="0.8"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
-      Loaded="Window_Loaded"      
+   
         >
 
     <!-- 閉じる-->
@@ -162,8 +162,8 @@
                                             <Button x:Name="Directory_DropButon" 
                                             Height="30"
                                             FontSize="20" Content="参照"
-                                Drop="FileDrop"
-                                DragOver="Button_DragOver"
+                              
+                              
                                                     
                                AllowDrop="True"     
                                             Background="Transparent"
@@ -302,7 +302,7 @@
                                                 VerticalContentAlignment="Center"     
                                                 Background="Transparent"
                                                 VerticalAlignment="Center"  
-                                                Drop="FileDrop"
+                                                
                                                 Height="230"                                                      
                                                 Width="130"
                                                 HorizontalAlignment="Center"

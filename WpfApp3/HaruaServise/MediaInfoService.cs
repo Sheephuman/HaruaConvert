@@ -3,6 +3,7 @@ using HaruaConvert.Parameter;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using WpfApp3.Parameter;
 
 namespace HaruaConvert.HaruaServise
@@ -10,26 +11,34 @@ namespace HaruaConvert.HaruaServise
     public class MediaInfoService
     {
 
-       
-        public void displayMediaInfo( MainWindow main)
+        MainWindow main;
+       public MediaInfoService(MainWindow _main)
+            {
+            
+            main= _main;
+            }
+            
+        
+
+        public void displayMediaInfo(string setFile)
         {
 
             try
             {
-                if (string.IsNullOrEmpty(main.paramField.setFile))
+                if (string.IsNullOrEmpty(setFile))
                 { return; }
+                KillFFprobe killprobe = new KillFFprobe();
+                killprobe.KillExistingFFprobeProcesses();
 
-                main.KillExistingFFprobeProcesses();
 
-
-               main.ClearSourceFileData();
+         //      ClearSourceFileData();
 
                 FFOptions probe = new FFOptions();
                 probe.BinaryFolder = "dll";
 
 
-                 var mediaInfo = FFProbe.Analyse(main.paramField.setFile, probe);
-                main.AppendMediaInfoToSourceFileData(mediaInfo);
+                 var mediaInfo = FFProbe.Analyse(setFile, probe);
+                AppendMediaInfoToSourceFileData(mediaInfo);
 
 
 
@@ -45,9 +54,39 @@ namespace HaruaConvert.HaruaServise
                                ex is Instances.Exceptions.InstanceProcessAlreadyExitedException ||
                                ex is Win32Exception)
             {
-               main.HandleMediaAnalysisException(ex);
+                main.HandleMediaAnalysisException(ex);
 
             }
+        }
+        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        {
+
+            if (mediaInfo.PrimaryAudioStream == null)
+            {
+                MessageBox.Show("primary streams がhullだわ");
+                return;
+            }
+
+
+            var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
+            var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
+            var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
+            var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
+            var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
+
+            main.SorceFileDataBox.AppendText("BitRate:" + $"{resultBitRate}" + "Kbps");
+            main.SorceFileDataBox.AppendText(Environment.NewLine);
+            main.SorceFileDataBox.AppendText("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
+            main.SorceFileDataBox.AppendText(Environment.NewLine);
+            main.SorceFileDataBox.AppendText("Codec:" + $"{resultCodec}");
+            main.SorceFileDataBox.AppendText(Environment.NewLine);
+            main.SorceFileDataBox.AppendText("AudioCodec:" + $"{resultAudioCodec}");
+            main.SorceFileDataBox.AppendText(Environment.NewLine);
+            main.SorceFileDataBox.AppendText("Cannels:" + $"{resultCannels}");
+           
+
+
+
         }
 
     }
