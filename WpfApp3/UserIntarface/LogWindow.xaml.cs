@@ -69,7 +69,7 @@ namespace HaruaConvert
             //TC.mainTerminate_deligateExec(ParamField.ffmpeg_pid);
 
 
-            //if (main._FfmpProcess.d == true)
+            //if (mainWindow._FfmpProcess.d == true)
             //  return;
 
             StreamWriter inputWriter = main._FfmpProcess.StandardInput;

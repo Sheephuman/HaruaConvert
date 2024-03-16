@@ -1,6 +1,7 @@
 ﻿
 using FFMpegCore;
 using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaServise;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -102,36 +103,22 @@ namespace HaruaConvert
          
 
             InitializeComponent();
-
-
-
             InitializeParameters();
-            LoadSettings();
             InitializeViewModels();
+
+            LoadSettings();
+
+        
+
+         
             SetupUIEvents();
           
 
 
-
-
-
-                var iniCon = new IniSettingsConst();
+               // var iniCon = new IniSettingsConst();
 
             
-                #region SelectParameterBox Generate
-                {
-                    ////
-                    /// SelectParameterBox Generate
-                    ///
-                    SelGenerate = SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
-
-                    #endregion
-                }
             
-
-
-
-
             mainProcess = Process.GetCurrentProcess();
 
 
@@ -142,79 +129,26 @@ namespace HaruaConvert
 
             #region Register Events
 
-          
+
 
             //No Frame Window Enable Moving
             //http://getbget.seesaa.net/article/436398354.html
 
-     
+
 
 
 
             ///////
             ////https://qiita.com/tricogimmick/items/4347214669a99cd2c775
             /////
-
-            Loaded += (o, e) =>
+           Loaded += (o, e) =>
             {
+             
 
-               
-                
                 InitializeChildComponents();
                 LoadCheckBoxStates();
 
-                RegisterEventHandlers();
-                ////子要素を列挙するDelegate
-                //this.WalkInChildren(child =>
-                //{
-                //    var checkedCheckbox = child.GetType().Equals(typeof(CheckBox));
-
-                //    if (checkedCheckbox)
-                //    {
-                //        childCheckBoxList.Add((CheckBox)child);
-                //    }
-
-
-
-
-                //    var isControl = child.GetType().Equals(typeof(ParamSelector));
-
-                //    if (isControl)
-                //    {
-                //        selectorList.Add((ParamSelector)child);
-                //    }
-
-
-
-                //    Debug.WriteLine(child);
-                //});
-
-                //var init = new IniCheckerClass.CheckboxGetSetValueClass();
-
-                //foreach (CheckBox chk in childCheckBoxList)
-                //{
-
-                //    //MainWIndow内のCheckBoxの状態を自動的にLoad
-                //    chk.IsChecked = init.CheckBoxiniGetVallue(chk, paramField.iniPath);
-                //}
-
-
-                //GenerateSelectParaClass gsp = new GenerateSelectParaClass();
-                
-
-                //selectorList.Capacity = selectorList.Count;
-
-
-                
-                //foreach (var selector in selectorList)
-                //{
-                //    //Selectorに各種イベントを登録する
-                //    gsp.GenerateParaSelector_setPropaties(selector, this);
-                    
-
-
-                //    //SelGenerate = count;
-                //}
+                RegisterEventHandlers();          
 
 
             };
@@ -225,44 +159,7 @@ namespace HaruaConvert
 
 
 
-        }
-
-
-       void InitializeChildComponents()
-        {
-            selectorList = new List<ParamSelector>();
-            childCheckBoxList = new List<CheckBox>();
-
-
-          //  childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
-
-
-            // 子要素を列挙し、適切なリストに追加
-            this.WalkInChildren(child =>
-            {
-                if (child is CheckBox checkBox)
-                {
-                    childCheckBoxList.Add(checkBox);
-                }
-                else if (child is ParamSelector paramSelector)
-                {
-                    selectorList.Add(paramSelector);
-                }
-            });
-
-        }
-
-
-        void LoadCheckBoxStates()
-        {
-            var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
-            foreach (var checkBox in childCheckBoxList)
-            {
-                // CheckBoxの状態をINIファイルから読み込む
-                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
-            }
-
-        }
+        }    
 
 
 
@@ -286,17 +183,7 @@ namespace HaruaConvert
         }
 
 
-        void RegisterEventHandlers()
-        {
-            var gsp = new GenerateSelectParaClass();
-            foreach (var selector in selectorList)
-            {
-                // Selectorに各種イベントを登録
-                gsp.GenerateParaSelector_setPropaties(selector, this);
-            }
-
-
-        }
+   
 
 
 
@@ -697,7 +584,7 @@ namespace HaruaConvert
         }
 
 
-        private void KillExistingFFprobeProcesses()
+        public void KillExistingFFprobeProcesses()
         {
             var ffprobeProcesses = Process.GetProcessesByName("ffprobe.exe");
             if (ffprobeProcesses.Length > 0)
@@ -707,7 +594,7 @@ namespace HaruaConvert
         }
 
 
-        private void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
         {
 
             if (mediaInfo.PrimaryAudioStream == null)
@@ -739,7 +626,7 @@ namespace HaruaConvert
         }
 
 
-        private void HandleMediaAnalysisException(Exception ex)
+        public void HandleMediaAnalysisException(Exception ex)
         {
 
             string message = ex.Message;
@@ -763,7 +650,7 @@ namespace HaruaConvert
 
 
 
-        private void ClearSourceFileData()
+        public void ClearSourceFileData()
         {
             SorceFileDataBox.Document.Blocks.Clear();
         }
@@ -800,7 +687,7 @@ namespace HaruaConvert
                 ParamField.MainTab_OutputDirectory = cod.opFileName;
 
             }
-            mainGrid.Height += 30;
+            HaruaGrid.Height += 30;
         }
 
         private delegate void ProcessKill_deligate(int targetProcess);
@@ -1127,8 +1014,14 @@ namespace HaruaConvert
                 selectorList.Clear();
             }
 
+
+
             //List<SelectParamerterBox> selList = new List<SelectParamerterBox>();
             selectorList = new List<ParamSelector>();
+
+            SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
+
+
 
             int count = 0;
             for (; SelGenerate > 0; SelGenerate--)

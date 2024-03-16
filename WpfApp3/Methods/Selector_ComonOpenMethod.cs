@@ -90,7 +90,7 @@ namespace HaruaConvert.Methods
                 selector.FilePathBox.Text = main.ofc.opFileName;
 
                 main.OutputSelector.FilePathBox.Text = Path.GetDirectoryName(main.ofc.opFileName) + "\\" + main.paramField.outputFileName_withoutEx
-                    + main.harua_View._Main_Param[0].endString
+                    + main.harua_View.MainParams[0].endString
                     + ".mp4";
 
 

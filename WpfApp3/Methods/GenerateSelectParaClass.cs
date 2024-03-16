@@ -35,7 +35,7 @@ namespace HaruaConvert.Methods
             selchild.SelectorLabelCon.MouseMove += main.ParamSelector_MouseEnter;
 
             TextCompositionManager.AddPreviewTextInputHandler(selchild.invisibleText, main.OnPreviewTextInput);
-           // TextCompositionManager.AddPreviewTextInputUpdateHandler(selchild.invisibleText, main.OnPreviewTextInputUpdate);
+           // TextCompositionManager.AddPreviewTextInputUpdateHandler(selchild.invisibleText, mainWindow.OnPreviewTextInputUpdate);
 
 
          

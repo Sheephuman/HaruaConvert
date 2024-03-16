@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HaruaConvert.Parameter
 {
-    public class Main_Param
+    public class MainParam
     {
         //public string iniPath { get; set; }
         public string invisibleText { get; set; }
@@ -15,7 +15,8 @@ namespace HaruaConvert.Parameter
         public string OutputPath { get; set; }
         public string endString { get; set; }
 
-        
+        public ParamField paramField { get; set; }
+
 
         private string sourcePath;
         //原因の切り分けのために例外を投げさせる実装

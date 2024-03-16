@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using HaruaConvert.HaruaServise;
+using HaruaConvert.InterFace;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
@@ -17,37 +20,53 @@ namespace HaruaConvert.Parameter
     public class Harua_ViewModel : INotifyPropertyChanged
 #pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
     {
-        MainWindow main { get; set; } = null!;
-        public Harua_ViewModel(MainWindow _main) 
+        ParamField paramField { get; set; }
+
+        private ISettingsService _settingsService;
+
+        public Harua_ViewModel(ISettingsService settingsService) 
         {
-            
-            main = _main;
-            _Main_Param = new ObservableCollection<Main_Param>
-            {
-               new Main_Param { StartQuery = IniDefinition.GetValueOrDefault
-                                       (main.paramField.iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, " -b:v 00k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
-                OutputPath = ParamField.MainTab_OutputDirectory,
-                 endString = IniDefinition.GetValueOrDefault(main.paramField.iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
-                SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
-                                       (main.paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
-                invisibleText = ""
-               }
-            };
+            // mainWindow = _main ?? throw new ArgumentNullException(nameof(_main));
+
+            _settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
+            LoadInitialData();
+            //    mainWindow = _main;
+
+
+        
 
 
         }
+        private void LoadInitialData()
+        {
+            string iniPath = _settingsService.GetIniPath(); // 仮のメソッド; 実際にはISettingsServiceに適切なメソッドを定義する
+         
+                MainParams = new ObservableCollection<MainParam>
+            {
+               new MainParam { StartQuery = IniDefinition.GetValueOrDefault
+                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, " -b:v 00k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
+                OutputPath = MainTab_OutputDirectory,
+                 endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
+                SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
+                                       (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
+                invisibleText = ""
+               }
+            };
+        }
+        private ObservableCollection<MainParam> _mainParam = new ObservableCollection<MainParam>();
 
-        private ObservableCollection<Main_Param> _main_Param = new ObservableCollection<Main_Param>();
 
-
-        public ObservableCollection<Main_Param> _Main_Param
+        public ObservableCollection<MainParam> MainParams
         {
 
-            get => _main_Param;
+            get => _mainParam;
             set
             {
-                _main_Param = value;
-                RaisePropertyChanged("_main_Param");
+                if (_mainParam != value)
+                {
+                    _mainParam = value;
+                    RaisePropertyChanged(nameof(_mainParam));
+                }
             }
         }
 
@@ -63,37 +82,42 @@ namespace HaruaConvert.Parameter
         public string endString { get; set; }
 
         //public string SourcePathText = "Source File";
-
+   
 
         protected void RaisePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string sourcePath;
+        private string _sourcePathText;
         //原因の切り分けのために例外を投げさせる実装
         public string SourcePathText {             
-            get { return sourcePath; } 
+            get { return _sourcePathText; } 
             set{
-                
-                //if(string.IsNullOrEmpty(value))
-                //    {                     
-                //    throw new ArgumentException("Value is Null"); }                
 
-                //else
-                    sourcePath = value;
+                if (_sourcePathText != value)
+                {
+
+                    _sourcePathText = value;
+                    RaisePropertyChanged(nameof(SourcePathText));
+                }
             }           
             
             }
 
-        int propValue;
+        int _propValue;
         public int PropValue
         {
-            get { return propValue; }
-            set { propValue = value; }
+            get { return _propValue; }
+            set
+            {
+                if (_propValue != value)
+                {
+                    _propValue = value;
+                    RaisePropertyChanged(nameof(PropValue));
+                }
+
+            }
         }
 
 

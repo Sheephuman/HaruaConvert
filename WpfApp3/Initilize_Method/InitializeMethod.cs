@@ -1,9 +1,12 @@
-﻿using HaruaConvert.Methods;
+﻿using HaruaConvert.HaruaServise;
+using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace HaruaConvert
 {
@@ -15,10 +18,12 @@ namespace HaruaConvert
             {
 
                 //  Set Default Parameter on FfmpegQueryClass
-                harua_View = new Harua_ViewModel(this);
+                var settingsService = new SettingsService(paramField.iniPath);
+                harua_View = new Harua_ViewModel(settingsService);
+
 
                 ///MainWindowのパラメータボックスで読み込むquery
-                DataContext = harua_View._Main_Param;
+                DataContext = harua_View.MainParams;
             }
 
             catch (Exception ex)
@@ -73,7 +78,52 @@ namespace HaruaConvert
             OutputSelector.openDialogButton.PreviewMouseDown += FileSelector_MouseDown;
         }
 
+        void InitializeChildComponents()
+        {
+            selectorList = new List<ParamSelector>();
+            childCheckBoxList = new List<CheckBox>();
 
 
+            //  childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
+
+
+            // 子要素を列挙し、適切なリストに追加
+            this.WalkInChildren(child =>
+            {
+                if (child is CheckBox checkBox)
+                {
+                    childCheckBoxList.Add(checkBox);
+                }
+                else if (child is ParamSelector paramSelector)
+                {
+                    selectorList.Add(paramSelector);
+                }
+            });
+
+        }
+
+
+        void LoadCheckBoxStates()
+        {
+            var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
+            foreach (var checkBox in childCheckBoxList)
+            {
+                // CheckBoxの状態をINIファイルから読み込む
+                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
+            }
+
+        }
+
+        void RegisterEventHandlers()
+        {
+            var gsp = new GenerateSelectParaClass();
+            foreach (var selector in selectorList)
+            {
+                // Selectorに各種イベントを登録
+                gsp.GenerateParaSelector_setPropaties(selector, this);
+            }
+
+
+        }
     }
 }

@@ -21,7 +21,7 @@
     <!-- 閉じる-->
 
 
-    <Grid x:Name="mainGrid" Background ="#FFFDEEF0">
+    <Grid x:Name="HaruaGrid" Background ="#FFFDEEF0">
 
 
         <StackPanel  

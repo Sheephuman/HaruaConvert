@@ -112,7 +112,7 @@ namespace HaruaConvert
 
                     }
 
-                    //main Processが正常に終了されていない場合の対策
+                    //mainWindow Processが正常に終了されていない場合の対策
                     if (mainProcess != null)
                     {
                         killProcessDell(mainProcess.Id);
