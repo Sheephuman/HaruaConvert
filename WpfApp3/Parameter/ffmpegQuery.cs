@@ -43,7 +43,7 @@ namespace HaruaConvert
             {
                 //var hview = new Harua_ViewModel(_main);
                 
-                SetQuery = "-i " + $"{input} " + harua_view._Main_Param[0].StartQuery;
+                SetQuery = "-i " + $"{input} " + harua_view.MainParams[0].StartQuery;
             }
             else
                 SetQuery = "-i " + $"{input}" + " " + UserParam;

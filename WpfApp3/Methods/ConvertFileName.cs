@@ -13,7 +13,7 @@ namespace HaruaConvert.Methods
         //出力先のファイル名として変換処理
         public string ConvertFileName(string fullPath, Harua_ViewModel harua_view)
         {
-            string convertName = $"{fullPath.Replace(".mp4", "")}" + harua_view._Main_Param[0].endString + ".mp4";
+            string convertName = $"{fullPath.Replace(".mp4", "")}" + harua_view.MainParams[0].endString + ".mp4";
 
             
             return convertName;
