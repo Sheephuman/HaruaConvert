@@ -52,7 +52,7 @@ namespace HaruaConvert
             th1 = new Thread(() => { });
             escapes = new EscapePath();
         }
-        private void LoadSettings()
+        public void LoadSettings()
         {
             isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
@@ -70,15 +70,15 @@ namespace HaruaConvert
 
             InputSelector.AllowDrop = true;
             InputSelector.FilePathBox.AllowDrop = true;
-            InputSelector.FilePathBox.Drop += FileDrop;
-            InputSelector.openDialogButton.Drop += FileDrop;
+            
+//            InputSelector.openDialogButton.Drop += FileDrop;
 
             MouseLeftButtonDown += (sender, e) => { DragMove(); };
             InputSelector.openDialogButton.PreviewMouseDown += FileSelector_MouseDown;
             OutputSelector.openDialogButton.PreviewMouseDown += FileSelector_MouseDown;
         }
 
-        void InitializeChildComponents()
+        public void InitializeChildComponents()
         {
             selectorList = new List<ParamSelector>();
             childCheckBoxList = new List<CheckBox>();
@@ -103,7 +103,7 @@ namespace HaruaConvert
         }
 
 
-        void LoadCheckBoxStates()
+       public void LoadCheckBoxStates()
         {
             var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
             foreach (var checkBox in childCheckBoxList)
@@ -114,7 +114,7 @@ namespace HaruaConvert
 
         }
 
-        void RegisterEventHandlers()
+       public void SelectorEventHandlers()
         {
             var gsp = new GenerateSelectParaClass();
             foreach (var selector in selectorList)
