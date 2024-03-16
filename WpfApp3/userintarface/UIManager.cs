@@ -2,18 +2,13 @@
 using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Windows.Gaming.Input;
 using static HaruaConvert.Parameter.ParamField;
 
-namespace HaruaConvert.userintarface
+namespace HaruaConvert.HaruaServise
 {
     public class UIManager
     {
@@ -24,10 +19,6 @@ namespace HaruaConvert.userintarface
         {
             _mainWindow = mainWindow;
            
-
-
-
-
 
             //get Interface instance
             _mainWindow.mainTabEvents = new IMainTabEvents[]
@@ -105,8 +96,11 @@ namespace HaruaConvert.userintarface
 
                 _mainWindow.harua_View.SourcePathText = _mainWindow.paramField.setFile;
 
-                MediaInfoService mediaInfo = new MediaInfoService(_mainWindow);
-                mediaInfo.displayMediaInfo(_mainWindow.paramField.setFile);
+                // MediaInfoServiceのインスタンスを作成
+                IMediaInfoManager mediaInfoDisplay = _mainWindow; // MainWindowがIMediaInfoDisplayを実装していると仮定
+                MediaInfoService mediaInfoService = new MediaInfoService(mediaInfoDisplay);
+
+                mediaInfoService.displayMediaInfo(_mainWindow.paramField.setFile);
 
             }
         }
