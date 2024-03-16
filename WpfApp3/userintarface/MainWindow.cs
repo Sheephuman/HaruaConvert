@@ -158,63 +158,63 @@ namespace HaruaConvert
             Loaded += (o, e) =>
             {
 
-                selectorList = new List<ParamSelector>();
-                childCheckBoxList = new List<CheckBox>();
+               
+                
+                InitializeChildComponents();
+                LoadCheckBoxStates();
 
-                childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
+                RegisterEventHandlers();
+                ////子要素を列挙するDelegate
+                //this.WalkInChildren(child =>
+                //{
+                //    var checkedCheckbox = child.GetType().Equals(typeof(CheckBox));
 
-
-                //子要素を列挙するDelegate
-                this.WalkInChildren(child =>
-                {
-                    var checkedCheckbox = child.GetType().Equals(typeof(CheckBox));
-
-                    if (checkedCheckbox)
-                    {
-                        childCheckBoxList.Add((CheckBox)child);
-                    }
-
-
-
-
-                    var isControl = child.GetType().Equals(typeof(ParamSelector));
-
-                    if (isControl)
-                    {
-                        selectorList.Add((ParamSelector)child);
-                    }
+                //    if (checkedCheckbox)
+                //    {
+                //        childCheckBoxList.Add((CheckBox)child);
+                //    }
 
 
 
-                    Debug.WriteLine(child);
-                });
 
-                var init = new IniCheckerClass.CheckboxGetSetValueClass();
+                //    var isControl = child.GetType().Equals(typeof(ParamSelector));
 
-                foreach (CheckBox chk in childCheckBoxList)
-                {
-
-                    //MainWIndow内のCheckBoxの状態を自動的にLoad
-                    chk.IsChecked = init.CheckBoxiniGetVallue(chk, paramField.iniPath);
-                }
+                //    if (isControl)
+                //    {
+                //        selectorList.Add((ParamSelector)child);
+                //    }
 
 
-                GenerateSelectParaClass gsp = new GenerateSelectParaClass();
+
+                //    Debug.WriteLine(child);
+                //});
+
+                //var init = new IniCheckerClass.CheckboxGetSetValueClass();
+
+                //foreach (CheckBox chk in childCheckBoxList)
+                //{
+
+                //    //MainWIndow内のCheckBoxの状態を自動的にLoad
+                //    chk.IsChecked = init.CheckBoxiniGetVallue(chk, paramField.iniPath);
+                //}
+
+
+                //GenerateSelectParaClass gsp = new GenerateSelectParaClass();
                 
 
-                selectorList.Capacity = selectorList.Count;
+                //selectorList.Capacity = selectorList.Count;
 
 
                 
-                foreach (var selector in selectorList)
-                {
-                    //Selectorに各種イベントを登録する
-                    gsp.GenerateParaSelector_setPropaties(selector, this);
+                //foreach (var selector in selectorList)
+                //{
+                //    //Selectorに各種イベントを登録する
+                //    gsp.GenerateParaSelector_setPropaties(selector, this);
                     
 
 
-                    //SelGenerate = count;
-                }
+                //    //SelGenerate = count;
+                //}
 
 
             };
@@ -227,7 +227,46 @@ namespace HaruaConvert
 
         }
 
-      
+
+       void InitializeChildComponents()
+        {
+            selectorList = new List<ParamSelector>();
+            childCheckBoxList = new List<CheckBox>();
+
+
+          //  childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
+
+
+            // 子要素を列挙し、適切なリストに追加
+            this.WalkInChildren(child =>
+            {
+                if (child is CheckBox checkBox)
+                {
+                    childCheckBoxList.Add(checkBox);
+                }
+                else if (child is ParamSelector paramSelector)
+                {
+                    selectorList.Add(paramSelector);
+                }
+            });
+
+        }
+
+
+        void LoadCheckBoxStates()
+        {
+            var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
+            foreach (var checkBox in childCheckBoxList)
+            {
+                // CheckBoxの状態をINIファイルから読み込む
+                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
+            }
+
+        }
+
+
+
+
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:識別子はアンダースコアを含むことはできません", Justification = "<保留中>")]
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -247,7 +286,17 @@ namespace HaruaConvert
         }
 
 
+        void RegisterEventHandlers()
+        {
+            var gsp = new GenerateSelectParaClass();
+            foreach (var selector in selectorList)
+            {
+                // Selectorに各種イベントを登録
+                gsp.GenerateParaSelector_setPropaties(selector, this);
+            }
 
+
+        }
 
 
 
