@@ -53,9 +53,9 @@ namespace HaruaConvert
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
                 return false;
 
-            var sb = new StringBuilder(1024);
-            var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb.Capacity), filePath);
-            if (ret == 0 || string.IsNullOrEmpty(sb.ToString()))
+            var sb = new char[1024];  //CA1838 の解決
+                                      //var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb), filePath);
+            var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb.Length, System.Globalization.CultureInfo.InvariantCulture), filePath); if (ret == 0 || string.IsNullOrEmpty(sb.ToString())) 　//CA1305 の解決
                 return false;
 
             var conv = TypeDescriptor.GetConverter(typeof(T));
