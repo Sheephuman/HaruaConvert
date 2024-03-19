@@ -50,6 +50,7 @@ namespace HaruaConvert.Command
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
             // コマンド実行時のロジック
+          
         }
 
 
