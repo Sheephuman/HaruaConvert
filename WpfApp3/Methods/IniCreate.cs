@@ -3,22 +3,26 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Input;
+using Windows.Storage.Streams;
 
 namespace HaruaConvert
 {
-    internal sealed class SettingIniCreate
+    public sealed class IniCreate
     {
 
-        public SettingIniCreate() { }
+        public IniCreate() { }
 
-        [DllImport("kernel32", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, ExactSpelling = false)]
+
+
+        [DllImport("kernel32", CharSet = CharSet.Unicode)]
         internal static extern uint GetPrivateProfileString(
-           [MarshalAs(UnmanagedType.LPWStr), In] string lpAppName,
-           [MarshalAs(UnmanagedType.LPWStr), In] string lpKeyName,
-           [MarshalAs(UnmanagedType.LPWStr), In] string lpDefault,
-           [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder lpReturnString,
-           uint nSize,
-           [MarshalAs(UnmanagedType.LPWStr), In] string iniFilename);
+            string lpAppName,
+            string lpKeyName,
+            string lpDefault,
+            [Out] char[] lpReturnString,
+            uint nSize,
+            string iniFilename);
 
         [DllImport("kernel32", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi)]
         internal static extern int WritePrivateProfileString(
@@ -48,35 +52,59 @@ namespace HaruaConvert
         public static bool TryGetValueOrDefault<T>(string filePath, string sectionName, string keyName, T defaultValue, out T outputValue)
         {
 
+            // 出力値の初期化
             outputValue = defaultValue;
 
+            // ファイルパスの有効性をチェック
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
                 return false;
+            }
 
-            var sb = new StringBuilder(1024);
-            var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb.Capacity), filePath);
-            if (ret == 0 || string.IsNullOrEmpty(sb.ToString()))
+            // 読み取りバッファの準備
+            char[] buffer = new char[1024];
+            var iniCreate = new IniCreate();
+
+            // GetPrivateProfileStringを呼び出して設定値を読み取る
+            uint readChars = IniCreate.GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
+
+            // 読み取りが成功したかどうかをチェック
+            if (readChars == 0)
+            {
+                return false; // 読み取りに失敗
+            }
+
+            // null終端文字までの内容を文字列に変換
+            string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
+
+            // 空文字列のチェック
+            if (string.IsNullOrEmpty(resultString))
+            {
                 return false;
+            }
 
-            var conv = TypeDescriptor.GetConverter(typeof(T));
-            if (conv == null)
-                return false;
-
+            // 型Tへの変換を試みる
             try
             {
-                outputValue = (T)conv.ConvertFromString(sb.ToString());
+                TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+                if (converter != null && converter.CanConvertFrom(typeof(string)))
+                {
+                    outputValue = (T)converter.ConvertFromString(resultString);
+                    return true; // 変換に成功
+                }
             }
-            catch (NotSupportedException)
+            catch
             {
-                return false;
-            }
-            catch (FormatException)
-            {
-                return false;
+                // 変換に失敗した場合は、ここで処理される
             }
 
-            return true;
+            return false; // 変換に失敗または変換器が見つからない
+        }
+    
 
+        private static uint GetPrivateProfileString(object section, object key, string v, object buffer, uint length, object filepath)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -102,9 +130,17 @@ namespace HaruaConvert
         /// <param name="sectionName">セクション名</param>
         /// <param name="keyName">キー名</param>
         /// <param name="outputValue">出力値</param>
-        public static void SetValue(string filePath, string sectionName, string keyName, string outputValue) =>
-            SettingIniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
+        public static void SetValue(string filePath, string sectionName, string keyName, string outputValue)
+        {
 
+            int result = IniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
+            ;// CA1806の解決
+            // WritePrivateProfileString が 0 を返した場合、操作は失敗しています。
+            if (result == 0)
+            {
+                throw new IOException($"Failed to write to INI file. FilePath: {filePath}, SectionName: {sectionName}, KeyName: {keyName}");
+            }
+        }
 
     }
 }

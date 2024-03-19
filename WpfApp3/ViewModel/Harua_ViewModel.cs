@@ -20,7 +20,7 @@ namespace HaruaConvert.Parameter
     public class Harua_ViewModel : INotifyPropertyChanged
 #pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
     {
-        ParamField paramField { get; set; }
+        //ParamField paramField { get; set; }
 
         private ISettingsService _settingsService;
 
@@ -29,7 +29,10 @@ namespace HaruaConvert.Parameter
             // mainWindow = _main ?? throw new ArgumentNullException(nameof(_main));
 
             _settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
-            LoadInitialData();
+
+            
+
+            LoadInitialData(_settingsService.GetIniPath());
             //    mainWindow = _main;
 
 
@@ -37,14 +40,13 @@ namespace HaruaConvert.Parameter
 
 
         }
-        private void LoadInitialData()
+        public void LoadInitialData(string iniPath)
         {
-            string iniPath = _settingsService.GetIniPath(); // 仮のメソッド; 実際にはISettingsServiceに適切なメソッドを定義する
-         
+
                 MainParams = new ObservableCollection<MainParam>
             {
                new MainParam { StartQuery = IniDefinition.GetValueOrDefault
-                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, " -b:v 00k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
+                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, " -b:v 700k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
                 OutputPath = MainTab_OutputDirectory,
                  endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
