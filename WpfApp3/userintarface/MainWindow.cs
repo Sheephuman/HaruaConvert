@@ -1,10 +1,9 @@
 ﻿using FFMpegCore;
+using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.HaruaServise;
-using HaruaConvert.InterFace;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
-
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -55,7 +54,7 @@ namespace HaruaConvert
 
 
 
-       public bool firstSet { get; set; } //初回起動用
+       public static bool firstSet { get; set; } //初回起動用
         public string baseArguments { get; set; }
 
         List<CheckBox> childCheckBoxList;
@@ -102,37 +101,38 @@ namespace HaruaConvert
             isUPDownClicked = false;
 
 
+
+
+            InitializeParameters();
+
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-         
+
 
             UIManager uiManager = new UIManager(this);
             uiManager.RegisterUIDropEvent();
 
             uiManager.SetupEventHandlers();
-         
-            InitializeParameters();
-            InitializeViewModels();
 
+           
             InitializeChildComponents();
-            LoadCheckBoxStates();
+       
 
             SelectorEventHandlers();
 
 
+         
 
-            LoadSettings();
 
 
 
 
             SetupUIEvents();
-          
 
 
-               // var iniCon = new IniSettingsConst();
+            // var iniCon = new IniSettingsConst();
 
-            
-            
+
+
             mainProcess = Process.GetCurrentProcess();
 
 
@@ -141,26 +141,22 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
 
-            #region Register Events
+
+            Generate_ParamSelector();
+
+
+            var cm = new QuerryBuildManager(this);
+            cm.AddCommands();
 
 
 
-            //No Frame Window Enable Moving
-            //http://getbget.seesaa.net/article/436398354.html
+
+            LoadSettings();
+            InitializeViewModels();
+            LoadCheckBoxStates();
 
 
-
-
-
-            ///////
-            ////https://qiita.com/tricogimmick/items/4347214669a99cd2c775
-            /////
           
-
-            #endregion
-
-              Generate_ParamSelector();
-
         }
 
 
@@ -847,16 +843,7 @@ namespace HaruaConvert
             return ToString();
         }
 
-        public void AppendMediaInfoToSourceFileData()
-        {
-            var media = new MediaInfoService(this);
-
-            media.displayMediaInfo(paramField.setFile);
-
     
-            
-        }
-
         public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
         {
             Dispatcher.Invoke(() =>

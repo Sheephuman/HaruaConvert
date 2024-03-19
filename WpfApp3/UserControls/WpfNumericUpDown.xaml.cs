@@ -12,6 +12,12 @@ namespace HaruaConvert.UserControls
     /// </summary>
     public partial class WpfNumericUpDown : UserControl
     {
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control
+        /// からの流用
+        /// https://github.com/Torabi/WPFNumericUpDown　これも似たようなもの？
+        /// </summary>
         public WpfNumericUpDown()
         {
             InitializeComponent();
