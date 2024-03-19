@@ -102,38 +102,39 @@ namespace HaruaConvert
             isUPDownClicked = false;
 
 
-
-
-            InitializeParameters();
-
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-
+         
 
             UIManager uiManager = new UIManager(this);
             uiManager.RegisterUIDropEvent();
 
             uiManager.SetupEventHandlers();
+         
+            InitializeParameters();
+            InitializeViewModels();
 
-           
             InitializeChildComponents();
-       
+            LoadCheckBoxStates();
 
             SelectorEventHandlers();
-
+            
+            
 
 
             LoadSettings();
 
 
 
+            LoadSettings();
 
             SetupUIEvents();
+          
 
 
-            // var iniCon = new IniSettingsConst();
+               // var iniCon = new IniSettingsConst();
 
-
-
+            
+            
             mainProcess = Process.GetCurrentProcess();
 
 
@@ -142,26 +143,12 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
 
-            #region Register Events
-
-
-
-            //No Frame Window Enable Moving
-            //http://getbget.seesaa.net/article/436398354.html
-
-
-
-
-
-            ///////
-            ////https://qiita.com/tricogimmick/items/4347214669a99cd2c775
-            /////
-          
-
-            #endregion
-
+      
               Generate_ParamSelector();
 
+
+            var cm = new QuerryBuildManager(this);
+            cm.AddCommands();
         }
 
 
@@ -335,10 +322,6 @@ namespace HaruaConvert
         ///  Reflect ffmpg command line Log to logWindows
         /// </summary>
         /// <param name="executeName"></param>
-
-
-
-
 
 
 
@@ -849,16 +832,7 @@ namespace HaruaConvert
             return ToString();
         }
 
-        public void AppendMediaInfoToSourceFileData()
-        {
-            var media = new MediaInfoService(this);
-
-            media.displayMediaInfo(paramField.setFile);
-
     
-            
-        }
-
         public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
         {
             Dispatcher.Invoke(() =>
