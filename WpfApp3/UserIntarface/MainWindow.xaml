@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:HaruaConvert="clr-namespace:HaruaConvert"
+       xmlns:local="clr-namespace:HaruaConvert.Command"
         xmlns:UserControls="clr-namespace:HaruaConvert.UserControls" xmlns:parameter="clr-namespace:HaruaConvert.Parameter" d:DataContext="{d:DesignInstance Type=parameter:Harua_ViewModel}" x:Class="HaruaConvert.MainWindow"
         mc:Ignorable="d"
         Title="はるあちゃんこんば～た" Height="440" Width="550"
@@ -15,7 +16,7 @@
         Opacity="0.8"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
-   
+             
         >
 
     <!-- 閉じる-->
@@ -175,7 +176,16 @@
                                     <TextBox Width="390"
                                         x:Name="ParamText" Text="{Binding StartQuery}"   FontSize="16"   
                                                ToolTip="ffmpegに渡すオプションです。"
-                                               />
+                                              >
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="ffmpegコマンド組み立て" Command="{x:Static local:QueryBuidCommand.QueryBuild}" />
+                                            </ContextMenu>
+                                            
+                                            
+                                        </TextBox.ContextMenu>
+
+                                    </TextBox>
 
 
 

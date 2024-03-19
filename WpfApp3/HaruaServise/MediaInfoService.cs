@@ -1,12 +1,8 @@
 ﻿using FFMpegCore;
 using HaruaConvert.HaruaInterFace;
-using HaruaConvert.InterFace;
-using HaruaConvert.Parameter;
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
-using WpfApp3.Parameter;
 
 namespace HaruaConvert.HaruaServise
 {

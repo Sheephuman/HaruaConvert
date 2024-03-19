@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -16,7 +17,7 @@ namespace HaruaConvert
            [MarshalAs(UnmanagedType.LPWStr), In] string lpAppName,
            [MarshalAs(UnmanagedType.LPWStr), In] string lpKeyName,
            [MarshalAs(UnmanagedType.LPWStr), In] string lpDefault,
-           [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder lpReturnString,
+           [MarshalAs(UnmanagedType.LPWStr), Out] char[] lpReturnString, // StringBuilder から char[] への変更
            uint nSize,
            [MarshalAs(UnmanagedType.LPWStr), In] string iniFilename);
 
@@ -102,9 +103,17 @@ namespace HaruaConvert
         /// <param name="sectionName">セクション名</param>
         /// <param name="keyName">キー名</param>
         /// <param name="outputValue">出力値</param>
-        public static void SetValue(string filePath, string sectionName, string keyName, string outputValue) =>
-            SettingIniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
+        public static void SetValue(string filePath, string sectionName, string keyName, string outputValue)
+        {
 
+            int result = SettingIniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
+            ;// CA1806の解決
+            // WritePrivateProfileString が 0 を返した場合、操作は失敗しています。
+            if (result == 0)
+            {
+                throw new IOException($"Failed to write to INI file. FilePath: {filePath}, SectionName: {sectionName}, KeyName: {keyName}");
+            }
+        }
 
     }
 }

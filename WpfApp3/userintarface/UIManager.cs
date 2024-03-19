@@ -1,7 +1,8 @@
-﻿using HaruaConvert.HaruaInterFace;
-using HaruaConvert.HaruaServise;
+﻿using HaruaConvert.Command;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,10 +30,9 @@ namespace HaruaConvert.HaruaServise
             //var dclicks = new Directory_ClickProcedure(this);
 
 
-            
-
-            
         }
+
+   
 
 
         // 初回実行を判定するための静的フラグ
@@ -107,7 +107,7 @@ namespace HaruaConvert.HaruaServise
 
         public void RegisterUIDropEvent()
         {
-            if (_mainWindow.firstSet )
+            if (MainWindow.firstSet )
             {
                 Button dropbutton = (Button)_mainWindow.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _mainWindow.Drop_Label);
                 if(dropbutton !=null)
@@ -129,14 +129,14 @@ namespace HaruaConvert.HaruaServise
         {
             throw new NotImplementedException();
         }
-        bool constructBoool { get; set; }
+        
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             // MainWindowがロードされたときの初期化処理
 
 
-            if (_mainWindow.firstSet)
+            if (MainWindow.firstSet)
             {
                 //get Button name from label template
                 RegisterUIDropEvent();
