@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using WinRT;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -120,8 +121,8 @@ namespace HaruaConvert
             SelectorEventHandlers();
 
 
-         
 
+            LoadSettings();
 
 
 
@@ -141,22 +142,26 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
 
-
-            Generate_ParamSelector();
-
-
-            var cm = new QuerryBuildManager(this);
-            cm.AddCommands();
+            #region Register Events
 
 
 
-
-            LoadSettings();
-            InitializeViewModels();
-            LoadCheckBoxStates();
+            //No Frame Window Enable Moving
+            //http://getbget.seesaa.net/article/436398354.html
 
 
+
+
+
+            ///////
+            ////https://qiita.com/tricogimmick/items/4347214669a99cd2c775
+            /////
           
+
+            #endregion
+
+              Generate_ParamSelector();
+
         }
 
 
@@ -844,9 +849,24 @@ namespace HaruaConvert
             return ToString();
         }
 
-    
-        public void DisplayFileData(IMediaAnalysis mediaInfo)
+        public void AppendMediaInfoToSourceFileData()
         {
+            var media = new MediaInfoService(this);
+
+            media.displayMediaInfo(paramField.setFile);
+
+    
+            
+        }
+
+        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                MediaInfoService media = new MediaInfoService(this);
+                media.AppendMediaInfoToSourceFileData(mediaInfo);
+
+            });
 
 
             }

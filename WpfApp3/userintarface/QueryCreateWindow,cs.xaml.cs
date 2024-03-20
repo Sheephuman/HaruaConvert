@@ -15,11 +15,8 @@ using System.Windows.Shapes;
 namespace HaruaConvert.userintarface
 {
     /// <summary>
-    /// QuerybuildWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class QuerybuildWindow : Window
     {
-        public QuerybuildWindow()
         {
             InitializeComponent();
         }
