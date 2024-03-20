@@ -32,10 +32,10 @@ namespace HaruaConvert.HaruaServise
             //var dclicks = new Directory_ClickProcedure(this);
 
 
+            
+
+            
         }
-
-   
-
 
         // 初回実行を判定するための静的フラグ
         private static bool _isLoadedHandled;
@@ -109,7 +109,7 @@ namespace HaruaConvert.HaruaServise
 
         public void RegisterUIDropEvent()
         {
-            if (!FirstSet )
+            if (_mainWindow.firstSet )
             {
                 Button dropbutton = (Button)_mainWindow.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _mainWindow.Drop_Label);
                 if(dropbutton !=null)
@@ -134,7 +134,7 @@ namespace HaruaConvert.HaruaServise
         {
             throw new NotImplementedException();
         }
-        
+        bool constructBoool { get; set; }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {

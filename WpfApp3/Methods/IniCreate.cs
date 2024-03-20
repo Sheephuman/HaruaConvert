@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
@@ -17,12 +18,12 @@ namespace HaruaConvert
 
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
         internal static extern uint GetPrivateProfileString(
-            string lpAppName,
-            string lpKeyName,
-            string lpDefault,
-            [Out] char[] lpReturnString,
-            uint nSize,
-            string iniFilename);
+           [MarshalAs(UnmanagedType.LPWStr), In] string lpAppName,
+           [MarshalAs(UnmanagedType.LPWStr), In] string lpKeyName,
+           [MarshalAs(UnmanagedType.LPWStr), In] string lpDefault,
+           [MarshalAs(UnmanagedType.LPWStr), Out] StringBuilder lpReturnString,
+           uint nSize,
+           [MarshalAs(UnmanagedType.LPWStr), In] string iniFilename);
 
         [DllImport("kernel32", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi)]
         internal static extern int WritePrivateProfileString(
@@ -61,21 +62,10 @@ namespace HaruaConvert
                 return false;
             }
 
-            // 読み取りバッファの準備
-            char[] buffer = new char[1024];
-            var iniCreate = new IniCreate();
-
-            // GetPrivateProfileStringを呼び出して設定値を読み取る
-            uint readChars = IniCreate.GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
-
-            // 読み取りが成功したかどうかをチェック
-            if (readChars == 0)
-            {
-                return false; // 読み取りに失敗
-            }
-
-            // null終端文字までの内容を文字列に変換
-            string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
+            var sb = new StringBuilder(1024);
+            var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb.Capacity), filePath);
+            if (ret == 0 || string.IsNullOrEmpty(sb.ToString()))
+                return false;
 
             // 空文字列のチェック
             if (string.IsNullOrEmpty(resultString))
@@ -133,14 +123,6 @@ namespace HaruaConvert
         public static void SetValue(string filePath, string sectionName, string keyName, string outputValue)
         {
 
-            int result = IniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
-            ;// CA1806の解決
-            // WritePrivateProfileString が 0 を返した場合、操作は失敗しています。
-            if (result == 0)
-            {
-                throw new IOException($"Failed to write to INI file. FilePath: {filePath}, SectionName: {sectionName}, KeyName: {keyName}");
-            }
-        }
 
     }
 }
