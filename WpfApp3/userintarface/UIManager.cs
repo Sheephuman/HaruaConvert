@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Windows.System.UserProfile;
 using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.HaruaServise
@@ -15,6 +16,7 @@ namespace HaruaConvert.HaruaServise
     {
 
         private MainWindow _mainWindow;
+        private static bool FirstSet;
 
         public UIManager(MainWindow mainWindow)
         {
@@ -107,7 +109,7 @@ namespace HaruaConvert.HaruaServise
 
         public void RegisterUIDropEvent()
         {
-            if (MainWindow.firstSet )
+            if (!FirstSet )
             {
                 Button dropbutton = (Button)_mainWindow.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _mainWindow.Drop_Label);
                 if(dropbutton !=null)
@@ -120,6 +122,9 @@ namespace HaruaConvert.HaruaServise
                 _mainWindow.AtacchStringsList.Items.Add("[]");
                 _mainWindow.AtacchStringsList.Items.Add("{}");
                 _mainWindow.AtacchStringsList.Items.Add("<>");
+
+                FirstSet = true;
+                return;
             
             }
             
@@ -147,8 +152,7 @@ namespace HaruaConvert.HaruaServise
         public void DropButton_ClickHandle(object sender, RoutedEventArgs e)
         {
 
-
-            foreach (var button in _mainWindow.mainTabEvents)
+            foreach(var button in _mainWindow.mainTabEvents)
             {
 
                 if (((Button)sender).Name == ButtonNameField.Directory_DropButon)

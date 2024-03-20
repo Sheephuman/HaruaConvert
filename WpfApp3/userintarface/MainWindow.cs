@@ -787,7 +787,10 @@ namespace HaruaConvert
             e.Effects = DragDropEffects.Copy; // マウスカーソルをコピーにする。
             e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
             // ドラッグされてきたものがFileDrop形式の場合だけ、このイベントを処理済みにする。
+            
         }
+
+   
 
 
 
@@ -813,8 +816,6 @@ namespace HaruaConvert
 
             if (!string.IsNullOrEmpty(ansest.ParamLabel.Text))
                 ansest.ParamLabel.ToolTip = ansest.ParamLabel.Text;
-
-
 
 
         }
@@ -844,14 +845,8 @@ namespace HaruaConvert
         }
 
     
-        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        public void DisplayFileData(IMediaAnalysis mediaInfo)
         {
-            Dispatcher.Invoke(() =>
-            {
-                MediaInfoService media = new MediaInfoService(this);
-                media.AppendMediaInfoToSourceFileData(mediaInfo);
-
-            });
 
 
             }

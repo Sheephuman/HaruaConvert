@@ -1,6 +1,7 @@
 ﻿using FFMpegCore;
 using HaruaConvert.HaruaInterFace;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 
@@ -23,25 +24,27 @@ namespace HaruaConvert.HaruaServise
 
         }
 
-        public void displayMediaInfo(string setFile)
+        public List<string> displayMediaInfo(string setFile)
         {
+
+            var result = new List<string>();
 
             try
             {
                 if (string.IsNullOrEmpty(setFile))
-                { return; }
-             
+                { return result; }
 
-         //      ClearSourceFileData();
+
+                //      ClearSourceFileData();
 
                 FFOptions probe = new FFOptions();
                 probe.BinaryFolder = "dll";
 
 
-                 var mediaInfo = FFProbe.Analyse(setFile, probe);
-                AppendMediaInfoToSourceFileData(mediaInfo);
+                var mediaInfo = FFProbe.Analyse(setFile, probe);
+               result = AppendMediaInfoToSourceFileData(mediaInfo);
 
-
+                return result;
 
 
 
@@ -53,19 +56,22 @@ namespace HaruaConvert.HaruaServise
                                ex is NullReferenceException ||
                                ex is FFMpegCore.Exceptions.FormatNullException ||
                                ex is Instances.Exceptions.InstanceProcessAlreadyExitedException ||
-                               ex is Win32Exception)
+                               ex is Win32Exception)            
             {
+
                 main.HandleMediaAnalysisException(ex);
+                return result;
 
             }
         }
-        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        public List<string> AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
         {
+            var MediaResultList = new List<string>();
 
             if (mediaInfo.PrimaryAudioStream == null)
             {
                 MessageBox.Show("primary streams がhullだわ");
-                return;
+                return MediaResultList;
             }
 
 
@@ -75,18 +81,17 @@ namespace HaruaConvert.HaruaServise
             var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
             var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
 
-            main.SorceFileDataBox.AppendText("BitRate:" + $"{resultBitRate}" + "Kbps");
-            main.SorceFileDataBox.AppendText(Environment.NewLine);
-            main.SorceFileDataBox.AppendText("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
-            main.SorceFileDataBox.AppendText(Environment.NewLine);
-            main.SorceFileDataBox.AppendText("Codec:" + $"{resultCodec}");
-            main.SorceFileDataBox.AppendText(Environment.NewLine);
-            main.SorceFileDataBox.AppendText("AudioCodec:" + $"{resultAudioCodec}");
-            main.SorceFileDataBox.AppendText(Environment.NewLine);
-            main.SorceFileDataBox.AppendText("Cannels:" + $"{resultCannels}");
-           
-
-
+            MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
+            MediaResultList.Add(Environment.NewLine);
+            MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
+            MediaResultList.Add(Environment.NewLine);
+            MediaResultList.Add("Codec:" + $"{resultCodec}");
+            MediaResultList.Add(Environment.NewLine);
+            MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
+            MediaResultList.Add(Environment.NewLine);
+            MediaResultList.Add("Cannels:" + $"{resultCannels}");
+            
+            return MediaResultList;
 
         }
 
