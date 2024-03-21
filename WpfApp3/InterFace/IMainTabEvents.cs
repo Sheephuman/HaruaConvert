@@ -1,4 +1,5 @@
-﻿using HaruaConvert.HaruaServise;
+﻿using FFMpegCore;
+using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.IO;
@@ -67,17 +68,15 @@ namespace HaruaConvert.HaruaInterFace
 
                     //Update Maintab_InputDirectory
                     ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    DisplayMediaInfoProcedure(main.paramField.setFile);
 
-                    
+
                 }
                 else //Selected Cancel
                 {
                     return;
                 }
-                    
-                MediaInfoService media = new MediaInfoService(main);
-
-                media.displayMediaInfo(main.paramField.setFile);
+           
                 //  ParamField.ConvertDirectory = ofc.opFileName;
             }
 
@@ -85,7 +84,21 @@ namespace HaruaConvert.HaruaInterFace
 
         }
 
+        private void DisplayMediaInfoProcedure(string setFile)
+        {
+            MediaInfoService media = new MediaInfoService(main);
+            media.displayMediaInfo(setFile);
 
+
+
+            FFOptions probe = new FFOptions();
+            probe.BinaryFolder = "dll";
+
+
+            var mediaInfo = FFProbe.Analyse(setFile, probe);
+            main.AppendMediaInfoToSourceFileData(mediaInfo);
+
+        }
 
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e)
         {

@@ -7,33 +7,48 @@ using System.Text;
 
 namespace HaruaConvert
 {
-    internal sealed class SettingIniCreate
+    internal sealed class IniCreate
     {
 
-        public SettingIniCreate() { }
-
-        [DllImport("kernel32", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, ExactSpelling = false)]
-        internal static extern uint GetPrivateProfileString(
-           [MarshalAs(UnmanagedType.LPWStr), In] string lpAppName,
-           [MarshalAs(UnmanagedType.LPWStr), In] string lpKeyName,
-           [MarshalAs(UnmanagedType.LPWStr), In] string lpDefault,
-           [MarshalAs(UnmanagedType.LPWStr), Out] char[] lpReturnString, // StringBuilder から char[] への変更
-           uint nSize,
-           [MarshalAs(UnmanagedType.LPWStr), In] string iniFilename);
-
+        public IniCreate()
+        {
+        
+        }
         [DllImport("kernel32", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi)]
         internal static extern int WritePrivateProfileString(
-            [MarshalAs(UnmanagedType.LPWStr), In] string lpAppName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string lpKeyName,
-            [MarshalAs(UnmanagedType.LPWStr), In] string lpString,
-            [MarshalAs(UnmanagedType.LPWStr), In] string lpFileName);
-
+          [MarshalAs(UnmanagedType.LPWStr), In] string lpAppName,
+          [MarshalAs(UnmanagedType.LPWStr), In] string lpKeyName,
+          [MarshalAs(UnmanagedType.LPWStr), In] string lpString,
+          [MarshalAs(UnmanagedType.LPWStr), In] string lpFileName);
     }
 
 
 
     public static class IniDefinition
     {
+
+        /// <summary>
+        /// MarshalAs属性の削除: MarshalAs(UnmanagedType.LPWStr)は
+        /// StringBuilderに適用されることが一般的ですが、char[]を
+        /// 使用する場合は、この属性が原因で問題が発生することがあり
+        /// ます。char[]の場合、CLRは自動的に適切なマーシャリングを行います。
+        /// </summary>
+        /// <param name="lpAppName"></param>
+        /// <param name="lpKeyName"></param>
+        /// <param name="lpDefault"></param>
+        /// <param name="lpReturnString"></param>
+        /// <param name="nSize"></param>
+        /// <param name="iniFilename"></param>
+        /// <returns></returns>
+        [DllImport("kernel32", CharSet = CharSet.Unicode)]
+        internal static extern uint GetPrivateProfileString(
+    string lpAppName,
+    string lpKeyName,
+    string lpDefault,
+    [Out] char[] lpReturnString,
+    uint nSize,   //char[]のサイズをnSizeパラメータで正確に指定
+    string iniFilename);
+
 
         /// <summary>
         /// INIファイルからキーの値を取得します
@@ -49,35 +64,56 @@ namespace HaruaConvert
         public static bool TryGetValueOrDefault<T>(string filePath, string sectionName, string keyName, T defaultValue, out T outputValue)
         {
 
+
+
+            // 出力値の初期化
             outputValue = defaultValue;
 
+            // ファイルパスの有効性をチェック
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
                 return false;
+            }
 
-            var sb = new char[1024];  //CA1838 の解決
-                                      //var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb), filePath);
-            var ret = SettingIniCreate.GetPrivateProfileString(sectionName, keyName, string.Empty, sb, Convert.ToUInt32(sb.Length, System.Globalization.CultureInfo.InvariantCulture), filePath); if (ret == 0 || string.IsNullOrEmpty(sb.ToString())) 　//CA1305 の解決
+            // 読み取りバッファの準備
+            char[] buffer = new char[1024];  // //CA1838 の解決
+
+            // GetPrivateProfileStringを呼び出して設定値を読み取る
+            uint readChars = GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
+
+
+            // 読み取りが成功したかどうかをチェック
+            if (readChars == 0)
+            {
+                return false; // 読み取りに失敗
+            }
+
+            // null終端文字までの内容を文字列に変換
+            string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
+
+            // 空文字列のチェック
+            if (string.IsNullOrEmpty(resultString))
+            {
                 return false;
+            }
 
-            var conv = TypeDescriptor.GetConverter(typeof(T));
-            if (conv == null)
-                return false;
-
+            // 型Tへの変換を試みる
             try
             {
-                outputValue = (T)conv.ConvertFromString(sb.ToString());
+                TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+                if (converter != null && converter.CanConvertFrom(typeof(string)))
+                {
+                    outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
+
+                    return true; // 変換に成功
+                }
             }
-            catch (NotSupportedException)
+            catch
             {
-                return false;
-            }
-            catch (FormatException)
-            {
-                return false;
+                // 変換に失敗した場合は、ここで処理される
             }
 
-            return true;
-
+            return false; // 変換に失敗または変換器が見つからない
         }
 
         /// <summary>
@@ -106,7 +142,7 @@ namespace HaruaConvert
         public static void SetValue(string filePath, string sectionName, string keyName, string outputValue)
         {
 
-            int result = SettingIniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
+            int result = IniCreate.WritePrivateProfileString(sectionName, keyName, outputValue, filePath);
             ;// CA1806の解決
             // WritePrivateProfileString が 0 を返した場合、操作は失敗しています。
             if (result == 0)
