@@ -18,7 +18,7 @@
                 <ComboBox Width="100" Margin="6"/>
             </StackPanel>
             <StackPanel>
-
+                <!--https://chs1101.wordpress.com/2014/10/27/xaml%e3%83%81%e3%82%a7%e3%83%83%e3%82%af%e3%83%9c%e3%83%83%e3%82%af%e3%82%b9%e3%81%ae%e3%82%b5%e3%82%a4%e3%82%ba%e3%82%92%e6%8b%a1%e5%a4%a7%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95/comment-page-1/?unapproved=166&moderation-hash=5abfeb5eba1733bb074798ab6de4d69e#respond-->
                 <CheckBox>
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
