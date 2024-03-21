@@ -19,7 +19,12 @@
             </StackPanel>
             <StackPanel>
 
-                <CheckBox Content="Twitter(X)に投稿可能にする" FontSize="20" Margin="6"/>
+                <CheckBox>
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                    </CheckBox.LayoutTransform>
+                    <TextBlock Text="Twitterに投稿可能なQuery"/>
+                </CheckBox>
             </StackPanel>
         </StackPanel>
     </Grid>
