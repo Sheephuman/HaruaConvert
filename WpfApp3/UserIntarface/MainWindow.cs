@@ -5,11 +5,13 @@ using HaruaConvert.HaruaServise;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using NAudio.CoreAudioApi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -20,6 +22,7 @@ using System.Windows.Media;
 using WinRT;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace HaruaConvert
 {
@@ -745,17 +748,19 @@ namespace HaruaConvert
                 if (((Button)sender).Name == ButtonNameField.Directory_DropButon)
                 {
                     button.Directory_DropButon_Click(sender, e);
+
                     return;
                 }
 
                 else if (((Button)sender).Name == ButtonNameField.Convert_DropButton)
                 {
                     button.Convert_DropButton_Click(sender, e);
-
+                   
                     return;
                 }
-             
-             
+
+               
+
             }
 
         }
@@ -837,10 +842,20 @@ namespace HaruaConvert
     
         public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
         {
+            MediaInfoService media = new MediaInfoService(this);
+            var lists = new List<string>();
+            lists = media.AppendMediaInfoToSourceFileData(mediaInfo); 
+
+
             Dispatcher.Invoke(() =>
             {
-                MediaInfoService media = new MediaInfoService(this);
-                media.AppendMediaInfoToSourceFileData(mediaInfo);
+                           
+              
+
+                foreach (var mediaData in lists)
+                {
+                    SorceFileDataBox.AppendText(mediaData);
+                }
 
             });
 
