@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HaruaConvert.userintarface"
+        xmlns:local="clr-namespace:HaruaConvert.userintarface" xmlns:UserControl="clr-namespace:HaruaConvert.UserControls"
         mc:Ignorable="d"
         Title="QueryCreateWindow_cs" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="ビットレート" FontSize="20"/>
+                <UserControl:WpfNumericUpDown Margin="6"/>
+                <Label Content="kbps" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="コーデック" FontSize="20"/>
+                <ComboBox Width="100" Margin="6"/>
+            </StackPanel>
+            <StackPanel>
+
+                <CheckBox Content="Twitter(X)に投稿可能にする" FontSize="20" Margin="6"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

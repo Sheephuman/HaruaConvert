@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HaruaConvert.userintarface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,9 @@ namespace HaruaConvert.Command
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
             // コマンド実行時のロジック
-          
+            var qb = new QueryCreateWindow();
+            qb.Show();
+
         }
 
 
