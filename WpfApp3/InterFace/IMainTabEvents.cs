@@ -1,4 +1,5 @@
-﻿using HaruaConvert.HaruaServise;
+﻿using FFMpegCore;
+using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.IO;
