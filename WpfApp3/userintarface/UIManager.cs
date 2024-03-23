@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Windows.System.UserProfile;
 using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.HaruaServise
@@ -16,12 +15,11 @@ namespace HaruaConvert.HaruaServise
     {
 
         private MainWindow _mainWindow;
-        private static bool FirstSet;
 
         public UIManager(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-           
+
 
             //get Interface instance
             _mainWindow.mainTabEvents = new IMainTabEvents[]
@@ -34,7 +32,7 @@ namespace HaruaConvert.HaruaServise
 
         }
 
-   
+
 
 
         // 初回実行を判定するための静的フラグ
@@ -51,13 +49,13 @@ namespace HaruaConvert.HaruaServise
             // ファイルドロップイベントハンドラの設定
             _mainWindow.AllowDrop = true;
             _mainWindow.InputSelector.FilePathBox.PreviewDragOver += InputSelector_PreviewDragOver;
-          //_mainWindow.OutputSelector.FilePathBox.PreviewDragOver += OutSelector_PreviewDragOver;
+            //_mainWindow.OutputSelector.FilePathBox.PreviewDragOver += OutSelector_PreviewDragOver;
             _mainWindow.DragOver += MainWindow_DragOver;
             _mainWindow.Drop += MainWindow_FileDrop;
-          _mainWindow.InputSelector.FilePathBox.Drop += MainWindow_FileDrop;
+            _mainWindow.InputSelector.FilePathBox.Drop += MainWindow_FileDrop;
             // その他のUI操作に関わるイベントハンドラを設定
-           // _mainWindow.btnSaveSettings.Click += BtnSaveSettings_Click;
-         //   _mainWindow.btnLoadSettings.Click += BtnLoadSettings_Click;
+            // _mainWindow.btnSaveSettings.Click += BtnSaveSettings_Click;
+            //   _mainWindow.btnLoadSettings.Click += BtnLoadSettings_Click;
         }
 
         private void FilePathBox_PreviewDragEnter(object sender, DragEventArgs e)
@@ -69,7 +67,7 @@ namespace HaruaConvert.HaruaServise
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-               _mainWindow.FileList.Clear();
+                _mainWindow.FileList.Clear();
                 var fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (var name in fileNames)
                 {
@@ -81,10 +79,10 @@ namespace HaruaConvert.HaruaServise
 
                 _mainWindow.Drop_Label.Content = "Convert";
 
-            
+
                 _mainWindow.SourcePathLabel.Text = string.Empty;
-                    _mainWindow.SourcePathLabel.Text = _mainWindow.paramField.setFile;
-                
+                _mainWindow.SourcePathLabel.Text = _mainWindow.paramField.setFile;
+
 
                 _mainWindow.harua_View.SourcePathText = _mainWindow.paramField.setFile;
 
@@ -122,10 +120,10 @@ namespace HaruaConvert.HaruaServise
 
         public void RegisterUIDropEvent()
         {
-            if (MainWindow.firstSet )
+            if (MainWindow.firstSet)
             {
                 Button dropbutton = (Button)_mainWindow.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _mainWindow.Drop_Label);
-                if(dropbutton !=null)
+                if (dropbutton != null)
                     dropbutton.Click += DropButton_ClickHandle;
 
 
@@ -136,11 +134,8 @@ namespace HaruaConvert.HaruaServise
                 _mainWindow.AtacchStringsList.Items.Add("{}");
                 _mainWindow.AtacchStringsList.Items.Add("<>");
 
-                FirstSet = true;
-                return;
-            
             }
-            
+
         }
 
         private void MainWindow_DragOver(object sender, DragEventArgs e)
@@ -156,7 +151,7 @@ namespace HaruaConvert.HaruaServise
             }
             e.Handled = true;
         }
-        
+
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {

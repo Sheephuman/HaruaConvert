@@ -7,7 +7,7 @@ namespace HaruaConvert.HaruaInterFace
 {
     public interface IMediaInfoManager
     {
-        void DisplayFileData(IMediaAnalysis mediaInfo);
+        void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo);
         void HandleMediaAnalysisException(Exception ex);
     }
 
@@ -35,7 +35,7 @@ namespace HaruaConvert.HaruaInterFace
                 // メディア情報の取得と表示の処理
                 FFOptions probe = new FFOptions { BinaryFolder = "dll" };
                 var mediaInfo = FFProbe.Analyse(setFile, probe);
-                mediaInfoDisplay.DisplayFileData(mediaInfo);
+                mediaInfoDisplay.AppendMediaInfoToSourceFileData(mediaInfo);
             }
             catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
             {
