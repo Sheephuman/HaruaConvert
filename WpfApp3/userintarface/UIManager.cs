@@ -50,12 +50,19 @@ namespace HaruaConvert.HaruaServise
             }
             // ファイルドロップイベントハンドラの設定
             _mainWindow.AllowDrop = true;
+            _mainWindow.InputSelector.FilePathBox.PreviewDragOver += InputSelector_PreviewDragOver;
+          //_mainWindow.OutputSelector.FilePathBox.PreviewDragOver += OutSelector_PreviewDragOver;
             _mainWindow.DragOver += MainWindow_DragOver;
             _mainWindow.Drop += MainWindow_FileDrop;
-
+          _mainWindow.InputSelector.FilePathBox.Drop += MainWindow_FileDrop;
             // その他のUI操作に関わるイベントハンドラを設定
            // _mainWindow.btnSaveSettings.Click += BtnSaveSettings_Click;
          //   _mainWindow.btnLoadSettings.Click += BtnLoadSettings_Click;
+        }
+
+        private void FilePathBox_PreviewDragEnter(object sender, DragEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void MainWindow_FileDrop(object sender, DragEventArgs e)
@@ -74,38 +81,44 @@ namespace HaruaConvert.HaruaServise
 
                 _mainWindow.Drop_Label.Content = "Convert";
 
-                var ClickedControl = sender as Control;
-
-                if (ClickedControl.Name == _mainWindow.Directory_DropButon.Name)
+            
+                _mainWindow.SourcePathLabel.Text = string.Empty;
                     _mainWindow.SourcePathLabel.Text = _mainWindow.paramField.setFile;
-
-
-
-
-                if (ClickedControl.Name == _mainWindow.InputSelector.FilePathBox.Name)
-                    _mainWindow.InputSelector.FilePathBox.Text = _mainWindow.paramField.setFile;
-
-
-
-                if (ClickedControl.Name == _mainWindow.OutputSelector.Name)
-                    _mainWindow.InputSelector.FilePathBox.Text = _mainWindow.paramField.setFile;
-
-
-                if (ClickedControl.Name == _mainWindow.InputSelector.Name + ParamField.ButtonNameField._openButton)
-                    _mainWindow.InputSelector.FilePathBox.Text = _mainWindow.paramField.setFile;
-
-
+                
 
                 _mainWindow.harua_View.SourcePathText = _mainWindow.paramField.setFile;
 
-                // MediaInfoServiceのインスタンスを作成
-                IMediaInfoManager mediaInfoDisplay = _mainWindow; // MainWindowがIMediaInfoDisplayを実装していると仮定
-                MediaInfoService mediaInfoService = new MediaInfoService(mediaInfoDisplay);
 
-                mediaInfoService.displayMediaInfo(_mainWindow.paramField.setFile);
-
+                DisplayMediaInfo();
             }
         }
+
+        void DisplayMediaInfo()
+        {
+
+            // MediaInfoServiceのインスタンスを作成
+            IMediaInfoManager mediaInfoDisplay = _mainWindow; // MainWindowがIMediaInfoDisplayを実装していると仮定
+            MediaInfoService mediaInfoService = new MediaInfoService(mediaInfoDisplay);
+            Directory_ClickProcedure dp = new Directory_ClickProcedure(_mainWindow);
+
+            var info = dp.DisplayMediaInfoProcedure(_mainWindow.paramField.setFile);
+
+            var medialists = mediaInfoService.AppendMediaInfoToSourceFileData(info);
+
+            foreach (var imtems in medialists)
+            {
+                _mainWindow.SorceFileDataBox.AppendText(imtems);
+            }
+
+        }
+
+        private void InputSelector_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.Copy; // マウスカーソルをコピーにする。
+            e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
+            // ドラッグされてきたものがFileDrop形式の場合だけ、このイベントを処理済みにする。
+        }
+
 
         public void RegisterUIDropEvent()
         {
@@ -132,7 +145,16 @@ namespace HaruaConvert.HaruaServise
 
         private void MainWindow_DragOver(object sender, DragEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effects = DragDropEffects.All;
+
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            e.Handled = true;
         }
         
 
@@ -152,12 +174,36 @@ namespace HaruaConvert.HaruaServise
         public void DropButton_ClickHandle(object sender, RoutedEventArgs e)
         {
 
-            foreach(var button in _mainWindow.mainTabEvents)
+            _mainWindow.SourcePathLabel.Text = string.Empty;
+            var ClickedControl = sender as Button;
+
+            if (ClickedControl.Name == _mainWindow.Directory_DropButon.Name)
+                _mainWindow.SourcePathLabel.Text = _mainWindow.paramField.setFile;
+
+
+
+
+            if (ClickedControl.Name == _mainWindow.InputSelector.FilePathBox.Name)
+                _mainWindow.InputSelector.FilePathBox.Text = _mainWindow.paramField.setFile;
+
+
+
+            if (ClickedControl.Name == _mainWindow.OutputSelector.Name)
+                _mainWindow.InputSelector.FilePathBox.Text = _mainWindow.paramField.setFile;
+
+
+            if (ClickedControl.Name == _mainWindow.InputSelector.Name + ParamField.ButtonNameField._openButton)
+                _mainWindow.InputSelector.FilePathBox.Text = _mainWindow.paramField.setFile;
+
+
+            foreach (var button in _mainWindow.mainTabEvents)
             {
 
                 if (((Button)sender).Name == ButtonNameField.Directory_DropButon)
                 {
                     button.Directory_DropButon_Click(sender, e);
+
+                    DisplayMediaInfo();
                     return;
                 }
 
@@ -165,6 +211,7 @@ namespace HaruaConvert.HaruaServise
                 {
                     button.Convert_DropButton_Click(sender, e);
 
+                    DisplayMediaInfo();
                     return;
                 }
 

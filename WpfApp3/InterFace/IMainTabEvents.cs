@@ -85,7 +85,20 @@ namespace HaruaConvert.HaruaInterFace
 
         }
 
+        public IMediaAnalysis DisplayMediaInfoProcedure(string setFile)
+        {
+                   
 
+
+
+            FFOptions probe = new FFOptions();
+            probe.BinaryFolder = "dll";
+
+
+            var mediaInfo = FFProbe.Analyse(setFile, probe);
+
+            return mediaInfo;
+        }
 
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e)
         {
