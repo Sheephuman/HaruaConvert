@@ -84,10 +84,9 @@ namespace HaruaConvert.HaruaInterFace
 
         }
 
-        private void DisplayMediaInfoProcedure(string setFile)
+        public IMediaAnalysis DisplayMediaInfoProcedure(string setFile)
         {
-            MediaInfoService media = new MediaInfoService(main);
-            media.displayMediaInfo(setFile);
+                   
 
 
 
@@ -96,8 +95,8 @@ namespace HaruaConvert.HaruaInterFace
 
 
             var mediaInfo = FFProbe.Analyse(setFile, probe);
-            main.AppendMediaInfoToSourceFileData(mediaInfo);
 
+            return mediaInfo;
         }
 
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e)
