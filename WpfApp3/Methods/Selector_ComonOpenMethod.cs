@@ -1,4 +1,5 @@
 ﻿using FFMpegCore.Arguments;
+using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
@@ -86,12 +87,16 @@ namespace HaruaConvert.Methods
                 //Update inputSelectorDirectory
                 ParamField.ParamTab_InputSelectorDirectory
                     = Path.GetDirectoryName(main.ofc.opFileName);
+
+
+                string file = ParamField.ParamTab_InputSelectorDirectory;
                 main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName);
                 selector.FilePathBox.Text = main.ofc.opFileName;
 
-                main.OutputSelector.FilePathBox.Text = Path.GetDirectoryName(main.ofc.opFileName) + "\\" + main.paramField.outputFileName_withoutEx
-                    + main.harua_View.MainParams[0].endString
-                    + ".mp4";
+                UIManager ui = new UIManager(main);
+                main.OutputSelector.FilePathBox.Text = ui.OutputFileRename(file,
+                            main.paramField.outputFileName_withoutEx, main.harua_View.MainParams[0].endString);
+
 
 
                 return commons;

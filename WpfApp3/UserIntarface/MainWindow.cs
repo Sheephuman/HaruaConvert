@@ -17,7 +17,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using WinRT;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -28,11 +27,11 @@ namespace HaruaConvert
     /// </summary>
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 #pragma warning disable CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMediaInfoManager
 #pragma warning restore CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
 
     {
-       public Harua_ViewModel harua_View { get; set; }
+        public Harua_ViewModel harua_View { get; set; }
 
         /// <summary>
         /// 共有箇所：LogWindow
@@ -50,12 +49,12 @@ namespace HaruaConvert
         ///isUserOriginalParameter :
         ///コンストラクタ 
         /// </summary>
-       public List<ParamSelector> selectorList { get; set; }
+        public List<ParamSelector> selectorList { get; set; }
 
 
 
 
-       public static bool firstSet { get; set; } //初回起動用
+        public static bool firstSet { get; set; } //初回起動用
         public string baseArguments { get; set; }
 
         List<CheckBox> childCheckBoxList;
@@ -93,7 +92,7 @@ namespace HaruaConvert
         //paramSelectorBox　生成数       
         public int SelGenerate { get; set; }
 
-      
+
 
 
         public MainWindow()
@@ -103,13 +102,13 @@ namespace HaruaConvert
 
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-         
+          
 
             UIManager uiManager = new UIManager(this);
             uiManager.RegisterUIDropEvent();
 
             uiManager.SetupEventHandlers();
-         
+
             InitializeParameters();
             InitializeViewModels();
 
@@ -117,24 +116,23 @@ namespace HaruaConvert
             LoadCheckBoxStates();
 
             SelectorEventHandlers();
-            
-            
 
-
-            LoadSettings();
 
 
 
             LoadSettings();
+
+
+
 
             SetupUIEvents();
-          
 
 
-               // var iniCon = new IniSettingsConst();
 
-            
-            
+            // var iniCon = new IniSettingsConst();
+
+
+
             mainProcess = Process.GetCurrentProcess();
 
 
@@ -143,8 +141,8 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
 
-      
-              Generate_ParamSelector();
+
+            Generate_ParamSelector();
 
 
             var cm = new QuerryBuildManager(this);
@@ -161,19 +159,19 @@ namespace HaruaConvert
             //var ansest = sender as ParamSelector;
             if (ansest == null)
             {
-            
+
                 return;
             }
 
-            paramField.isParam_Edited = firstSet ? false : true;    
+            paramField.isParam_Edited = firstSet ? false : true;
 
             paramField.usedOriginalArgument = ansest.ArgumentEditor.Text;
 
-            
+
         }
 
 
-   
+
 
 
 
@@ -327,9 +325,13 @@ namespace HaruaConvert
 
 
 
+
+
+
+
         private void TabItem_MouseDown(object sender, MouseButtonEventArgs e)
         {
-          
+
         }
 
 
@@ -337,11 +339,11 @@ namespace HaruaConvert
         private void mainTub_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
-          
+
         }
 
 
-       
+
 
         public void HandleMediaAnalysisException(Exception ex)
         {
@@ -373,7 +375,7 @@ namespace HaruaConvert
         }
 
 
-            private void Num_5_Initialized(object sender, EventArgs e)
+        private void Num_5_Initialized(object sender, EventArgs e)
         {
             //     Num_5.Height = Num_3.Height;
         }
@@ -466,12 +468,12 @@ namespace HaruaConvert
 
                 ExecButton.IsEnabled = true;
 
-           
+
 
             }
             else
             {
-         
+
 
 
 
@@ -483,8 +485,8 @@ namespace HaruaConvert
 
                 ParaSelectGroup.Background = new SolidColorBrush(mediaColor);
 
-            }           
-                         
+            }
+
         }
 
 
@@ -546,7 +548,7 @@ namespace HaruaConvert
                     IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
 
                 if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings　, endStringBox.Text);
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
 
 
@@ -600,7 +602,7 @@ namespace HaruaConvert
             //三項演算子
 
 
-            
+
 
 
             //var param = new ParamCreateClasss(InputSelector.FilePathBox.Text);
@@ -609,7 +611,7 @@ namespace HaruaConvert
             {
                 if (ansest.Name == InputSelector.Name)
                 {
-                  //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileNameClass(InputSelector.FilePathBox.Text);
+                    //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileNameClass(InputSelector.FilePathBox.Text);
 
                     ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
                 }
@@ -622,7 +624,7 @@ namespace HaruaConvert
 
         }
 
-     
+
         public string outputFileName { get; set; }
 
 
@@ -630,13 +632,13 @@ namespace HaruaConvert
 
 
         bool isForceExec;
-        private void isForceExec_   
-                 
-            
-            
-            
-            
-            
+        private void isForceExec_
+
+
+
+
+
+
             (object sender, RoutedEventArgs e)
         {
             isForceExec = isForceExecCheckBox.IsChecked.Value ? true : false;
@@ -729,19 +731,20 @@ namespace HaruaConvert
 
 
 
-       public IMainTabEvents[] mainTabEvents { get; set; } 
-     
+        public IMainTabEvents[] mainTabEvents { get; set; }
+
 
         public void DropButton_ClickHandle(object sender, RoutedEventArgs e)
         {
-            
-            
+
+
             foreach (var button in mainTabEvents)
             {
 
                 if (((Button)sender).Name == ButtonNameField.Directory_DropButon)
                 {
                     button.Directory_DropButon_Click(sender, e);
+
                     return;
                 }
 
@@ -751,8 +754,9 @@ namespace HaruaConvert
 
                     return;
                 }
-             
-             
+
+
+
             }
 
         }
@@ -775,10 +779,7 @@ namespace HaruaConvert
             e.Effects = DragDropEffects.Copy; // マウスカーソルをコピーにする。
             e.Handled = e.Data.GetDataPresent(DataFormats.FileDrop);
             // ドラッグされてきたものがFileDrop形式の場合だけ、このイベントを処理済みにする。
-            
         }
-
-   
 
 
 
@@ -806,9 +807,11 @@ namespace HaruaConvert
                 ansest.ParamLabel.ToolTip = ansest.ParamLabel.Text;
 
 
+
+
         }
 
-        
+
 
         private void LinkLabel2_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
@@ -823,8 +826,8 @@ namespace HaruaConvert
         private void isOpenFolder_Checked(object sender, RoutedEventArgs e)
         {
             paramField.isOpenFolder = (bool)IsOpenForuderChecker.IsChecked ? true : false;
-            
-        
+
+
         }
 
         private string GetDebuggerDisplay()
@@ -832,18 +835,28 @@ namespace HaruaConvert
             return ToString();
         }
 
-    
+
         public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
         {
+            MediaInfoService media = new MediaInfoService(this);
+            var lists = new List<string>();
+            lists = media.AppendMediaInfoToSourceFileData(mediaInfo);
+
+
             Dispatcher.Invoke(() =>
             {
-                MediaInfoService media = new MediaInfoService(this);
-                media.AppendMediaInfoToSourceFileData(mediaInfo);
+
+
+
+                foreach (var mediaData in lists)
+                {
+                    SorceFileDataBox.AppendText(mediaData);
+                }
 
             });
 
 
-            }
+        }
     }
 
 }
