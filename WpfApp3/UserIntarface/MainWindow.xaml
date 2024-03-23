@@ -137,7 +137,7 @@
                                 <StackPanel x:Name="mainSelectGroup" Orientation="Vertical">
                                     <GroupBox 
                                     FontSize="16"
-                                    Margin="5,-5,0,0" Header="ソースファイル">
+                                    Margin="5,-5,0,0" Header="ソースファイル(DragするかButtonクリック)">
                                         <StackPanel>
                                             <CheckBox x:Name="isForceExecCheckBox"
                                                       Content="ffmpeg.exe を強制的に実行する"
@@ -146,19 +146,17 @@
                                                       Visibility="Hidden"
                                                       />
 
-                                            <TextBlock Grid.Row="2" x:Name="fileNameLabel"
-                                        Text="Drugするかボタンクリック"  Margin="0,-20,0,0"/>
-                                            <StackPanel Height="30" CanVerticallyScroll="True">
-                                                <ScrollViewer>
-                                                    <TextBlock x:Name= "SourcePathLabel"                                                     
-                                               Text="{Binding SourcePathText}"
+                                        
+                                            <StackPanel Height="40" CanVerticallyScroll="True">
+                                                
+                                                    <TextBlock Grid.Row="2" x:Name="FileNameLabel"
+                                          Margin="0,-20,0,0"
+                                                               Text="{Binding SourcePathText}"
                                                ToolTip="{Binding SourcePathText}"
-                                                               
-                                               TextWrapping="Wrap"
-                                               Width="350"
-                                                   FontSize="16"
-                                                Margin="0,-6,0,0"/>
-                                                </ScrollViewer>
+                                               Width="380"
+                                               TextWrapping="Wrap"                
+                                                               />
+                                                
                                             </StackPanel>
                                             <Button x:Name="Directory_DropButon" 
                                             Height="30"

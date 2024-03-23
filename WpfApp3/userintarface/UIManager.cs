@@ -80,8 +80,8 @@ namespace HaruaConvert.HaruaServise
                 _mainWindow.Drop_Label.Content = "Convert";
 
 
-                _mainWindow.SourcePathLabel.Text = string.Empty;
-                _mainWindow.SourcePathLabel.Text = _mainWindow.paramField.setFile;
+                _mainWindow.FileNameLabel.Text = string.Empty;
+                _mainWindow.FileNameLabel.Text = _mainWindow.paramField.setFile;
 
 
                 _mainWindow.harua_View.SourcePathText = _mainWindow.paramField.setFile;
@@ -169,11 +169,11 @@ namespace HaruaConvert.HaruaServise
         public void DropButton_ClickHandle(object sender, RoutedEventArgs e)
         {
 
-            _mainWindow.SourcePathLabel.Text = string.Empty;
+            _mainWindow.FileNameLabel.Text = string.Empty;
             var ClickedControl = sender as Button;
 
             if (ClickedControl.Name == _mainWindow.Directory_DropButon.Name)
-                _mainWindow.SourcePathLabel.Text = _mainWindow.paramField.setFile;
+                _mainWindow.FileNameLabel.Text = _mainWindow.paramField.setFile;
 
 
 

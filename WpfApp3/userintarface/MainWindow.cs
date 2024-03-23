@@ -5,13 +5,11 @@ using HaruaConvert.HaruaServise;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using NAudio.CoreAudioApi;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -19,10 +17,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using WinRT;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
-using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace HaruaConvert
 {
@@ -106,7 +102,7 @@ namespace HaruaConvert
 
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-
+          
 
             UIManager uiManager = new UIManager(this);
             uiManager.RegisterUIDropEvent();
