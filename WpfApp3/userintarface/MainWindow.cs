@@ -28,7 +28,7 @@ namespace HaruaConvert
     /// </summary>
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 #pragma warning disable CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
-    public partial class MainWindow : Window, IMediaInfoManager
+    public partial class MainWindow : Window
 #pragma warning restore CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
 
     {
