@@ -55,8 +55,8 @@ namespace HaruaConvert.HaruaInterFace
 
                     main.paramField.setFile = ofc.opFileName;
                     main.harua_View.SourcePathText = main.paramField.setFile;
-                    main.SourcePathLabel.Text = main.harua_View.SourcePathText;
-                    main.SourcePathLabel.ToolTip = main.harua_View.SourcePathText;
+                    main.FileNameLabel.Text = main.harua_View.SourcePathText;
+                    main.FileNameLabel.ToolTip = main.harua_View.SourcePathText;
 
 
                     // ParamField.ConvertDirectory = paramField.setFile;
