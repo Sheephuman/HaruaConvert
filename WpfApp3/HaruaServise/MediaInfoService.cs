@@ -24,43 +24,43 @@ namespace HaruaConvert.HaruaServise
 
         }
 
-        //public List<string> displayMediaInfo(string setFile)
-        //{
-        //    var result = new List<string>();
-        //    try
-        //    {
-        //        if (string.IsNullOrEmpty(setFile))
-        //        { return result; }
-             
-                    
-        // //      ClearSourceFileData();
+        public List<string> displayMediaInfo(string setFile)
+        {
+            var result = new List<string>();
+            try
+            {
+                if (string.IsNullOrEmpty(setFile))
+                { return result; }
+
+
+                //      ClearSourceFileData();
 
                 FFOptions probe = new FFOptions();
                 probe.BinaryFolder = "dll";
 
 
-        //        return result;
+                //        return result;
 
 
-        //        //明示的GC呼び出し
-        //        //Call explicit GC
-        //        //   GC.Collect();
-        //    }
-        //    catch (Exception ex) when (ex is FFMpegCore.Exceptions.FFMpegException ||
-        //                       ex is NullReferenceException ||
-        //                       ex is FFMpegCore.Exceptions.FormatNullException ||
-        //                       ex is Instances.Exceptions.InstanceProcessAlreadyExitedException ||
-        //                       ex is Win32Exception)
-        //    {
-        //        HandleMediaAnalysisException(ex);
-        //        return result ;
-        //    } 
-
-                main.HandleMediaAnalysisException(ex);
+                //明示的GC呼び出し
+                //Call explicit GC
+                //   GC.Collect();
+            }
+            catch (Exception ex) when (ex is FFMpegCore.Exceptions.FFMpegException ||
+                               ex is NullReferenceException ||
+                               ex is FFMpegCore.Exceptions.FormatNullException ||
+                               ex is Instances.Exceptions.InstanceProcessAlreadyExitedException ||
+                               ex is Win32Exception)
+            {
+                HandleMediaAnalysisException(ex);
                 return result;
+            }
 
-        //}
+         
+            return result;
 
+            //}
+        }
 
 
         public void HandleMediaAnalysisException(Exception ex)
