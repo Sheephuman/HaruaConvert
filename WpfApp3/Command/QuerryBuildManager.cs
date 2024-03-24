@@ -1,4 +1,5 @@
-﻿using HaruaConvert.userintarface;
+﻿using HaruaConvert.UserControls;
+using HaruaConvert.userintarface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,8 +50,10 @@ namespace HaruaConvert.Command
         }
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
+            var wp = new WpfNumericUpDown();
             // コマンド実行時のロジック
-          
+          　QueryCreateWindow qi = new QueryCreateWindow(wp);
+            qi.Show();
         }
 
 

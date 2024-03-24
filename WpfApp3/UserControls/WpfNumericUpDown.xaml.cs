@@ -12,7 +12,7 @@ namespace HaruaConvert.UserControls
     /// </summary>
     public partial class WpfNumericUpDown : UserControl
     {
-
+      static bool isfirst { get; set; }
         /// <summary>
         /// https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control
         /// からの流用
@@ -21,18 +21,27 @@ namespace HaruaConvert.UserControls
         public WpfNumericUpDown()
         {
             InitializeComponent();
-            NUDTextBox.Text = startvalue.ToString(CultureInfo.CurrentCulture);
+            
+                //NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
-           
+                isfirst = true;
+            
         }
 
         public WpfNumericUpDown(int _selG)
         {
             InitializeComponent();
             selGenerate = _selG;
+            if(selGenerate >= 500)
+                TheNUDTextBox.Text = _selG.ToString(CultureInfo.CurrentCulture);
         }
 
-
+        public WpfNumericUpDown(QueryBuildUpDown qb)
+        {
+            InitializeComponent();
+            
+          //   qb.nudTextBox.Text = minValue.ToString(CultureInfo.CurrentCulture);
+        }
 
         private readonly int minvalue = 1;
         private readonly int maxvalue = 100;
@@ -40,22 +49,29 @@ namespace HaruaConvert.UserControls
         public int selGenerate { get; set; }
 
 
+        // NUDTextBoxへの公開プロパティ
+        public TextBox TheNUDTextBox
+        {
+            get { return this.NUDTextBox; }
+            set { this.NUDTextBox = value; }
+        }
+
         /// <summary>
         /// NumberCount UpDown procedure
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        public void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             int number = 0;
-            if (NUDTextBox.Text != "")
-                if (!int.TryParse(NUDTextBox.Text, out number)) NUDTextBox.Text = startvalue.ToString(CultureInfo.CurrentCulture);
-            if (number > maxvalue) NUDTextBox.Text = maxvalue.ToString(CultureInfo.CurrentCulture);
-            if (number < minvalue) NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
-            NUDTextBox.SelectionStart = NUDTextBox.Text.Length;
+            if (TheNUDTextBox.Text != "")
+                if (!int.TryParse(TheNUDTextBox.Text, out number)) TheNUDTextBox.Text = startvalue.ToString(CultureInfo.CurrentCulture);
+            if (number > maxvalue) TheNUDTextBox.Text = maxvalue.ToString(CultureInfo.CurrentCulture);
+            if (number < minvalue) TheNUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
+            TheNUDTextBox.SelectionStart = TheNUDTextBox.Text.Length;
         }
 
-        private void NUDButtonDown_Click(object sender, RoutedEventArgs e)
+        public void NUDButtonDown_Click(object sender, RoutedEventArgs e)
         {
             int number;
             if (NUDTextBox.Text != "") number = Convert.ToInt32(NUDTextBox.Text,CultureInfo.CurrentCulture);
@@ -64,7 +80,7 @@ namespace HaruaConvert.UserControls
                 NUDTextBox.Text = Convert.ToString(number - 1, CultureInfo.CurrentCulture);
         }
 
-        private void NUDTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        public void NUDTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
 
 
@@ -82,7 +98,7 @@ namespace HaruaConvert.UserControls
             }
         }
 
-        private void NUDTextBox_PreviewKeyUp(object sender, KeyEventArgs e)
+        public void NUDTextBox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
 
             if (e.Key == Key.Up)
@@ -94,13 +110,18 @@ namespace HaruaConvert.UserControls
 
         }
 
-        private void NUDButtonUP_Click(object sender, RoutedEventArgs e)
+        public void NUDButtonUP_Click(object sender, RoutedEventArgs e)
         {
             int number;
             if (NUDTextBox.Text != "") number = Convert.ToInt32(NUDTextBox.Text,CultureInfo.CurrentCulture);
             else number = 0;
             if (number < maxvalue)
                 NUDTextBox.Text = Convert.ToString(number + 1,CultureInfo.CurrentCulture);
+        }
+
+        public static explicit operator WpfNumericUpDown(QueryBuildUpDown v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
