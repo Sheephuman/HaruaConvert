@@ -5,6 +5,8 @@
              StartupUri="UserIntarface/MainWindow.xaml"
              ShutdownMode="OnMainWIndowClose">
     <Application.Resources>
-         
-    </Application.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </Application.Resources>        
 </Application>

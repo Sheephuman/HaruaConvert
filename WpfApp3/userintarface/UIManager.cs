@@ -1,9 +1,6 @@
-﻿using HaruaConvert.Command;
-using HaruaConvert.HaruaInterFace;
+﻿using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;

@@ -124,7 +124,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Methods\Alternate_GetFileName.cs" />
-    <None Include="TextBoxBehaviorSample.cs" />
+    <DesignDataWithDesignTimeCreatableTypes Include="TextBoxBehaviorSample.cs" />
+    <Resource Include="NumericStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
     <None Include="ValueObject.cs" />
   </ItemGroup>
 
@@ -232,6 +235,10 @@
 
   <ItemGroup>
     <EditorConfigFiles Remove="E:\Coding\WpfApp3 - Copy%281%29\WpfApp3\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="UserControls\NumericStyles.xaml" />
   </ItemGroup>
 
   <ItemGroup>
