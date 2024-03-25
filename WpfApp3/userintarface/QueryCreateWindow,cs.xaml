@@ -9,7 +9,7 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Label Content="ビットレート" FontSize="20"/>
-                
+                <UserControl:QueryBuildUpDown Width="80" Height="30"/>
                 <Label Content="kbps" FontSize="20"/>                     
             </StackPanel>
             <StackPanel Orientation="Horizontal">
