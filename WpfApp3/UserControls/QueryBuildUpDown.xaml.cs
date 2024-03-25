@@ -4,8 +4,7 @@ using System.Windows.Controls;
 
 namespace HaruaConvert.UserControls
 {
-    /// <summary>
-    /// QueryBuildUpDown.xaml の相互作用ロジック
+    /// <summary>qジック
     /// </summary>
     public partial class QueryBuildUpDown : UserControl
     {
