@@ -1,9 +1,4 @@
-﻿using FFMpegCore;
-using HaruaConvert.UserControls;
-using System;
-using System.DirectoryServices.ActiveDirectory;
-using System.Globalization;
-using System.Numerics;
+﻿using System.Globalization;
 using System.Windows.Controls;
 
 
@@ -25,9 +20,33 @@ namespace HaruaConvert.UserControls
         {
             InitializeComponent();
 
-        //    var textbox = qeryUpDown.TheNUDTextBox;
-          //  textbox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
+          
+          NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
         }
-       
+
+        private void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+             NumericUpDownManager.NumericUpDownTextChangedProc(NUDTextBox, startvalue, maxvalue, minvalue);
+        }
+
+        private void NUDTextBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            NumericUpDownManager.NUDTextBox_PreviewKeyUpProc(NUDButtonUP, NUDButtonDown, e);
+        }
+
+        private void NUDTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            NumericUpDownManager.NUDTextBox_PreviewKeyDownProc(NUDButtonUP, NUDButtonDown, e);
+        }
+
+        private void NUDButtonUP_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NumericUpDownManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue);
+        }
+
+        private void NUDButtonDown_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            NumericUpDownManager.NUDButtonDown(NUDTextBox,minvalue);
+        }
     }
 }

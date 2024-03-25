@@ -87,11 +87,7 @@ namespace HaruaConvert.HaruaInterFace
         }
 
         public IMediaAnalysis DisplayMediaInfoProcedure(string setFile)
-        {
-                   
-
-
-
+        {                 
             FFOptions probe = new FFOptions();
             probe.BinaryFolder = "dll";
 
@@ -133,12 +129,7 @@ namespace HaruaConvert.HaruaInterFace
                main.harua_View.SourcePathText =  main.paramField.setFile;
 
             }
-
-
-
-
         }
-
     }
 
 
@@ -148,7 +139,6 @@ namespace HaruaConvert.HaruaInterFace
     public interface IMethods 
         {
             CommonFileDialogResult CommonOpens();
-
         }
         
 

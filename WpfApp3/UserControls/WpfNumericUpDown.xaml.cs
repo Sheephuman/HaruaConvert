@@ -18,6 +18,9 @@ namespace HaruaConvert.UserControls
         /// からの流用
         /// https://github.com/Torabi/WPFNumericUpDown　これも似たようなもの？
         /// </summary>
+        /// 
+
+       
         public WpfNumericUpDown()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace HaruaConvert.UserControls
                 //NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
                 isfirst = true;
+            
             
         }
 
@@ -36,12 +40,6 @@ namespace HaruaConvert.UserControls
                 TheNUDTextBox.Text = _selG.ToString(CultureInfo.CurrentCulture);
         }
 
-        public WpfNumericUpDown(QueryBuildUpDown qb)
-        {
-            InitializeComponent();
-            
-          //   qb.nudTextBox.Text = minValue.ToString(CultureInfo.CurrentCulture);
-        }
 
         private readonly int minvalue = 1;
         private readonly int maxvalue = 100;
@@ -63,60 +61,27 @@ namespace HaruaConvert.UserControls
         /// <param name="e"></param>
         public void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int number = 0;
-            if (TheNUDTextBox.Text != "")
-                if (!int.TryParse(TheNUDTextBox.Text, out number)) TheNUDTextBox.Text = startvalue.ToString(CultureInfo.CurrentCulture);
-            if (number > maxvalue) TheNUDTextBox.Text = maxvalue.ToString(CultureInfo.CurrentCulture);
-            if (number < minvalue) TheNUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
-            TheNUDTextBox.SelectionStart = TheNUDTextBox.Text.Length;
+            NumericUpDownManager.NumericUpDownTextChangedProc(NUDTextBox, startvalue, maxvalue, minvalue);
         }
 
         public void NUDButtonDown_Click(object sender, RoutedEventArgs e)
         {
-            int number;
-            if (NUDTextBox.Text != "") number = Convert.ToInt32(NUDTextBox.Text,CultureInfo.CurrentCulture);
-            else number = 0;
-            if (number > minvalue)
-                NUDTextBox.Text = Convert.ToString(number - 1, CultureInfo.CurrentCulture);
+            NumericUpDownManager.NUDButtonDown(NUDTextBox,minvalue);
         }
 
         public void NUDTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-
-
-            if (e.Key == Key.Up)
-            {
-                NUDButtonUP.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(NUDButtonUP, new object[] { true });
-            }
-
-
-            if (e.Key == Key.Down)
-            {
-                NUDButtonDown.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(NUDButtonDown, new object[] { true });
-            }
+            NumericUpDownManager.NUDTextBox_PreviewKeyDownProc(NUDButtonUP,NUDButtonDown, e);
         }
 
         public void NUDTextBox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-
-            if (e.Key == Key.Up)
-                typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(NUDButtonUP, new object[] { false });
-
-            if (e.Key == Key.Down)
-                typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(NUDButtonDown, new object[] { false });
-
-
+             NumericUpDownManager.NUDTextBox_PreviewKeyDownProc(NUDButtonUP,NUDButtonDown, e);
         }
 
         public void NUDButtonUP_Click(object sender, RoutedEventArgs e)
         {
-            int number;
-            if (NUDTextBox.Text != "") number = Convert.ToInt32(NUDTextBox.Text,CultureInfo.CurrentCulture);
-            else number = 0;
-            if (number < maxvalue)
-                NUDTextBox.Text = Convert.ToString(number + 1,CultureInfo.CurrentCulture);
+            NumericUpDownManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue);
         }
 
         public static explicit operator WpfNumericUpDown(QueryBuildUpDown v)
