@@ -836,7 +836,7 @@ namespace HaruaConvert
         }
 
 
-        public void AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
+        public void MediaInfoDisplay(IMediaAnalysis mediaInfo)
         {
             MediaInfoService media = new MediaInfoService(this);
             var lists = new List<string>();
@@ -856,6 +856,11 @@ namespace HaruaConvert
             });
 
 
+        }
+
+        List<string> IMediaInfoManager.DisplayMediaInfo(IMediaAnalysis mediaInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 
