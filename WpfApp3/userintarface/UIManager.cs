@@ -1,6 +1,9 @@
-﻿using HaruaConvert.HaruaInterFace;
+﻿using FFMpegCore;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using System;
+using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,7 +55,8 @@ namespace HaruaConvert.HaruaServise
 
             //_main.OutputSelector.FilePathBox.PreviewDragOver += OutSelector_PreviewDragOver;
             _main.DragOver += MainWindow_DragOver;
-            _main.Drop += MainWindow_FileDrop;
+            _main.Directory_DropButon.Drop += MainWindow_FileDrop;
+          
             _main.InputSelector.FilePathBox.Drop += selector_FileDrop;
             // その他のUI操作に関わるイベントハンドラを設定
             // _main.btnSaveSettings.Click += BtnSaveSettings_Click;
@@ -125,35 +129,23 @@ namespace HaruaConvert.HaruaServise
 
                 _main.FileNameLabel.Text = _main.paramField.setFile;
                 _main.harua_View.SourcePathText = _main.paramField.setFile;
+            
 
+
+                IMainTabEvents tabEv = new Directory_ClickProcedure( _main) ;
+                tabEv.CallMediaInfo();
 
                 if (!isSelectorBox)
                 {
-                    DisplayMediaInfo();
+                  
+
                     isSelectorBox = true;
                 }
                 isSelectorBox = false;
             }
         }
 
-        void DisplayMediaInfo()
-        {
-
-            // MediaInfoServiceのインスタンスを作成
-            IMediaInfoManager mediaInfoDisplay = _main; // MainWindowがIMediaInfoDisplayを実装していると仮定
-            MediaInfoService mediaInfoService = new MediaInfoService(mediaInfoDisplay);
-            Directory_ClickProcedure dp = new Directory_ClickProcedure(_main);
-
-            var info = dp.DisplayMediaInfoProcedure(_main.paramField.setFile);
-
-            var medialists = mediaInfoService.AppendMediaInfoToSourceFileData(info);
-
-            foreach (var imtems in medialists)
-            {
-                _main.SorceFileDataBox.AppendText(imtems);
-            }
-
-        }
+       
 
         private void InputSelector_PreviewDragOver(object sender, DragEventArgs e)
         {
@@ -169,8 +161,10 @@ namespace HaruaConvert.HaruaServise
             {
                 Button dropbutton = (Button)_main.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _main.Drop_Label);
                 if (dropbutton != null)
+                {
                     dropbutton.Click += DropButton_ClickHandle;
-
+                    dropbutton.Drop += MainWindow_FileDrop;
+                }
 
 
                 _main.Directory_DropButon.Click += DropButton_ClickHandle;
@@ -243,7 +237,7 @@ namespace HaruaConvert.HaruaServise
                 {
                     button.Directory_DropButon_Click(sender, e);
 
-                    DisplayMediaInfo();
+                   
                     return;
                 }
 
@@ -251,7 +245,7 @@ namespace HaruaConvert.HaruaServise
                 {
                     button.Convert_DropButton_Click(sender, e);
 
-                    DisplayMediaInfo();
+                  
                     return;
                 }
 

@@ -2,6 +2,8 @@
 using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +16,7 @@ namespace HaruaConvert.HaruaInterFace
         {
            public void Directory_DropButon_Click(object sender, RoutedEventArgs e);
            public void Convert_DropButton_Click(object sender, RoutedEventArgs e);
+           public void CallMediaInfo();
         }
 
      
@@ -69,19 +72,41 @@ namespace HaruaConvert.HaruaInterFace
                     //Update Maintab_InputDirectory
                     ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
 
-                    
+                    CallMediaInfo();
+
                 }
                 else //Selected Cancel
                 {
                     return;
                 }
                     
-                MediaInfoService media = new MediaInfoService(main);
-
-                media.displayMediaInfo(main.paramField.setFile);
+             
                 //  ParamField.ConvertDirectory = ofc.opFileName;
             }
 
+
+
+        }
+
+
+        public void CallMediaInfo()
+        {
+
+            IMediaInfoManager Imedia = new MediaInfoService(main);
+            var media = DisplayMediaInfoProcedure(main.paramField.setFile);
+            List<string> mediaLists = Imedia.DisplayMediaInfo(media);
+
+            main.Dispatcher.Invoke(() =>
+            {
+
+
+
+                foreach (var mediaData in mediaLists)
+                {
+                    main.SorceFileDataBox.AppendText(mediaData);
+                }
+
+            });
 
 
         }
