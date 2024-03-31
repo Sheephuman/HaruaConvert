@@ -89,4 +89,5 @@ namespace HaruaConvert.UserControls
         }
 
     }
+        internal void NUDTextBox_PreviewMouseWheelProc(object sender, System.Windows.Input.MouseWheelEventArgs e)
 }
