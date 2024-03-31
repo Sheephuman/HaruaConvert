@@ -21,8 +21,11 @@
                     </CheckBox.LayoutTransform>
                     <TextBlock Text="ビデオコーデック"/>
                 </CheckBox>
-                <ComboBox Width="100" Margin="6"/>
-                <Button x:Name="GetVideoCodecsButton" Content=" 使用可能なビデオCodec一覧を取得 " Height="20"/>
+                <ComboBox x:Name="VideoCodecBox"
+                    Width="100" Margin="6"/>
+                <Button x:Name="GetVideoCodecsButton"
+                        Click="GetVideoCodecsButton_Click"
+                        Content=" 使用可能なビデオCodec一覧を取得 " Height="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox Margin="0,4,0,0">
@@ -59,7 +62,7 @@
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <Button x:Name="QueryBuidButton" Content="クエリ適用" Width="100"
-                        />
+                Margin="0,0,0,10"        />
             <Button x:Name="MakeProfile" Content="プロファイル作成" Width="100"
               />
 

@@ -235,7 +235,7 @@ namespace HaruaConvert.UserControls
 
                 if (delta > 0)
                 {
-                    currentValue = Math.Max(currentValue + 10, maxValue);
+                    currentValue = Math.Min(currentValue + 10, maxValue);
 
 
                     // マウスホイールが上に回転した場合、数値を増やす

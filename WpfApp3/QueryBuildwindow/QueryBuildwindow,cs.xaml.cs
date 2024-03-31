@@ -1,7 +1,9 @@
-﻿using HaruaConvert.UserControls;
+﻿using HaruaConvert.QueryBuildwindow.GetCodecs;
+using HaruaConvert.UserControls;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+
 
 namespace HaruaConvert.userintarface
 {
@@ -32,6 +34,18 @@ namespace HaruaConvert.userintarface
         private void QueryBuildChanged(object sender, TextChangedEventArgs e)
         {
             
+        }
+
+        private void GetVideoCodecsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var getCoudecs = new GetCodecsName();
+            
+            var resultList = getCoudecs.GetCodecNameExecute();
+            foreach (var colist in resultList )
+                if(!VideoCodecBox.Items.Contains(colist))
+                     VideoCodecBox.Items.Add( colist );
+
+
         }
     }
 }
