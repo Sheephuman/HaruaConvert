@@ -92,17 +92,17 @@ namespace HaruaConvert
         //paramSelectorBox　生成数       
         public int SelGenerate { get; set; }
 
-
+        public static MainWindow main { get; set; }
 
 
         public MainWindow()
         {
             InitializeComponent();
             isUPDownClicked = false;
-
+            main = this;
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-          
+
 
             UIManager uiManager = new UIManager(this);
             uiManager.RegisterUIDropEvent();
@@ -121,15 +121,7 @@ namespace HaruaConvert
 
 
             LoadSettings();
-
-
-
-
             SetupUIEvents();
-
-
-
-            // var iniCon = new IniSettingsConst();
 
 
 
@@ -140,13 +132,12 @@ namespace HaruaConvert
             Lw = new LogWindow(this);
 
             FileList = new ObservableCollection<string>();
-
-
             Generate_ParamSelector();
-
-
             var cm = new QuerryBuildManager(this);
             cm.AddCommands();
+
+
+            
         }
 
 

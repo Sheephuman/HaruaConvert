@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HaruaConvert.Properties.Resources" Collapsed="true">
+    <Position X="17.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Properties.Settings" Collapsed="true">
+    <Position X="22.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Command.QuerryBuildManager" Collapsed="true">
+    <Position X="22.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAACAAAAECAAAAAAA=</HashCode>
+      <FileName>Command\QuerryBuildManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Command.QueryBuidCommand" Collapsed="true">
+    <Position X="12.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\QueryBuidCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.HaruaServise.SettingsService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HaruaServise\ISettingsService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.HaruaServise.KillFFprobe" Collapsed="true">
+    <Position X="19.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HaruaServise\KillFFmpeg.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.HaruaServise.MediaInfoService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAABAAAAAAAAAAAAAAAAAAQAAIAAAAAABAAAAAAAQ=</HashCode>
+      <FileName>HaruaServise\MediaInfoService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.HaruaServise.UIManager" Collapsed="true">
+    <Position X="17.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQACOAAAAKACAAAAAAAQAAIAAEBCAAAAACA=</HashCode>
+      <FileName>UserIntarface\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>Mw4EJRACAoKiBuQByZ0hCUEhwAvYIAStSMCJARUAByw=</HashCode>
+      <FileName>Initilize_Method\InitializeMethod.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.Alternate_FileExsists" Collapsed="true">
+    <Position X="7.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAABAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\Alternate_FileExsists.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.CommonOpenDialogClass" Collapsed="true">
+    <Position X="9.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAEAAAAAAAAAAAAAAAAQAAQCAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\CommonOpenDialogClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.IniCreate" Collapsed="true">
+    <Position X="22.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\IniCreate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.IniDefinition" Collapsed="true">
+    <Position X="12.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAQAAAAAAgAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Methods\IniCreate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Terminate_ProcessClass" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAEAAAAAAAgAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Methods\Terminate_Process.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.FfmpegQueryClass" Collapsed="true">
+    <Position X="12.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAgAgAAAAAAAAAAAAAAABAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Parameter\ffmpegQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.FileSelector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserControls\FileSelector.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.ParamSelector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAAAAAAAAAAAQCAAIEAAIAAAAAAACAAAAAAA=</HashCode>
+      <FileName>UserControls\ParamSelector.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.LogWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAiAEEAAAAIAAAhAAAQIIAAAAAADAAQQBAAAAQ=</HashCode>
+      <FileName>UserIntarface\LogWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.App" Collapsed="true">
+    <Position X="14" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.DependencyObjectExtension" Collapsed="true">
+    <Position X="19.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAQAAAAAA=</HashCode>
+      <FileName>DependencyObjectExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.VisualTreeHelperWrapperHelpers" Collapsed="true">
+    <Position X="19.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VisualTreeHelperWrapperHelpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.HaruaInterFace.Directory_ClickProcedure" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAQAAAAIAAAAAAAAAAAAAABAAAAAAAAAQ=</HashCode>
+      <FileName>InterFace\IMainTabEvents.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.Methods.AddOptionClass" Collapsed="true">
+    <Position X="12.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Methods\AddOptionClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.ConvertFileNameClass" Collapsed="true">
+    <Position X="17.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\ConvertFileName.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.GenerateSelectParaClass" Collapsed="true">
+    <Position X="15.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAgAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\GenerateSelectParaClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.IfNoFileExsistsClass" Collapsed="true">
+    <Position X="19.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAQ=</HashCode>
+      <FileName>Methods\IfNoFileExsistsClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.IniCheckerClass" Collapsed="true">
+    <Position X="21" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\IniCheckerClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.IniSettings_IOClass" Collapsed="true">
+    <Position X="14" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Methods\IniSettings_IOClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.isUserOriginalParameter" Collapsed="true">
+    <Position X="17.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\isUserOriginalParameter_Method.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.Save_Procedure" Collapsed="true">
+    <Position X="19.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Methods\Save_Procedure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Methods.Selector_OpenMethodClass" Collapsed="true">
+    <Position X="21" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAQ=</HashCode>
+      <FileName>Methods\Selector_ComonOpenMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WpfApp3.Parameter.ClassShearingMenbers" Collapsed="true">
+    <Position X="15.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parameter\ClassShearingMenbers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Parameter.EscapePath" Collapsed="true">
+    <Position X="22.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parameter\EscapePath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Parameter.IniSettingsConst" Collapsed="true">
+    <Position X="15.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMAAAAAAAAQAAAAAAgAAgIAAAAgBAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parameter\IniSettingsConst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Parameter.MainParam" Collapsed="true">
+    <Position X="22.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQACAAAAACAAAAUBEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Parameter\Main_Param.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Parameter.ParamCreateClasss" Collapsed="true">
+    <Position X="17.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAACAAA=</HashCode>
+      <FileName>Parameter\ParamCreateClasss.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Parameter.ParamField" Collapsed="true">
+    <Position X="19.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAIIAAMAABAAAAAAAAAAAAASEMAkAAAAAgABAA4IAg=</HashCode>
+      <FileName>Parameter\ParamFields.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.Parameter.Harua_ViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACCAAQAAgAAIADAAAA0CEAAABAAAAAAAAAAgA=</HashCode>
+      <FileName>ViewModel\Harua_ViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.UserControls.NumericUpDownManager" Collapsed="true">
+    <Position X="15.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABABQAAAAAAAAAAAAAAACEEgEAACAAABAAIoAEAAAAQ=</HashCode>
+      <FileName>UserControls\NumericUpDownManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.UserControls.QueryBuildUpDown" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAhAAAAIBACgEAAAAAAAAAAgAoAAAAQ=</HashCode>
+      <FileName>UserControls\QueryBuildUpDown.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.UserControls.TextBox_Extend" Collapsed="true">
+    <Position X="15.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>UserControls\TextBox_Extend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HaruaConvert.UserControls.WpfNumericUpDown" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAEAAgAAAAIBACgEABgAAAAAAAgAoAABAQ=</HashCode>
+      <FileName>UserControls\WpfNumericUpDown.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HaruaConvert.userintarface.QueryCreateWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAIAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserIntarface\QueryBuildwindow,cs.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WpfApp3.IDisposableBase" Collapsed="true">
+    <Position X="8.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAACAAAAAAAAAAAACAAAI=</HashCode>
+      <FileName>IDisposableBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="HaruaConvert.HaruaServise.ISettingsService" Collapsed="true">
+    <Position X="15.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HaruaServise\ISettingsService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HaruaConvert.HaruaInterFace.IMainTabEvents" Collapsed="true">
+    <Position X="12.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>InterFace\IMainTabEvents.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HaruaConvert.HaruaInterFace.IMediaInfoManager" Collapsed="true">
+    <Position X="14" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InterFace\IMediaInfoManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Yu Gothic UI" Size="9.75" />
+</ClassDiagram>

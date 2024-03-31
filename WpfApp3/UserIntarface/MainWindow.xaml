@@ -23,7 +23,7 @@
 
 
     <Grid x:Name="HaruaGrid" Background ="#FFFDEEF0">
-
+        <Border Background="#FFFDEEF0" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
 
         <StackPanel  
             VerticalAlignment="Top"
@@ -32,15 +32,9 @@
 
             <Grid x:Name="titleGrid">
                 <Grid.ColumnDefinitions>
-
-
-
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="3*"/>
-
-
-
                 </Grid.ColumnDefinitions>
 
                 <TextBlock MaxHeight="35" Width="35"
@@ -103,7 +97,7 @@
         <StackPanel Grid.Row="0"    Margin="0,10,0,-10" >
 
             <Grid  Margin="0,30,0,0"
-                  Height="440"
+                  Height="428"
               VerticalAlignment="Top"
               >
 
