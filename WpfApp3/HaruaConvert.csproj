@@ -247,6 +247,7 @@
 
   <ItemGroup>
     <Folder Include="MediaInfo\" />
+    <Folder Include="UserControls\QueryBuildwindow\" />
   </ItemGroup>
  
 
