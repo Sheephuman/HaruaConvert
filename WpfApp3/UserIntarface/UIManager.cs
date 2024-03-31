@@ -1,9 +1,6 @@
-﻿using FFMpegCore;
-using HaruaConvert.HaruaInterFace;
+﻿using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using System;
-using System.Collections.Generic;
-using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;

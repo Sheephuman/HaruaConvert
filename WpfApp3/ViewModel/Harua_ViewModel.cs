@@ -1,5 +1,4 @@
 ﻿using HaruaConvert.HaruaServise;
-using HaruaConvert.InterFace;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

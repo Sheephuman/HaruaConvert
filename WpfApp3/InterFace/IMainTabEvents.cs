@@ -159,13 +159,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-
-
-    public interface IMethods 
-        {
-            CommonFileDialogResult CommonOpens();
-        }
-        
+            
 
 
 

@@ -1,9 +1,5 @@
-﻿using HaruaConvert.Parameter;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Drawing.Imaging;
+﻿using System;
 using System.Globalization;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +17,11 @@ namespace HaruaConvert
 
         private void NUD_DownButton_Click(object sender, RoutedEventArgs e)
         {
-            isUPDownClicked = true;
+            //isUPDownClicked = true;
 
-            Generatednum = SelGenerate - 1;
-            if (SelGenerate != Generatednum)
-                SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
+            //Generatednum = SelGenerate - 1;
+            //if (SelGenerate != Generatednum)
+            //    SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
 
         }
 
@@ -33,10 +29,10 @@ namespace HaruaConvert
 
         public void NUDUP_Button_Click(object sender, RoutedEventArgs e)
         {
-            isUPDownClicked = true;
-            Generatednum = SelGenerate + 1;
-            if (SelGenerate != Generatednum)
-                SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
+            //isUPDownClicked = true;
+            //Generatednum = SelGenerate + 1;
+            //if (SelGenerate != Generatednum)
+            //    SelGenerate = int.Parse(NumericUpDown1.NUDTextBox.Text, CultureInfo.CurrentCulture);
 
         }
 
@@ -183,8 +179,8 @@ namespace HaruaConvert
 
 
 
-            if (!isUPDownClicked)
-            { return; }
+            //if (!isUPDownClicked)
+            //{ return; }
 
             if (paramField.isParam_Edited)
             {

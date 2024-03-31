@@ -19,18 +19,25 @@ namespace HaruaConvert.UserControls
         /// https://github.com/Torabi/WPFNumericUpDown　これも似たようなもの？
         /// </summary>
         /// 
-
        
-        public WpfNumericUpDown()
+
+            public WpfNumericUpDown()
         {
             InitializeComponent();
             
-                //NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
+                //
+                //
+                //
+                //TextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
                 isfirst = true;
             
-            
+            nuManager = new NumericUpDownManager( NUDTextBox, MainWindow.main );
         }
+
+      public static MainWindow main { get; set; }
+
+        NumericUpDownManager nuManager;
 
         public WpfNumericUpDown(int _selG)
         {
@@ -66,27 +73,35 @@ namespace HaruaConvert.UserControls
 
         public void NUDButtonDown_Click(object sender, RoutedEventArgs e)
         {
-            NumericUpDownManager.NUDButtonDown(NUDTextBox,minvalue);
+            
+           nuManager.NUDButtonDown(NUDTextBox,minvalue, -1);
         }
 
         public void NUDTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            NumericUpDownManager.NUDTextBox_PreviewKeyDownProc(NUDButtonUP,NUDButtonDown, e);
+           nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue,-1, e);
         }
 
         public void NUDTextBox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-             NumericUpDownManager.NUDTextBox_PreviewKeyDownProc(NUDButtonUP,NUDButtonDown, e);
+             nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue,-1,  e);
         }
 
         public void NUDButtonUP_Click(object sender, RoutedEventArgs e)
         {
-            NumericUpDownManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue);
+            
+            NumericUpDownManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue,1);
         }
 
         public static explicit operator WpfNumericUpDown(QueryBuildUpDown v)
         {
             throw new NotImplementedException();
+        }
+
+        private void NUDTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+           NumericUpDownManager.ValidateAndCorrectInput(NUDTextBox,minvalue,maxvalue);
+            // フォーカスが外れた時に入力を検証し、必要に応じて修正
         }
     }
 }
