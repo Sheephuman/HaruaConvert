@@ -1,5 +1,5 @@
 ﻿using FFMpegCore;
-using HaruaConvert.HaruaServise;
+using HaruaConvert.HaruaService;
 using System;
 using System.Collections.Generic;
 using System.IO;

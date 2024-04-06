@@ -137,7 +137,7 @@ namespace HaruaConvert
             cm.AddCommands();
 
 
-            
+
         }
 
 
@@ -826,28 +826,6 @@ namespace HaruaConvert
             return ToString();
         }
 
-
-        public void MediaInfoDisplay(IMediaAnalysis mediaInfo)
-        {
-            MediaInfoService media = new MediaInfoService(this);
-            var lists = new List<string>();
-            lists = media.AppendMediaInfoToSourceFileData(mediaInfo);
-
-
-            Dispatcher.Invoke(() =>
-            {
-
-
-
-                foreach (var mediaData in lists)
-                {
-                    SorceFileDataBox.AppendText(mediaData);
-                }
-
-            });
-
-
-        }
 
         List<string> IMediaInfoManager.DisplayMediaInfo(IMediaAnalysis mediaInfo)
         {

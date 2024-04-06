@@ -15,7 +15,7 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
 
         public GetCodecsName(string name) { }
 
-        public List<string> GetCodecNameExecute()
+        public Dictionary<string,string> GetCodecNameExecute(string codecType)
         {
             var lineDic = new Dictionary<string,string>();
             // ffmpegのパスを設定
@@ -60,12 +60,12 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
 
 
                     var outMatch = outregex.Match(line);
-
+                 
                     var match = regex.Match(line);
-                    if(!outMatch.Success)
+                    if(!outMatch.Success)                     
                     if (match.Success)
                     {
-                       
+                           
 
                             //CA1310対応
                             int startIndex = 7;

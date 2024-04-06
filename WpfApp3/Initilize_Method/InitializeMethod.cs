@@ -1,4 +1,5 @@
-﻿using HaruaConvert.HaruaServise;
+﻿using HaruaConvert.HaruaService;
+using HaruaConvert.HaruaServise;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;

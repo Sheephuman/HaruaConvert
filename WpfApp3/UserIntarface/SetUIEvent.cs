@@ -10,13 +10,13 @@ using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.HaruaServise
 {
-    public class UIManager
+    public class SetUIEvent
     {
         string[] fileNames { get; set; }
         bool isSelectorBox { get; set; }
         private MainWindow _main;
 
-        public UIManager(MainWindow mainWindow)
+        public SetUIEvent(MainWindow mainWindow)
         {
             _main = mainWindow;
 
@@ -65,7 +65,7 @@ namespace HaruaConvert.HaruaServise
 
             GetDropFile(e);
 
-            var ui = new UIManager(_main);
+            var ui = new SetUIEvent(_main);
             string withoutEx = Path.GetFileNameWithoutExtension(_main.FileList[0]);
             string dropfileDirectry = Path.GetDirectoryName(_main.FileList[0]);
             _main.InputSelector.FilePathBox.Text = _main.FileList[0];
@@ -130,7 +130,7 @@ namespace HaruaConvert.HaruaServise
 
 
                 IMainTabEvents tabEv = new Directory_ClickProcedure( _main) ;
-                tabEv.CallMediaInfo();
+                tabEv.DisplayMediaInfo();
 
                 if (!isSelectorBox)
                 {

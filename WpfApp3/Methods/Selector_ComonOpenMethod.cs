@@ -1,13 +1,7 @@
-﻿using FFMpegCore.Arguments;
-using HaruaConvert.HaruaServise;
+﻿using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WpfApp3.Parameter;
 
 namespace HaruaConvert.Methods
@@ -93,7 +87,7 @@ namespace HaruaConvert.Methods
                 main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName);
                 selector.FilePathBox.Text = main.ofc.opFileName;
 
-                UIManager ui = new UIManager(main);
+                SetUIEvent ui = new SetUIEvent(main);
                 main.OutputSelector.FilePathBox.Text = ui.OutputFileRename(file,
                             main.paramField.outputFileName_withoutEx, main.harua_View.MainParams[0].endString);
 

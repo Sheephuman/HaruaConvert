@@ -22,6 +22,9 @@
                     <TextBlock Text="ビデオコーデック"/>
                 </CheckBox>
                 <ComboBox x:Name="VideoCodecBox"
+                          ItemsSource="{Binding FfmpegVideoCodecDic}"
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Key"
                     Width="100" Margin="6"/>
                 <Button x:Name="GetVideoCodecsButton"
                         Click="GetVideoCodecsButton_Click"
@@ -34,7 +37,11 @@
                     </CheckBox.LayoutTransform>
                     <TextBlock Text="Audio コーデック"/>
                 </CheckBox>
-                <ComboBox Width="100" Margin="6"/>
+                <ComboBox Width="100" Margin="6"
+                       ItemsSource="{Binding FfmpegAudioCodecDic}"
+                      SelectedValuePath="Value"
+                        DisplayMemberPath="Key"                        
+                          />
                 <Button  Content=" 使用可能なAudio Codec一覧を取得 " Height="20"/>
             </StackPanel>
 
@@ -56,7 +63,7 @@
                 </CheckBox.LayoutTransform>
                 <TextBlock Text="別のファイル形式に変換"/>
             </CheckBox>
-                <ComboBox  Width="100" Margin="10,0,10,0"/>
+                <ComboBox x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"/>
             </StackPanel>
         </StackPanel>
 
