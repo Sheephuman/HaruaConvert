@@ -27,7 +27,7 @@ namespace HaruaConvert
     /// </summary>
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 #pragma warning disable CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
-    public partial class MainWindow : Window, IMediaInfoManager
+    public partial class MainWindow : Window
 #pragma warning restore CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
 
     {
@@ -73,8 +73,7 @@ namespace HaruaConvert
             static public bool isHorizontalRotate { get; set; }
             static public bool isNoRotate { get; set; }
         }
-        bool isUPDownClicked;
-
+      
         //     bool isLabelEited { get; set; }
 
 
@@ -98,7 +97,7 @@ namespace HaruaConvert
         public MainWindow()
         {
             InitializeComponent();
-            isUPDownClicked = false;
+         
             main = this;
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
@@ -827,10 +826,6 @@ namespace HaruaConvert
         }
 
 
-        List<string> IMediaInfoManager.DisplayMediaInfo(IMediaAnalysis mediaInfo)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

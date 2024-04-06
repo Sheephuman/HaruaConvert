@@ -126,11 +126,11 @@ namespace HaruaConvert.HaruaServise
 
                 _main.FileNameLabel.Text = _main.paramField.setFile;
                 _main.harua_View.SourcePathText = _main.paramField.setFile;
-            
 
+                _main.ClearSourceFileData();
 
                 IMainTabEvents tabEv = new Directory_ClickProcedure( _main) ;
-                tabEv.DisplayMediaInfo();
+                tabEv.DisplayMedia();
 
                 if (!isSelectorBox)
                 {
