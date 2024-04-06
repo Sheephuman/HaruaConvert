@@ -104,7 +104,12 @@ namespace HaruaConvert
 
         }
 
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            //
+            this.Close();
+        }
+        private void MinimizedButton_Click(object sender, RoutedEventArgs e)
         {
             this.window.WindowState = WindowState.Minimized;
         }
@@ -197,7 +202,7 @@ namespace HaruaConvert
             }
         }
 
-       
+    
     }
 
 

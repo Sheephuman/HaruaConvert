@@ -74,15 +74,16 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
                             var analizeSorce = line.Substring(startIndex);
 
                             int startIndex2 = analizeSorce.IndexOf(" ", StringComparison.OrdinalIgnoreCase);
-                            var codecDoc =
+                            var codecName = analizeSorce.Remove(startIndex2);
+                            var codecDoc = codecName + " : " +
                                  analizeSorce.Substring(startIndex2).TrimStart();
-                            var codecName = analizeSorce.Remove(startIndex2) + " : " +codecDoc;
+                            
 
                            
 
 
                             if(!lineDic.ContainsKey(codecName))
-                                  lineDic.Add(codecName, codecDoc);
+                                  lineDic.Add(codecDoc, codecName);
                     }
                 }
             }

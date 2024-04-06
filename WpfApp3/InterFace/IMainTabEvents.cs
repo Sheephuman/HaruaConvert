@@ -15,7 +15,7 @@ namespace HaruaConvert.HaruaInterFace
         {
            public void Directory_DropButon_Click(object sender, RoutedEventArgs e);
            public void Convert_DropButton_Click(object sender, RoutedEventArgs e);
-           public void DisplayMediaInfo();
+           public void DisplayMedia();
         }
 
      
@@ -70,8 +70,9 @@ namespace HaruaConvert.HaruaInterFace
 
                     //Update Maintab_InputDirectory
                     ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    main.ClearSourceFileData();
 
-                    DisplayMediaInfo();
+                    DisplayMedia();
 
                 }
                 else //Selected Cancel
@@ -88,7 +89,7 @@ namespace HaruaConvert.HaruaInterFace
         }
 
 
-        public void DisplayMediaInfo()
+        public void DisplayMedia()
         {
 
             IMediaInfoManager Imedia = new MediaInfoService(main);

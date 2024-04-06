@@ -13,7 +13,8 @@
         SizeToContent="Height"       >
 
     <Grid >
-        
+        <Border Background="#FFFDEEF0" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
+
         <RichTextBox x:Name="RichTextRogs"   
                      VerticalAlignment="Top"
             Width="500" Height="348"
@@ -63,15 +64,21 @@
             Margin="10,1,0,0" VerticalAlignment="Top" Width="400" 
             Height="26" Text="LogWindow" />
             <Button x:Name="ConvertStop" Background="Snow" BorderThickness="0"
-                    Margin="-280,1,0,0" Height="24" Width="120" VerticalAlignment="Top"
+                    Margin="-280,1,0,0" Height="24" Width="100" VerticalAlignment="Top"
                     HorizontalAlignment="Left" Click="ConvertStop_Click"
                     FontSize="18"
                     FontWeight="Bold"
-                    Content="Convert Stop" />
-            
-            <Button x:Name="MinimizeButton" Background="Snow" BorderThickness="0"
+                    Content="変換停止" />
+
+            <Button x:Name="MinimizedButton" Background="Snow" BorderThickness="0"
+        VerticalAlignment="Top"                    
+ Content="最小化" Height="18" Width="40" Click="MinimizedButton_Click"/>
+
+            <Button x:Name="CloseButton" Background="Snow" BorderThickness="0"
                     VerticalAlignment="Top"                    
-             Content="最小化" Height="18" Width="80" Click="MinimizeButton_Click"/>
+             Content="閉じる" Height="18" Width="40" Click="CloseButton_Click"/>
+
+
             <CheckBox
                 Style="{StaticResource {x:Type ToggleButton}}"  x:Name="PauseButton" Background="Snow" 
                     Visibility="Hidden"
@@ -81,14 +88,7 @@
                     FontSize="16"
                     FontWeight="Bold"
              Content="Pause" Height="22" Width="80"/>
-            <TabControl Width="100">
-                <TabItem Header="TabItem">
-                    <Grid Background="#FFE5E5E5"/>
-                </TabItem>
-                <TabItem Header="TabItem">
-                    <Grid Background="#FFE5E5E5"/>
-                </TabItem>
-            </TabControl>
+            
         </StackPanel>
     </Grid>
 </Window>
