@@ -43,7 +43,7 @@ namespace HaruaConvert.UserControls
             }
             else
             {
-                // 無効な入力を扱うロジック。例えば、最小値を設定するなど
+                // 無効な入力を扱うロジック。
                 NUDTextBox.Text = minValue.ToString(CultureInfo.CurrentCulture);
             }
             // フォーカスが外れたり、特定のキーが押された時にのみ実行される
@@ -54,23 +54,23 @@ namespace HaruaConvert.UserControls
 
 
 
-        public static void NumericUpDownTextChangedProc(TextBox NUDTextBox, int startvalue, int maxvalue, int minvalue)
-        {
-            //int number = 0;
-            //if (NUDTextBox.Text != "")
-            //    if (!int.TryParse(NUDTextBox.Text, out number))
-            //        NUDTextBox.Text = startvalue.ToString(CultureInfo.CurrentCulture);
+        //public static void NumericUpDownTextChangedProc(TextBox NUDTextBox, int startvalue, int maxvalue, int minvalue)
+        //{
+        //    //int number = 0;
+        //    //if (NUDTextBox.Text != "")
+        //    //    if (!int.TryParse(NUDTextBox.Text, out number))
+        //    //        NUDTextBox.Text = startvalue.ToString(CultureInfo.CurrentCulture);
 
 
-            ////if (number > maxvalue) NUDTextBox.Text = maxvalue.ToString(CultureInfo.CurrentCulture);
-            ////if (number < minvalue) NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
-            ////NUDTextBox.SelectionStart = NUDTextBox.Text.Length;
+        //    ////if (number > maxvalue) NUDTextBox.Text = maxvalue.ToString(CultureInfo.CurrentCulture);
+        //    ////if (number < minvalue) NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
+        //    ////NUDTextBox.SelectionStart = NUDTextBox.Text.Length;
 
-            //number = Math.Clamp(number, minvalue, maxvalue);
-            //NUDTextBox.Text = number.ToString(CultureInfo.CurrentCulture);
-            //NUDTextBox.SelectionStart = NUDTextBox.Text.Length;
-            //// 入力された値の範囲をチェックし、必要に応じて修正
-        }
+        //    //number = Math.Clamp(number, minvalue, maxvalue);
+        //    //NUDTextBox.Text = number.ToString(CultureInfo.CurrentCulture);
+        //    //NUDTextBox.SelectionStart = NUDTextBox.Text.Length;
+        //    //// 入力された値の範囲をチェックし、必要に応じて修正
+        //}
 
 
         // NUDButtonDown と NUDButtonUP_ClickProc は、
@@ -128,19 +128,7 @@ namespace HaruaConvert.UserControls
 
         }
 
-        //if (e.Key == Key.Up)
-        //{
-        //    NUDButtonUP.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        //    typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(NUDButtonUP, new object[] { true });
-        //}
-
-
-        //if (e.Key == Key.Down)
-        //{
-        //    NUDButtonDown.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-        //    typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(NUDButtonDown, new object[] { true });
-        //}
-
+     
 
         private void DecrementValue(TextBox nUDTextBox, int minValue, int currentValue)
         {
@@ -197,7 +185,7 @@ namespace HaruaConvert.UserControls
 
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
-                number = Math.Min(number + interval, maxvalue);
+                number = number + interval;
                
             }
 
@@ -208,18 +196,13 @@ namespace HaruaConvert.UserControls
 
 
             });
-            //int number;
-            //if (NUDTextBox.Text != "") number = Convert.ToInt32(NUDTextBox.Text, CultureInfo.CurrentCulture);
-            //else number = 0;
-            //if (number < maxvalue)
-            //    NUDTextBox.Text = Convert.ToString(number + 1, CultureInfo.CurrentCulture);
-
+            
         }
 
         internal void NUDTextBox_PreviewMouseWheelProc(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             int minValue = 500; // 最小値の設定が必要
-            int maxValue = 2000; // 最大値の設定が必要
+            int maxValue = 10000; // 最大値の設定が必要
             try
             {
                 if(string.IsNullOrEmpty(NUDTextBox.Text))
