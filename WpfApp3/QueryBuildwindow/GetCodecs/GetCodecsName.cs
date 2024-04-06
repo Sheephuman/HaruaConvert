@@ -17,7 +17,7 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
 
         public List<string> GetCodecNameExecute()
         {
-            var lineList = new List<string>();
+            var lineDic = new Dictionary<string,string>();
             // ffmpegのパスを設定
             var ffmpegPath = @"dll\\ffmpeg.exe";
             var startInfo = new ProcessStartInfo(ffmpegPath, "-encoders")
