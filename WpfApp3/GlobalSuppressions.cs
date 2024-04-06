@@ -5,3 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Design", "CA1051:参照可能なインスタンス フィールドを宣言しません", Justification = "<保留中>", Scope = "member", Target = "~F:HaruaConvert.Parameter.ParamCreateClasss.inputPath")]
+[assembly: SuppressMessage("Usage", "CA2249:'string.IndexOf' の代わりに 'string.Contains' を使用することを検討する", Justification = "<保留中>", Scope = "member", Target = "~M:HaruaConvert.QueryBuildwindow.GetCodecs.GetCodecsName.GetCodecNameExecute(System.StringComparison)~System.Collections.Generic.Dictionary{System.String,System.String}")]
