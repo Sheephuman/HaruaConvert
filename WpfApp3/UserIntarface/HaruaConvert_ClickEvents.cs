@@ -196,8 +196,7 @@ namespace HaruaConvert
             Generate_ParamSelector();
 
             ParamSelector_SetText(sender, true);
-            isUPDownClicked = false;
-          
+           
 
         }
 

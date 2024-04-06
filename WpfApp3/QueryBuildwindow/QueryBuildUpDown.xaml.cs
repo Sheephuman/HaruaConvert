@@ -25,7 +25,7 @@ namespace HaruaConvert.UserControls
             NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
 
-            nuManager = new NumericUpDownManager(NUDTextBox, MainWindow.main);
+            nuManager = new NumericUpDownManager(NUDTextBox);
         }
         NumericUpDownManager nuManager;
 

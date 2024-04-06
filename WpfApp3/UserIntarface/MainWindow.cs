@@ -73,8 +73,7 @@ namespace HaruaConvert
             static public bool isHorizontalRotate { get; set; }
             static public bool isNoRotate { get; set; }
         }
-        bool isUPDownClicked;
-
+       
         //     bool isLabelEited { get; set; }
 
 
@@ -98,7 +97,7 @@ namespace HaruaConvert
         public MainWindow()
         {
             InitializeComponent();
-            isUPDownClicked = false;
+            
             main = this;
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す

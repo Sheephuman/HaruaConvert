@@ -32,7 +32,7 @@ namespace HaruaConvert.UserControls
 
                 isfirst = true;
             
-            nuManager = new NumericUpDownManager( NUDTextBox, MainWindow.main );
+            nuManager = new NumericUpDownManager( NUDTextBox);
         }
 
       public static MainWindow main { get; set; }
