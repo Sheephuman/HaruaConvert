@@ -11,14 +11,14 @@ namespace HaruaConvert.UserControls
 {
     public class NumericUpDownManager
     {
-        public NumericUpDownManager(TextBox _NUDTextBox, MainWindow _main)
+        public NumericUpDownManager(TextBox _NUDTextBox)
         {
             NUDTextBox = _NUDTextBox;
 
-            main = _main;
+        
 
         }
-        MainWindow main;
+   
 
         TextBox NUDTextBox;
         int startvalue;
