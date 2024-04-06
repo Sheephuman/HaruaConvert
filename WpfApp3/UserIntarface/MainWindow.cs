@@ -104,7 +104,7 @@ namespace HaruaConvert
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
 
 
-            UIManager uiManager = new UIManager(this);
+            SetUIEvent uiManager = new SetUIEvent(this);
             uiManager.RegisterUIDropEvent();
 
             uiManager.SetupEventHandlers();
@@ -137,7 +137,7 @@ namespace HaruaConvert
             cm.AddCommands();
 
 
-            
+
         }
 
 
