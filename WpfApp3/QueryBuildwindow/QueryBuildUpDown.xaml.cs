@@ -14,8 +14,7 @@ namespace HaruaConvert.UserControls
 
 
         public static WpfNumericUpDown querybox { get; set; }
-        MainWindow main;
-
+       
 
         public QueryBuildUpDown()
         {
