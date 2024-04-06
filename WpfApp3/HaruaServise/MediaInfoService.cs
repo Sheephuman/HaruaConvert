@@ -116,7 +116,7 @@ namespace HaruaConvert.HaruaServise
         }
 
 
-       public List<string> DisplayMediaInfo(IMediaAnalysis mediaInfo)
+       public List<string> GetCodecInfo(IMediaAnalysis mediaInfo)
         {
             var MediaResultList = new List<string>();
 

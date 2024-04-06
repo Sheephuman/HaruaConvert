@@ -849,7 +849,7 @@ namespace HaruaConvert
 
         }
 
-        List<string> IMediaInfoManager.DisplayMediaInfo(IMediaAnalysis mediaInfo)
+        List<string> IMediaInfoManager.GetCodecInfo(IMediaAnalysis mediaInfo)
         {
             throw new NotImplementedException();
         }

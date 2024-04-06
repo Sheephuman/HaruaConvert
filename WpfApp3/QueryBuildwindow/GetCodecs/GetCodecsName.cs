@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FFMpegCore.Enums;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,9 +16,9 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
 
         public GetCodecsName(string name) { }
 
-        public List<string> GetCodecNameExecute()
+        public Dictionary<string,string> GetCodecNameExecute(string codecType)
         {
-            var lineList = new List<string>();
+            var lineDic = new Dictionary<string, string>();
             // ffmpegのパスを設定
             var ffmpegPath = @"dll\\ffmpeg.exe";
             var startInfo = new ProcessStartInfo(ffmpegPath, "-encoders")
@@ -30,54 +31,69 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
             var process = new Process { StartInfo = startInfo };
             process.Start();
 
-           var regex = new Regex(@"^\s*V\s*\.\.\.\.\.\s+(\S+)");
+            var regex = new Regex(codecType);
 
-///     var regex = new Regex(@"^\s*V\s*\.\.\.\.\.\s+([^\s]+)");
-              var outregex = new Regex(@"V\.\.\.\.\.\s*=\s*(\S+)");
-            bool isFirstLine =true ;
+            ///     var regex = new Regex(@"^\s*V\s*\.\.\.\.\.\s+([^\s]+)");
+            var outregex = new Regex(@"V\.\.\.\.\.\s*=\s*(\S+)");
+
+
+
+            bool isFirstLine = true;
 
 
             using (var reader = process.StandardOutput)
             {
                 string line;
 
-                
+
 
                 while ((line = reader.ReadLine()) != null)
                 {
+                    if (line.Contains('='))
+                        continue;
 
                     //一行目判定
                     if (isFirstLine)
-                    { 
-                    isFirstLine = false;
+                    {
+                        isFirstLine = false;
                         continue;
                     }
 
 
                     var outMatch = outregex.Match(line);
 
-
                     var match = regex.Match(line);
-                    if(!outMatch.Success)
-                    if (match.Success)
-                    {
-                       
+                    if (!outMatch.Success)
+                        if (match.Success)
+                        {
+
+
                             //CA1310対応
                             int startIndex = 7;
-                            string codecName = line.Substring(startIndex);
-                            // コーデック名を出力
-                            lineList.Add(codecName);
-                    }
+
+                            line = line.TrimStart();
+                            var analizeSorce = line.Substring(startIndex);
+
+                            int startIndex2 = analizeSorce.IndexOf(" ", StringComparison.OrdinalIgnoreCase);
+                            var codecDoc =
+                                 analizeSorce.Substring(startIndex2).TrimStart();
+                            var codecName = analizeSorce.Remove(startIndex2) + " : " + codecDoc;
+
+
+
+
+                            if (!lineDic.ContainsKey(codecName))
+                                lineDic.Add(codecName, codecDoc);
+                        }
                 }
             }
 
             process.WaitForExit();
 
-            return lineList;
+            return lineDic;
         }
 
 
     }
-
 
 }

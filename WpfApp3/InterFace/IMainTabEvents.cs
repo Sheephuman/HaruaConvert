@@ -94,7 +94,7 @@ namespace HaruaConvert.HaruaInterFace
 
             IMediaInfoManager Imedia = new MediaInfoService(main);
             var media = DisplayMediaInfoProcedure(main.paramField.setFile);
-            List<string> mediaLists = Imedia.DisplayMediaInfo(media);
+            List<string> mediaLists = Imedia.GetCodecInfo(media);
 
             main.Dispatcher.Invoke(() =>
             {

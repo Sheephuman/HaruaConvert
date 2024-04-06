@@ -9,7 +9,7 @@ namespace HaruaConvert.HaruaInterFace
 {
     public interface IMediaInfoManager
     {
-      public  List<string> DisplayMediaInfo(IMediaAnalysis mediaInfo);
+      public  List<string> GetCodecInfo(IMediaAnalysis mediaInfo);
        public void HandleMediaAnalysisException(Exception ex);
     }
 
