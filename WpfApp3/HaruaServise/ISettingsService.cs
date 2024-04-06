@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaruaConvert.Parameter;
 
-namespace HaruaConvert.HaruaServise
+namespace HaruaConvert.HaruaService
 {
     public interface ISettingsService
     {
