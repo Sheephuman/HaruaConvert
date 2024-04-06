@@ -50,7 +50,7 @@ namespace HaruaConvert.UserControls
 
         private readonly int minvalue = 1;
         private readonly int maxvalue = 100;
-        private int startvalue = 10;
+       
         public int selGenerate { get; set; }
 
 

@@ -21,9 +21,7 @@ namespace HaruaConvert.UserControls
    
 
         TextBox NUDTextBox;
-        int startvalue;
-
-        int maxvalue;
+     
         int currentValue;
 
 
