@@ -68,7 +68,7 @@ namespace HaruaConvert.UserControls
         /// <param name="e"></param>
         public void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            NumericUpDownManager.NumericUpDownTextChangedProc(NUDTextBox, startvalue, maxvalue, minvalue);
+         
         }
 
         public void NUDButtonDown_Click(object sender, RoutedEventArgs e)

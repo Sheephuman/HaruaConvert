@@ -13,20 +13,13 @@ namespace HaruaConvert.QueryBuildwindow
 
 
         }
-        public const string typeVideo = @"^\s*(V\.....D?)(\s+)([^\s]+)(\s+)(.*)";
-        
-        
-        public const string typeAudio = @"^\s*(A\.....D?)(\s+)([^\s]+)(\s+)(.*)";
-        
+        internal readonly string typeVideo = @"^\s*(V\.....D?)(\s+)([^\s]+)(\s+)(.*)";
 
-        public string TypeVideo
-        {
-            get { return typeVideo; }
-        }
-        public string TypeAudio
-        {
-            get { return typeAudio; }
-        }
+
+        internal readonly string typeAudio  = @"^\s*(A\.....D?)(\s+)([^\s]+)(\s+)(.*)";
+
+
+
 
 
     }

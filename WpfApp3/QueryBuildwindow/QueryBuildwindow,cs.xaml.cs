@@ -22,7 +22,7 @@ namespace HaruaConvert.userintarface
         public Dictionary<string, string> FfmpegVideoCodecDic { get; set;}
         public Dictionary<string, string> FfmpegAudioCodecDic { get; set; }
 
-        readonly int maxValue = 2000;
+  
         
         public QueryCreateWindow(WpfNumericUpDown wp)
         {
@@ -35,9 +35,9 @@ namespace HaruaConvert.userintarface
             var codec = new CodecTypeManager();
 
 
-            FfmpegVideoCodecDic = getCoudecs.GetCodecNameExecute(codec.TypeVideo);
+            FfmpegVideoCodecDic = getCoudecs.GetCodecNameExecute(codec.typeVideo);
 
-             FfmpegAudioCodecDic = getCoudecs.GetCodecNameExecute(codec.TypeAudio);
+             FfmpegAudioCodecDic = getCoudecs.GetCodecNameExecute(codec.typeAudio);
 
             //foreach (var cocec in FfmpegAudioCodecDic)
             //{ Debug.WriteLine(cocec); }

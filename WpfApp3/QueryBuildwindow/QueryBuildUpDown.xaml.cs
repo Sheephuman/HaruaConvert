@@ -36,12 +36,12 @@ namespace HaruaConvert.UserControls
 
         private void NUDTextBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            nuManager.NUDTextBox_PreviewKeyUpProc(NUDTextBox, minvalue, maxvalue, e);
+           // nuManager.NUDTextBox_PreviewKeyUpProc(NUDTextBox, minvalue, maxvalue, e);
         }
 
         private void NUDTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue, -10  , e);
+           // nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue, -10  , e);
         }
 
         private void NUDButtonUP_Click(object sender, System.Windows.RoutedEventArgs e)
