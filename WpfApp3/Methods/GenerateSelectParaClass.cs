@@ -12,7 +12,7 @@ namespace HaruaConvert.Methods
         }
         int count;
 
-        UIManager uiManager;
+        SetUIEvent uiManager;
         /// <summary>
         /// ParamSelectorに各種イベントを登録する 
         /// </summary>
@@ -21,7 +21,7 @@ namespace HaruaConvert.Methods
         public void GenerateParaSelector_setPropaties(ParamSelector selector,MainWindow main)
         { 
 
-            uiManager = new UIManager(main);
+            uiManager = new SetUIEvent(main);
             var selchild = selector;
 
             selchild.Name = "ParamSelector" + $"{count}";
