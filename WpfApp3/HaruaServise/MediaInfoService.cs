@@ -84,36 +84,36 @@ namespace HaruaConvert.HaruaServise
 
 
         }
-        public List<string> AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
-        {
-            var MediaResultList = new List<string>();
-
-            //if (mediaInfo.PrimaryAudioStream == null)
+        //public List<string> AppendMediaInfoToSourceFileData(IMediaAnalysis mediaInfo)
             //{
-            //    MessageBox.Show("primary streams がhullだわ");
-            //    return MediaResultList;
-            //}
+        //    var MediaResultList = new List<string>();
+
+        //    //if (mediaInfo.PrimaryAudioStream == null)
+        //    //{
+        //    //    MessageBox.Show("primary streams がhullだわ");
+        //    //    return MediaResultList;
+        //    //}
 
 
-            //var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
-            //var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
-            //var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
-            //var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
-            //var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
+        //    //var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
+        //    //var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
+        //    //var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
+        //    //var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
+        //    //var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
 
-            //MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
-            //MediaResultList.Add(Environment.NewLine);
-            //MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
-            //MediaResultList.Add(Environment.NewLine);
-            //MediaResultList.Add("Codec:" + $"{resultCodec}");
-            //MediaResultList.Add(Environment.NewLine);
-            //MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
-            //MediaResultList.Add(Environment.NewLine);
-            //MediaResultList.Add("Cannels:" + $"{resultCannels}");
+        //    //MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
+        //    //MediaResultList.Add(Environment.NewLine);
+        //    //MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
+        //    //MediaResultList.Add(Environment.NewLine);
+        //    //MediaResultList.Add("Codec:" + $"{resultCodec}");
+        //    //MediaResultList.Add(Environment.NewLine);
+        //    //MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
+        //    //MediaResultList.Add(Environment.NewLine);
+        //    //MediaResultList.Add("Cannels:" + $"{resultCannels}");
             
-            return MediaResultList;
+        //    return MediaResultList;
 
-        }
+        //}
 
 
        public List<string> DisplayMediaInfo(IMediaAnalysis mediaInfo)
