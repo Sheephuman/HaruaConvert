@@ -55,9 +55,9 @@ namespace HaruaConvert.userintarface
             FileNameExtentionBox.Items.Add(".flv:");
             FileNameExtentionBox.Items.Add(".webm");
             FileNameExtentionBox.Items.Add(".mpeg");
-            FileNameExtentionBox.Items.Add(".rmvb");                        
-            
+            FileNameExtentionBox.Items.Add(".rmvb");
 
+            MouseLeftButtonDown += (sender, e) => { DragMove(); };
         }
 
        

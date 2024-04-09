@@ -3,15 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:UserControl="clr-namespace:HaruaConvert.UserControls"
-        mc:Ignorable="d"        
-        Title="QueryCreateWindow_cs" Height="450" Width="800">
-    <Grid>
-        <Border Background="#FFFDEEF0" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
+        mc:Ignorable="d"                
+          Background="#FFFDEEF0"        
+        Title="FfmpegComand作成" Height="440" Width="800">
+    <Grid Opacity="0.8" >
+        <Border Background="Transparent" CornerRadius="10" BorderThickness="1" BorderBrush="Gray" />
 
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Background="Transparent"  Margin="10,10,0,0">            
             <StackPanel Orientation="Horizontal">
-                <Label Content="ビットレート" FontSize="20"/>
-                <UserControl:QueryBuildUpDown Width="80" Height="30"/>
+                <CheckBox Margin="0,4,0,0">
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                    </CheckBox.LayoutTransform>
+                    <TextBlock Text="ビットレート"/>
+                </CheckBox>
+                <UserControl:QueryBuildUpDown Width="80" Height="30" Margin="10,0,0,0"/>
                 <Label Content="kbps" FontSize="20"/>                     
             </StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -22,13 +28,13 @@
                     <TextBlock Text="ビデオコーデック"/>
                 </CheckBox>
                 <ComboBox x:Name="VideoCodecBox"
+                          
                           ItemsSource="{Binding FfmpegVideoCodecDic}"
                           SelectedValuePath="Value"
                           DisplayMemberPath="Key"
-                    Width="100" Margin="6"/>
-                <Button x:Name="GetVideoCodecsButton"
-                        Click="GetVideoCodecsButton_Click"
-                        Content=" 使用可能なビデオCodec一覧を取得 " Height="20"/>
+                          SelectedItem="Value"
+                          SelectedIndex="0"
+                    Width="150" Margin="20,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <CheckBox Margin="0,4,0,0">
@@ -37,12 +43,12 @@
                     </CheckBox.LayoutTransform>
                     <TextBlock Text="Audio コーデック"/>
                 </CheckBox>
-                <ComboBox Width="100" Margin="6"
+                <ComboBox Width="150" Margin="6"
                        ItemsSource="{Binding FfmpegAudioCodecDic}"
                       SelectedValuePath="Value"
-                        DisplayMemberPath="Key"                        
+                        DisplayMemberPath="Key"        
+                          SelectedIndex="0"
                           />
-                <Button  Content=" 使用可能なAudio Codec一覧を取得 " Height="20"/>
             </StackPanel>
 
 
@@ -63,19 +69,28 @@
                 </CheckBox.LayoutTransform>
                 <TextBlock Text="別のファイル形式に変換"/>
             </CheckBox>
-                <ComboBox IsEditable="True"
+                <ComboBox 
+                     SelectedIndex="0"
                     x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"/>
             </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="10,10,10,0">
+          <Label Content="FFmpegコマンドのプレビュー" FontSize="20"/>
+                <TextBlock Width="400" Height="20" HorizontalAlignment="Left"/>
+            </StackPanel>
         </StackPanel>
-
-        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <Button x:Name="QueryBuidButton" Content="クエリ適用" Width="100"
-                Margin="0,0,0,10"        />
-            <Button x:Name="MakeProfile" Content="プロファイル作成" Width="100"
+        
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,0">
+            <Button x:Name="QueryBuidButton" Content="クエリ適用" Width="100" HorizontalAlignment="Left"
+                Margin="0,0,0,10"/>
+            
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">                
+            <Button x:Name="MakeProfile" Content="プロファイル作成" Width="100" 
               />
+                <Label Content="プロファイル名" />
+                <TextBox Width="200" Height="20" Margin="10,0,0,0"/>
+            </StackPanel>
 
         </StackPanel>
-
 
     </Grid>
 </Window>
