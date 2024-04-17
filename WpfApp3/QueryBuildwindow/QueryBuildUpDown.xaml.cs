@@ -45,7 +45,7 @@ namespace HaruaConvert.UserControls
 
         private void NUDButtonUP_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            NumericUpDownManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue, +10);
+            nuManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue, +10);
         }
 
         private void NUDButtonDown_Click(object sender, System.Windows.RoutedEventArgs e)
