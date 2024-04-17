@@ -32,7 +32,7 @@ namespace HaruaConvert.UserControls
 
         }
 
-        public static void ValidateAndCorrectInput(TextBox NUDTextBox, int minValue, int maxValue)
+        public void ValidateAndCorrectInput(TextBox NUDTextBox, int minValue, int maxValue)
         {
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
