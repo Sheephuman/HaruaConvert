@@ -90,7 +90,7 @@ namespace HaruaConvert.UserControls
         public void NUDButtonUP_Click(object sender, RoutedEventArgs e)
         {
             
-            NumericUpDownManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue,1);
+            nuManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue,1);
         }
 
         public static explicit operator WpfNumericUpDown(QueryBuildUpDown v)
@@ -100,7 +100,7 @@ namespace HaruaConvert.UserControls
 
         private void NUDTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-           NumericUpDownManager.ValidateAndCorrectInput(NUDTextBox,minvalue,maxvalue);
+            nuManager.ValidateAndCorrectInput(NUDTextBox,minvalue,maxvalue);
             // フォーカスが外れた時に入力を検証し、必要に応じて修正
         }
     }
