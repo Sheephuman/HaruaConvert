@@ -83,7 +83,10 @@
             <StackPanel Orientation="Horizontal">
                 
 
-                <CheckBox>
+                <CheckBox x:Name="enablePostTwitterChecker"
+                          Checked="enablePostTwitterChecker_Checked"
+                          Unchecked="enablePostTwitterChecker_Checked"
+                          >
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                     </CheckBox.LayoutTransform>
