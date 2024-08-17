@@ -20,6 +20,7 @@ namespace HaruaConvert.UserControls
         {
             InitializeComponent();
 
+            
 
             NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
@@ -43,17 +44,17 @@ namespace HaruaConvert.UserControls
            // nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue, -10  , e);
         }
 
-        private void NUDButtonUP_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void NUDButtonUP_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             nuManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue, +10);
         }
 
-        private void NUDButtonDown_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void NUDButtonDown_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             nuManager.NUDButtonDown(NUDTextBox, minvalue,-10);
         }
 
-        private void NUDTextBox_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        public void NUDTextBox_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             nuManager.NUDTextBox_PreviewMouseWheelProc(sender,e);
         }

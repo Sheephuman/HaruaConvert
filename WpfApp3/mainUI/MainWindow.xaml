@@ -16,7 +16,7 @@
         Opacity="0.8"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
-        
+        Icon="../lib/harua.ico"
         >
 
     <!-- 閉じる-->
