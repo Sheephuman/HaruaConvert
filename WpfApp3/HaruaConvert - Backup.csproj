@@ -9,7 +9,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest-All</AnalysisLevel>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>HaruaConvert</AssemblyName>
     <Platforms>AnyCPU;x86;x64;ARM64</Platforms>
@@ -122,12 +122,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="BackImage\\harua.jpg">
+    <Content Include="BackImage\\harua.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="lib\harua.ico">
+    </Content>
+    <Content Include="lib\harua.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <None Include="Methods\Alternate_GetFileName.cs" />
     <DesignDataWithDesignTimeCreatableTypes Include="TextBoxBehaviorSample.cs" />
     <Resource Include="NumericStyles.xaml">

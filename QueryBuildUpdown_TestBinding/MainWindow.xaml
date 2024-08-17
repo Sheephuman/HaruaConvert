@@ -1,0 +1,27 @@
+﻿<Window x:Class="QueryBuildUpdown_TestBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:UserControl="clr-namespace:QueryBuildUpdown_TestBinding"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <UserControl:TestUpdown x:Name="testUpDown"/>
+            <TextBlock x:Name="testPreview">
+                <TextBlock.Text>
+                    <!-- 入力の順番を設定　{}：XAMLのエスケープシーケンスで、文字列のフォーマットを始めることを示します。
+{0}：最初のバインドソースの値を挿入する場所 -->
+                    <MultiBinding StringFormat="BuildQueryes: {0}, BittatePB: {1}">
+                        <Binding Path="BuildQueryes"/>
+                        <Binding Path="BittatePB"/>
+                    </MultiBinding>
+
+
+                </TextBlock.Text>                
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

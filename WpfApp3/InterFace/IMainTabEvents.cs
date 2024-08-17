@@ -93,7 +93,7 @@ namespace HaruaConvert.HaruaInterFace
         {
 
             IMediaInfoManager Imedia = new MediaInfoService(main);
-            var media = DisplayMediaInfoProcedure(main.paramField.setFile);
+            var media = CallFfprobe(main.paramField.setFile);
             List<string> mediaLists = Imedia.DisplayMediaInfo(media);
 
             main.Dispatcher.Invoke(() =>
@@ -111,7 +111,7 @@ namespace HaruaConvert.HaruaInterFace
 
         }
 
-        public IMediaAnalysis DisplayMediaInfoProcedure(string setFile)
+        public IMediaAnalysis CallFfprobe(string setFile)
         {                 
             FFOptions probe = new FFOptions();
             probe.BinaryFolder = "dll";
