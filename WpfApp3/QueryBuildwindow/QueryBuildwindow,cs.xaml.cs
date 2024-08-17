@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using static System.Resources.ResXFileRef;
 
 
 namespace HaruaConvert.userintarface
@@ -18,10 +19,10 @@ namespace HaruaConvert.userintarface
     /// </summary>
     public partial class QueryCreateWindow : Window
     {
-      //  readonly int minValue = 500;
+        //  readonly int minValue = 500;
+        YourMultiValueConverter converter;
 
 
-       
         public static TextBlock queryPreview { get; set; }
 
         private QueryField qf;
@@ -31,7 +32,7 @@ namespace HaruaConvert.userintarface
 
 
             InitializeComponent();
-
+            converter = new YourMultiValueConverter();
 
             var getCoudecs = new GetCodecsName();
 
@@ -152,7 +153,7 @@ namespace HaruaConvert.userintarface
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            var converter = new YourMultiValueConverter();
+            
          
             if (!converter.isVideoCodec)
             {
@@ -165,13 +166,24 @@ namespace HaruaConvert.userintarface
       
         private void EnableVideoCodecChecker_Checked(object sender, RoutedEventArgs e)
         {
-            var converter = new YourMultiValueConverter();
-            if(!converter.isVideoCodec)
+           
+            if (EnableVideoCodecChecker.IsChecked == true)
             {
                 converter.isVideoCodec = true;
+                enablePostTwitterChecker.IsEnabled = false;
+     
             }
-            else
+            else 
+            {                
                 converter.isVideoCodec = false;
+                enablePostTwitterChecker.IsEnabled = true;
+            }
+
+            
+        }
+
+        private void enablePostTwitterChecker_Checked(object sender, RoutedEventArgs e)
+        {
 
         }
     }
