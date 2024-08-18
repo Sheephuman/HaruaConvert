@@ -1,27 +1,30 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
-
+using HaruaConvert.QueryBuildwindow;
+using HaruaConvert.userintarface;
 
 namespace HaruaConvert.UserControls
 {
     /// <summary>qジック
     /// </summary>
-    public partial class QueryBuildUpDown : UserControl
+    public partial class QueryCreateUpDown : UserControl
     {
         public static int minvalue { get; } = 500;
         public static readonly int maxvalue = 2000;
         public const int startvalue = 10;
 
 
+        
+
         public static WpfNumericUpDown querybox { get; set; }
        
 
-        public QueryBuildUpDown()
+        public QueryCreateUpDown()
         {
             InitializeComponent();
 
-            
-
+            NUDTextBox = QueryCreateWindow.qc.NUDTextBox;    
+             
             NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
 
@@ -31,17 +34,17 @@ namespace HaruaConvert.UserControls
 
         private void NUDTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // NumericUpDownManager.NumericUpDownTextChangedProc(NUDTextBox, startvalue, maxvalue, minvalue);
+            //NumericUpDownManager.NumericUpDownTextChangedProc(NUDTextBox, startvalue, maxvalue, minvalue);
         }
 
         private void NUDTextBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-           // nuManager.NUDTextBox_PreviewKeyUpProc(NUDTextBox, minvalue, maxvalue, e);
+           nuManager.NUDTextBox_PreviewKeyUpProc(NUDTextBox, minvalue, maxvalue, e);
         }
 
         private void NUDTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-           // nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue, -10  , e);
+            nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue, -10  , e);
         }
 
         public void NUDButtonUP_Click(object sender, System.Windows.RoutedEventArgs e)

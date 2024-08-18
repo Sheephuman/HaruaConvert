@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HaruaConvert.userintarface;
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Windows;
@@ -107,7 +108,7 @@ namespace HaruaConvert.UserControls
         {
 
 
-           MainWindow.main.Dispatcher.Invoke(() =>
+           QueryCreateWindow.qc.Dispatcher.Invoke(() =>
             {
 
                 if (e.Key == Key.Up)
@@ -151,7 +152,7 @@ namespace HaruaConvert.UserControls
 
         public void NUDTextBox_PreviewKeyUpProc(TextBox NUDTextBox, int maxValue, int minValue, KeyEventArgs e)
         {
-          MainWindow.main.Dispatcher.Invoke(() =>
+            QueryCreateWindow.qc.Dispatcher.Invoke(() =>
             {
                 string textin = string.Empty;
                 int currentVal = 0;
@@ -166,7 +167,7 @@ namespace HaruaConvert.UserControls
 
 
 
-                MainWindow.main.Dispatcher.Invoke(() =>
+                QueryCreateWindow.qc.Dispatcher.Invoke(() =>
                 {
 
                     NUDTextBox.Text = textin;
@@ -188,7 +189,7 @@ namespace HaruaConvert.UserControls
             }
 
 
-            MainWindow.main.Dispatcher.Invoke(() =>
+            QueryCreateWindow.qc.Dispatcher.Invoke(() =>
             {
                 NUDTextBox.Text = number.ToString(CultureInfo.CurrentCulture);
 

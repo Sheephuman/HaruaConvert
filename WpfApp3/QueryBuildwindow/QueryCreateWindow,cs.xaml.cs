@@ -17,20 +17,26 @@ namespace HaruaConvert.userintarface
     /// <summary>
     /// QueryCreateWindow.xaml の相互作用ロジック
     /// </summary>
+    /// 
+    
+
+
     public partial class QueryCreateWindow : Window
     {
         //  readonly int minValue = 500;
         YourMultiValueConverter converter;
-
-
-        public static TextBlock queryPreview { get; set; }
+      
+            
+            public static TextBlock queryPreview { get; set; }
 
         private QueryField qf;
+        public static QueryCreateWindow qc { get; set; }
+
 
         public QueryCreateWindow(WpfNumericUpDown wp)
         {
 
-
+            qc = this;
             InitializeComponent();
             converter = new YourMultiValueConverter();
 
@@ -61,7 +67,7 @@ namespace HaruaConvert.userintarface
 
             
             var numanager = new NumericUpDownManager(NUDTextBox);
-            var queryBuidUpdown = new QueryBuildUpDown();
+            var queryBuidUpdown = new QueryCreateUpDown();
 
             
             
@@ -184,7 +190,19 @@ namespace HaruaConvert.userintarface
 
         private void enablePostTwitterChecker_Checked(object sender, RoutedEventArgs e)
         {
+            EnableVideoCodecChecker.IsEnabled = enablePostTwitterChecker.IsChecked == true ? false : true;
 
+            //if (enablePostTwitterChecker.IsChecked == true)
+            //{
+            //    converter.isVideoCodec = true;
+                
+
+            //}
+            //else
+            //{
+                
+            //    EnableVideoCodecChecker.IsEnabled = true;
+            //}
         }
     }
 }
