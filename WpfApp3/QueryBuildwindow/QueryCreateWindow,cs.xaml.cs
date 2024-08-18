@@ -192,6 +192,7 @@ namespace HaruaConvert.userintarface
 
         private void enablePostTwitterChecker_Checked(object sender, RoutedEventArgs e)
         {
+            qf.VideoCodecStrings = VideoCodecBox.SelectedValue.ToString();
             qf.UpdateAllInput();
             EnableVideoCodecChecker.IsEnabled = enablePostTwitterChecker.IsChecked == true ? false : true;
 
