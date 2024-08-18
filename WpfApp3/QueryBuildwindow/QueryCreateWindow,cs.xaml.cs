@@ -167,12 +167,14 @@ namespace HaruaConvert.userintarface
             }
             else
                 converter.IsBitrateChecked = false;
+
+            qf.UpdateAllInput();
         }
 
       
         private void EnableVideoCodecChecker_Checked(object sender, RoutedEventArgs e)
         {
-           
+            qf.UpdateAllInput();
             if (EnableVideoCodecChecker.IsChecked == true)
             {
                 converter.isVideoCodec = true;
@@ -190,6 +192,7 @@ namespace HaruaConvert.userintarface
 
         private void enablePostTwitterChecker_Checked(object sender, RoutedEventArgs e)
         {
+            qf.UpdateAllInput();
             EnableVideoCodecChecker.IsEnabled = enablePostTwitterChecker.IsChecked == true ? false : true;
 
             //if (enablePostTwitterChecker.IsChecked == true)
@@ -203,6 +206,58 @@ namespace HaruaConvert.userintarface
                 
             //    EnableVideoCodecChecker.IsEnabled = true;
             //}
+        }
+
+        private void VideoCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (e.AddedItems.Count > 0)
+            { 
+                // ComboBoxの参照を取得
+              
+
+
+                // 選択後のアイテムを取得
+                var selectedItem = e.AddedItems[0];
+
+                string removeText = selectedItem.ToString();
+                var result = removeText.Replace("[", "").Replace("]", "");
+
+
+                if (!string.IsNullOrEmpty(result))
+                   qf.VideoCodecStrings = result;
+
+                
+
+               qf.UpdateAllInput();
+
+                SelectItemBySubstring(VideoCodecBox,result);
+
+                
+            }
+        }
+
+        private void SelectItemBySubstring(ComboBox comboBox, string substring)
+        {
+            foreach (var item in comboBox.Items)
+            {
+                if (item.ToString().Contains(substring))
+                {
+                    comboBox.SelectedItem = item;
+                    break; // 目的のアイテムが見つかったらループを終了
+                }
+            }
+        }
+
+        private void CodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //qf.VideoCodecStrings = VideoCodecBox.Text;
+            //qf.UpdateAllInput();
+        }
+
+        private void VideoCodecBox_Selected(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
