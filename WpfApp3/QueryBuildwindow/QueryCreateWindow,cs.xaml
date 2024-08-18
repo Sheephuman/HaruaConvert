@@ -55,6 +55,9 @@
                           
                           ItemsSource="{Binding FfmpegVideoCodecDic}"
                           Text="{Binding VideoCodecStrings,UpdateSourceTrigger=PropertyChanged}"
+                            
+                          SelectionChanged="VideoCodecBox_SelectionChanged"
+                          
                           SelectedValuePath="Value"
                           DisplayMemberPath="Key"
                           SelectedItem="Value"
@@ -62,13 +65,14 @@
                     Width="150" Margin="20,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <CheckBox Margin="0,4,0,0">
+                <CheckBox Margin="0,4,0,0" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                     </CheckBox.LayoutTransform>
                     <TextBlock Text="Audio コーデック"/>
                 </CheckBox>
                 <ComboBox x:Name="AudioCodecBox"
+                          SelectionChanged="CodecBox_SelectionChanged"
                     Width="150" Margin="6"
                        ItemsSource="{Binding FfmpegAudioCodecDic}"
                           Text="{Binding VideoCodecs,UpdateSourceTrigger=PropertyChanged}"
@@ -94,7 +98,7 @@
                 </CheckBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-            <CheckBox>
+            <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">
                 <CheckBox.LayoutTransform>
                     <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                 </CheckBox.LayoutTransform>
@@ -102,18 +106,17 @@
             </CheckBox>
                 <ComboBox 
                      SelectedIndex="0"
-                    x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"/>
+                    
+                    x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"
+                    SelectionChanged="CodecBox_SelectionChanged"
+                    />
             </StackPanel>
             <Label x:Name="testLabel"  DataContextChanged="testLabel_DataContextChanged"/>
             <StackPanel Orientation="Vertical" Margin="10,10,10,0">
           <Label Content="FFmpegコマンドのプレビュー" FontSize="20"/>
-                <TextBlock x:Name="PreviewBlock" Width="400" Height="20" HorizontalAlignment="Left">
-                    <TextBlock.Text>
-                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                            <Binding Path="BitRateQuery" />
-                            <Binding Path="VideoCodecs"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
+                <TextBlock x:Name="PreviewBlock" Width="400" Height="24" HorizontalAlignment="Left" Text ="{Binding AllInput}"
+                           FontSize="20">
+                    
                 </TextBlock>
 
             </StackPanel>

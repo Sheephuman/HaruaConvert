@@ -182,11 +182,14 @@ namespace HaruaConvert.UserControls
         public void NUDButtonUP_ClickProc(TextBox NUDTextBox, int maxvalue ,int interval)
         {
 
+            
+
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
                 number = number + interval;
                
             }
+
 
 
             QueryCreateWindow.qc.Dispatcher.Invoke(() =>
