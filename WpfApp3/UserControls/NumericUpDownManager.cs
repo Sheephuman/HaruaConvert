@@ -87,7 +87,7 @@ namespace HaruaConvert.UserControls
                 
 
 
-            if(string.IsNullOrEmpty(NUDTextBox.Text))
+            if(!string.IsNullOrEmpty(intext))
                 NUDTextBox.Text = intext; //初期値を設定
             
             
@@ -107,18 +107,19 @@ namespace HaruaConvert.UserControls
         {
 
 
-           //QueryCreateWindow.qc.Dispatcher.Invoke(() =>
-           // {
-
+            //QueryCreateWindow.qc.Dispatcher.Invoke(() =>
+            // {
+            int currentVal;
                 if (e.Key == Key.Up)
                 {
-                    int currentVal = int.Parse(NUDTextBox.Text,CultureInfo.CurrentCulture);
+                     currentVal = int.Parse(NUDTextBox.Text,CultureInfo.CurrentCulture);
                     IncrementValue(NUDTextBox, maxValue, currentVal + interval);
                     
                 }
                 else if (e.Key == Key.Down)
                 {
-                    DecrementValue(NUDTextBox, minValue, currentValue);
+ 　　                 currentVal = int.Parse(NUDTextBox.Text, CultureInfo.CurrentCulture);
+      　　　          DecrementValue(NUDTextBox, minValue, currentVal);
                     
                     
                 }
@@ -185,17 +186,9 @@ namespace HaruaConvert.UserControls
 
 
 
-            //if (QueryCreateWindow.qc == null)
-            //    return;
-
-
-            //QueryCreateWindow.qc.Dispatcher.Invoke(() =>
-            //{
                 NUDTextBox.Text = number.ToString(CultureInfo.CurrentCulture);
 
 
-            //});
-            
         }
 
         internal void NUDTextBox_PreviewMouseWheelProc(object sender, System.Windows.Input.MouseWheelEventArgs e)
