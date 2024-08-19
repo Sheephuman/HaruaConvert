@@ -37,7 +37,7 @@ namespace HaruaConvert.UserControls
         {
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
-                number = System.Math.Clamp(number, minValue, maxValue);
+                number = Math.Clamp(number, minValue, maxValue);
                 NUDTextBox.Text = number.ToString(CultureInfo.CurrentCulture);
             }
             else
@@ -84,14 +84,13 @@ namespace HaruaConvert.UserControls
                 selnumber = Math.Max(number + interval, minvalue);
                 intext = selnumber.ToString(CultureInfo.CurrentCulture);
             }
-                MainWindow.main.Dispatcher.Invoke(() =>
-            {
+                
 
 
-
-                NUDTextBox.Text = intext;
+            if(string.IsNullOrEmpty(NUDTextBox.Text))
+                NUDTextBox.Text = intext; //初期値を設定
             
-            });
+            
 
 
 
@@ -108,22 +107,22 @@ namespace HaruaConvert.UserControls
         {
 
 
-           QueryCreateWindow.qc.Dispatcher.Invoke(() =>
-            {
+           //QueryCreateWindow.qc.Dispatcher.Invoke(() =>
+           // {
 
                 if (e.Key == Key.Up)
                 {
                     int currentVal = int.Parse(NUDTextBox.Text,CultureInfo.CurrentCulture);
                     IncrementValue(NUDTextBox, maxValue, currentVal + interval);
-                    e.Handled = true; // 他の処理を防ぐ
+                    
                 }
                 else if (e.Key == Key.Down)
                 {
                     DecrementValue(NUDTextBox, minValue, currentValue);
                     
-                    e.Handled = true;
+                    
                 }
-            });
+            //});
 
         }
 
@@ -152,8 +151,7 @@ namespace HaruaConvert.UserControls
 
         public void NUDTextBox_PreviewKeyUpProc(TextBox NUDTextBox, int maxValue, int minValue, KeyEventArgs e)
         {
-            QueryCreateWindow.qc.Dispatcher.Invoke(() =>
-            {
+       
                 string textin = string.Empty;
                 int currentVal = 0;
                 if (e.Key == Key.Up)
@@ -167,14 +165,12 @@ namespace HaruaConvert.UserControls
 
 
 
-                QueryCreateWindow.qc.Dispatcher.Invoke(() =>
-                {
 
                     NUDTextBox.Text = textin;
-                });
+               
 
 
-            });
+            
         }
 
 
