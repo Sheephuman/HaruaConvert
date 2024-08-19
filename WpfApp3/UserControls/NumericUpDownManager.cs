@@ -189,16 +189,16 @@ namespace HaruaConvert.UserControls
 
 
 
-            if (QueryCreateWindow.qc == null)
-                return;
+            //if (QueryCreateWindow.qc == null)
+            //    return;
 
 
-            QueryCreateWindow.qc.Dispatcher.Invoke(() =>
-            {
+            //QueryCreateWindow.qc.Dispatcher.Invoke(() =>
+            //{
                 NUDTextBox.Text = number.ToString(CultureInfo.CurrentCulture);
 
 
-            });
+            //});
             
         }
 
