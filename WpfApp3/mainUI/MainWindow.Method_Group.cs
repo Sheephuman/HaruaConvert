@@ -280,7 +280,7 @@ namespace HaruaConvert
 
 
             //wave出力の初期化
-            //Usingステートメントを入れるとならなくなる　Why？
+            
             using (WaveOutEvent outputDevice = new WaveOutEvent())
             using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
             {
@@ -292,6 +292,7 @@ namespace HaruaConvert
 
 
                 OpenExplorer();
+                //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
                 // 再生が完了するまで待機
                 await playbackCompleted.Task;
 
