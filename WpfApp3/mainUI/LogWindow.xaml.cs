@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HaruaConvert.Parameter;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -71,9 +72,14 @@ namespace HaruaConvert
 
             //if (mainWindow._FfmpProcess.d == true)
             //  return;
+            if (main.paramField.isExitProcessed) //Check Stream is Null 
+                return;
+
 
             StreamWriter inputWriter = main._FfmpProcess.StandardInput;
-             inputWriter.WriteLine("q");
+            
+
+                inputWriter.WriteLine("q");
 
 
             main.Focus();

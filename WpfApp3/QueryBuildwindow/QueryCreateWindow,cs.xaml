@@ -65,14 +65,16 @@
                     Width="150" Margin="20,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <CheckBox Margin="0,4,0,0" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">
+                <CheckBox x:Name="AudioCodecChecker" 
+                         IsChecked="{Binding IsAudioCodec}"
+                          Margin="0,4,0,0" Checked="AudioCodecChecker_Checked" Unchecked="AudioCodecChecker_Checked">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                     </CheckBox.LayoutTransform>
                     <TextBlock Text="Audio コーデック"/>
                 </CheckBox>
                 <ComboBox x:Name="AudioCodecBox"
-                          SelectionChanged="CodecBox_SelectionChanged"
+                          SelectionChanged="AudioCodecBox_SelectionChanged"
                     Width="150" Margin="6"
                        ItemsSource="{Binding FfmpegAudioCodecDic}"
                           Text="{Binding VideoCodecs,UpdateSourceTrigger=PropertyChanged}"
@@ -108,7 +110,7 @@
                      SelectedIndex="0"
                     
                     x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"
-                    SelectionChanged="CodecBox_SelectionChanged"
+                    SelectionChanged="AudioCodecBox_SelectionChanged"
                     />
             </StackPanel>
             <Label x:Name="testLabel"  DataContextChanged="testLabel_DataContextChanged"/>

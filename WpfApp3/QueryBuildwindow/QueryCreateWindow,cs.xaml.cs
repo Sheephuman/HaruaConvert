@@ -127,7 +127,7 @@ namespace HaruaConvert.userintarface
 
         private void enablePostTwitterChecker_Checked(object sender, RoutedEventArgs e)
         {
-            qf.VideoCodecStrings = VideoCodecBox.SelectedValue.ToString();
+          //  qf.VideoCodecStrings = VideoCodecBox.SelectedValue.ToString();
             qf.UpdateAllInput();
             EnableVideoCodecChecker.IsEnabled = enablePostTwitterChecker.IsChecked == true ? false : true;
 
@@ -147,36 +147,36 @@ namespace HaruaConvert.userintarface
         private void VideoCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            //if (e.AddedItems.Count > 0)
-            //{ 
-            // ComboBoxの参照を取得
-
-            string removeText = string.Empty;
-
-            //// 選択後のアイテムを取得
-            //var selectedItem = e.AddedItems[0];
+           
             if (VideoCodecBox.SelectedItem != null)
-            {
-                removeText = VideoCodecBox.SelectedItem.ToString();
-
-
-
-                //if (!string.IsNullOrEmpty(result))
-                //   qf.VideoCodecStrings = result;
-                var result = removeText.Replace("[", "").Replace("]", "");
-                qf.VideoCodecStrings = result;
+            {             
+              
+                qf.VideoCodecStrings = indexMake(VideoCodecBox);
 
                 qf.UpdateAllInput();
             }
-           
-
-
-           
-
-                //SelectItemBySubstring( VideoCodecBox,result);
-
-                
+                          
             
+        }
+
+
+        string indexMake(ComboBox CodecBox) {
+            string removeText = string.Empty;
+            
+            
+            removeText = CodecBox.SelectedItem.ToString();
+
+            
+
+            var result = removeText.Replace("[", "").Replace("]", "");
+
+
+            //if (!string.IsNullOrEmpty(result))
+            //   qf.VideoCodecStrings = result;
+         
+
+            return result;
+        
         }
 
         //private void SelectItemBySubstring(ComboBox comboBox, string substring)
@@ -191,10 +191,18 @@ namespace HaruaConvert.userintarface
         //    }
         //}
 
-        private void CodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AudioCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //qf.VideoCodecStrings = VideoCodecBox.Text;
-            //qf.UpdateAllInput();
+
+            if (AudioCodecBox.SelectedItem != null)
+            {
+
+                qf.AudioCodecStrings = indexMake(AudioCodecBox);
+
+                qf.UpdateAllInput();
+            }
+
+            
         }
 
         private void VideoCodecBox_Selected(object sender, RoutedEventArgs e)
@@ -210,6 +218,13 @@ namespace HaruaConvert.userintarface
         private void testLabel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
+        }
+
+    
+        private void AudioCodecChecker_Checked(object sender, RoutedEventArgs e)
+        {
+
+            qf.UpdateAllInput();
         }
     }
 }

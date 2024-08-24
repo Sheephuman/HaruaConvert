@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
@@ -16,26 +17,6 @@ namespace HaruaConvert.QueryBuilder
             get => _bitRateInput;
             set => SetProperty(ref _bitRateInput, value, UpdateAllInput);
         }
-
-        //public string BitRateInput
-        //{
-        //    get => _bitRateInput;
-        //    set
-        //    {
-        //        if (_bitRateInput != value)
-        //        {
-
-        //            _bitRateInput = value;
-        //            OnPropertyChanged(nameof(BitRateInput));
-
-
-        //        }
-        //    }
-        //}
-
-
-
-
 
 
 
@@ -103,33 +84,21 @@ namespace HaruaConvert.QueryBuilder
             set => SetProperty(ref _isEnableTwitter, value);
         }
 
-        private string _videoCodecInput = string.Empty;
-        public string VideoCodecInput
-        {
-            get => _videoCodecInput;
-            set
-            {
-                if (_videoCodecInput != value)
-                {
+   
 
-                    _videoCodecInput = value;
-                    OnPropertyChanged(nameof(VideoCodecInput));
-                   
-                }
+        string makeIndexer(string value)
+        {
+            int index = value.IndexOf(" : ", StringComparison.CurrentCultureIgnoreCase);
+            string result = string.Empty;
+            if (index != -1)
+            {
+                result = value.Substring(0, index);
             }
+
+            return result;
         }
 
-
-        private string _audioCodecStrings = string.Empty;
-        public string AudioCodecStrings
-        {
-            get => _audioCodecStrings;
-            set
-            {
-
-                SetProperty(ref _audioCodecStrings, value, UpdateAllInput);
-            }
-        }
+      
 
 
 
@@ -154,6 +123,24 @@ namespace HaruaConvert.QueryBuilder
 
             }
         }
+
+
+        string audioIndex = string.Empty;
+        private string _audioCodecStrings = string.Empty;
+        public string AudioCodecStrings
+        {
+            get => _audioCodecStrings;
+            set
+            {
+
+                audioIndex = makeIndexer(value);
+                if (!string.IsNullOrEmpty(videoIndex))
+                    _audioCodecStrings = $"{audioIndex}";
+                
+
+            }
+        }
+
         string _videoCodecStrings = string.Empty;
         string videoIndex = string.Empty;
         //Codec Dictionary
@@ -162,29 +149,11 @@ namespace HaruaConvert.QueryBuilder
 
             set
             {
-                int index = value.IndexOf(" : ", StringComparison.CurrentCultureIgnoreCase);
-
-
-                if (_videoCodecStrings != value)
-                   
-                       
-                        if (index != -1)
-                        {
-                            videoIndex = value.Substring(0, index);
-                        }
+                       videoIndex = makeIndexer(value);
                         // videoIndex = value;
-                        if(!string.IsNullOrEmpty(videoIndex))
+                        if (!string.IsNullOrEmpty(videoIndex))
                            _videoCodecStrings = $"{videoIndex}";
-
-                        
-
-                    
-                    //else if (!_isVideoCodec)
-
-                    //    _videoCodecStrings = string.Empty;
-              
-               // OnPropertyChanged();
-     
+                                                     
             }
 
 
