@@ -11,12 +11,12 @@ namespace HaruaConvert.QueryBuilder
     {
         public QuearyBuildHelper(QueryField _qf) {
         
-        qf = _qf;
+        
         }
 
        
 
-        QueryField qf;
+        
 
         public string QueryBuilderExecute(string bit)
         {

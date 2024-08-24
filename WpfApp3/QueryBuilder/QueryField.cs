@@ -39,7 +39,7 @@ namespace HaruaConvert.QueryBuilder
 
 
 
-        private bool SetProperty<T>(ref T field, T Value, Action? onChanged= null, [CallerMemberName] string? propertyName = null)
+        private bool SetProperty<T>(ref T field, T Value, Action onChanged= null, [CallerMemberName] string propertyName = null)
         {
             ///ジェネリック型Tのフィールドfieldと、新しい値Valueが等しくないかどうかを確認
             if (!EqualityComparer<T>.Default.Equals(field,Value))
@@ -76,7 +76,7 @@ namespace HaruaConvert.QueryBuilder
         public void UpdateAllInput()
         {
             var _bitRateQuery = _isBitrateChecked ? $"-b:v {_bitRateInput}k " : string.Empty;
-            var _videoCodecesQuery = _isVideoCodec ? $"-codec:v {_videoCodecStrings} " : string.Empty;
+            var _videoCodecesQuery = _isVideoCodec ? $"-codec:v {_videoCodecStrings} " :  string.Empty;
 
             var _audioCodecQuery = _isAudioCodec ? $"-codec:a {AudioCodecStrings}" : string.Empty;
 
@@ -155,7 +155,7 @@ namespace HaruaConvert.QueryBuilder
             }
         }
         string _videoCodecStrings = string.Empty;
-
+        string videoIndex = string.Empty;
         //Codec Dictionary
         public string VideoCodecStrings
         { get => _videoCodecStrings;
@@ -166,9 +166,8 @@ namespace HaruaConvert.QueryBuilder
 
 
                 if (_videoCodecStrings != value)
-                    if (_isVideoCodec)
-                    {
-                        string videoIndex = string.Empty;
+                   
+                       
                         if (index != -1)
                         {
                             videoIndex = value.Substring(0, index);
@@ -179,12 +178,12 @@ namespace HaruaConvert.QueryBuilder
 
                         
 
-                    }
-                    else if (!_isVideoCodec)
+                    
+                    //else if (!_isVideoCodec)
 
-                        _videoCodecStrings = string.Empty;
+                    //    _videoCodecStrings = string.Empty;
               
-                OnPropertyChanged(nameof(VideoCodecStrings));
+               // OnPropertyChanged();
      
             }
 
@@ -247,7 +246,7 @@ namespace HaruaConvert.QueryBuilder
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-            protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
             {
                 // プロパティ名が空またはnullの場合は例外を投げる。
                 if (string.IsNullOrEmpty(propertyName)) throw new ArgumentNullException(nameof(propertyName));

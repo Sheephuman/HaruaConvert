@@ -19,7 +19,7 @@ namespace HaruaConvert.userintarface
     /// </summary>
     /// 
     
-
+  
 
     public partial class QueryCreateWindow : Window
     {
@@ -27,7 +27,7 @@ namespace HaruaConvert.userintarface
         YourMultiValueConverter converter;
       
             
-            public static TextBlock queryPreview { get; set; }
+     //  public static TextBlock queryPreview { get; set; }
 
         private QueryField qf;
         public static QueryCreateWindow qc { get; set; }
@@ -85,77 +85,9 @@ namespace HaruaConvert.userintarface
 
        
 
-        private void QueryBuildChanged(object sender, TextChangedEventArgs e)
-        {
-            
-        }
 
-        private void GetVideoCodecsButton_Click(object sender, RoutedEventArgs e)
-        {
-            //foreach (var colist in resultList )
-            //    if(!VideoCodecBox.Items.Contains(colist))
-            //         VideoCodecBox.Items.Add( colist );
+      
 
-               
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            
-
-
-            ////個別にBindingを設定する
-            //Binding VideoCodecBinding = new Binding(nameof(FfmpegVideoCodecDic))
-            //{
-            //    Source = this,
-
-            //    Mode = BindingMode.OneWay
-            //};
-
-            //VideoCodecBox.SetBinding(ItemsControl.ItemsSourceProperty, VideoCodecBinding);
-            //VideoCodecBox.DisplayMemberPath = "Key";  // 辞書のキーを表示する
-            //VideoCodecBox.SelectedValuePath = "Value";
-
-
-            //Binding audioCodecBinding = new Binding(nameof(FfmpegAudioCodecDic))
-            //{
-            //    Source = this,
-
-            //    Mode = BindingMode.OneWay
-            //};
-
-            //AudioCodecBox.SetBinding(ItemsControl.ItemsSourceProperty, audioCodecBinding);
-            //AudioCodecBox.DisplayMemberPath = "Key";  // 辞書のキーを表示する
-            //AudioCodecBox.SelectedValuePath = "Value";
-
-
-
-            //var qf = new QueryField();
-
-
-            //MessageBox.Show(nameof(qf.BitRateQuery));
-
-            //// QueryBuildUpDownにバインディングの設定
-            //Binding binding = new Binding(nameof(qf.BitRateQuery))
-            //{
-            //  Source = qf,
-            //    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-            //    Mode = BindingMode.OneWay
-            //};
-
-
-            //textDisp.SetBinding(TextBox.TextProperty, binding);
-
-
-
-            // queryPreview = PreviewBlock;
-        }
-
-        private void testLabel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-           
-        }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -174,11 +106,14 @@ namespace HaruaConvert.userintarface
       
         private void EnableVideoCodecChecker_Checked(object sender, RoutedEventArgs e)
         {
+        
             qf.UpdateAllInput();
             if (EnableVideoCodecChecker.IsChecked == true)
             {
                 converter.isVideoCodec = true;
                 enablePostTwitterChecker.IsEnabled = false;
+
+                
      
             }
             else 
@@ -211,44 +146,50 @@ namespace HaruaConvert.userintarface
 
         private void VideoCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            if (e.AddedItems.Count > 0)
-            { 
-                // ComboBoxの参照を取得
-              
 
+            //if (e.AddedItems.Count > 0)
+            //{ 
+            // ComboBoxの参照を取得
 
-                // 選択後のアイテムを取得
-                var selectedItem = e.AddedItems[0];
+            string removeText = string.Empty;
 
-                string removeText = selectedItem.ToString();
-                var result = removeText.Replace("[", "").Replace("]", "");
-
-
-                if (!string.IsNullOrEmpty(result))
-                   qf.VideoCodecStrings = result;
-
-                
-
-               qf.UpdateAllInput();
-
-                SelectItemBySubstring(VideoCodecBox,result);
-
-                
-            }
-        }
-
-        private void SelectItemBySubstring(ComboBox comboBox, string substring)
-        {
-            foreach (var item in comboBox.Items)
+            //// 選択後のアイテムを取得
+            //var selectedItem = e.AddedItems[0];
+            if (VideoCodecBox.SelectedItem != null)
             {
-                if (item.ToString().Contains(substring))
-                {
-                    comboBox.SelectedItem = item;
-                    break; // 目的のアイテムが見つかったらループを終了
-                }
+                removeText = VideoCodecBox.SelectedItem.ToString();
+
+
+
+                //if (!string.IsNullOrEmpty(result))
+                //   qf.VideoCodecStrings = result;
+                var result = removeText.Replace("[", "").Replace("]", "");
+                qf.VideoCodecStrings = result;
+
+                qf.UpdateAllInput();
             }
+           
+
+
+           
+
+                //SelectItemBySubstring( VideoCodecBox,result);
+
+                
+            
         }
+
+        //private void SelectItemBySubstring(ComboBox comboBox, string substring)
+        //{
+        //    foreach (var item in comboBox.Items)
+        //    {
+        //        if (item.ToString().Contains(substring))
+        //        {
+        //            comboBox.SelectedItem = item;
+        //            break; // 目的のアイテムが見つかったらループを終了
+        //        }
+        //    }
+        //}
 
         private void CodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -257,6 +198,16 @@ namespace HaruaConvert.userintarface
         }
 
         private void VideoCodecBox_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void testLabel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
         }
