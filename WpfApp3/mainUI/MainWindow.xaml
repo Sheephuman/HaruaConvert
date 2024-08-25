@@ -351,7 +351,7 @@
                                       />
                                 <Label Grid.Column="2"
                                     Margin="
-                                       100,0,0,0"
+                                       95,0,0,0"
                                        FontSize="16" FontWeight="Bold" Content="保存するパラメータ数"/>
 
                                 <UserControls:WpfNumericUpDown 
@@ -360,8 +360,8 @@
 
                                 <Button  
                                         x:Name="ButtonGenerate"
-                                    Width="50"
-                                       FontSize="16" FontWeight="Bold" Content="生成"
+                                    Width="73"
+                                       FontSize="16" FontWeight="Bold" Content="ボタン配置"
                                        Background="Transparent"
                                         Click="ButtonGenerate_Click"/>
 
