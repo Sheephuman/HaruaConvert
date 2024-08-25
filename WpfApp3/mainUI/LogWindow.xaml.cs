@@ -40,7 +40,7 @@ namespace HaruaConvert
             // 文字色
             textRange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
 
-
+            string test = String.Empty;
 
 
             main = _main;
