@@ -23,7 +23,7 @@ namespace HaruaConvert.UserControls
         {
             InitializeComponent();
 
-            NUDTextBox = QueryCreateWindow.qc.NUDTextBox;    
+            NUDTextBox = QueryCreateWindow.qc.BitRateNumBox;    
              
             NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 

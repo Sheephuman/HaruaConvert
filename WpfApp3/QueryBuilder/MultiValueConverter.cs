@@ -12,7 +12,7 @@ namespace HaruaConvert.QueryBuilder
     using System.Windows.Data;
     using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
-    public class YourMultiValueConverter : IMultiValueConverter
+    public class MultiValueConverter : IMultiValueConverter
     {
         private bool _isBitrateChecked;
         public bool IsBitrateChecked
