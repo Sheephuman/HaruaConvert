@@ -18,6 +18,13 @@ namespace HaruaConvert.QueryBuilder
             set => SetProperty(ref _bitRateInput, value, UpdateAllInput);
         }
 
+        private string _fileExtentionName;
+        public string FileExtentionName
+        {
+            get =>  _fileExtentionName;
+            set => SetProperty(ref _fileExtentionName, value, UpdateAllInput);
+
+        }
 
 
         private bool SetProperty<T>(ref T field, T Value, Action onChanged= null, [CallerMemberName] string propertyName = null)
@@ -59,25 +66,32 @@ namespace HaruaConvert.QueryBuilder
             var _bitRateQuery = _isBitrateChecked ? $"-b:v {_bitRateInput}k " : string.Empty;
             var _videoCodecesQuery = _isVideoCodec ? $"-codec:v {_videoCodecStrings} " :  string.Empty;
 
-            var _audioCodecQuery = _isAudioCodec ? $"-codec:a {AudioCodecStrings}" : string.Empty;
+            var _audioCodecQuery = _isAudioCodec ? $"-codec:a {AudioCodecStrings} " : string.Empty;
 
-            var EnableTwitterQuery = string.Empty;
+            
 
-            EnableTwitterQuery = _isEnableTwitter ? new Func<string>(() =>
+            string EnableTwitterQuery = _isEnableTwitter ? new Func<string>(() =>
             {
                 _videoCodecesQuery = string.Empty;
                 return "-codec:v h264 -vf yadif=0:-1:1 ";
 
             })() : string.Empty;
 
-            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery;
+            var otherFileName_ExQuery = _isOtherFileNameEx ? new Func<string>(() =>
+            {
+                
+                return "{$FileName} " +_fileExtentionName;
+
+            })() : string.Empty;
+
+            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + otherFileName_ExQuery ;
 
             OnPropertyChanged();
         }
 
 
         bool _isEnableTwitter;
-        public bool IsEnableTwitte
+        public bool IsEnableTwitter
         {
 
             get => _isEnableTwitter;
@@ -165,6 +179,15 @@ namespace HaruaConvert.QueryBuilder
             set => SetProperty(ref _allInput, value);　//メソッドを介して簡略化
         }
 
+
+
+        private bool _isOtherFileNameEx ;
+        public bool IsOtherFileNameExtension
+        {
+            get => _isOtherFileNameEx;
+            set => SetProperty(ref _isOtherFileNameEx, value);
+        }
+
         //public string AllInput
         //{
         //    get => _allInput;
@@ -177,9 +200,6 @@ namespace HaruaConvert.QueryBuilder
         //        }
         //    }
         //}
-        
-       
-
 
 
 

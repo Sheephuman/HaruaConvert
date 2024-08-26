@@ -24,7 +24,7 @@ namespace HaruaConvert.userintarface
     public partial class QueryCreateWindow : Window
     {
         //  readonly int minValue = 500;
-        YourMultiValueConverter converter;
+        MultiValueConverter converter;
       
             
      //  public static TextBlock queryPreview { get; set; }
@@ -38,7 +38,7 @@ namespace HaruaConvert.userintarface
 
             qc = this;
             InitializeComponent();
-            converter = new YourMultiValueConverter();
+            converter = new MultiValueConverter();
 
             var getCoudecs = new GetCodecsName();
 
@@ -60,21 +60,21 @@ namespace HaruaConvert.userintarface
             FileNameExtentionBox.Items.Add(".wmv");
             FileNameExtentionBox.Items.Add(".mov");            
             FileNameExtentionBox.Items.Add(".mkv");
-            FileNameExtentionBox.Items.Add(".flv:");
+            FileNameExtentionBox.Items.Add(".flv");
             FileNameExtentionBox.Items.Add(".webm");
             FileNameExtentionBox.Items.Add(".mpeg");
             FileNameExtentionBox.Items.Add(".rmvb");
 
             
-            var numanager = new NumericUpDownManager(NUDTextBox);
+            var numanager = new NumericUpDownManager(BitRateNumBox);
             var queryBuidUpdown = new QueryCreateUpDown();
 
             
             
             
-            NUDTextBox.PreviewMouseWheel += queryBuidUpdown.NUDTextBox_PreviewMouseWheel;
-            NUDTextBox.PreviewKeyUp += queryBuidUpdown.NUDButtonUP_Click;
-            NUDTextBox.PreviewKeyDown += queryBuidUpdown.NUDButtonDown_Click;
+            BitRateNumBox.PreviewMouseWheel += queryBuidUpdown.NUDTextBox_PreviewMouseWheel;
+            BitRateNumBox.PreviewKeyUp += queryBuidUpdown.NUDButtonUP_Click;
+            BitRateNumBox.PreviewKeyDown += queryBuidUpdown.NUDButtonDown_Click;
             
             NUDButtonUP.Click += queryBuidUpdown.NUDButtonUP_Click;
             NUDButtonDown.Click += queryBuidUpdown.NUDButtonDown_Click;
@@ -89,7 +89,7 @@ namespace HaruaConvert.userintarface
       
 
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void isBitrateCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             
          
@@ -100,14 +100,16 @@ namespace HaruaConvert.userintarface
             else
                 converter.IsBitrateChecked = false;
 
-            qf.UpdateAllInput();
+            if(!string.IsNullOrEmpty(BitRateNumBox.Text))
+                 qf.UpdateAllInput();
         }
 
       
         private void EnableVideoCodecChecker_Checked(object sender, RoutedEventArgs e)
         {
-        
-            qf.UpdateAllInput();
+            if (!string.IsNullOrEmpty(VideoCodecBox.Text))
+                qf.UpdateAllInput();
+
             if (EnableVideoCodecChecker.IsChecked == true)
             {
                 converter.isVideoCodec = true;
@@ -128,18 +130,21 @@ namespace HaruaConvert.userintarface
         private void enablePostTwitterChecker_Checked(object sender, RoutedEventArgs e)
         {
           //  qf.VideoCodecStrings = VideoCodecBox.SelectedValue.ToString();
-            qf.UpdateAllInput();
+          
             EnableVideoCodecChecker.IsEnabled = enablePostTwitterChecker.IsChecked == true ? false : true;
+            qf.UpdateAllInput();
 
+
+            //-codec:v h264 -vf yadif=0:-1:1
             //if (enablePostTwitterChecker.IsChecked == true)
             //{
             //    converter.isVideoCodec = true;
-                
+
 
             //}
             //else
             //{
-                
+
             //    EnableVideoCodecChecker.IsEnabled = true;
             //}
         }
@@ -222,6 +227,18 @@ namespace HaruaConvert.userintarface
 
     
         private void AudioCodecChecker_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(AudioCodecBox.Text))
+                qf.UpdateAllInput();
+        }
+
+        private void OtherFileNameChecker_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(FileNameExtentionBox.Text))
+                qf.UpdateAllInput();
+        }
+
+        private void FileNameExtentionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             qf.UpdateAllInput();
