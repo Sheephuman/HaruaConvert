@@ -6,8 +6,10 @@
         mc:Ignorable="d"                
           Background="#FFFDEEF0"        
          Loaded="Window_Loaded"
-        
-        Title="FfmpegComand作成" Height="440" Width="800">
+        x:Name="QueryCreateWindowForm"
+        Title="FfmpegComand作成" Height="440" Width="800"
+        Closed="QueryCreateWindow_Closed"        
+        >
     <Window.Resources>
         <local:MultiValueConverter x:Key="MultiValueConverter"/>
     </Window.Resources>

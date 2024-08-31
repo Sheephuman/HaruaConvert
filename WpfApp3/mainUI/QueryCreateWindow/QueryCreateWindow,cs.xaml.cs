@@ -290,5 +290,22 @@ namespace HaruaConvert.userintarface
             else
                 MessageBox.Show("queryが空です");
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QueryCreateWindow_Closed(object sender, EventArgs e)
+        {
+            main.paramField.isClosedQueryBuildWindow = true;
+        }
+
+        private void QueryCreateWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            main.paramField.isClosedQueryBuildWindow = false;
+        }
+
+        
     }
 }

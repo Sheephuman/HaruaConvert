@@ -56,6 +56,7 @@ namespace HaruaConvert.Parameter
 
         public bool isAutoScroll { get; set; }
         public bool isPaused { get; set; }
+        public bool isClosedQueryBuildWindow { get; set; }
 
 
         public static class QueryNames
