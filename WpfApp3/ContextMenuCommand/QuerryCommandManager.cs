@@ -93,8 +93,10 @@ namespace HaruaConvert.Command
         {
 
             if (_main.paramField.isClosedQueryBuildWindow)
+            {
                 qi = new QueryCreateWindow(_main);
-
+                
+            }
            
             if (!qi.IsVisible || qi.WindowState == WindowState.Minimized )
             {
