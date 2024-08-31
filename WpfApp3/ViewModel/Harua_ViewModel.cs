@@ -46,7 +46,7 @@ namespace HaruaConvert.Parameter
                 MainParams = new ObservableCollection<MainParam>
             {
                new MainParam { StartQuery = IniDefinition.GetValueOrDefault
-                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, " -b:v 700k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
+                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, "-b:v 700k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
                 OutputPath = MainTab_OutputDirectory,
                  endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault

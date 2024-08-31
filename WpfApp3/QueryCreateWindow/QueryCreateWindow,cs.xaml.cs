@@ -32,10 +32,11 @@ namespace HaruaConvert.userintarface
         private QueryField qf;
         public static QueryCreateWindow qc { get; set; }
 
-
-        public QueryCreateWindow(WpfNumericUpDown wp)
+        MainWindow main;
+        public QueryCreateWindow(MainWindow _main)
         {
-
+            main = _main;
+            
             qc = this;
             InitializeComponent();
             converter = new MultiValueConverter();
@@ -234,7 +235,7 @@ namespace HaruaConvert.userintarface
 
         private void OtherFileNameChecker_Checked(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(FileNameExtentionBox.Text))
+            if (FileNameExtentionBox.SelectedValue != null)
                 qf.UpdateAllInput();
         }
 
@@ -243,5 +244,21 @@ namespace HaruaConvert.userintarface
 
             qf.UpdateAllInput();
         }
+
+        private void QueryBuidButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(PreviewBlock.Text))
+               main.ParamText.Text = PreviewBlock.Text;
+
+            //メインウィンドウのBinding先がMainParamクラスであるため、
+            //その中の変数に直接アクセスしてもBindingに反映されない
+        }
+
+        private void MakeProfile_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
     }
 }

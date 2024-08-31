@@ -127,5 +127,12 @@ namespace HaruaConvert
 
 
         }
+
+
+        public void SetCommandBindings()
+        {
+
+
+        }
     }
 }

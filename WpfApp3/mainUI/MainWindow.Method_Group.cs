@@ -197,6 +197,7 @@ namespace HaruaConvert
 
 
         public LogWindow Lw { get; set; }
+        public bool IsDefaultQuerySet { get; internal set; }
 
         void ffmpegProsseing()
         {

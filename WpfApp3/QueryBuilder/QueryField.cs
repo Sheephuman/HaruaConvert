@@ -80,7 +80,7 @@ namespace HaruaConvert.QueryBuilder
             var otherFileName_ExQuery = _isOtherFileNameEx ? new Func<string>(() =>
             {
                 
-                return "{$FileName} " +_fileExtentionName;
+                return "{FileName} " +_fileExtentionName;
 
             })() : string.Empty;
 
