@@ -6,7 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Documents;
 
-namespace HaruaConvert.QueryBuildwindow.GetCodecs
+namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
 {
     public class GetCodecsName
     {
@@ -15,9 +15,9 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
 
         public GetCodecsName(string name) { }
 
-        public Dictionary<string,string> GetCodecNameExecute(string codecType)
+        public Dictionary<string, string> GetCodecNameExecute(string codecType)
         {
-            var lineDic = new Dictionary<string,string>();
+            var lineDic = new Dictionary<string, string>();
             // ffmpegのパスを設定
             var ffmpegPath = @"dll\\ffmpeg.exe";
             var startInfo = new ProcessStartInfo(ffmpegPath, "-encoders")
@@ -30,21 +30,21 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
             var process = new Process { StartInfo = startInfo };
             process.Start();
 
-           var regex = new Regex(codecType);
+            var regex = new Regex(codecType);
 
-///     var regex = new Regex(@"^\s*V\s*\.\.\.\.\.\s+([^\s]+)");
-              var outregex = new Regex(@"V\.\.\.\.\.\s*=\s*(\S+)");
-          
+            ///     var regex = new Regex(@"^\s*V\s*\.\.\.\.\.\s+([^\s]+)");
+            var outregex = new Regex(@"V\.\.\.\.\.\s*=\s*(\S+)");
 
 
-            bool isFirstLine =true ;
+
+            bool isFirstLine = true;
 
 
             using (var reader = process.StandardOutput)
             {
                 string line;
 
-                
+
 
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -53,19 +53,19 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
 
                     //一行目判定
                     if (isFirstLine)
-                    { 
-                    isFirstLine = false;
+                    {
+                        isFirstLine = false;
                         continue;
                     }
 
 
                     var outMatch = outregex.Match(line);
-                 
+
                     var match = regex.Match(line);
-                    if(!outMatch.Success)                     
-                    if (match.Success)
-                    {
-                           
+                    if (!outMatch.Success)
+                        if (match.Success)
+                        {
+
 
                             //CA1310対応
                             int startIndex = 7;
@@ -77,14 +77,14 @@ namespace HaruaConvert.QueryBuildwindow.GetCodecs
                             var codecName = analizeSorce.Remove(startIndex2);
                             var codecDoc = codecName + " : " +
                                  analizeSorce.Substring(startIndex2).TrimStart();
-                            
-
-                           
 
 
-                            if(!lineDic.ContainsKey(codecName))
-                                  lineDic.Add(codecDoc, codecName);
-                    }
+
+
+
+                            if (!lineDic.ContainsKey(codecName))
+                                lineDic.Add(codecDoc, codecName);
+                        }
                 }
             }
 

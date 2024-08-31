@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows.Controls;
-using HaruaConvert.QueryBuildwindow;
+using HaruaConvert.mainUI.QueryCreateWindow;
 using HaruaConvert.userintarface;
 
 namespace HaruaConvert.UserControls

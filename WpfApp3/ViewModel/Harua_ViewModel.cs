@@ -16,9 +16,9 @@ namespace HaruaConvert.Parameter
     /// 各変数の初期化
     /// mainインスタンスのini設定内容読み込み
     /// </summary>
-#pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
+
     public class Harua_ViewModel : INotifyPropertyChanged
-#pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
+
     {
         //ParamField paramField { get; set; }
 

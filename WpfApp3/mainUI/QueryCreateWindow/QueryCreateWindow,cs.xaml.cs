@@ -1,6 +1,7 @@
-﻿using HaruaConvert.QueryBuilder;
-using HaruaConvert.QueryBuildwindow;
-using HaruaConvert.QueryBuildwindow.GetCodecs;
+﻿using HaruaConvert.Parameter;
+using HaruaConvert.QueryBuilder;
+using HaruaConvert.mainUI.QueryCreateWindow;
+using HaruaConvert.mainUI.QueryCreateWindow.GetCodecs;
 using HaruaConvert.UserControls;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using static HaruaConvert.Parameter.ParamField;
 using static System.Resources.ResXFileRef;
+using System.DirectoryServices.ActiveDirectory;
 
 
 namespace HaruaConvert.userintarface
@@ -33,8 +36,12 @@ namespace HaruaConvert.userintarface
         public static QueryCreateWindow qc { get; set; }
 
         MainWindow main;
+        QueryCreateWindow qi;
         public QueryCreateWindow(MainWindow _main)
         {
+           
+
+
             main = _main;
             
             qc = this;
@@ -256,7 +263,20 @@ namespace HaruaConvert.userintarface
 
         private void MakeProfile_Click(object sender, RoutedEventArgs e)
         {
+
+            if (!string.IsNullOrEmpty(profileNameBox.Text))
+            {
+                IniDefinition.SetValue(main.paramField.profileQueryIni, QueryNames.profileName,
+                    profileNameBox.Text, PreviewBlock.Text);
+                MessageBox.Show("プロファイルが正常に作成されました");
+            }
+
+            else
+                MessageBox.Show("プロファイル名を設定してくださいね");
+
+
             
+            //IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
         }
 
 
