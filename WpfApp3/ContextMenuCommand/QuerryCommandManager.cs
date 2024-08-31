@@ -12,6 +12,8 @@ namespace HaruaConvert.Command
         MainWindow _main;
         QueryCreateWindow qi;
 
+        
+
         public QuerryCommandManager(MainWindow main)
         {
 
@@ -90,9 +92,11 @@ namespace HaruaConvert.Command
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
 
+            if (_main.paramField.isClosedQueryBuildWindow)
+                qi = new QueryCreateWindow(_main);
 
-
-            if (!qi.IsVisible || qi.WindowState == WindowState.Minimized)
+           
+            if (!qi.IsVisible || qi.WindowState == WindowState.Minimized )
             {
                 qi.WindowState = WindowState.Normal;
 

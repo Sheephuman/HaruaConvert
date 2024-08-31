@@ -252,9 +252,8 @@ namespace HaruaConvert.HaruaServise
         }
 
 
-#pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
+
         public void InvisibleText_KeyDown(object sender, KeyEventArgs e)
-#pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
         {
             var selecter = sender as ParamSelector;
 
