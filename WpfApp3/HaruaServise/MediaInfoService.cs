@@ -84,6 +84,10 @@ namespace HaruaConvert.HaruaServise
         {
             var MediaResultList = new List<string>();
 
+            if (mediaInfo == null)
+                return MediaResultList;
+
+
             if (mediaInfo.PrimaryAudioStream == null)
             {
                 MessageBox.Show("primary streams がhullだわ");

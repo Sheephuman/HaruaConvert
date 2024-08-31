@@ -12,7 +12,7 @@ namespace HaruaConvert.Methods
 {
     public class IniSettings_IOClass
     {
-        public void IniSettingWriter(ParamField paramField,MainWindow main)
+        public void IniSettingWriter(StaticParamField paramField,MainWindow main)
         {
             try
             {
@@ -24,10 +24,10 @@ namespace HaruaConvert.Methods
                 IniDefinition.SetValue(paramField.iniPath, "WindowsLocate", "WindowTop", Convert.ToString(main.Top, CultureInfo.CurrentCulture));
 
                 //FileOpenDialog Init Path
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, ParamField.Maintab_InputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, ParamField.MainTab_OutputDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, ParamField.ParamTab_OutputSelectorDirectory);
-                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, ParamField.ParamTab_InputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, StaticParamField.Maintab_InputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, StaticParamField.MainTab_OutputDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, StaticParamField.ParamTab_OutputSelectorDirectory);
+                IniDefinition.SetValue(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, StaticParamField.ParamTab_InputSelectorDirectory);
 
                 //Save Generated Number
                 IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, main.NumericUpDown1.NUDTextBox.Text);
@@ -41,7 +41,7 @@ namespace HaruaConvert.Methods
         }
 
 
-        public void IniSettingReader(ParamField paramField, MainWindow main)
+        public void IniSettingReader(StaticParamField paramField, MainWindow main)
         {
 
             try
@@ -50,13 +50,13 @@ namespace HaruaConvert.Methods
 
                 main.Top = Convert.ToDouble(IniDefinition.GetValueOrDefault(paramField.iniPath, "WindowsLocate", "WindowTop", 50));
 
-                ParamField.Maintab_InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
+                StaticParamField.Maintab_InputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.ConvertDirectory, "");
                 //IniDefinition.SetValue(paramField.iniPath, "Directry", "ConvertDirectory", ParamField.ConvertDirectory);
 
 
-                ParamField.MainTab_OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
-                ParamField.ParamTab_OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
-                ParamField.ParamTab_InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
+                StaticParamField.MainTab_OutputDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputDirectory, "");
+                StaticParamField.ParamTab_OutputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.OutputSelectorDirectory, "");
+                StaticParamField.ParamTab_InputSelectorDirectory = IniDefinition.GetValueOrDefault(paramField.iniPath, "Directory", IniSettingsConst.InputSelectorDirectory, "");
 
 
 

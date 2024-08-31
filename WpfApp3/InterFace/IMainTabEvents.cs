@@ -46,7 +46,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamField.Maintab_InputDirectory))
+            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, StaticParamField.Maintab_InputDirectory))
             {
 
                 var result = ofc.CommonOpens();
@@ -65,11 +65,11 @@ namespace HaruaConvert.HaruaInterFace
 
                     main.Drop_Label.Content = "変換";
 
-                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(main.paramField.setFile);
+                    StaticParamField.Maintab_InputDirectory = Path.GetDirectoryName(main.paramField.setFile);
 
 
                     //Update Maintab_InputDirectory
-                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    StaticParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
                     main.ClearSourceFileData();
 
                     DisplayMedia();
@@ -113,13 +113,25 @@ namespace HaruaConvert.HaruaInterFace
 
         public IMediaAnalysis CallFfprobe(string setFile)
         {                 
+
             FFOptions probe = new FFOptions();
             probe.BinaryFolder = "dll";
 
+            IMediaAnalysis mediaInfo = null;
+            try
+            {
+                mediaInfo = FFProbe.Analyse(setFile, probe);
+                return mediaInfo;
 
-            var mediaInfo = FFProbe.Analyse(setFile, probe);
+            }
+            catch (FFMpegCore.Exceptions.FFMpegException ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
 
             return mediaInfo;
+
         }
 
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e)
@@ -151,7 +163,7 @@ namespace HaruaConvert.HaruaInterFace
             {
 
                Directory_DropButon_Click(sender, e);
-               main.harua_View.SourcePathText =  main.paramField.setFile;
+               main.harua_View.SourcePathText =  StaticParamField.OutputPath;
 
             }
         }
