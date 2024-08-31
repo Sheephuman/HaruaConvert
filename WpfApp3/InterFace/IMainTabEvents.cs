@@ -150,21 +150,18 @@ namespace HaruaConvert.HaruaInterFace
             if (!string.IsNullOrEmpty(main.paramField.setFile))
             {
                 //Convert Process Improvement Part
-               
-
-               main.paramField.isExitProcessed = main.FileConvertExec(main.paramField.setFile, sender);
-
 
                 
-               main.Lw.Activate();
+                main.paramField.isExitProcessed = main.FileConvertExec(main.paramField.setFile, sender);
+                
+                
 
-            }
+                main.Lw.Activate();
+
+            }            
             else
             {
-
-               Directory_DropButon_Click(sender, e);
-               main.harua_View.SourcePathText =  StaticParamField.OutputPath;
-
+                Directory_DropButon_Click(sender, e);
             }
         }
     }

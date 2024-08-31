@@ -375,6 +375,8 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ((RadioButton)sender).Name;
 
+            
+
             cod = new CommonOpenDialogClass(true, MainTab_OutputDirectory);
 
             var result = cod.CommonOpens();
@@ -386,13 +388,12 @@ namespace HaruaConvert
                 OutputPathText.Text = cod.opFileName;
 
                 harua_View.OutputPath = cod.opFileName;
-
+                main.paramField.isOutputButtonChecked = true;
 
                 //Update MainTab_OutputDirectory
-                StaticParamField.MainTab_OutputDirectory = cod.opFileName;
+                //StaticParamField.MainTab_OutputDirectory = cod.opFileName;
 
-                paramField.setFile = string.Empty;
-                //出力先ファイルを空に設定することで分岐させる
+
 
 
             }

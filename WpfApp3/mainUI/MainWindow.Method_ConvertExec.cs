@@ -81,10 +81,10 @@ namespace HaruaConvert
                 var con = new ConvertFileNameClass();
 
                 //保存先パスの有無判定
-                if (string.IsNullOrEmpty(_fullPath))
+                if (!paramField.isOutputButtonChecked)
                     paramField.check_output = _fullPath + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
                 else
-                    paramField.check_output = Path.GetDirectoryName(_fullPath) + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
+                    paramField.check_output = main.harua_View.OutputPath + "\\" + con.ConvertFileName(Path.GetFileName(main.paramField.setFile), harua_View);
 
                 
 
