@@ -375,7 +375,7 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ((RadioButton)sender).Name;
 
-            cod = new CommonOpenDialogClass(true, ParamField.MainTab_OutputDirectory);
+            cod = new CommonOpenDialogClass(true, MainTab_OutputDirectory);
 
             var result = cod.CommonOpens();
 
