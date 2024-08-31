@@ -132,7 +132,7 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
             Generate_ParamSelector();
-            var cm = new QuerryBuildManager(this);
+            var cm = new QuerryCommandManager(this);
             cm.AddCommands();
 
 

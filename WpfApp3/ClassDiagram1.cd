@@ -12,21 +12,21 @@
       <HashCode>AAAAAAAAAAAAAAAACAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.Command.QuerryBuildManager" Collapsed="true">
+  <Class Name="HaruaConvert.Command.QuerryCommandManager" Collapsed="true">
     <Position X="22.75" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAACAAAAECAAAAAAA=</HashCode>
-      <FileName>Command\QuerryBuildManager.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\QuerryCommandManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.Command.QueryBuidCommand" Collapsed="true">
     <Position X="12.25" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Command\QueryBuidCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.HaruaServise.SettingsService" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="HaruaConvert.HaruaService.SettingsService" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="12.25" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -34,7 +34,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="HaruaConvert.HaruaServise.KillFFprobe" Collapsed="true">
+  <Class Name="HaruaConvert.HaruaService.KillFFprobe" Collapsed="true">
     <Position X="19.25" Y="12" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -44,22 +44,22 @@
   <Class Name="HaruaConvert.HaruaServise.MediaInfoService" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="14" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAABAAAAAAAAAAAAAAAAAAQAAIAAAAAABAAAAAAAQ=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAQ=</HashCode>
       <FileName>HaruaServise\MediaInfoService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="HaruaConvert.HaruaServise.UIManager" Collapsed="true">
+  <Class Name="HaruaConvert.HaruaServise.SetUIEvent" Collapsed="true">
     <Position X="17.5" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQACOAAAAKACAAAAAAAQAAIAAEBCAAAAACA=</HashCode>
-      <FileName>UserIntarface\UIManager.cs</FileName>
+      <FileName>mainUI\SetUIEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="12.25" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>Mw4EJRACAoKiBuQByZ0hCUEhwAvYIAStSMCJARUAByw=</HashCode>
+      <HashCode>Iw4EJRACAoKiBuQByJ0hCUEhxAvYIAStSMCJARUAByw=</HashCode>
       <FileName>Initilize_Method\InitializeMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -126,8 +126,8 @@
   <Class Name="HaruaConvert.LogWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="21" Y="12" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAiAEEAAAAIAAAhAAAQIIAAAAAADAAQQBAAAAQ=</HashCode>
-      <FileName>UserIntarface\LogWindow.xaml.cs</FileName>
+      <HashCode>AAAAABAiAEEAAAAIAAAhAAAQIIAAAAAADAAQABCAAAQ=</HashCode>
+      <FileName>mainUI\LogWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -155,7 +155,7 @@
   <Class Name="HaruaConvert.HaruaInterFace.Directory_ClickProcedure" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="21" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAQAAAAIAAAAAAAAAAAAAABAAAAAAAAAQ=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAIAAAAAAAIAAAAAABAAAAAAAAAQ=</HashCode>
       <FileName>InterFace\IMainTabEvents.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -268,7 +268,7 @@
   <Class Name="HaruaConvert.Parameter.Harua_ViewModel" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="17.5" Y="11" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACCAAQAAgAAIADAAAA0CEAAABAAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAACCAAQAAgAAIADAAAC0CEAAQBAAAAAAAAAAgA=</HashCode>
       <FileName>ViewModel\Harua_ViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -276,15 +276,15 @@
   <Class Name="HaruaConvert.UserControls.NumericUpDownManager" Collapsed="true">
     <Position X="15.75" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABABQAAAAAAAAAAAAAAACEEgEAACAAABAAIoAEAAAAQ=</HashCode>
+      <HashCode>ABABQAAAAAAAAAAAAAAACEEAEAACAAABAAAIAEAAAAA=</HashCode>
       <FileName>UserControls\NumericUpDownManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.UserControls.QueryBuildUpDown" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="HaruaConvert.UserControls.QueryCreateUpDown" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="14" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAhAAAAIBACgEAAAAAAAAAAgAoAAAAQ=</HashCode>
-      <FileName>UserControls\QueryBuildUpDown.xaml.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAhAAAAIBACgEAAAAAAAAAAgAoAAAAA=</HashCode>
+      <FileName>QueryCreateWindow\QueryBuildUpDown.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -298,7 +298,7 @@
   <Class Name="HaruaConvert.UserControls.WpfNumericUpDown" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="21" Y="15" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAEAAgAAAAIBACgEABgAAAAAAAgAoAABAQ=</HashCode>
+      <HashCode>AAAAAQAAAAAEAAgAAAAIBACAEABgAAAAAAAgAoAABAQ=</HashCode>
       <FileName>UserControls\WpfNumericUpDown.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -306,8 +306,8 @@
   <Class Name="HaruaConvert.userintarface.QueryCreateWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="15.75" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAAAAAIAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
-      <FileName>UserIntarface\QueryBuildwindow,cs.xaml.cs</FileName>
+      <HashCode>BEBgAAgIACAAEAAAAQIAAAgBABAAAEAgAAAAAAAQAAQ=</HashCode>
+      <FileName>QueryCreateWindow\QueryCreateWindow,cs.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -319,7 +319,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="HaruaConvert.HaruaServise.ISettingsService" Collapsed="true">
+  <Interface Name="HaruaConvert.HaruaService.ISettingsService" Collapsed="true">
     <Position X="15.75" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -329,7 +329,7 @@
   <Interface Name="HaruaConvert.HaruaInterFace.IMainTabEvents" Collapsed="true">
     <Position X="12.25" Y="16.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
       <FileName>InterFace\IMainTabEvents.cs</FileName>
     </TypeIdentifier>
   </Interface>

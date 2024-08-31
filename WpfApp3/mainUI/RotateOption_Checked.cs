@@ -1,5 +1,4 @@
-﻿
-using HaruaConvert.Parameter;
+﻿using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Drawing.Imaging;

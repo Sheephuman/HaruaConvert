@@ -13,5 +13,13 @@ namespace HaruaConvert.Command
      "ffmpegコマンド組み立て", // コマンドの名前
      "QueryBuild", // コマンドの識別名
      typeof(QueryBuidCommand)); // コマンドが定義されているクラス
+
+
+        public static readonly RoutedUICommand SetDefaultQuery = new RoutedUICommand(
+       "Default Queryをセット", // コマンドの名前
+       "defaultSetQueryBinding", // コマンドの識別名
+       typeof(QueryBuidCommand)); // コマンドが定義されているクラス
     }
+
+
 }
