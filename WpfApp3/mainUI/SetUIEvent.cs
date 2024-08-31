@@ -118,7 +118,7 @@ namespace HaruaConvert.HaruaServise
 
 
                 _main.FileNameLabel.Text = string.Empty;
-                _main.FileNameLabel.Text = string.Empty;
+                
 
                 var ClickedControl = sender as TextBox;
                 if (_main.InputSelector.FilePathBox == ClickedControl)
@@ -205,7 +205,7 @@ namespace HaruaConvert.HaruaServise
         public void DropButton_ClickHandle(object sender, RoutedEventArgs e)
         {
 
-            _main.FileNameLabel.Text = string.Empty;
+            //   _main.FileNameLabel.Text = string.Empty;
             var ClickedControl = sender as Button;
 
             if (ClickedControl.Name == _main.Directory_DropButon.Name)

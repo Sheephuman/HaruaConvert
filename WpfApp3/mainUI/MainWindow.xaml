@@ -22,7 +22,7 @@
 
 
 
-    <!-- 閉じる-->    
+    <!-- 閉じる-->
     <Grid x:Name="HaruaGrid" Background ="#FFFDEEF0">
         <Border Background="#FFFDEEF0" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
 
@@ -105,10 +105,10 @@
 
                 <TabControl 
                 VerticalAlignment="Top"
-                Margin="0,-10,0,0"
+                Margin="0,-12,0,0"
                 Height="440"                    
         Panel.ZIndex="0" 
-                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" Grid.ColumnSpan="3" 
+                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" 
                     >
 
                     <TabControl.Background>
@@ -339,7 +339,7 @@
                         <Grid >
 
 
-                     
+
 
 
                             <StackPanel Margin="10,0,0,0" Grid.ColumnSpan="4" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -363,7 +363,7 @@
                                 <Button  
                                         x:Name="ButtonGenerate"
                                     Width="73"
-                                       FontSize="16" FontWeight="Bold" Content="ボタン配置"
+                                       FontSize="16" FontWeight="Bold" Content="配置"
                                        Background="Transparent"
                                         Click="ButtonGenerate_Click"/>
 
