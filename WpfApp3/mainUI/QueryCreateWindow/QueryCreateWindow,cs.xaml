@@ -124,8 +124,11 @@
                            FontSize="20">
                     
                 </TextBlock>
-
+                <Button x:Name="SendClipBoard_Button" Content="クリップボードにコピー" Width="150"
+                      HorizontalAlignment="Left"  
+                     Click="SendClipBoard_Button_Click"/>
             </StackPanel>
+            
         </StackPanel>
         
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,0">

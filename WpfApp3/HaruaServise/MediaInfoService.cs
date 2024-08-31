@@ -74,13 +74,13 @@ namespace HaruaConvert.HaruaServise
         //    //MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
         //    //MediaResultList.Add(Environment.NewLine);
         //    //MediaResultList.Add("Cannels:" + $"{resultCannels}");
-            
+
         //    return MediaResultList;
 
         //}
 
 
-       public List<string> DisplayMediaInfo(IMediaAnalysis mediaInfo)
+        public List<string> DisplayMediaInfo(IMediaAnalysis mediaInfo)
         {
             var MediaResultList = new List<string>();
 
@@ -89,6 +89,12 @@ namespace HaruaConvert.HaruaServise
                 MessageBox.Show("primary streams がhullだわ");
                 return MediaResultList;
             }
+
+            var resultFramerate = Math.Truncate(mediaInfo.PrimaryVideoStream.AvgFrameRate);
+
+
+            var resultHeight = mediaInfo.PrimaryVideoStream.Height;
+            var resultWidth = mediaInfo.PrimaryVideoStream.Width;
 
 
             var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
@@ -105,7 +111,14 @@ namespace HaruaConvert.HaruaServise
             MediaResultList.Add(Environment.NewLine);
             MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
             MediaResultList.Add(Environment.NewLine);
+            MediaResultList.Add("Framerate:" + $"{resultFramerate}");
+            MediaResultList.Add(Environment.NewLine);
+            MediaResultList.Add("Height:" + $"{resultHeight}");
+            MediaResultList.Add(Environment.NewLine);            
+            MediaResultList.Add("Width:" + $"{resultWidth}");
+            MediaResultList.Add(Environment.NewLine);
             MediaResultList.Add("Cannels:" + $"{resultCannels}");
+            
 
             return MediaResultList;
         }
