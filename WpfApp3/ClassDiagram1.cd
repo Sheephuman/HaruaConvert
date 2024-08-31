@@ -15,15 +15,15 @@
   <Class Name="HaruaConvert.Command.QuerryCommandManager" Collapsed="true">
     <Position X="22.75" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Command\QuerryCommandManager.cs</FileName>
+      <HashCode>AAAAAAAAAAFAAAEgAAAAAAAAAAAAACAAAAECAAAAAAA=</HashCode>
+      <FileName>ContextMenuCommand\QuerryCommandManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.Command.QueryBuidCommand" Collapsed="true">
     <Position X="12.25" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Command\QueryBuidCommand.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContextMenuCommand\QueryBuidCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.HaruaService.SettingsService" Collapsed="true" BaseTypeListCollapsed="true">
@@ -258,10 +258,10 @@
       <FileName>Parameter\ParamCreateClasss.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.Parameter.ParamField" Collapsed="true">
+  <Class Name="HaruaConvert.Parameter.StaticParamField" Collapsed="true">
     <Position X="19.25" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IIAIIAAMAABAAAAAAAAAAAAASEMAkAAAAAgABAA4IAg=</HashCode>
+      <HashCode>IIAIIAAMAABAAAAAAAAAAAAASEMAkAAAAAgAJgA4IAg=</HashCode>
       <FileName>Parameter\ParamFields.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -284,7 +284,7 @@
     <Position X="14" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAhAAAAIBACgEAAAAAAAAAAgAoAAAAA=</HashCode>
-      <FileName>QueryCreateWindow\QueryBuildUpDown.xaml.cs</FileName>
+      <FileName>mainUI\QueryCreateWindow\QueryBuildUpDown.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -306,8 +306,8 @@
   <Class Name="HaruaConvert.userintarface.QueryCreateWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="15.75" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BEBgAAgIACAAEAAAAQIAAAgBABAAAEAgAAAAAAAQAAQ=</HashCode>
-      <FileName>QueryCreateWindow\QueryCreateWindow,cs.xaml.cs</FileName>
+      <HashCode>JEBoAAgIACAAEAAAAQIABAgBABAAAEAgAAAAAAAQAAQ=</HashCode>
+      <FileName>mainUI\QueryCreateWindow\QueryCreateWindow,cs.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

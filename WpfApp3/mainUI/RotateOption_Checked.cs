@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-using static HaruaConvert.Parameter.ParamField;
+using static HaruaConvert.Parameter.StaticParamField;
 using WpfApp3.Parameter;
 using static HaruaConvert.MainWindow;
 

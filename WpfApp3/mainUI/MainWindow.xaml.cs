@@ -18,7 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using WpfApp3.Parameter;
-using static HaruaConvert.Parameter.ParamField;
+using static HaruaConvert.Parameter.StaticParamField;
 
 namespace HaruaConvert
 {
@@ -33,7 +33,7 @@ namespace HaruaConvert
         /// <summary>
         /// 共有箇所：LogWindow
         /// </summary>
-        public ParamField paramField { get; set; }
+        public StaticParamField paramField { get; set; }
 
         
 
@@ -217,17 +217,17 @@ namespace HaruaConvert
                 foreach (var selector in selectorList)
                 {
                     selector.ArgumentEditor.Text = IniDefinition.GetValueOrDefault
-                        (paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
+                        (paramField.iniPath, StaticParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
                         "");
 
 
                     //selector.ArgumentEditor.Text);
 
-                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}",
+                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, StaticParamField.ControlField.ParamSelector + "_" + $"{i}",
                     IniSettingsConst.ParameterLabel + "_" + $"{i}",
                  "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
 
-                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", "0");
+                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, "CheckState", StaticParamField.ControlField.ParamSelector + "_Check", "0");
                     int rcountInt = int.Parse(rcount, CultureInfo.CurrentCulture);
 
 
@@ -235,7 +235,7 @@ namespace HaruaConvert
 
                     i++;
 
-                    if (selector.Name == ParamField.ControlField.ParamSelector + rcount)
+                    if (selector.Name == StaticParamField.ControlField.ParamSelector + rcount)
                     {
                         selector.SlectorRadio.IsChecked = true;
                         paramField.usedOriginalArgument = selector.ArgumentEditor.Text;
@@ -389,7 +389,11 @@ namespace HaruaConvert
 
 
                 //Update MainTab_OutputDirectory
-                ParamField.MainTab_OutputDirectory = cod.opFileName;
+                StaticParamField.MainTab_OutputDirectory = cod.opFileName;
+
+                paramField.setFile = string.Empty;
+                //出力先ファイルを空に設定することで分岐させる
+
 
             }
             HaruaGrid.Height += 30;
@@ -435,7 +439,7 @@ namespace HaruaConvert
 
             harua_View.OutputPath = "";
             OutputPathText.Text = "";
-            ParamField.MainTab_OutputDirectory = "";
+            StaticParamField.MainTab_OutputDirectory = "";
         }
 
         private void isUseOriginalCheckProc(bool _checkState)
@@ -495,10 +499,10 @@ namespace HaruaConvert
             foreach (var selector in selectorList)
             {
 
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
+                IniDefinition.SetValue(paramField.iniPath, StaticParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
                     selector.ArgumentEditor.Text);
 
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
+                IniDefinition.SetValue(paramField.iniPath, StaticParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
                     selector.ParamLabel.Text);
 
                 i++;
@@ -508,8 +512,8 @@ namespace HaruaConvert
                 //if Check Selector Radio, Save Check State
                 if (selector.SlectorRadio.IsChecked.Value)
                 {
-                    var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", radioCount);
+                    var radioCount = selector.Name.Remove(0, StaticParamField.ControlField.ParamSelector.Length);
+                    IniDefinition.SetValue(paramField.iniPath, "CheckState", StaticParamField.ControlField.ParamSelector + "_Check", radioCount);
 
                 }
             }
@@ -599,11 +603,11 @@ namespace HaruaConvert
                 {
                     //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileNameClass(InputSelector.FilePathBox.Text);
 
-                    ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    StaticParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
                 }
                 if (ansest.Name == OutputSelector.Name)
                 {
-                    ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
+                    StaticParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
                 }
             }
 

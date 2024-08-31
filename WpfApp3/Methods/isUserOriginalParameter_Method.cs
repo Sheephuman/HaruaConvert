@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using static HaruaConvert.Parameter.ParamField;
+using static HaruaConvert.Parameter.StaticParamField;
 
 namespace HaruaConvert.Methods
 {

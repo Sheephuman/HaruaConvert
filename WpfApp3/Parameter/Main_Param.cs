@@ -15,7 +15,7 @@ namespace HaruaConvert.Parameter
         public string OutputPath { get; set; }
         public string endString { get; set; }
 
-        public ParamField paramField { get; set; }
+        public StaticParamField paramField { get; set; }
 
 
         private string sourcePath;
