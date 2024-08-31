@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using static HaruaConvert.Methods.IniCheckerClass;
 
 namespace HaruaConvert
 {
@@ -55,7 +56,11 @@ namespace HaruaConvert
 
             //TextColor = new SolidColorBrush(PreTextColor);
 
+            
+
             main.paramField.isPaused= false;
+
+         
 
         }
 
@@ -112,7 +117,11 @@ namespace HaruaConvert
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            //
+            
+            var checkProcess = new CheckboxGetSetValueClass();
+            checkProcess.CheckediniSetVallue(AutoScroll_Checker,main.paramField.iniPath);
+            checkProcess.CheckediniSetVallue(BackImage_Checker, main.paramField.iniPath);
+
             this.Close();
         }
         private void MinimizedButton_Click(object sender, RoutedEventArgs e)
@@ -208,7 +217,12 @@ namespace HaruaConvert
             }
         }
 
-    
+        private void window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var checkedProcess = new CheckboxGetSetValueClass();
+           BackImage_Checker.IsChecked = checkedProcess.CheckBoxiniGetVallue(AutoScroll_Checker, main.paramField.iniPath);
+           AutoScroll_Checker.IsChecked = checkedProcess.CheckBoxiniGetVallue(BackImage_Checker, main.paramField.iniPath);
+        }
     }
 
 

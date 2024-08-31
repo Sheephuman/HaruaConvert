@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using HaruaConvert.Parameter;
+using System.Windows.Controls.Primitives;
 
 namespace HaruaConvert.Methods
 {
@@ -15,23 +16,34 @@ namespace HaruaConvert.Methods
         
 
 
-#pragma warning disable CA1822 // メンバーを static に設定します
-        public void CheckediniSetVallue(CheckBox chek, string iniPath)
-#pragma warning restore CA1822 // メンバーを static に設定します
-        {
-            IniDefinition.SetValue(iniPath, "CheckState", chek.Name,
-              chek.IsChecked.Value.ToString());
 
-        }
+        public void CheckediniSetVallue<T>(T check, string iniPath)
 
-#pragma warning disable CA1822 // メンバーを static に設定します
-        public bool CheckBoxiniGetVallue(CheckBox chek, string iniPath)
-#pragma warning restore CA1822 // メンバーを static に設定します
         {
-            var setbool = IniDefinition.GetValueOrDefault(iniPath, "CheckState", chek.Name, false);
+             var checkControl = check as Control;
+
+                if(checkControl is CheckBox)
+                IniDefinition.SetValue(iniPath, "CheckState", checkControl.Name,
+                  ((CheckBox)checkControl).IsChecked.Value.ToString());
+
+                else if(checkControl is MenuItem)
+                    IniDefinition.SetValue(iniPath, "CheckState", checkControl.Name,
+                  ((MenuItem)checkControl).IsChecked.ToString());
+
+
+            }
+
+
+            public bool CheckBoxiniGetVallue<T>(T check, string iniPath)
+        {
+                var checkControl = check as Control;
+
+                var setbool = IniDefinition.GetValueOrDefault(iniPath, "CheckState", checkControl.Name, false);
             return setbool;
 
         }
+
+
 
 
     }
