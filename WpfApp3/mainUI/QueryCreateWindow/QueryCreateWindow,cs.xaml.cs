@@ -279,6 +279,16 @@ namespace HaruaConvert.userintarface
             //IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
         }
 
+        private void SendClipBoard_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(PreviewBlock.Text))
+            {
+                Clipboard.SetText(PreviewBlock.Text);
 
+                MessageBox.Show("queryをコピーしました");
+            }
+            else
+                MessageBox.Show("queryが空です");
+        }
     }
 }
