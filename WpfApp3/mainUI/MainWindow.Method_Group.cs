@@ -308,20 +308,33 @@ namespace HaruaConvert
 
         void OpenExplorer()
         {
+
+            //using (Process explorerProcess = new Process())
+            //{
+            //    explorerProcess.StartInfo.FileName = "explorer.exe";
+
+
+            //    // /select オプションを使用して、ファイルを選択して表示
+            //    explorerProcess.StartInfo.Arguments = $"/select, \"{paramField.check_output}\"";
+
+
+
+            //    // Explorerプロセスを開始
+            //    explorerProcess.Start();
+            //}
+
+
+
             if (paramField.isOpenFolder)
-                using (Process explorerProcess = new Process())
-                {
-                    explorerProcess.StartInfo.FileName = "explorer.exe";
-
-
-                    // /select オプションを使用して、ファイルを選択して表示
-                    explorerProcess.StartInfo.Arguments = $"/select, \"{paramField.check_output}\"";
-
-
-
-                    // Explorerプロセスを開始
-                    explorerProcess.Start();
-                }
+                System.Diagnostics.Process.Start(
+      new System.Diagnostics.ProcessStartInfo
+      {
+          FileName = "explorer", //フルパスで指定せず「explorer」とだけ書く
+          Arguments = $"/select, \"{paramField.check_output}\"", //引数に「/select,」を付ける
+          UseShellExecute = true,
+          Verb = "open"
+      }
+  );
 
         }
 

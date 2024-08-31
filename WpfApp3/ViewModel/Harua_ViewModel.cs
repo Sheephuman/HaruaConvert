@@ -99,6 +99,7 @@ namespace HaruaConvert.Parameter
 
                 if (_sourcePathText != value)
                 {
+                    if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(_sourcePathText, "_sourcePathText is null");
 
                     _sourcePathText = value;
                     RaisePropertyChanged(nameof(SourcePathText));
