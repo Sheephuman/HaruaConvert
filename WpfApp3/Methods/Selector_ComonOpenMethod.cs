@@ -27,23 +27,23 @@ namespace HaruaConvert.Methods
 
 
 
-            if (selector.Name == StaticParamField.ControlField.InputSelector)
+            if (selector.Name == ParamField.ControlField.InputSelector)
             {
 
-                main.ofc = new CommonOpenDialogClass(isFolder, StaticParamField.ParamTab_InputSelectorDirectory);
+                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_InputSelectorDirectory);
 
 
-                StaticParamField.InitialDirectory = string.Empty;
+                ParamField.InitialDirectory = string.Empty;
 
-                StaticParamField.InitialDirectory = StaticParamField.ParamTab_InputSelectorDirectory;
+                ParamField.InitialDirectory = ParamField.ParamTab_InputSelectorDirectory;
             }
-            else if (selector.Name == StaticParamField.ControlField.OutputSelector)
+            else if (selector.Name == ParamField.ControlField.OutputSelector)
             {
-                main.ofc = new CommonOpenDialogClass(isFolder, StaticParamField.ParamTab_OutputSelectorDirectory);
+                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_OutputSelectorDirectory);
 
-                StaticParamField.InitialDirectory = string.Empty;
+                ParamField.InitialDirectory = string.Empty;
 
-                StaticParamField.InitialDirectory = StaticParamField.ParamTab_OutputSelectorDirectory;
+                ParamField.InitialDirectory = ParamField.ParamTab_OutputSelectorDirectory;
             }
 
             var commons = main.ofc.CommonOpens();
@@ -66,24 +66,24 @@ namespace HaruaConvert.Methods
                 //  ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
 
 
-                StaticParamField.ParamTab_OutputSelectorDirectory = main.outputFileName;
+                ParamField.ParamTab_OutputSelectorDirectory = main.outputFileName;
 
                 //string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
 
 
 
-                selector.FilePathBox.Text = StaticParamField.ParamTab_OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ClassShearingMenbers.endString + ".mp4";
+                selector.FilePathBox.Text = ParamField.ParamTab_OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ClassShearingMenbers.endString + ".mp4";
 
 
             }
             else if (!isFolder) //Clicked InputSelector 
             {
                 //Update inputSelectorDirectory
-                StaticParamField.ParamTab_InputSelectorDirectory
+                ParamField.ParamTab_InputSelectorDirectory
                     = Path.GetDirectoryName(main.ofc.opFileName);
 
 
-                string file = StaticParamField.ParamTab_InputSelectorDirectory;
+                string file = ParamField.ParamTab_InputSelectorDirectory;
                 main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName);
                 selector.FilePathBox.Text = main.ofc.opFileName;
 

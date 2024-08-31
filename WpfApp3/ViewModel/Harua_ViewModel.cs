@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using WpfApp3.Parameter;
-using static HaruaConvert.Parameter.StaticParamField;
+using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.Parameter
 {

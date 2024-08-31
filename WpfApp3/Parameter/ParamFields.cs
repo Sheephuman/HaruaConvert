@@ -10,7 +10,7 @@ namespace HaruaConvert.Parameter
     /// 
 
     ////Case:use static When share used parameter on Class 
-    public class StaticParamField
+    public class ParamField
     {
         public string inputPath_ReadOnly { get;}
 
