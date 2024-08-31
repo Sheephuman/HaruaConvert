@@ -1,6 +1,7 @@
 ﻿using HaruaConvert.UserControls;
 using HaruaConvert.userintarface;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,16 +10,18 @@ namespace HaruaConvert.Command
     public class QuerryCommandManager
     {
         MainWindow _main;
+        QueryCreateWindow qi;
+
         public QuerryCommandManager(MainWindow main)
         {
 
             _main = main;
 
 
-
+            qi = new QueryCreateWindow(main);
 
             CommandBinding queryBuildCommandBinding = new CommandBinding(
-      QueryBuidCommand.QueryBuild,
+      QueryBuidCommand.QueryBuildWindow_Open,
       QueryBuildWindow_Open,
       CanExecuteQueryBuildCommand);
 
@@ -30,7 +33,7 @@ namespace HaruaConvert.Command
         {
             // コマンドバインディングの追加
             CommandBinding queryBuildWindowOpenBinding = new CommandBinding(
-                QueryBuidCommand.QueryBuild,
+                QueryBuidCommand.QueryBuildWindow_Open,
                 QueryBuildWindow_Open,
                 CanExecuteQueryBuildCommand
                 );
@@ -77,19 +80,29 @@ namespace HaruaConvert.Command
 
         private void defaultSetQueryBinding(object sender, ExecutedRoutedEventArgs e)
         {
-            // どのMenuItemがクリックされたかを判定する
+            
        
           _main.ParamText.Text = "-b:v 700k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 ";
                 
             
         }
-
+        
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
-             
-                    QueryCreateWindow qi = new QueryCreateWindow(_main);
-                    qi.Show();
-                
+
+
+
+            if (!qi.IsVisible || qi.WindowState == WindowState.Minimized)
+            {
+                qi.WindowState = WindowState.Normal;
+
+                qi.Show();
+            }
+            else
+            {
+                qi.Activate();
+                qi.Focus();
+            }  
 
 
 

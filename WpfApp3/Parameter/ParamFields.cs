@@ -17,6 +17,8 @@ namespace HaruaConvert.Parameter
         public string  check_output { get; set; }
 
         public  string iniPath { get; set; }
+        public string profileQueryIni { get; set; } = "";
+
         public  string setFile { get; set; }
 
        
@@ -61,6 +63,10 @@ namespace HaruaConvert.Parameter
             public const string ffmpegQuery = nameof(ffmpegQuery);
             public const string BaseQuery = nameof(BaseQuery);
             public const string endStrings = nameof(endStrings);
+
+            public const string profileName = nameof(profileName);
+            public const string profileQuery = nameof(profileQuery);
+
         }
 
         public static class ButtonNameField

@@ -167,12 +167,12 @@
                                     </GroupBox>
 
                                     <TextBox Width="390"
-                                        x:Name="ParamText" Text="{Binding StartQuery,UpdateSourceTrigger=PropertyChanged}"   FontSize="16"   
+                                        x:Name="ParamText" Text ="{Binding StartQuery,UpdateSourceTrigger=PropertyChanged}"   FontSize="16"   
                                                ToolTip="ffmpegに渡すオプションです。"
                                               >
                                         <TextBox.ContextMenu>
                                             <ContextMenu>
-                                                <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:QueryBuidCommand.QueryBuild}" />
+                                                <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}" />
                                                 <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:QueryBuidCommand.SetDefaultQuery}" />
                                             </ContextMenu>
 

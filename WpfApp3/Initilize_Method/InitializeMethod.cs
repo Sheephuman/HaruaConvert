@@ -41,12 +41,15 @@ namespace HaruaConvert
 
         private void InitializeParameters()
         {
+
+            //iniPathにカレントディレクトリを設定
             paramField = new ParamField
             {
                 isParam_Edited = false,
                 isExitProcessed = true,
                 isAutoScroll = true,
-                iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini")
+                iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini"),
+                profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
             };
             Ffmpc = new FfmpegQueryClass(this);
             firstSet = true;
