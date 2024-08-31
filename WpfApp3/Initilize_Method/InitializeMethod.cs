@@ -43,7 +43,7 @@ namespace HaruaConvert
         {
 
             //iniPathにカレントディレクトリを設定
-            paramField = new StaticParamField
+            paramField = new ParamField
             {
                 isParam_Edited = false,
                 isExitProcessed = true,

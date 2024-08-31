@@ -46,7 +46,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, StaticParamField.Maintab_InputDirectory))
+            using (CommonOpenDialogClass ofc = new CommonOpenDialogClass(false, ParamField.Maintab_InputDirectory))
             {
 
                 var result = ofc.CommonOpens();
@@ -65,11 +65,11 @@ namespace HaruaConvert.HaruaInterFace
 
                     main.Drop_Label.Content = "変換";
 
-                    StaticParamField.Maintab_InputDirectory = Path.GetDirectoryName(main.paramField.setFile);
+                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(main.paramField.setFile);
 
 
                     //Update Maintab_InputDirectory
-                    StaticParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
                     main.ClearSourceFileData();
 
                     DisplayMedia();

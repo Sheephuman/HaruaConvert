@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using static HaruaConvert.Parameter.StaticParamField;
+using static HaruaConvert.Parameter.ParamField;
 using static System.Resources.ResXFileRef;
 using System.DirectoryServices.ActiveDirectory;
 

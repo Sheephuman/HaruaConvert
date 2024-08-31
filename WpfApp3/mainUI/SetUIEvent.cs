@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using static HaruaConvert.Parameter.StaticParamField;
+using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.HaruaServise
 {
@@ -223,7 +223,7 @@ namespace HaruaConvert.HaruaServise
                 _main.InputSelector.FilePathBox.Text = _main.paramField.setFile;
 
 
-            if (ClickedControl.Name == _main.InputSelector.Name + StaticParamField.ButtonNameField._openButton)
+            if (ClickedControl.Name == _main.InputSelector.Name + ParamField.ButtonNameField._openButton)
                 _main.InputSelector.FilePathBox.Text = _main.paramField.setFile;
 
 
