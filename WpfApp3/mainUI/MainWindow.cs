@@ -26,10 +26,7 @@ namespace HaruaConvert
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
-#pragma warning disable CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
     public partial class MainWindow : Window
-#pragma warning restore CA1708 // 識別子は、大文字と小文字の区別以外にも相違していなければなりません
-
     {
         public Harua_ViewModel harua_View { get; set; }
 
@@ -142,7 +139,7 @@ namespace HaruaConvert
 
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:識別子はアンダースコアを含むことはできません", Justification = "<保留中>")]
+        
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);
@@ -165,9 +162,7 @@ namespace HaruaConvert
 
 
 
-#pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
         public void InvisibleText_LostFocus(object sender, RoutedEventArgs e)
-#pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
         {
 
             foreach (ParamSelector sel in selectorList)
@@ -256,9 +251,9 @@ namespace HaruaConvert
 
         RadioButton radioSel;
 
-#pragma warning disable CA1707 // 識別子はアンダースコアを含むことはできません
+
         public void SlectorRadio_Checked(object sender, RoutedEventArgs e)
-#pragma warning restore CA1707 // 識別子はアンダースコアを含むことはできません
+
         {
             radioSel = sender as RadioButton;
 
