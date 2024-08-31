@@ -36,7 +36,7 @@ namespace HaruaConvert.userintarface
         public static QueryCreateWindow qc { get; set; }
 
         MainWindow main;
-        QueryCreateWindow qi;
+        
         public QueryCreateWindow(MainWindow _main)
         {
            
