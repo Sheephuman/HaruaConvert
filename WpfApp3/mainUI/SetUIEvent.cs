@@ -1,6 +1,7 @@
 ﻿using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using System;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -74,6 +75,7 @@ namespace HaruaConvert.HaruaServise
                 ui.OutputFileRename(dropfileDirectry, withoutEx, _main.harua_View.MainParams[0].endString);
 
 
+            _main.paramField.check_output = _main.OutputSelector.FilePathBox.Text;
             isSelectorBox = true;
         }
 
@@ -220,8 +222,8 @@ namespace HaruaConvert.HaruaServise
 
 
             if (ClickedControl.Name == _main.OutputSelector.Name)
-                _main.InputSelector.FilePathBox.Text = _main.paramField.setFile;
-
+                     _main.OutputSelector.FilePathBox.Text = _main.paramField.setFile;
+            
 
             if (ClickedControl.Name == _main.InputSelector.Name + ParamField.ButtonNameField._openButton)
                 _main.InputSelector.FilePathBox.Text = _main.paramField.setFile;

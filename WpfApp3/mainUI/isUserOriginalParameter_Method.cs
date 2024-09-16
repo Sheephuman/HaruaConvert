@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HaruaConvert.Parameter;
+using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using static HaruaConvert.Parameter.ParamField;
@@ -44,7 +46,7 @@ namespace HaruaConvert.Methods
                         mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + mw.InputSelector.FilePathBox.Text + @"""");
 
 
-                        mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
+                     //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
 
                         
 
@@ -74,6 +76,10 @@ namespace HaruaConvert.Methods
                         }
 
                         mw._arguments = mw.baseArguments;
+
+                        var extention = Path.GetExtension(mw.baseArguments);
+                        if (!string.IsNullOrEmpty(extention)) 
+                            mw.paramField.check_output += extention.Replace("\"", "");
                     }
                 }
                 #endregion
