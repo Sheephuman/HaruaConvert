@@ -109,15 +109,17 @@ namespace HaruaConvert
 
                     }
 
+
+                    Environment.Exit(0);
+
+
                     //mainWindow Processが正常に終了されていない場合の対策
                     if (mainProcess != null)
                     {
                         killProcessDell(mainProcess.Id);
                     }
                 }
-                Environment.Exit(0);
-
-
+              
 
 
             }
