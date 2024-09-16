@@ -37,7 +37,7 @@ c.パラメーターを100個まで保存しておけます。<br>
 　
 ## Download the Application
 
-[Download the latest version](https://github.com/[ユーザー名]/[リポジトリ名]/releases/download/v1.0.0/my-app.exe) of the application.
+[暫定的な開発版(v1.1.0-alpha)](https://github.com/Sheephuman/HaruaConvert/releases/tag/v1.1.0-alpha) of the application.
 
 
 # 最近の更新
