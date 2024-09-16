@@ -33,6 +33,19 @@ c.パラメーターを100個まで保存しておけます。<br>
   →簡易の動画Codec情報閲覧ツールとしても使えなくもないです。
 
 
+2024/8/17　開発版
+　
+## Download the Application
+
+[Download the latest version](https://github.com/[ユーザー名]/[リポジトリ名]/releases/download/v1.0.0/my-app.exe) of the application.
+
+
+# 最近の更新
+・パラメータ組み立て機能の追加　作りかけなのでちょっと不便な点もあるかもしれないです
+![image](https://github.com/user-attachments/assets/80ef7301-f9c9-4df9-8641-f5135b5d4a5c)
+
+
+
 # 今後の更新予定<br>
 ・任意の画像でWaterMarkを付けられるようにする
 <br>
