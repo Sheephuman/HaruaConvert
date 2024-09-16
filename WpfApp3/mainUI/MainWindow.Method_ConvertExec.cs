@@ -323,18 +323,17 @@ namespace HaruaConvert
             //    explorerProcess.Start();
             //}
 
-
-
             if (paramField.isOpenFolder)
                 System.Diagnostics.Process.Start(
-      new System.Diagnostics.ProcessStartInfo
+      new System.Diagnostics.ProcessStartInfo   
       {
           FileName = "explorer", //フルパスで指定せず「explorer」とだけ書く
-          Arguments = $"/select, \"{paramField.check_output}\"", //引数に「/select,」を付ける
-          UseShellExecute = true,
-          Verb = "open"
+          Arguments = $"/select, \"{paramField.check_output}\"",
+          //引数に「/select,」を付ける
+          UseShellExecute = true         
       }
   );
+            Debug.WriteLine($"/select, \"{paramField.check_output}\"");
 
         }
 

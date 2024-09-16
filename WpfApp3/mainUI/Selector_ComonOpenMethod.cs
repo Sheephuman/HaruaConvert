@@ -4,7 +4,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.IO;
 using WpfApp3.Parameter;
 
-namespace HaruaConvert.Methods
+namespace HaruaConvert
 {
     internal class Selector_OpenMethodClass
     {
@@ -88,10 +88,12 @@ namespace HaruaConvert.Methods
                 selector.FilePathBox.Text = main.ofc.opFileName;
 
                 SetUIEvent ui = new SetUIEvent(main);
-                main.OutputSelector.FilePathBox.Text = ui.OutputFileRename(file,
+                var fileName = ui.OutputFileRename(file,
                             main.paramField.outputFileName_withoutEx, main.harua_View.MainParams[0].endString);
+                main.OutputSelector.FilePathBox.Text = fileName;
 
-
+                main.paramField.check_output = string.Empty; //初期化
+                main.paramField.check_output = fileName;
 
                 return commons;
             }
