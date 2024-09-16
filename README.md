@@ -12,7 +12,8 @@ a.ドラッグ&ドロップで動画をTwitter（X）に投稿可能な動画フ
 　-b:v 1200k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2<br>
 h264とvf yadif=0:-1:1　がポイントらしいです。
 
-![スクリーンショット 2023-11-23 223057](https://github.com/Sheephuman/HaruaConvert/assets/34499259/f659886e-615e-410b-8055-225ecf9d745f)
+![285221377-f659886e-615e-410b-8055-225ecf9d745f](https://github.com/user-attachments/assets/6f90793d-cf8a-48f4-bfc1-d83178d4daf1)
+
 
 <br>
 パラメータは公開されており、好みのパラメータに差し替え可能です。
@@ -23,7 +24,8 @@ b.ffmpegに渡すパラメーターを任意に変更出来るため、画像出
 <br>
 c.パラメーターを100個まで保存しておけます。<br>
 
-![スクリーンショット 2023-11-23 223259](https://github.com/Sheephuman/HaruaConvert/assets/34499259/1941a8df-8f37-4589-b66f-b299b215d6ae)
+![285222181-1941a8df-8f37-4589-b66f-b299b215d6ae](https://github.com/user-attachments/assets/e6e9a938-22ef-499e-8d97-b79cd6399883)
+
 
 <br>
 
@@ -42,7 +44,8 @@ c.パラメーターを100個まで保存しておけます。<br>
 
 # 最近の更新
 ・パラメータ組み立て機能の追加　作りかけなのでちょっと不便な点もあるかもしれないです
-![image](https://github.com/user-attachments/assets/80ef7301-f9c9-4df9-8641-f5135b5d4a5c)
+
+![Uploading 367869898-80ef7301-f9c9-4df9-8641-f5135b5d4a5c.png…]()
 
 
 
