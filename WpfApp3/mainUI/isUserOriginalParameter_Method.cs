@@ -1,7 +1,9 @@
-﻿using HaruaConvert.Parameter;
+﻿using FFMpegCore.Arguments;
+using HaruaConvert.Parameter;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -80,6 +82,16 @@ namespace HaruaConvert.Methods
                         var extention = Path.GetExtension(mw.baseArguments).Replace("\"", "");
                         if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention)) 
                             mw.paramField.check_output += extention;
+
+                         mw._arguments = mw._arguments.TrimEnd(); 
+
+                        if (mw._arguments.EndsWith("{output}", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            MessageBox.Show("パラメータ末尾に文字列{output}が入っていなければなりません \n\r　" +
+                                "修正をお願いします");
+                            return false;
+                        }
+
                     }
                 }
                 #endregion
