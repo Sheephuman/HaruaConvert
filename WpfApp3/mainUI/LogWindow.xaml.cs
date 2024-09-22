@@ -77,8 +77,8 @@ namespace HaruaConvert
 
             //if (mainWindow._FfmpProcess.d == true)
             //  return;
-            if (main.paramField.isExitProcessed) //Check Stream is Null 
-                return;
+            //if (main.paramField.isExecuteProcessed) //Check Stream is Null 
+            //    return;
 
 
             StreamWriter inputWriter = main._FfmpProcess.StandardInput;
@@ -88,7 +88,7 @@ namespace HaruaConvert
 
 
             main.Focus();
-            main.paramField.isExitProcessed = true;
+            main.paramField.isExecuteProcessed = true;
 
             
 

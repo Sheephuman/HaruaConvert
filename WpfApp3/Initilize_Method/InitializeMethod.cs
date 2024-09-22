@@ -46,7 +46,7 @@ namespace HaruaConvert
             paramField = new ParamField
             {
                 isParam_Edited = false,
-                isExitProcessed = true,
+                isExecuteProcessed = false,
                 isAutoScroll = true,
                 iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini"),
                 profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")

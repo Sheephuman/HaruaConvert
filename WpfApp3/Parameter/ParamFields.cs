@@ -25,7 +25,7 @@ namespace HaruaConvert.Parameter
 
        
 
-        public bool isExitProcessed { get; set; }
+        public bool isExecuteProcessed { get; set; }
         public string output { get; set; }
 
         public bool isOpenFolder { get; set; }
