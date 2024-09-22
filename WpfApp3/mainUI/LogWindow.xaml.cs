@@ -88,7 +88,7 @@ namespace HaruaConvert
 
 
             main.Focus();
-            main.paramField.isExecuteProcessed = true;
+
 
             
 
