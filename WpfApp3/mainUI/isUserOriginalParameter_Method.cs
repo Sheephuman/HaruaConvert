@@ -24,6 +24,7 @@ namespace HaruaConvert.Methods
 
        public bool isUserOriginalParameter_Method(object sender)
         {
+            string extention = string.Empty;
             //"FileDropButton2"
             if ((ButtonNameField._ExecButton == ((Button)sender).Name))
             {
@@ -79,22 +80,33 @@ namespace HaruaConvert.Methods
 
                         mw._arguments = mw.baseArguments;
 
-                        var extention = Path.GetExtension(mw.baseArguments).Replace("\"", "");
+                        extention = Path.GetExtension(mw.baseArguments).Replace("\"", "");
                         if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention)) 
                             mw.paramField.check_output += extention;
 
-                         mw._arguments = mw._arguments.TrimEnd(); 
+                         mw._arguments = mw._arguments.TrimEnd();
 
-                        if (mw._arguments.EndsWith("{output}", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            MessageBox.Show("パラメータ末尾に文字列{output}が入っていなければなりません \n\r　" +
-                                "修正をお願いします");
-                            return false;
-                        }
+
+                        
 
                     }
+
+
+
+
                 }
                 #endregion
+
+
+                if (!mw._arguments.EndsWith("{output}" + extention + extention, StringComparison.CurrentCultureIgnoreCase))
+                    if (!mw._arguments.EndsWith("{output}", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        {
+                            MessageBox.Show("パラメータ末尾に文字列{output}が入っていなければなりません \n\r　" +
+                                "パラメータの見直しをお願いします");
+                            return false; 
+                        }
+                    }
             }
             return true;
         }

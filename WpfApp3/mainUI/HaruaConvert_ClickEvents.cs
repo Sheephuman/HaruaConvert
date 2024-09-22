@@ -92,6 +92,9 @@ namespace HaruaConvert
         {
             try
             {
+                ParamSave_Procedure();
+
+
                 //Closeだけでは確実にプロセスが終了されない
                 Lw.Close();
                 //Close();

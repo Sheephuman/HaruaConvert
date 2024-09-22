@@ -609,7 +609,6 @@ namespace HaruaConvert
                 if (ansest.Name == OutputSelector.Name)
                 {
                     ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
-
                 }
             }
 
