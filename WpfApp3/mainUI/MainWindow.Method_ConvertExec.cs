@@ -249,8 +249,8 @@ namespace HaruaConvert
                        Lw.RichTextRogs.AppendText(e.Data);
                        Lw.RichTextRogs.AppendText(Environment.NewLine);
 
-                       Debug.WriteLine(e.Data);
-                       Debug.WriteLine(Environment.NewLine);
+                   //    Debug.WriteLine(e.Data);
+                    //  Debug.WriteLine(Environment.NewLine);
 
 
                        if (paramField.isAutoScroll)
