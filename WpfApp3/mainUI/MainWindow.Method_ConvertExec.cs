@@ -125,9 +125,12 @@ namespace HaruaConvert
                 using (var Alternate_FileExsists = new Alternate_FileExsists())
                 {
                     checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
-                    
-                    
+
+                    paramField.isExecuteProcessed = checker;
+                    if(!checker)
+                       return false;
                 }
+                return true;
             }
             
             #endregion
@@ -137,7 +140,7 @@ namespace HaruaConvert
                 MessageBox.Show(ex.Message);
                 return false;
             }
-            return true;
+            
         }
 
 
@@ -152,19 +155,17 @@ namespace HaruaConvert
 
             if (msbr == MessageBoxResult.Yes)
             {
-                if (paramField.isSuccessdbuildQuery)
-                {
                     th1.Start();
                     Lw.Show();
                     Lw.Activate();
-                }
+             
 
                 // ParamField.isExitProcessed = false;
 
                 return true;
 
             }
-            
+            else         
                 return false;
             
 
