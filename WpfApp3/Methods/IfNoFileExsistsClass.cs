@@ -18,7 +18,7 @@ namespace HaruaConvert.Methods
         public bool IfNoFileExsists()
         {
             //ffmpegが終了している状態のとき
-            if (main. paramField.isExitProcessed)
+            if (!main. paramField.isExecuteProcessed)
             {
 
                 main.th1.Start();
@@ -28,7 +28,8 @@ namespace HaruaConvert.Methods
             }
             else
             {
-                MessageBox.Show("ffmpeg.exeが実行中なのです");
+                
+                   MessageBox.Show("ffmpeg.exeが実行中なのです");
             }
             return false;
 

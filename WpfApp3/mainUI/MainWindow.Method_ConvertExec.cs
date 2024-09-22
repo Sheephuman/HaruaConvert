@@ -50,10 +50,9 @@ namespace HaruaConvert
         /// <returns></returns>
         public bool FileConvertExec(string _fullPath,object sender)
         {
-            if(main.paramField.isSuccessdbuildQuery)
+            
                th1 = new Thread(new ThreadStart(ffmpegProsseing));
-            //For Kill ffmpeg Process
-
+       
 
             escapes = new EscapePath();
 
@@ -106,7 +105,11 @@ namespace HaruaConvert
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
-              paramField.isSuccessdbuildQuery = isOrigenelParam.isUserOriginalParameter_Method(sender);
+                isOrigenelParam.isUserOriginalParameter_Method(sender);
+
+                if (!paramField.isSuccessdbuildQuery)
+                    return false;
+                                                                                 //fetch flag State
             }
 
             #region ファイル存在判定
@@ -123,7 +126,7 @@ namespace HaruaConvert
                 {
                     checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
                     
-                    return checker;
+                    
                 }
             }
             
@@ -134,6 +137,7 @@ namespace HaruaConvert
                 MessageBox.Show(ex.Message);
                 return false;
             }
+            return true;
         }
 
 
@@ -148,21 +152,21 @@ namespace HaruaConvert
 
             if (msbr == MessageBoxResult.Yes)
             {
-
-                th1.Start();
-                Lw.Show();
-                Lw.Activate();
-
+                if (paramField.isSuccessdbuildQuery)
+                {
+                    th1.Start();
+                    Lw.Show();
+                    Lw.Activate();
+                }
 
                 // ParamField.isExitProcessed = false;
 
-                return false;
+                return true;
 
             }
-            else
-            {
-                return true;
-            }
+            
+                return false;
+            
 
         }
 
@@ -301,7 +305,7 @@ namespace HaruaConvert
 
             }
 
-            paramField.isExitProcessed = true;
+            paramField.isExecuteProcessed = false;
 
         }
 
@@ -346,7 +350,7 @@ namespace HaruaConvert
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Debug.WriteLine(e);
+            //Debug.WriteLine(e);
         }
 
 

@@ -155,7 +155,7 @@ namespace HaruaConvert
         {
             ClassShearingMenbers.ButtonName = ((Button)sender).Name;
 
-            if (!paramField.isExitProcessed && !isForceExec)
+            if (paramField.isExecuteProcessed)
             {
                 MessageBox.Show("ffmpwg.exeが実行中ですわ");
 
@@ -184,7 +184,7 @@ namespace HaruaConvert
             }
 
 
-            paramField.isExitProcessed = FileConvertExec(paramField.setFile, sender);
+            paramField.isExecuteProcessed = FileConvertExec(paramField.setFile, sender);
         }
 
 
@@ -206,17 +206,19 @@ namespace HaruaConvert
                     ParamSave_Procedure();
                     paramField.isParam_Edited = false;
                 }
-
+                
             }
             Generate_ParamSelector();
 
             ParamSelector_SetText(sender, true);
-           
+            
+            
 
         }
-
+        
     }
 
+    
 
 
 }

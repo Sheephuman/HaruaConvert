@@ -28,7 +28,7 @@ namespace HaruaConvert.Methods
             //"FileDropButton2"
             if ((ButtonNameField._ExecButton == ((Button)sender).Name))
             {
-
+                
 
                 #region foreach Scopes
                 foreach (ParamSelector sp in mw.selectorList)
@@ -43,15 +43,18 @@ namespace HaruaConvert.Methods
                 {
                     if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
                     {
-                        
-                        
+
+
+
+
+
                         var inputMatches = new Regex("\\{" + "input" + "\\}");
                         mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + mw.InputSelector.FilePathBox.Text + @"""");
 
 
-                     //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
+                        //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
 
-                        
+
 
                         var OutputMatches = new Regex("\\{" + "output" + "\\}");
 
@@ -81,13 +84,24 @@ namespace HaruaConvert.Methods
                         mw._arguments = mw.baseArguments;
 
                         extention = Path.GetExtension(mw.baseArguments).Replace("\"", "");
-                        if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention)) 
+                        if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention))
                             mw.paramField.check_output += extention;
 
-                         mw._arguments = mw._arguments.TrimEnd();
+                        mw._arguments = mw._arguments.TrimEnd();
 
 
-                        
+                        if (!sp.ArgumentEditor.Text.EndsWith("{output}" + extention, StringComparison.CurrentCultureIgnoreCase) && !sp.ArgumentEditor.Text.EndsWith("{output}", StringComparison.CurrentCultureIgnoreCase))
+                        { 
+                            MessageBox.Show("パラメータ末尾に文字列{output}が入っていなければなりません \n\r　" +
+                                "パラメータの見直しをお願いします");
+                            mw.paramField.isSuccessdbuildQuery = false; 
+                            return false;
+                        }
+                        else
+                            mw.paramField.isSuccessdbuildQuery = true;
+
+
+
 
                     }
 
@@ -98,15 +112,6 @@ namespace HaruaConvert.Methods
                 #endregion
 
 
-                if (!mw._arguments.EndsWith("{output}" + extention + extention, StringComparison.CurrentCultureIgnoreCase))
-                    if (!mw._arguments.EndsWith("{output}", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        {
-                            MessageBox.Show("パラメータ末尾に文字列{output}が入っていなければなりません \n\r　" +
-                                "パラメータの見直しをお願いします");
-                            return false; 
-                        }
-                    }
             }
             return true;
         }
