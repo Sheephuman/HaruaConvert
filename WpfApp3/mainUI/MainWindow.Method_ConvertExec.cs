@@ -122,14 +122,12 @@ namespace HaruaConvert
             
             try
             {
-                using (var Alternate_FileExsists = new Alternate_FileExsists())
-                {
+                
                     checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
 
                     paramField.isExecuteProcessed = checker;
                     if(!checker)
-                       return false;
-                }
+                 
                 return true;
             }
             
