@@ -77,9 +77,9 @@ namespace HaruaConvert.Methods
 
                         mw._arguments = mw.baseArguments;
 
-                        var extention = Path.GetExtension(mw.baseArguments);
-                        if (!string.IsNullOrEmpty(extention)) 
-                            mw.paramField.check_output += extention.Replace("\"", "");
+                        var extention = Path.GetExtension(mw.baseArguments).Replace("\"", "");
+                        if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention)) 
+                            mw.paramField.check_output += extention;
                     }
                 }
                 #endregion

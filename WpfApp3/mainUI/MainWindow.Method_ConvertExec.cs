@@ -323,18 +323,23 @@ namespace HaruaConvert
             //    explorerProcess.Start();
             //}
 
-            if (paramField.isOpenFolder)
-                System.Diagnostics.Process.Start(
-      new System.Diagnostics.ProcessStartInfo   
-      {
-          FileName = "explorer", //フルパスで指定せず「explorer」とだけ書く
-          Arguments = $"/select, \"{paramField.check_output}\"",
-          //引数に「/select,」を付ける
-          UseShellExecute = true         
-      }
-  );
-            Debug.WriteLine($"/select, \"{paramField.check_output}\"");
 
+
+            using (Process explorerProcess = new Process())
+            {
+                explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
+                    Arguments = $"/select, \"{paramField.check_output}\"", // 引数に「/select,」を付ける
+                    UseShellExecute = true
+                };
+
+                explorerProcess.Start();
+               paramField.explorerPrpcesslist.Add(explorerProcess.Id);
+            }
+
+            Debug.WriteLine($"/select, \"{paramField.check_output}\"");
+            
         }
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)

@@ -161,12 +161,12 @@ namespace HaruaConvert.HaruaServise
                 Button dropbutton = (Button)_main.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _main.Drop_Label);
                 if (dropbutton != null)
                 {
-                    dropbutton.Click += DropButton_ClickHandle;
+                    dropbutton.Click += mainUIButtons_ClickHandle;
                     dropbutton.Drop += MainWindow_FileDrop;
                 }
 
 
-                _main.Directory_DropButon.Click += DropButton_ClickHandle;
+                _main.Directory_DropButon.Click += mainUIButtons_ClickHandle;
 
                 _main.AtacchStringsList.Items.Add("[]");
                 _main.AtacchStringsList.Items.Add("{}");
@@ -204,7 +204,7 @@ namespace HaruaConvert.HaruaServise
         }
 
 
-        public void DropButton_ClickHandle(object sender, RoutedEventArgs e)
+        public void mainUIButtons_ClickHandle(object sender, RoutedEventArgs e)
         {
 
             //   _main.FileNameLabel.Text = string.Empty;
