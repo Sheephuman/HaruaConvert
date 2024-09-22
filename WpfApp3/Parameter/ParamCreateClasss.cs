@@ -1,5 +1,10 @@
-﻿using HaruaConvert.Methods;
+﻿using FFMpegCore;
+using FFMpegCore.Arguments;
+using HaruaConvert.Methods;
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using WpfApp3.Parameter;
 
 namespace HaruaConvert.Parameter
@@ -34,20 +39,15 @@ namespace HaruaConvert.Parameter
         
         public EscapePath AddParamEscape(EscapePath escape)
         {
-
-
-
+           
 
             //inputPath = @"""" + inputPath_ReadOnly + @"""";
             escape.inputPath = "\"" + inputPath_ReadOnly + "\"";
 
                   escape.outputPath = "\"" + _convertFile + "\"";
 
-               //ParamField.OutputPath = outputPath;
-
-
-           //  arguments = inputPath;
-                return escape;
+           
+            return escape;
             
             
                
@@ -59,7 +59,26 @@ namespace HaruaConvert.Parameter
         }
 
 
+        public string GetExtentionFileNamepattern(string target)
+        {
+           
+            string pattern = @"\{FileName\}\.(\w+)";
 
+            string extension = string.Empty;
+
+
+            Match match = Regex.Match(target, pattern);
+            if (match.Success)
+            {
+                extension = "." +match.Groups[1].Value;
+                
+                
+                Debug.WriteLine("拡張子: " + extension);
+            
+            }
+
+            return extension; 
+        }
      
 
 

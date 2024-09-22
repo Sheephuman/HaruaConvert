@@ -54,10 +54,10 @@
                     <TextBlock Text="ビデオコーデック"/>
                 </CheckBox>
                 <ComboBox x:Name="VideoCodecBox"
-                          
+                          IsEditable="True"
                           ItemsSource="{Binding FfmpegVideoCodecDic}"
                           Text="{Binding VideoCodecStrings,UpdateSourceTrigger=PropertyChanged}"
-                            
+
                           SelectionChanged="VideoCodecBox_SelectionChanged"
                           
                           SelectedValuePath="Value"
@@ -77,6 +77,7 @@
                 </CheckBox>
                 <ComboBox x:Name="AudioCodecBox"
                           SelectionChanged="AudioCodecBox_SelectionChanged"
+                          IsEditable="True"
                     Width="150" Margin="6"
                        ItemsSource="{Binding FfmpegAudioCodecDic}"
                           Text="{Binding VideoCodecs,UpdateSourceTrigger=PropertyChanged}"
@@ -113,6 +114,7 @@
                 <TextBlock Text="別のファイル形式に変換"/>
             </CheckBox>
                 <ComboBox 
+                    IsEditable="True"
                      SelectedIndex="0"
                     Text="{Binding FileExtentionName,UpdateSourceTrigger=PropertyChanged}"
                     x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"
