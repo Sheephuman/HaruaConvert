@@ -50,7 +50,8 @@ namespace HaruaConvert
         /// <returns></returns>
         public bool FileConvertExec(string _fullPath,object sender)
         {
-            th1 = new Thread(new ThreadStart(ffmpegProsseing));
+            if(main.paramField.isSuccessdbuildQuery)
+               th1 = new Thread(new ThreadStart(ffmpegProsseing));
             //For Kill ffmpeg Process
 
 
@@ -105,7 +106,7 @@ namespace HaruaConvert
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
-                isOrigenelParam.isUserOriginalParameter_Method(sender);
+              paramField.isSuccessdbuildQuery = isOrigenelParam.isUserOriginalParameter_Method(sender);
             }
 
             #region ファイル存在判定
@@ -207,7 +208,7 @@ namespace HaruaConvert
             ///
             ////
             ////Enable Asnc Task Canceller
-
+            
             
 
             using (paramField.ctoken = new CancellationTokenSource())

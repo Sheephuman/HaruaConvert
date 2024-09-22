@@ -63,6 +63,7 @@ namespace HaruaConvert.Parameter
         public bool isPaused { get; set; }
         public bool isClosedQueryBuildWindow { get; set; }
         public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
+        public bool isSuccessdbuildQuery { get; internal set; }
 
         public static class QueryNames
         {
