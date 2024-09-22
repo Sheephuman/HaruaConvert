@@ -17,9 +17,8 @@ namespace HaruaConvert
 
         MainWindow main { get; set; }
 
-#pragma warning disable CA1822 // メンバーを static に設定します
+
         public CommonFileDialogResult Selector_ComonOpenMethod(bool isFolder, FileSelector selector)
-#pragma warning restore CA1822 // メンバーを static に設定します
         {
 
             //  ClassShearingMenbers.ButtonName = selector.Name;

@@ -199,7 +199,7 @@ namespace HaruaConvert
             if (main.paramField.isBackImage)
             {
 
-                image.Opacity = 0.6;
+                image.Opacity = 0.4;
 
                 main.Lw.RichTextRogs.Opacity = 1;
                 main.Lw.RichTextRogs.Background = SystemColors.WindowBrush;

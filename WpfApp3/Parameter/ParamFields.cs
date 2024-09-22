@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading;
+
 
 namespace HaruaConvert.Parameter
 {
@@ -60,7 +62,7 @@ namespace HaruaConvert.Parameter
         public bool isAutoScroll { get; set; }
         public bool isPaused { get; set; }
         public bool isClosedQueryBuildWindow { get; set; }
-
+        public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
 
         public static class QueryNames
         {

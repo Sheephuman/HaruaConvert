@@ -94,16 +94,25 @@ namespace HaruaConvert
             {
                 //Closeだけでは確実にプロセスが終了されない
                 Lw.Close();
-                Close();
+                //Close();
+
+               
 
                 using (var tpc = new Terminate_ProcessClass())
                 {
                     ProcessKill_deligate killProcessDell = tpc.Terminate_Process;
 
 
+                    //explorer.exeの終了処理。
+                    foreach (int explorer in main.paramField.explorerPrpcesslist)
+                    {
+                        killProcessDell(explorer);
 
-                    //ffmpegの強制終了
-                    if (th1 != null)
+                    }
+
+
+                        //ffmpegの強制終了
+                        if (th1 != null)
                     {
                         killProcessDell(paramField.ffmpeg_pid);
 
