@@ -16,5 +16,6 @@ namespace HaruaConvert.Parameter
 
 
         public string outputPath { get; set; }
+        public string NonEscape_outputPath { get; set; }
     }
 }

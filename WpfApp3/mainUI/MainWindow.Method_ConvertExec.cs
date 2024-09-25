@@ -4,6 +4,7 @@ using NAudio.Wave;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -86,17 +87,30 @@ namespace HaruaConvert
                 else
                     paramField.check_output = main.harua_View.OutputPath + "\\" + con.ConvertFileName(Path.GetFileName(main.paramField.setFile), harua_View);
 
-                
-
-
 
                 param = new ParamCreateClasss(_fullPath, paramField.check_output);
 
-                escapes = param.AddParamEscape(escapes);
+
+                string pattern = @"\{FileName\}\.(\w+)";
+                var target = main.harua_View.MainParams[0].StartQuery;
+                Match match = Regex.Match(target, pattern);
+
+                string extention = param.GetExtentionFileNamepattern(target);
+
+                
+
+                escapes = param.AddParamEscape(escapes,extention);
+                if (!string.IsNullOrEmpty(extention))
+                    paramField.check_output = escapes.NonEscape_outputPath;
 
                 //_fullPath, harua_View
-
+                //StartQueryを追加する
                 _arguments = Ffmpc.AddsetQuery(escapes.inputPath, harua_View);
+
+                _arguments = _arguments.Replace("{FileName}" + extention, "");
+
+                
+                //オプションと出力先ファイル文字列の追加
                 _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ escapes.outputPath}";
 
             }
@@ -127,7 +141,8 @@ namespace HaruaConvert
 
                     paramField.isExecuteProcessed = checker;
                     if(!checker)
-                 
+                       return false;
+               
                 return true;
             }
             

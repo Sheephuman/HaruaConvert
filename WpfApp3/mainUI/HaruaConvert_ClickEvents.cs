@@ -122,7 +122,9 @@ namespace HaruaConvert
                     }
 
 
-                    Environment.Exit(0);
+                    //Environment.Exit(0);
+                    Application.Current.Shutdown();
+                    //不十分なので試験的に差し替え。
 
 
                     //mainWindow Processが正常に終了されていない場合の対策
