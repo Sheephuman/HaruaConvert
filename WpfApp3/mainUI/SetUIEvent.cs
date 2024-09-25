@@ -1,6 +1,7 @@
 ﻿using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
 using System;
+using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Windows;
@@ -168,10 +169,23 @@ namespace HaruaConvert.HaruaServise
 
                 _main.Directory_DropButon.Click += mainUIButtons_ClickHandle;
 
-                _main.AtacchStringsList.Items.Add("[]");
-                _main.AtacchStringsList.Items.Add("{}");
-                _main.AtacchStringsList.Items.Add("<>");
+                // 連想配列（辞書）の作成
 
+                _main.harua_View.placehondersList = new Dictionary<string, List<string>>
+                {
+                                                             { "{}",
+                        new List<string> { "{", "}" } },
+
+                      { "<>",
+                        new List<string> { "<", ">" } },
+
+                 };
+
+                 Dictionary<string, List<string>> placeList = _main.harua_View.placehondersList;
+
+
+
+                _main.AtacchStringsList.ItemsSource = placeList;
             }
 
         }
