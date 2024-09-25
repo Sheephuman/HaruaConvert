@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
 
@@ -12,7 +13,7 @@ namespace HaruaConvert.Parameter
     /// 
 
     ////Case:use static When share used parameter on Class 
-    public class ParamField
+    public class ParamField : INotifyPropertyChanged
     {
         public string inputPath_ReadOnly { get;}
 
@@ -92,8 +93,8 @@ namespace HaruaConvert.Parameter
             public const string ParamSelector = nameof(ParamSelector);
             public const string OutputSelector = nameof(OutputSelector);
             public const string InputSelector = nameof(InputSelector);
-        }   
+        }
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

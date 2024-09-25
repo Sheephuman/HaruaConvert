@@ -54,6 +54,7 @@ namespace HaruaConvert.userintarface
 
             qf = new QueryField();
 
+            //Read ffmpeg Codec Dictionary
             qf.FfmpegVideoCodecDic = getCoudecs.GetCodecNameExecute(codec.typeVideo);
 
              qf.FfmpegAudioCodecDic = getCoudecs.GetCodecNameExecute(codec.typeAudio);

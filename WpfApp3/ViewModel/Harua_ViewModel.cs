@@ -1,5 +1,6 @@
 ﻿using HaruaConvert.HaruaService;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -58,16 +59,19 @@ namespace HaruaConvert.Parameter
         private ObservableCollection<MainBindingParam> _mainParam = new ObservableCollection<MainBindingParam>();
 
 
+        /// <summary>
+        /// MainParamsプロパティは、MainBindingParamのコレクションを保持します。
+        /// ObservableCollectionを使用することで、コレクションの変更を自動的にUIに通知します。
+        /// </summary>
         public ObservableCollection<MainBindingParam> MainParams
         {
-
-            get => _mainParam;
+            get => _mainParam; // コレクションを取得するためのゲッター
             set
-            {
+            {             
                 if (_mainParam != value)
                 {
-                    _mainParam = value;
-                    RaisePropertyChanged(nameof(_mainParam));
+                    _mainParam = value; // 新しいコレクションを設定
+                    RaisePropertyChanged(nameof(_mainParam)); // プロパティが変更されたことを通知
                 }
             }
         }
@@ -83,8 +87,11 @@ namespace HaruaConvert.Parameter
         public string OutputPath { get; set; }
         public string endString { get; set; }
 
+        public Dictionary<string, List<string>> placehondersList
+        { get; set; }
+
         //public string SourcePathText = "Source File";
-   
+
 
         protected void RaisePropertyChanged(string propertyName)
         {
