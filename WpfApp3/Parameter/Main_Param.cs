@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HaruaConvert.Parameter
 {
-    public class MainParam
+    public class MainBindingParam
     {
         //public string iniPath { get; set; }
         public string invisibleText { get; set; }

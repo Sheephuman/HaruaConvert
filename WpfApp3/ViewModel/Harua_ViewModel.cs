@@ -43,9 +43,9 @@ namespace HaruaConvert.Parameter
         public void LoadInitialData(string iniPath)
         {
 
-                MainParams = new ObservableCollection<MainParam>
+                MainParams = new ObservableCollection<MainBindingParam>
             {
-               new MainParam { StartQuery = IniDefinition.GetValueOrDefault
+               new MainBindingParam { StartQuery = IniDefinition.GetValueOrDefault
                                        (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, "-b:v 700k -codec:v h264 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
                 OutputPath = MainTab_OutputDirectory,
                  endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
@@ -55,10 +55,10 @@ namespace HaruaConvert.Parameter
                }
             };
         }
-        private ObservableCollection<MainParam> _mainParam = new ObservableCollection<MainParam>();
+        private ObservableCollection<MainBindingParam> _mainParam = new ObservableCollection<MainBindingParam>();
 
 
-        public ObservableCollection<MainParam> MainParams
+        public ObservableCollection<MainBindingParam> MainParams
         {
 
             get => _mainParam;

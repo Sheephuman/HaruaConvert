@@ -430,6 +430,7 @@
                                          FontSize="16" FontWeight="Bold"/>
                                     <ComboBox x:Name="AtacchStringsList" Width="50" Height="30" Margin="70,0,0,20"
                                              Loaded="AtacchStringsList_Loaded"
+                                              SelectedValue = "{Binding Placeholder}"                                              
                                                      FontSize="16" FontWeight="Bold"/>
                                     <Button                              
                                 x:Name="ExecButton" Height="40" Width="80" Content="Run"  Click="OriginalParamExecButton_Click"                           

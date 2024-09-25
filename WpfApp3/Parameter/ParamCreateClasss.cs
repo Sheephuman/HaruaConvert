@@ -37,16 +37,18 @@ namespace HaruaConvert.Parameter
 
 
         
-        public EscapePath AddParamEscape(EscapePath escape)
+        public EscapePath AddParamEscape(EscapePath escape, string extention)
         {
            
 
             //inputPath = @"""" + inputPath_ReadOnly + @"""";
             escape.inputPath = "\"" + inputPath_ReadOnly + "\"";
 
-                  escape.outputPath = "\"" + _convertFile + "\"";
+             escape.outputPath = "\"" + _convertFile + extention  + "\"";
+            
+            if(!string.IsNullOrEmpty(extention))
+               escape.NonEscape_outputPath = _convertFile + extention;
 
-           
             return escape;
             
             
