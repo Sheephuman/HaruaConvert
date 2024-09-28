@@ -428,12 +428,12 @@
                                 <StackPanel VerticalAlignment="Center">
                                     <Label Content =" 変換する添え字"  
                                          FontSize="16" FontWeight="Bold"/>
-                                    <ComboBox x:Name="AtacchStringsList" Width="50" Height="30" Margin="70,0,0,20"
+                                    <ComboBox x:Name="placeHolderList" Width="50" Height="30" Margin="70,0,0,20"
                                              Loaded="AtacchStringsList_Loaded"
-                                              ItemsSource = "{Binding placehondersList}"   
-                                              
-                                                  SelectedValuePath="Value"
+                                              ItemsSource = "{Binding placehondersList}"                                             
+                                                SelectedValuePath="Value"
                                                 DisplayMemberPath="Key"  
+                                                Text="{Binding placement, UpdateSourceTrigger=PropertyChanged}"
                                                FontSize="16" FontWeight="Bold"/>
                                     <!--SelectedValuePath="Content"-->
                                     <!-- これにより、コンボボックスのアイテムのContentプロパティがSelectedValueとしてバインドされる -->

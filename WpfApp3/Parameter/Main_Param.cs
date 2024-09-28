@@ -14,7 +14,7 @@ namespace HaruaConvert.Parameter
         public string StartQuery { get; set; }
         public string OutputPath { get; set; }
         public string endString { get; set; }
-        public string PlaceHolder { get; set; }
+        public string placement { get; set; }
 
         public ParamField paramField { get; set; }
 
