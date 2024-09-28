@@ -132,7 +132,7 @@ namespace HaruaConvert.UserControls
         private void DecrementValue(TextBox nUDTextBox, int minValue, int currentValue)
         {
            // int currentValue = int.TryParse(nUDTextBox.Text, out var parsedValue) ? parsedValue : minValue;
-            currentValue = Math.Max(currentValue, minValue);
+            currentValue = Math.Min(currentValue, minValue);
             nUDTextBox.Text = currentValue.ToString(CultureInfo.CurrentCulture);
         }
 
@@ -178,9 +178,9 @@ namespace HaruaConvert.UserControls
 
         public void NUDButtonUP_ClickProc(TextBox NUDTextBox, int maxvalue ,int interval)
         {
-            if (int.TryParse(NUDTextBox.Text, out var number) && int.Parse(NUDTextBox.Text,CultureInfo.CurrentCulture) < 100)
+            if (int.TryParse(NUDTextBox.Text, out var number))
             {
-                number = number + interval;
+                number =　Math.Min(number + interval, 100);
                
             }
 

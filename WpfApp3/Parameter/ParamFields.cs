@@ -13,7 +13,7 @@ namespace HaruaConvert.Parameter
     /// 
 
     ////Case:use static When share used parameter on Class 
-    public class ParamField : INotifyPropertyChanged
+    public class ParamField 
     {
         public string inputPath_ReadOnly { get;}
 
@@ -97,6 +97,5 @@ namespace HaruaConvert.Parameter
             public const string InputSelector = nameof(InputSelector);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
