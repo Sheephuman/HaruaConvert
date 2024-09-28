@@ -178,7 +178,7 @@ namespace HaruaConvert.UserControls
 
         public void NUDButtonUP_ClickProc(TextBox NUDTextBox, int maxvalue ,int interval)
         {
-            if (int.TryParse(NUDTextBox.Text, out var number))
+            if (int.TryParse(NUDTextBox.Text, out var number) && int.Parse(NUDTextBox.Text,CultureInfo.CurrentCulture) < 100)
             {
                 number = number + interval;
                
