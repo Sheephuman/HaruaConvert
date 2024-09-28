@@ -99,6 +99,7 @@ namespace HaruaConvert
             main = this;
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
+  
 
 
             SetUIEvent uiManager = new SetUIEvent(main);
@@ -107,6 +108,9 @@ namespace HaruaConvert
             uiManager.SetupEventHandlers();
 
             InitializeParameters();
+
+
+
             InitializeViewModels();
 
             InitializeChildComponents();
@@ -114,13 +118,24 @@ namespace HaruaConvert
 
             SelectorEventHandlers();
 
+            placeHolderList.ItemsSource = new Dictionary<string, List<string>>
+                {
+                                                             { "{}",
+                        new List<string> { "{{", "}}" } },
+
+                      { "<>",
+                        new List<string> { "<", ">" } },
+
+                 };
 
 
 
-            LoadSettings();
+
+           
             SetupUIEvents();
 
 
+            LoadSettings();
 
             mainProcess = Process.GetCurrentProcess();
 
@@ -132,7 +147,6 @@ namespace HaruaConvert
             Generate_ParamSelector();
             var cm = new QuerryCommandManager(main);
             cm.AddCommands();
-
 
 
         }
@@ -541,6 +555,8 @@ namespace HaruaConvert
                 if (!string.IsNullOrEmpty(endStringBox.Text))
                     IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
+                if (!string.IsNullOrEmpty(placeHolderList.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder ,  QueryNames.placeHolderCount , placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
 
 
             }
@@ -812,6 +828,9 @@ namespace HaruaConvert
 
         private void AtacchStringsList_Loaded(object sender, RoutedEventArgs e)
         {
+            int index = int.Parse(IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, "0"), CultureInfo.CurrentCulture);
+            if (index >= 0)
+                placeHolderList.SelectedIndex = index;
 
         }
 

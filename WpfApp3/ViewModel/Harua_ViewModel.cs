@@ -52,9 +52,14 @@ namespace HaruaConvert.Parameter
                  endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
                                        (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
-                invisibleText = ""
+                invisibleText = "",
+                placement = string.Empty
+
+                
                }
             };
+
+
         }
         private ObservableCollection<MainBindingParam> _mainParam = new ObservableCollection<MainBindingParam>();
 
@@ -82,14 +87,14 @@ namespace HaruaConvert.Parameter
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public string invisibleText { get; set; }
-        public string StartQuery { get; set; }
+        //public string invisibleText { get; set; }
+        //public string StartQuery { get; set; }
         public string OutputPath { get; set; }
-        public string endString { get; set; }
+        //public string endString { get; set; }
+        //public string placement { get; set; }
 
         public Dictionary<string, List<string>> placehondersList
-        { get; set; }
-
+        { get; set; } 
         //public string SourcePathText = "Source File";
 
 

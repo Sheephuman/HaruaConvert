@@ -24,7 +24,8 @@ namespace HaruaConvert.Parameter
 
         public  string setFile { get; set; }
 
-       
+        
+
 
         public bool isExecuteProcessed { get; set; }
         public string output { get; set; }
@@ -74,7 +75,8 @@ namespace HaruaConvert.Parameter
 
             public const string profileName = nameof(profileName);
             public const string profileQuery = nameof(profileQuery);
-
+            public const string placeHolder = nameof(placeHolder);
+            public const string placeHolderCount = nameof(placeHolder) + "_count";
         }
 
         public static class ButtonNameField
