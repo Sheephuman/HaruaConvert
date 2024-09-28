@@ -95,9 +95,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\**" />
     <Compile Remove="MainWindow.Method_Group\**" />
+    <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="MainWindow.Method_Group\**" />
+    <None Remove="bin\**" />
     <None Remove="MainWindow.Method_Group\**" />
+    <Page Remove="bin\**" />
     <Page Remove="MainWindow.Method_Group\**" />
   </ItemGroup>
 
@@ -149,7 +153,6 @@
     <Content Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Debug\net8.0-windows10.0.22621.0\lib\harua.ico" />
     <Resource Include="BackImage\sheep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

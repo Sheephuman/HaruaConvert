@@ -121,7 +121,7 @@ namespace HaruaConvert
             placeHolderList.ItemsSource = new Dictionary<string, List<string>>
                 {
                                                              { "{}",
-                        new List<string> { "{{", "}}" } },
+                        new List<string> { "{", "}" } },
 
                       { "<>",
                         new List<string> { "<", ">" } },

@@ -15,11 +15,13 @@ namespace HaruaConvert.Methods
     {
 
         MainWindow mw;
-
+        string place_1 { get; set; }
+        string place_2;
         public isUserOriginalParameter(MainWindow _main)
         {
             mw = _main;
-        
+            place_1 = string.Empty;
+            place_2 = string.Empty;
         }
 
         // EscapePath escapes;
@@ -45,6 +47,10 @@ namespace HaruaConvert.Methods
 
                     foreach (var sp in mw.selectorList)
                     {
+
+
+
+
                         if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
                         {
 
@@ -61,10 +67,14 @@ namespace HaruaConvert.Methods
 
                               
 
-                            var place_1 = dictionary[mw.harua_View.MainParams[0].placement][0];
-                            var place_2 = dictionary[mw.harua_View.MainParams[0].placement][1];
+                            place_1 = dictionary[mw.harua_View.MainParams[0].placement][0];
+                            place_2 = dictionary[mw.harua_View.MainParams[0].placement][1];
 
-                            if(inputFile.Contains(place_1) || inputFile.Contains(place_2))
+
+
+                         
+
+                            if (inputFile.Contains(place_1) || inputFile.Contains(place_2))
                             {
                                 MessageBox.Show("ファイル名に変換対象の添え字が使われているわ\r\n ファイル名を修正してね");
                                 return false; }
@@ -118,16 +128,15 @@ namespace HaruaConvert.Methods
 
                             mw._arguments = mw.baseArguments;
 
-                            extention = Path.GetExtension(mw.baseArguments).Replace("\"", "");
+                            extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
                             if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention))
                                 mw.paramField.check_output += extention;
 
                             mw._arguments = mw._arguments.TrimEnd();
 
-
-                            if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 + extention, StringComparison.CurrentCultureIgnoreCase) && !sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2, StringComparison.CurrentCultureIgnoreCase))
+                            if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 +extention, StringComparison.CurrentCultureIgnoreCase))
                             {
-                                MessageBox.Show($"パラメータ末尾に文字列 ${place_1}output{place_2}が入っていなければなりません \n\r　" +
+                                MessageBox.Show($"パラメータ末尾に文字列{place_1}output{place_2}{extention}が入っていなければなりません \n\r　" +
                                     "パラメータの見直しをお願いします");
                                 mw.paramField.isSuccessdbuildQuery = false;
                                 return false;

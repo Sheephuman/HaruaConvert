@@ -190,30 +190,57 @@ namespace HaruaConvert
 
         private void BackImage_Checker_Checked(object sender, RoutedEventArgs e)
         {
-        
-            
-            main.paramField.isBackImage = !main.paramField.isBackImage ? true : false; ;
+           
 
-            ImageBrush image = new ImageBrush();
-            image.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri("BackImage\\harua.jpg", UriKind.Relative));
-            if (main.paramField.isBackImage)
+
+
+
+                main.paramField.isBackImage = !main.paramField.isBackImage ? true : false; ;
+
+                ImageBrush image = new ImageBrush();
+            try
             {
+                string imagePath = "BackImage\\harua.jpg";
+                image.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri(imagePath, UriKind.Relative));
 
-                image.Opacity = 0.4;
 
-                main.Lw.RichTextRogs.Opacity = 1;
-                main.Lw.RichTextRogs.Background = SystemColors.WindowBrush;
-                main.Lw.RichTextRogs.Foreground = Brushes.Black;
-                // ブラシを背景に設定する
-                main.Lw.RichTextRogs.Background = image;
+                // まずファイルが存在するかを確認
+                if (!File.Exists(imagePath))
+                {
+                    MessageBox.Show($"BackImegeフォルダにharua.jpgが見つかりません: {imagePath}");
+                    return;
+                }
+
+
+                if (main.paramField.isBackImage)
+                {
+
+                    image.Opacity = 0.4;
+
+                    main.Lw.RichTextRogs.Opacity = 1;
+                    main.Lw.RichTextRogs.Background = SystemColors.WindowBrush;
+                    main.Lw.RichTextRogs.Foreground = Brushes.Black;
+                    // ブラシを背景に設定する
+                    main.Lw.RichTextRogs.Background = image;
+
+                }
+                else
+                {
+                    image.Opacity = 0;
+                    main.Lw.RichTextRogs.Opacity = 0.6;
+                    main.Lw.RichTextRogs.Foreground = Brushes.White;
+                    main.Lw.RichTextRogs.Background = Brushes.Black;
+                }
+            }
+            catch(DirectoryNotFoundException ex)
+            {
+                MessageBox.Show("BackImegeフォルダ内にharua.jpgがありません\r\n" + ex.Message) ;
 
             }
-            else
+            catch (Exception ex)
             {
-                image.Opacity = 0;
-                main.Lw.RichTextRogs.Opacity = 0.6;
-                main.Lw.RichTextRogs.Foreground = Brushes.White;
-                main.Lw.RichTextRogs.Background = Brushes.Black;
+                Debug.WriteLine(ex.Message) ;
+
             }
         }
 

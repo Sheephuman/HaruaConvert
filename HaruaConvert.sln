@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ソリューション項目
 		IdisposableBase.cs = IdisposableBase.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuildUpdown_TestBinding", "QueryBuildUpdown_TestBinding\QueryBuildUpdown_TestBinding.csproj", "{A17D9416-7EBF-41F3-939E-D45D8A79856A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryBuildUpdown_TestBinding", "QueryBuildUpdown_TestBinding\QueryBuildUpdown_TestBinding.csproj", "{A17D9416-7EBF-41F3-939E-D45D8A79856A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "haruaConvertInstaller", "haruaConvertInstaller\haruaConvertInstaller.vdproj", "{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,14 @@ Global
 		{A17D9416-7EBF-41F3-939E-D45D8A79856A}.Release|x64.Build.0 = Release|Any CPU
 		{A17D9416-7EBF-41F3-939E-D45D8A79856A}.Release|x86.ActiveCfg = Release|Any CPU
 		{A17D9416-7EBF-41F3-939E-D45D8A79856A}.Release|x86.Build.0 = Release|Any CPU
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Debug|Any CPU.ActiveCfg = Debug
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Debug|ARM64.ActiveCfg = Debug
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Debug|x64.ActiveCfg = Debug
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Debug|x86.ActiveCfg = Debug
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Release|Any CPU.ActiveCfg = Release
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Release|ARM64.ActiveCfg = Release
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Release|x64.ActiveCfg = Release
+		{49ED6B24-B19D-4AE6-88B3-5282F492DB7A}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
