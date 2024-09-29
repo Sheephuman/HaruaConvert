@@ -50,7 +50,7 @@ namespace HaruaConvert.userintarface
 
             var getCoudecs = new GetCodecsName();
 
-            var codec = new QueryBuilder.CodecTypeManager();
+            var codec = new CodecTypeManager();
 
             qf = new QueryField();
 
