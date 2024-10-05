@@ -132,7 +132,7 @@
             <Label x:Name="testLabel"  DataContextChanged="testLabel_DataContextChanged"/>
             <StackPanel Orientation="Vertical" Margin="10,10,10,0">
           <Label Content="FFmpegコマンドのプレビュー" FontSize="20"/>
-                <TextBlock x:Name="PreviewBlock" Width="Auto" Height="24" Margin="20,-8,0,3" 
+                <TextBlock x:Name="PreviewBlock" Width="Auto" Height="25" Margin="20,-8,0,3" 
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left" Text ="{Binding AllInput}"
                            FontSize="20">
