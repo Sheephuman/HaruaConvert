@@ -129,7 +129,7 @@ namespace HaruaConvert
             }
 
             #region ファイル存在判定
-
+         
             //IDisposable alterr = new IDisposableBase();
             //alterr.Dispose();
             bool checker = false;
@@ -180,9 +180,9 @@ namespace HaruaConvert
 
             if (msbr == MessageBoxResult.Yes)
             {
-                   
-             
 
+
+                Lw = new LogWindow(paramField);
 
                 // ParamField.isExitProcessed = false;
 
@@ -282,7 +282,7 @@ namespace HaruaConvert
                     //  Debug.WriteLine(Environment.NewLine);
 
 
-                       if (paramField.isAutoScroll)
+                       if (Lw.Lw_paramField.isAutoScroll)
                            Lw.RichTextRogs.ScrollToEnd();
 
                        //Another thread accessing

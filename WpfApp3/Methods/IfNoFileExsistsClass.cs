@@ -18,14 +18,21 @@ namespace HaruaConvert.Methods
         public bool IfNoFileExsists()
         {
             //ffmpegが終了している状態のとき
-            if (!main. paramField.isExecuteProcessed)
+            if (!main.paramField.isExecuteProcessed)
             {
 
                 main.th1.Start();
-                main.Lw = new LogWindow(main.paramField);
-               main.Lw.Show();
-                main.Lw.Activate();
+                if (main.Lw != null)
+                {
+                    main.Lw = new LogWindow(main.paramField);
+                    if (main.Lw.IsEnabled != false)
+                    {
+                        main.Lw.Show();
+                        main.Lw.Activate();
+                    }
+                }
             }
+        
             else
             {
                 
