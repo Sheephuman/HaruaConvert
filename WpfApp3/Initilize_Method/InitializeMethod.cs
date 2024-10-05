@@ -69,8 +69,8 @@ namespace HaruaConvert
 
         private void SetupUIEvents()
         {
-            NumericUpDown1.NUDButtonUP.Click += NUDUP_Button_Click;
-            NumericUpDown1.NUDButtonDown.Click += NUD_DownButton_Click;
+           // NumericUpDown1.NUDButtonUP.Click += NUDUP_Button_Click;
+          //  NumericUpDown1.NUDButtonDown.Click += NUD_DownButton_Click;
 
             InputSelector.AllowDrop = true;
             InputSelector.FilePathBox.AllowDrop = true;

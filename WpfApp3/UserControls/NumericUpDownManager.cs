@@ -181,7 +181,7 @@ namespace HaruaConvert.UserControls
         {
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
-                number =　number + interval;
+                number =　Math.Min(number + interval,maxvalue);
                
             }
 

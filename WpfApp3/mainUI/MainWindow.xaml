@@ -368,6 +368,7 @@
                                 <UserControls:WpfNumericUpDown 
                                 x:Name="NumericUpDown1" Grid.Column="2" HorizontalAlignment="Left" Margin="0,1,0,0" 
                                  />
+                                <!--実際にはWpfNumericUpDown.cs内でイベントを実行してる-->
 
                                 <Button  
                                         x:Name="ButtonGenerate"
