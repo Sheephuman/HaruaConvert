@@ -85,16 +85,24 @@ namespace HaruaConvert
             //if (paramField.isExecuteProcessed) //Check Stream is Null 
             //    return;
 
-
-            StreamWriter inputWriter = MainWindow. ffmpegProcess.StandardInput;
-
-
-            inputWriter.WriteLine("q");
-
-
-            Focus();
+            try
+            {
+                if (MainWindow.ffmpegProcess != null)
+                {
+                    StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
 
+                    inputWriter.WriteLine("q");
+                }
+
+                Focus();
+
+            }
+
+            catch (System.IO.IOException ex)
+            {
+                MessageBox.Show(ex.Message + "￥r\n未実行のときにStopButtonが押されました");
+            }
 
 
 
