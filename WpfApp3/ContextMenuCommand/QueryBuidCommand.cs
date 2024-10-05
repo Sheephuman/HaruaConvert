@@ -11,7 +11,7 @@ namespace HaruaConvert.Command
     {
         public static readonly RoutedUICommand QueryBuildWindow_Open = new RoutedUICommand(
      "ffmpegコマンド組み立て", // コマンドの名前
-     "QueryBuildOpen", // コマンドの識別名
+     "QueryBuildWindow_Open", // コマンドの識別名
      typeof(QueryBuidCommand)); // コマンドが定義されているクラス
 
 
