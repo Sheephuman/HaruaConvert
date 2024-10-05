@@ -8,7 +8,6 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using Xceed.Wpf.Toolkit;
 
 namespace HaruaConvert
 {
@@ -47,7 +46,7 @@ namespace HaruaConvert
             {
                 isParam_Edited = false,
                 isExecuteProcessed = false,
-                isAutoScroll = true,
+                
                 iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini"),
                 profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
             };
@@ -86,42 +85,23 @@ namespace HaruaConvert
         public void SetSelectorList()
         {
             selectorList = new List<ParamSelector>();
-            childCheckBoxList = new List<CheckBox>();
-
-
-            //  childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
-
-
-            // 子要素を列挙し、適切なリストに追加
-            this.WalkInChildren(child =>
+            main.WalkInChildren(child =>
             {
-                if (child is CheckBox checkBox)
-                {
-                    childCheckBoxList.Add(checkBox);
-                }
-                else if (child is ParamSelector paramSelector)
-                {
-                    selectorList.Add(paramSelector);
-                }
-            });
-
-        }
-
-
-       public void LoadCheckBoxStates()
-        {
-            var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
-            foreach (var checkBox in childCheckBoxList)
+                if (child is ParamSelector paramSelector)
             {
-                // CheckBoxの状態をINIファイルから読み込む
-                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
+                selectorList.Add(paramSelector);
             }
 
+
+            });
         }
+
 
        public void SelectorEventHandlers()
         {
             var gsp = new GenerateSelectParaClass();
+
+            selectorList = new List<ParamSelector>();
             foreach (var selector in selectorList)
             {
                 // Selectorに各種イベントを登録

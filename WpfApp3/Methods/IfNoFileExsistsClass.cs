@@ -22,8 +22,8 @@ namespace HaruaConvert.Methods
             {
 
                 main.th1.Start();
-
-                main.Lw.Show();
+                main.Lw = new LogWindow(main.paramField);
+               main.Lw.Show();
                 main.Lw.Activate();
             }
             else

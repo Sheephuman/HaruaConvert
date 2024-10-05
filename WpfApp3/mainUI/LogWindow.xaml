@@ -27,10 +27,11 @@
                     
                      >
             <RichTextBox.ContextMenu>
-                <ContextMenu>
+                <ContextMenu DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     <MenuItem Header="Auto Scrool"
                               x:Name="AutoScroll_Checker"
                               IsCheckable="True"
+                              IsChecked="True"
                               Checked="AutoScroll_Checker_Checked"
                               Unchecked="AutoScroll_Checker_Checked"/>
                     <MenuItem Header="背景画像を表示"

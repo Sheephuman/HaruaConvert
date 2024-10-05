@@ -1,6 +1,8 @@
 ﻿using HaruaConvert.Parameter;
 using System;
+using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -88,55 +90,99 @@ namespace HaruaConvert
         }
 
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private async void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ParamSave_Procedure();
 
 
-                //Closeだけでは確実にプロセスが終了されない
-                Lw.Close();
-                //Close();
-
-               
-
-                using (var tpc = new Terminate_ProcessClass())
+                // Closeだけでは確実にプロセスが終了されない
+                  if(Lw != null)
+                     Lw.Close();
+                // Close();
+                long threshold = 0;
+                if (AllExplorerProcesses != null)
                 {
-                    ProcessKill_deligate killProcessDell = tpc.Terminate_Process;
 
 
-                    //explorer.exeの終了処理。
-                    foreach (int explorer in main.paramField.explorerPrpcesslist)
-                    {
-                        killProcessDell(explorer);
+                    // 最小メモリサイズのプロセスを取得
+                    Process smallestMemoryProcess = AllExplorerProcesses
+                    .OrderBy(process => process.WorkingSet64) // メモリサイズでソート
+                    .FirstOrDefault(); // 最初のプロセスを取得（最小サイズ）
 
-                    }
+                    threshold = smallestMemoryProcess.WorkingSet64 * 2; // 10MB
 
-
-                        //ffmpegの強制終了
-                        if (th1 != null)
-                    {
-                        killProcessDell(paramField.ffmpeg_pid);
-
-                    }
-
-
-                    //Environment.Exit(0);
-                    Application.Current.Shutdown();
-                    //不十分なので試験的に差し替え。
-
-
-                    //mainWindow Processが正常に終了されていない場合の対策
-                    if (mainProcess != null)
-                    {
-                        killProcessDell(mainProcess.Id);
-                    }
                 }
-              
+
+                    using (var tpc = new Terminate_ProcessClass())
+                    {
+
+                        ProcessKill_deligate killProcessDell = tpc.Terminate_Process;
+
+                      
+                        // explorer.exeの終了処理。
+                        if (AllExplorerProcesses != null)
+                        {
+                            // メモリサイズの閾値（例: 10MB = 10485760バイト）
+                          
+
+                            foreach (Process explorer in main.AllExplorerProcesses)
+                            {
+                                if (threshold >= explorer.WorkingSet64)
+                                    await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
+                            }
 
 
+                            // 終了処理が完了したことを通知する変数
+                            var Completed = new TaskCompletionSource<bool>();
+
+
+                            // ここでタスクの完了を手動で設定
+                            Completed.SetResult(true);
+
+
+                            await Completed.Task;
+
+
+                            ///タスクバーが復活しなかった
+                            //ProcessStartInfo startInfo = new ProcessStartInfo
+                            //{
+                            //    FileName = "explorer.exe",    // 実行するファイル（explorer.exe）
+
+                            //};
+
+
+
+                            // ffmpegの強制終了
+                            if (th1 != null)
+                            {
+                                await killProcessDell(paramField.ffmpeg_pid);  // 非同期にプロセスを終了
+                            }
+                        }
+                    // mainWindow Processが正常に終了されていない場合の対策
+
+
+                        if (mainProcess != null)
+                        {
+                            await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
+                        }
+
+                    }
+                  
+
+                
+
+
+               // Application.Current.Shutdown();  // アプリケーションの終了処理
+                                                     // 終了処理が完了するまで待機
+                   
+
+                
             }
+         
+        
+
 
             catch (TaskCanceledException ex)
             {
@@ -186,7 +232,7 @@ namespace HaruaConvert
             }
 
 
-            paramField.isExecuteProcessed = FileConvertExec(paramField.setFile, sender);
+            paramField.isExecuteProcessed = FileConvertExec(paramField.setFile, sender, GetLw());
         }
 
 

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Text;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 
@@ -61,7 +64,12 @@ namespace HaruaConvert.Parameter
         public string usedOriginalArgument { get; set; }
 
 
-        public bool isAutoScroll { get; set; }
+       public bool isAutoScroll { get; set; }
+        
+
+  
+
+
         public bool isPaused { get; set; }
         public bool isClosedQueryBuildWindow { get; set; }
         public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
@@ -97,5 +105,6 @@ namespace HaruaConvert.Parameter
             public const string InputSelector = nameof(InputSelector);
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
 
 namespace HaruaConvert
 {
@@ -129,6 +130,7 @@ namespace HaruaConvert
         {
             T ret = defaultValue;
             TryGetValueOrDefault(filePath, sectionName, keyName, defaultValue, out ret);
+           
             return ret;
         }
 

@@ -2,6 +2,7 @@
 using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.HaruaServise;
+using HaruaConvert.Initilize_Method;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -13,6 +14,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -35,7 +37,6 @@ namespace HaruaConvert
         /// </summary>
         public ParamField paramField { get; set; }
 
-        
 
 
         CommonOpenDialogClass cod { get; set; }
@@ -112,9 +113,11 @@ namespace HaruaConvert
 
 
             InitializeViewModels();
+            var initail = new InitilizeCheckBox(paramField);
 
-            InitializeChildComponents();
-            LoadCheckBoxStates();
+           childCheckBoxList = initail.InitializeChildCheckBox(this,childCheckBoxList);
+            if(childCheckBoxList != null)
+            initail.LoadCheckBoxStates(childCheckBoxList);
 
             SelectorEventHandlers();
 
@@ -131,7 +134,9 @@ namespace HaruaConvert
 
 
 
-           
+        
+
+
             SetupUIEvents();
 
 
@@ -141,7 +146,6 @@ namespace HaruaConvert
 
 
 
-            Lw = new LogWindow(main);
 
             FileList = new ObservableCollection<string>();
             Generate_ParamSelector();
@@ -414,7 +418,7 @@ namespace HaruaConvert
             HaruaGrid.Height += 30;
         }
 
-        private delegate void ProcessKill_deligate(int targetProcess);
+        private delegate Task ProcessKill_deligate(int targetProcess);
 
 
 
@@ -539,6 +543,8 @@ namespace HaruaConvert
 
 
                 var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
+
+                if (childCheckBoxList != null)
                 foreach (CheckBox chk in childCheckBoxList)
                 {
 
@@ -846,7 +852,13 @@ namespace HaruaConvert
             return ToString();
         }
 
-
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(paramField != null)
+            Lw = new LogWindow(paramField);
+            Lw.Show();
+            Lw.Activate();
+        }
     }
 
 }

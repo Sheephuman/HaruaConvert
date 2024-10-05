@@ -10,9 +10,7 @@
         Title="FfmpegComand作成" Height="440" Width="800"
         Closed="QueryCreateWindow_Closed"        
         >
-    <Window.Resources>
-        <local:MultiValueConverter x:Key="MultiValueConverter"/>
-    </Window.Resources>
+
     
     <Grid Opacity="0.8" >
         <Border Background="Transparent" CornerRadius="10" BorderThickness="1" BorderBrush="Gray" />

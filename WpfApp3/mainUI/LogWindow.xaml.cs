@@ -1,13 +1,18 @@
-﻿using HaruaConvert.Parameter;
+﻿using HaruaConvert.Initilize_Method;
+using HaruaConvert.Parameter;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 using static HaruaConvert.Methods.IniCheckerClass;
+
 
 namespace HaruaConvert
 {
@@ -23,20 +28,23 @@ namespace HaruaConvert
     public partial class LogWindow : Window
     {
 
-     
+
+        List<MenuItem> MenuCheckBoxList { get; set; }
 
         Brush TextColor;
         // Pragraph要素のインスタンスを作成します。
 
-        MainWindow main;
-        // FlowDocument要素のインスタンスを作成します。
 
-        public LogWindow(MainWindow _main)
+        ParamField Lw_paramField { get; set; }
+        public LogWindow(ParamField _paramField)
         {
             InitializeComponent();
-    
-            AutoScroll_Checker.IsChecked = true;
-            
+
+            Lw_paramField = new ParamField();
+            Lw_paramField = _paramField;
+
+            //AutoScroll_Checker.IsChecked = true;
+
             var textRange = RichTextRogs.Selection;
             // 文字色
             textRange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
@@ -44,7 +52,6 @@ namespace HaruaConvert
             string test = String.Empty;
 
 
-            main = _main;
 
 
             this.MouseLeftButtonDown += (sender, e) => { this.DragMove(); };
@@ -56,12 +63,10 @@ namespace HaruaConvert
 
             //TextColor = new SolidColorBrush(PreTextColor);
 
-            
 
-            main.paramField.isPaused= false;
 
-         
-
+            Lw_paramField.isPaused = false;
+           
         }
 
 
@@ -77,22 +82,22 @@ namespace HaruaConvert
 
             //if (mainWindow._FfmpProcess.d == true)
             //  return;
-            //if (main.paramField.isExecuteProcessed) //Check Stream is Null 
+            //if (paramField.isExecuteProcessed) //Check Stream is Null 
             //    return;
 
 
-            StreamWriter inputWriter = main._FfmpProcess.StandardInput;
-            
-
-                inputWriter.WriteLine("q");
+            StreamWriter inputWriter = MainWindow. ffmpegProcess.StandardInput;
 
 
-            main.Focus();
+            inputWriter.WriteLine("q");
 
 
-            
+            Focus();
 
-            
+
+
+
+
         }
 
 
@@ -101,12 +106,23 @@ namespace HaruaConvert
 
         private void window_Closed(object sender, EventArgs e)
         {
+            var checkProcess = new CheckboxGetSetValueClass();
+            checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
+            checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.iniPath);
+
+            this.Close();
         }
 
         private void window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
             this.Visibility = Visibility.Collapsed;
+            var checkProcess = new CheckboxGetSetValueClass();
+
+            checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
+            checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.iniPath);
+
+
         }
 
 
@@ -115,15 +131,6 @@ namespace HaruaConvert
 
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-            var checkProcess = new CheckboxGetSetValueClass();
-            checkProcess.CheckediniSetVallue(AutoScroll_Checker,main.paramField.iniPath);
-            checkProcess.CheckediniSetVallue(BackImage_Checker, main.paramField.iniPath);
-
-            this.Close();
-        }
         private void MinimizedButton_Click(object sender, RoutedEventArgs e)
         {
             this.window.WindowState = WindowState.Minimized;
@@ -168,14 +175,6 @@ namespace HaruaConvert
 
         }
 
-        private void AutoScroll_Checker_Checked(object sender, RoutedEventArgs e)
-        {
-            if (main == null)
-                return;
-
-            main.paramField.isAutoScroll = main.paramField.isAutoScroll ? false: true;
-        }
-
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -183,21 +182,28 @@ namespace HaruaConvert
 
         private void PauseButton_Checked(object sender, RoutedEventArgs e)
         {
-            main.paramField.isPaused = !main.paramField.isPaused ? true :false ;
+            Lw_paramField.isPaused = !Lw_paramField.isPaused ? true : false;
 
-            
+
+        }
+
+
+        private void AutoScroll_Checker_Checked(object sender, RoutedEventArgs e)
+        {
+            if(Lw_paramField != null)
+            Lw_paramField.isAutoScroll = AutoScroll_Checker.IsChecked ? true : false;
         }
 
         private void BackImage_Checker_Checked(object sender, RoutedEventArgs e)
         {
-           
 
 
 
 
-                main.paramField.isBackImage = !main.paramField.isBackImage ? true : false; ;
 
-                ImageBrush image = new ImageBrush();
+            Lw_paramField.isBackImage = BackImage_Checker.IsChecked ? true : false ;
+
+            ImageBrush image = new ImageBrush();
             try
             {
                 string imagePath = "BackImage\\harua.jpg";
@@ -212,43 +218,74 @@ namespace HaruaConvert
                 }
 
 
-                if (main.paramField.isBackImage)
+                if (Lw_paramField.isBackImage)
                 {
 
                     image.Opacity = 0.4;
 
-                    main.Lw.RichTextRogs.Opacity = 1;
-                    main.Lw.RichTextRogs.Background = SystemColors.WindowBrush;
-                    main.Lw.RichTextRogs.Foreground = Brushes.Black;
+                    RichTextRogs.Opacity = 1;
+                    RichTextRogs.Background = SystemColors.WindowBrush;
+                    RichTextRogs.Foreground = Brushes.Black;
                     // ブラシを背景に設定する
-                    main.Lw.RichTextRogs.Background = image;
+                    RichTextRogs.Background = image;
 
                 }
                 else
                 {
                     image.Opacity = 0;
-                    main.Lw.RichTextRogs.Opacity = 0.6;
-                    main.Lw.RichTextRogs.Foreground = Brushes.White;
-                    main.Lw.RichTextRogs.Background = Brushes.Black;
+                    RichTextRogs.Opacity = 0.6;
+                    RichTextRogs.Foreground = Brushes.White;
+                    RichTextRogs.Background = Brushes.Black;
                 }
             }
-            catch(DirectoryNotFoundException ex)
+            catch (DirectoryNotFoundException ex)
             {
-                MessageBox.Show("BackImegeフォルダ内にharua.jpgがありません\r\n" + ex.Message) ;
+                MessageBox.Show("BackImegeフォルダ内にharua.jpgがありません\r\n" + ex.Message);
 
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message) ;
+                Debug.WriteLine(ex.Message);
 
             }
         }
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
+            var initial = new InitilizeCheckBox(Lw_paramField);
+            MenuCheckBoxList = initial.InitializeChildCheckBox(this, MenuCheckBoxList);
+            
+
             var checkedProcess = new CheckboxGetSetValueClass();
-           BackImage_Checker.IsChecked = checkedProcess.CheckBoxiniGetVallue(AutoScroll_Checker, main.paramField.iniPath);
-           AutoScroll_Checker.IsChecked = checkedProcess.CheckBoxiniGetVallue(BackImage_Checker, main.paramField.iniPath);
+            // RichTextBoxのContextMenuを取得
+     
+                  
+
+
+                        // メニュー項目を取得
+                        foreach (var item in MenuCheckBoxList)
+                        {
+
+                            // コピーのMenuItemに対する操作
+                            item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
+
+                        }
+
+                    }
+                
+                //paramField.isBackImage = checkedProcess.CheckBoxiniGetVallue(BackImage_Checker, paramField.iniPath);
+                // BackImage_Checker.IsChecked = paramField.isBackImage;
+
+                // paramField.IsAutoScroll = checkedProcess.CheckBoxiniGetVallue(AutoScroll_Checker, paramField.iniPath);
+                // AutoScroll_Checker.IsChecked = paramField.IsAutoScroll;
+
+
+            
+        
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+           this.Close();
         }
     }
 
