@@ -22,8 +22,8 @@
 
 
     <!-- 閉じる-->
-    <Grid x:Name="HaruaGrid" Background ="#FFFDEEF0">
-        <Border Background="#FFFDEEF0" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
+    <Grid x:Name="HaruaGrid" Background="#FFFDEEF0">
+        <Border Background="{Binding Background, ElementName=HaruaGrid}" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
 
         <StackPanel  
             VerticalAlignment="Top"
@@ -54,7 +54,7 @@
                 </TextBlock>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Background="#FFFDEEF0"             
+                    <TextBlock Background="{Binding Background, ElementName=HaruaGrid}"             
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                   Height="25"
@@ -86,7 +86,7 @@
                     HorizontalAlignment="Right"
                     Grid.Column="2">
                     <!-- 閉じる-->
-                    <Button Background="#FFFDEEF0"                      
+                    <Button Background="{Binding Background, ElementName=HaruaGrid}"                      
                         BorderBrush="{x:Null}"  x:Name="CloseButton" 
                         Margin="0,5,3,0" Width="20" Height="20" 
     Click="CloseButton_Click"  HorizontalAlignment="Right" Content="✕" FontSize="15"/>
@@ -158,28 +158,35 @@
                                             Margin="0,4,0,0"
                               
                                                     
-                               AllowDrop="True"     
+                                            AllowDrop="True"     
                                             Background="Transparent"
                                 />
 
                                         </StackPanel>
                                     </GroupBox>
-
-                                    <TextBox Width="390"
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Left">
+                                        <TextBox Width="350" Margin="10,3,0,0"
                                         x:Name="ParamText" Text ="{Binding StartQuery,UpdateSourceTrigger=PropertyChanged}"   FontSize="16"   
                                                ToolTip="ffmpegに渡すオプションです。"
                                               >
-                                        <TextBox.ContextMenu>
-                                            <ContextMenu>
-                                                <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}" />
-                                                <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:QueryBuidCommand.SetDefaultQuery}" />
-                                            </ContextMenu>
+                                            <TextBox.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}" />
+                                                    <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:QueryBuidCommand.SetDefaultQuery}" />
+                                                </ContextMenu>
 
 
-                                        </TextBox.ContextMenu>
-
-                                    </TextBox>
-
+                                            </TextBox.ContextMenu>
+                                        </TextBox >
+                                        <Button 
+                                            Width="30"
+                                            Opacity="0.2"
+                                         Background="{Binding Background, ElementName=HaruaGrid}"
+                                            Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}"
+                                            Content="para"/>
+                                    </StackPanel>
 
 
 
