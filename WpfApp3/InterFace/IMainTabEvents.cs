@@ -139,7 +139,7 @@ namespace HaruaConvert.HaruaInterFace
 
             if (main.paramField.isExecuteProcessed)
             {
-                MessageBox.Show("ffmpwg.exeが実行中ですよ");
+                MessageBox.Show("ffmpeg.exeが実行中ですよ");
                 return;
             }
 
@@ -152,10 +152,8 @@ namespace HaruaConvert.HaruaInterFace
                 //Convert Process Improvement Part
 
                 
-                main.paramField.isExecuteProcessed = main.FileConvertExec(main.paramField.setFile, sender);
-                
-                
-
+                main.paramField.isExecuteProcessed = main.FileConvertExec(main.paramField.setFile, sender, main.GetLw());
+                main.Lw.Show();
                 main.Lw.Activate();
 
             }            

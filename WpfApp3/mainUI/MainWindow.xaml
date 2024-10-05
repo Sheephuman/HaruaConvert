@@ -187,6 +187,7 @@
                                             Margin="6,0,0,0"
                                            Background="Transparent"
                                             Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}"
+                                           
                                             Content="para"/>                                        
                                     </StackPanel>
 
@@ -479,13 +480,15 @@
                               Header="Settings" Margin="-2,-2,2,0" >
                         <GroupBox Header="一般設定">
                             <CheckBox x:Name="IsOpenForuderChecker"
-                                  IsChecked="False"
-                                Checked="isOpenFolder_Checked"
-                                         Unchecked="isOpenFolder_Checked"
-                                Content="変換終了後にフォルダを自動的に開く"/>
-
-
-
+          IsChecked="False"
+          Checked="isOpenFolder_Checked"
+          Unchecked="isOpenFolder_Checked">
+                                <CheckBox.Content>
+                                    <TextBlock TextWrapping="Wrap">
+            変換終了後にフォルダを自動的に開く            （メモリを占有しPCが重くなることがあります）
+                                    </TextBlock>
+                                </CheckBox.Content>
+                            </CheckBox>                            
                         </GroupBox>
                     </TabItem>
 

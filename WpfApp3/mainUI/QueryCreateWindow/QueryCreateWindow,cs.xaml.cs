@@ -26,7 +26,7 @@ namespace HaruaConvert.userintarface
 
     public partial class QueryCreateWindow : Window
     {
-        readonly int minValue = 100;
+        //readonly int minValue = 100;
         MultiValueConverter converter;
       
             
@@ -291,9 +291,12 @@ namespace HaruaConvert.userintarface
 
         private void QueryBuidButton_Click(object sender, RoutedEventArgs e)
         {
-            if(!string.IsNullOrEmpty(PreviewBlock.Text))
-               main.ParamText.Text = PreviewBlock.Text;
-
+            if (!string.IsNullOrEmpty(PreviewBlock.Text))
+            {
+                main.ParamText.SelectAll();
+                main.ParamText.SelectedText = "";
+                main.ParamText.SelectedText = PreviewBlock.Text;
+            }
             //メインウィンドウのBinding先がMainParamクラスであるため、
             //その中の変数に直接アクセスしてもBindingに反映されない
         }

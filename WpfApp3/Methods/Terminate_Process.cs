@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HaruaConvert
@@ -11,7 +12,7 @@ namespace HaruaConvert
         Process killp;
         private bool disposedValue;
 
-        public delegate void KillProcessDeligate(int Target_id);
+        public delegate Task KillProcessDeligate(int Target_id);
 
         public void mainTerminate_deligateExec(int _target_id)
         {
@@ -22,7 +23,7 @@ namespace HaruaConvert
            
         }
 
-        public void Terminate_Process(int Target_P)
+        public Task Terminate_Process(int Target_P)
         {
             try
             {
@@ -44,16 +45,18 @@ namespace HaruaConvert
 
                 }
 
-
+                return Task.CompletedTask;
             }
             catch (System.Threading.Tasks.TaskCanceledException ex)
             {
                 Console.WriteLine(ex.Message + "Sheep is lady!!");
+                return Task.CompletedTask;
             }
 
             catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message + "プロセスIDがありません");
+                return Task.CompletedTask;
             }
 
         }

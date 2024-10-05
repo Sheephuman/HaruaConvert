@@ -2,6 +2,7 @@
 using HaruaConvert.Parameter;
 using NAudio.Wave;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -19,18 +20,18 @@ namespace HaruaConvert
     public partial class MainWindow : Window
     {
 
-     
-
         public string _arguments { get; set; }
 
         /// <summary>
         /// 共有箇所：LogWindowのConvertStopButton
         /// </summary>
-        public Process _FfmpProcess { get; set; } = null!;
+       
 
        public EscapePath escapes { get; set; }
 
 
+
+        public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
 #pragma warning restore CA1051 // 参照可能なインスタンス フィールドを宣言しません
@@ -41,6 +42,11 @@ namespace HaruaConvert
         /// </summary>
         public Thread th1 { get; set; } = null!;
 
+        public LogWindow GetLw()
+        {
+            return Lw;
+        }
+
         //   delegate string addOptionDeligate(string _argument);
 
         /// <summary>
@@ -49,12 +55,9 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        public bool FileConvertExec(string _fullPath,object sender)
+        public bool FileConvertExec(string _fullPath,object sender, LogWindow lw)
         {
             
-               th1 = new Thread(new ThreadStart(ffmpegProsseing));
-       
-
             escapes = new EscapePath();
 
 
@@ -68,7 +71,6 @@ namespace HaruaConvert
 
             //Whether to use Original Paramerter Query
             var chButton = VisualTreeHelperWrapperHelpers.FindDescendant<Button>(Drop_Label);
-
 
 
 
@@ -140,9 +142,19 @@ namespace HaruaConvert
                     checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
 
                     paramField.isExecuteProcessed = checker;
-                    if(!checker)
+                    if(!checker) //pushed No
                        return false;
-               
+
+
+
+                th1 = new Thread(() => ffmpegProsseing());
+
+                th1.Start();
+
+
+
+
+
                 return true;
             }
             
@@ -168,10 +180,9 @@ namespace HaruaConvert
 
             if (msbr == MessageBoxResult.Yes)
             {
-                    th1.Start();
-                    Lw.Show();
-                    Lw.Activate();
+                   
              
+
 
                 // ParamField.isExitProcessed = false;
 
@@ -214,7 +225,8 @@ namespace HaruaConvert
             return satisfied;
         }
 
-
+        long memorySize { get; set; }
+        List<Process> AllExplorerProcesses { get; set; }
         public LogWindow Lw { get; set; }
         public bool IsDefaultQuerySet { get; internal set; }
 
@@ -226,39 +238,43 @@ namespace HaruaConvert
             ///
             ////
             ////Enable Asnc Task Canceller
-            
-            
+
+
+
 
             using (paramField.ctoken = new CancellationTokenSource())
-            using (_FfmpProcess = new Process())
+            using (ffmpegProcess = new Process())
             {
 
 
-                _FfmpProcess.StartInfo.CreateNoWindow = true;
-                _FfmpProcess.StartInfo.UseShellExecute = false;
-                _FfmpProcess.StartInfo.RedirectStandardInput = true;
+                ffmpegProcess.StartInfo.CreateNoWindow = true;
+                ffmpegProcess.StartInfo.UseShellExecute = false;
+                ffmpegProcess.StartInfo.RedirectStandardInput = true;
 
-                _FfmpProcess.StartInfo.RedirectStandardError = true;
-                _FfmpProcess.StartInfo.FileName = "cmd.exe";
-
-
-                    _FfmpProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
+                ffmpegProcess.StartInfo.RedirectStandardError = true;
+                ffmpegProcess.StartInfo.FileName = "cmd.exe";
 
 
+                    ffmpegProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
 
-                _FfmpProcess.EnableRaisingEvents = true;
+
+
+                ffmpegProcess.EnableRaisingEvents = true;
 
 
                 
 
-                _FfmpProcess.Exited += new EventHandler(ffmpeg_Exited);
+                ffmpegProcess.Exited += new EventHandler(ffmpeg_Exited);
 
 
 
-                _FfmpProcess.ErrorDataReceived += new DataReceivedEventHandler(delegate (object obj, DataReceivedEventArgs e)
+                ffmpegProcess.ErrorDataReceived += new DataReceivedEventHandler(delegate (object obj, DataReceivedEventArgs e)
                 {
-                    Dispatcher.Invoke(() =>
+                    if (Lw != null)
+                        Dispatcher.Invoke(() =>
                    {
+                       
+
                        Lw.RichTextRogs.AppendText(e.Data);
                        Lw.RichTextRogs.AppendText(Environment.NewLine);
 
@@ -277,17 +293,17 @@ namespace HaruaConvert
 
                    });
                 });
-                _FfmpProcess.Start();
+                ffmpegProcess.Start();
 
 
                 Thread.Sleep(1000);
-                _FfmpProcess.BeginErrorReadLine();
+                ffmpegProcess.BeginErrorReadLine();
 
 
 
                 paramField.ctoken.Token.WaitHandle.WaitOne();
 
-                _FfmpProcess.WaitForExit(0);
+                ffmpegProcess.WaitForExit(0);
 
 
             }
@@ -355,8 +371,17 @@ namespace HaruaConvert
                 };
 
                 explorerProcess.Start();
-               paramField.explorerPrpcesslist.Add(explorerProcess.Id);
+                memorySize = explorerProcess.WorkingSet64;
+
+                Process[] exploreres = Process.GetProcessesByName("explorer.exe");
+                foreach (Process ex in exploreres)
+                {
+                    AllExplorerProcesses.Add(ex);
+                }
             }
+
+            
+            
 
             Debug.WriteLine($"/select, \"{paramField.check_output}\"");
             
