@@ -167,7 +167,9 @@
                                     <StackPanel
                                         Orientation="Horizontal"
                                         HorizontalAlignment="Left">
-                                        <TextBox Width="350" Margin="10,3,0,0"
+                                        <TextBox 
+                                            IsUndoEnabled ="True"
+                                            Width="350" Margin="10,3,0,0"
                                         x:Name="ParamText" Text ="{Binding StartQuery,UpdateSourceTrigger=PropertyChanged}"   FontSize="16"   
                                                ToolTip="ffmpegに渡すオプションです。"
                                               >
@@ -181,11 +183,11 @@
                                             </TextBox.ContextMenu>
                                         </TextBox >
                                         <Button 
-                                            Width="30"
-                                            Opacity="0.2"
-                                         Background="{Binding Background, ElementName=HaruaGrid}"
+                                            Width="30"      
+                                            Margin="6,0,0,0"
+                                           Background="Transparent"
                                             Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}"
-                                            Content="para"/>
+                                            Content="para"/>                                        
                                     </StackPanel>
 
 

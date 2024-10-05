@@ -82,11 +82,18 @@ namespace HaruaConvert.Command
 
         private void defaultSetQueryBinding(object sender, ExecutedRoutedEventArgs e)
         {
-            
-       
-          _main.ParamText.Text = "-b:v 700k -codec:v " +
+            MessageBoxResult msbr = MessageBox.Show("ffmpegにdefaultクエリを設定しますか？\r\n",
+               "メッセージボックス", MessageBoxButton.YesNo,
+               MessageBoxImage.Asterisk);
+            if (msbr == MessageBoxResult.Yes)
+            {
+
+                _main.ParamText.Text = "-b:v 700k -codec:v " +
                 "libx265 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 ";
-                
+            }
+
+            else
+                return;
             
         }
         
