@@ -83,7 +83,7 @@ namespace HaruaConvert
             OutputSelector.openDialogButton.PreviewMouseDown += FileSelector_MouseDown;
         }
 
-        public void InitializeChildComponents()
+        public void SetSelectorList()
         {
             selectorList = new List<ParamSelector>();
             childCheckBoxList = new List<CheckBox>();
