@@ -188,7 +188,7 @@
                                            Background="Transparent"
                                             Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}"
                                            
-                                            Content="para"/>                                        
+                                            Content="para"/>
                                     </StackPanel>
 
 
@@ -346,12 +346,12 @@
                     Header="Parameter"  HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Center" Margin="2,0,0,0">
 
                         <Grid >
-
-
-
-
-
-                            <StackPanel Margin="10,0,0,0" Grid.ColumnSpan="4" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="27*"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="512*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="10,0,0,0" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <CheckBox 
                                 Checked="isUserOriginalParameter_Checked"
                                 Unchecked="isUserOriginalParameter_Checked"
@@ -393,7 +393,7 @@
                                 
                                 Header="ffmpeg.exeに渡すパラメータ" 
                                       FontWeight="Bold" FontSize="14"
-                             Margin="0,20,0,0" Grid.ColumnSpan="6" Grid.RowSpan="2">
+                             Margin="0,20,0,0" Grid.ColumnSpan="3">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                     <StackPanel x:Name="SelectorStack" Orientation="Vertical"/>
                                 </ScrollViewer>
@@ -402,7 +402,7 @@
 
 
 
-                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Margin="0,205,0,0" Grid.RowSpan="5">
+                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3" Margin="0,205,0,0">
                                 <GroupBox 
                                 Margin="0,40,0,0"
                                 HorizontalAlignment="Left" BorderBrush="Black" Width="400" FontSize="16"  Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="3"
@@ -489,7 +489,7 @@
             変換終了後にフォルダを自動的に開く            （メモリを占有しPCが重くなることがあります）
                                     </TextBlock>
                                 </CheckBox.Content>
-                            </CheckBox>                            
+                            </CheckBox>
                         </GroupBox>
                     </TabItem>
 
