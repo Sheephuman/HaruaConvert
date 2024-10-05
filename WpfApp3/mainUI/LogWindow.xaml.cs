@@ -35,7 +35,7 @@ namespace HaruaConvert
         // Pragraph要素のインスタンスを作成します。
 
 
-        ParamField Lw_paramField { get; set; }
+       public ParamField Lw_paramField { get; set; }
         public LogWindow(ParamField _paramField)
         {
             InitializeComponent();

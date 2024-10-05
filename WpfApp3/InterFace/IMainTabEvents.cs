@@ -153,10 +153,16 @@ namespace HaruaConvert.HaruaInterFace
 
                 
                 main.paramField.isExecuteProcessed = main.FileConvertExec(main.paramField.setFile, sender, main.GetLw());
-                main.Lw = new LogWindow(main.paramField);
-                main.Lw.Show();
-                main.Lw.Activate();
 
+                if (main.Lw != null)
+                {
+                    main.Lw = new LogWindow(main.paramField);
+                    if (main.Lw.IsEnabled != false)
+                    {
+                        main.Lw.Show();
+                        main.Lw.Activate();
+                    }
+                }
             }            
             else
             {
