@@ -26,7 +26,7 @@ namespace HaruaConvert.userintarface
 
     public partial class QueryCreateWindow : Window
     {
-        //  readonly int minValue = 500;
+        readonly int minValue = 100;
         MultiValueConverter converter;
       
             
@@ -39,7 +39,6 @@ namespace HaruaConvert.userintarface
         
         public QueryCreateWindow(MainWindow _main)
         {
-           
 
 
             main = _main;
@@ -54,10 +53,44 @@ namespace HaruaConvert.userintarface
 
             qf = new QueryField();
 
-            //Read ffmpeg Codec Dictionary
-            qf.FfmpegVideoCodecDic = getCoudecs.GetCodecNameExecute(codec.typeVideo);
+            var codecsToFindVideo = new List<string>
+{
+    "av1",
+"hevc",
+"libx265",
+"h264",
+"jpeg2000",
+"vp9",
+"prores",
+"dnxhd",
+"xvid",
+"divx",
+"h263",
+"mjpeg",
+"cineform",
+"avc-intra",
 
-             qf.FfmpegAudioCodecDic = getCoudecs.GetCodecNameExecute(codec.typeAudio);
+};
+
+            var codecsToFindAudio = new List<string>
+{
+
+ //追加された圧縮率の高いコーデック
+"flac",      // 可逆音声コーデック
+"aac",       // 高効率音声コーデック
+"mp3",       // 一般的な音声コーデック
+"wavpack"    // 可逆音声コーデック
+
+};
+
+
+            //Read ffmpeg Codec Dictionary
+            
+            
+            qf.FfmpegVideoCodecDic = getCoudecs.GetCodecNameExecute(codec.typeVideo, codecsToFindVideo);
+
+            
+            qf.FfmpegAudioCodecDic = getCoudecs.GetCodecNameExecute(codec.typeAudio, codecsToFindAudio);
 
             //foreach (var cocec in FfmpegAudioCodecDic)
             //{ Debug.WriteLine(cocec); }
@@ -90,6 +123,9 @@ namespace HaruaConvert.userintarface
             DataContext = qf;
 
             MouseLeftButtonDown += (sender, e) => { DragMove(); };
+
+
+            qf.BitRateInput = "100";
         }
 
        

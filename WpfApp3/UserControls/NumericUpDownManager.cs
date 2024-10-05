@@ -19,7 +19,7 @@ namespace HaruaConvert.UserControls
         
 
         }
-   
+        readonly int minValue = 100;
 
         TextBox NUDTextBox;
      
@@ -81,14 +81,14 @@ namespace HaruaConvert.UserControls
             string intext = string.Empty;
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
-                selnumber = Math.Max(number + interval, minvalue);
+               Math.Min(selnumber = number + interval,0);
                 intext = selnumber.ToString(CultureInfo.CurrentCulture);
             }
                 
 
 
-            if(!string.IsNullOrEmpty(intext))
-                NUDTextBox.Text = intext; //初期値を設定
+            if(string.IsNullOrEmpty(intext))
+                NUDTextBox.Text = minValue.ToString(CultureInfo.CurrentCulture); //初期値を設定
             
             
 
@@ -97,8 +97,9 @@ namespace HaruaConvert.UserControls
             //int number;
             //if (NUDTextBox.Text != "") number = Convert.ToInt32(NUDTextBox.Text, CultureInfo.CurrentCulture);
             //else number = 0;
-            //if (number > minvalue)
-            //    NUDTextBox.Text = Convert.ToString(number - 1, CultureInfo.CurrentCulture);
+            
+            if (selnumber >= minvalue)
+               NUDTextBox.Text = selnumber.ToString(CultureInfo.CurrentCulture);
 
         }
 
@@ -180,7 +181,7 @@ namespace HaruaConvert.UserControls
         {
             if (int.TryParse(NUDTextBox.Text, out var number))
             {
-                number =　Math.Min(number + interval, 100);
+                number =　number + interval;
                
             }
 

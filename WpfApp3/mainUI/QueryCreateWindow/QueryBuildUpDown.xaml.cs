@@ -9,7 +9,7 @@ namespace HaruaConvert.UserControls
     /// </summary>
     public partial class QueryCreateUpDown : UserControl
     {
-        public static int minvalue { get; } = 500;
+        public static int minvalue { get; } = 100;
         public static readonly int maxvalue = 2000;
         public const int startvalue = 10;
 
@@ -25,7 +25,7 @@ namespace HaruaConvert.UserControls
 
             NUDTextBox = QueryCreateWindow.qc.BitRateNumBox;    
              
-            NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
+           // NUDTextBox.Text = minvalue.ToString(CultureInfo.CurrentCulture);
 
 
             nuManager = new NumericUpDownManager(NUDTextBox);
