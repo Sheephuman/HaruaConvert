@@ -10,7 +10,7 @@
         Opacity="0.8"
         Closed="window_Closed" 
         Closing="window_Closing"
-        Loaded="window_Loaded"
+        Loaded="window_Loded"
         SizeToContent="Height"       >
 
     <Grid >

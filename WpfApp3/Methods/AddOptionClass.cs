@@ -4,12 +4,9 @@ namespace HaruaConvert.Methods
 {
     public class AddOptionClass
     {
-
-        MainWindow main;
-        public AddOptionClass(MainWindow _main)
+        public AddOptionClass()
         {
 
-            main = _main;
         }
 
 

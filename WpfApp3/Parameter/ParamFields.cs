@@ -105,6 +105,5 @@ namespace HaruaConvert.Parameter
             public const string InputSelector = nameof(InputSelector);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

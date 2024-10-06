@@ -43,6 +43,7 @@ namespace HaruaConvert
             Lw_paramField = new ParamField();
             Lw_paramField = _paramField;
 
+
             //AutoScroll_Checker.IsChecked = true;
 
             var textRange = RichTextRogs.Selection;
@@ -64,7 +65,7 @@ namespace HaruaConvert
             //TextColor = new SolidColorBrush(PreTextColor);
 
 
-
+            
             Lw_paramField.isPaused = false;
            
         }
@@ -87,13 +88,13 @@ namespace HaruaConvert
 
             try
             {
-                if (MainWindow.ffmpegProcess != null)
-                {
+              
+
                     StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
 
                     inputWriter.WriteLine("q");
-                }
+                
 
                 Focus();
 
@@ -112,7 +113,7 @@ namespace HaruaConvert
 
 
 
-        private void window_Closed(object sender, EventArgs e)
+        public void window_Closed(object sender, EventArgs e)
         {
             var checkProcess = new CheckboxGetSetValueClass();
             checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
@@ -200,6 +201,7 @@ namespace HaruaConvert
         {
             if(Lw_paramField != null)
             Lw_paramField.isAutoScroll = AutoScroll_Checker.IsChecked ? true : false;
+            
         }
 
         private void BackImage_Checker_Checked(object sender, RoutedEventArgs e)
@@ -276,7 +278,8 @@ namespace HaruaConvert
 
                             // コピーのMenuItemに対する操作
                             item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
-
+                            if(item.Name == AutoScroll_Checker.Name)
+                                Lw_paramField.isAutoScroll = true;
                         }
 
                     }
@@ -294,6 +297,11 @@ namespace HaruaConvert
         {
 
            this.Close();
+        }
+
+        private void window_Loded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
