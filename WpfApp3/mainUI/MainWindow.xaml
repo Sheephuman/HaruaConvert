@@ -474,23 +474,35 @@
 
 
 
-                    </TabItem>
+               </TabItem>
 
-                    <TabItem  x:Name="SettingsTab"                              
+                <TabItem  x:Name="SettingsTab"                              
                               PreviewMouseDown="TabItem_MouseDown" 
                               Header="Settings" Margin="-2,-2,2,0" >
-                        <GroupBox Header="一般設定">
-                            <CheckBox x:Name="IsOpenForuderChecker"
+                    <GroupBox Header="一般設定">
+                            <StackPanel>
+                                <CheckBox x:Name="IsOpenForuderChecker"
           IsChecked="False"
           Checked="isOpenFolder_Checked"
           Unchecked="isOpenFolder_Checked">
-                                <CheckBox.Content>
-                                    <TextBlock TextWrapping="Wrap">
+
+                                    <CheckBox.Content>
+                                        <TextBlock TextWrapping="Wrap">
             変換終了後にフォルダを自動的に開く            （メモリを占有しPCが重くなることがあります）
-                                    </TextBlock>
-                                </CheckBox.Content>
-                            </CheckBox>
+                                        </TextBlock>
+                                    </CheckBox.Content>
+
+                                </CheckBox>
+                                <CheckBox x:Name="ExitExplorerChecker">
+                                    <CheckBox.Content>
+                                        <TextBlock TextWrapping="Wrap">
+                                   終了時、一部のExplorer.exeを終了させる (タスクバーが消えることがあります)
+                                        </TextBlock>
+                                    </CheckBox.Content>
+                                </CheckBox>
+                            </StackPanel>
                         </GroupBox>
+                        
                     </TabItem>
 
                     <TabItem Header="credit" x:Name="CreditTab" Width="50" HorizontalAlignment="Left">

@@ -36,6 +36,7 @@ namespace HaruaConvert
                 using (killp = new Process())
                 {
                     killp.StartInfo.FileName = "cmd.exe";
+                    killp.StartInfo.UseShellExecute = false;
 
                     killp.StartInfo.CreateNoWindow = true;
                     killp.StartInfo.Arguments = "/c Taskkill /F /pid " + target_id;
@@ -45,17 +46,28 @@ namespace HaruaConvert
 
                 }
 
+                if (killp.ExitCode == 0 || killp.Container != null)
+                {
+                    Debug.WriteLine($"Process {target_id} killed successfully.");
+                    
+                }
+
+                return Task.CompletedTask;
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                Debug.WriteLine(ex.Message + "Sheep is lady!!");
                 return Task.CompletedTask;
             }
             catch (System.Threading.Tasks.TaskCanceledException ex)
             {
-                Console.WriteLine(ex.Message + "Sheep is lady!!");
+                Debug.WriteLine(ex.Message + "Sheep is lady!!");
                 return Task.CompletedTask;
             }
 
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message + "プロセスIDがありません");
+                Debug.WriteLine(ex.Message + "プロセスIDがありません");
                 return Task.CompletedTask;
             }
 

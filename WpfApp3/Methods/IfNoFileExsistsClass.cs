@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -21,16 +22,11 @@ namespace HaruaConvert.Methods
             if (!main.paramField.isExecuteProcessed)
             {
 
+
+                main.th1 = new Thread(() => main.ffmpegProsseing());
+                main.th1.IsBackground = true; // メインスレッドが終了すると自動的に終了
                 main.th1.Start();
-                if (main.Lw != null)
-                {
-                    main.Lw = new LogWindow(main.paramField);
-                    if (main.Lw.IsEnabled != false)
-                    {
-                        main.Lw.Show();
-                        main.Lw.Activate();
-                    }
-                }
+               
             }
         
             else

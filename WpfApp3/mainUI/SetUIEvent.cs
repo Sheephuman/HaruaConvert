@@ -52,6 +52,8 @@ namespace HaruaConvert.HaruaServise
             _main.AllowDrop = true;
             _main.InputSelector.FilePathBox.PreviewDragOver += InputSelector_PreviewDragOver;
 
+            Application.Current.Exit += _main.OnApplicationExit;
+
             //_main.OutputSelector.FilePathBox.PreviewDragOver += OutSelector_PreviewDragOver;
             _main.DragOver += MainWindow_DragOver;
             _main.Directory_DropButon.Drop += MainWindow_FileDrop;

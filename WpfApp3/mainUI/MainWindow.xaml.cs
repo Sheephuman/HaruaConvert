@@ -54,6 +54,8 @@ namespace HaruaConvert
 
 
         public static bool firstSet { get; set; } //初回起動用
+        public static bool firstlogWindow { get; set; } 
+
         public string baseArguments { get; set; }
 
         List<CheckBox> childCheckBoxList;
@@ -100,9 +102,7 @@ namespace HaruaConvert
             main = this;
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-  
-
-
+            
             SetUIEvent uiManager = new SetUIEvent(main);
             uiManager.RegisterUIDropEvent();
 
@@ -110,7 +110,8 @@ namespace HaruaConvert
 
             InitializeParameters();
 
-
+            Lw = new LogWindow(paramField);
+　　　　　
 
             InitializeViewModels();
             var initail = new InitilizeCheckBox(paramField);
@@ -420,7 +421,7 @@ namespace HaruaConvert
 
         private delegate Task ProcessKill_deligate(int targetProcess);
 
-
+        public delegate void ExitEvent_delegate(object sender , ExitEventArgs e);
 
         private void NoAudio_Checked(object sender, RoutedEventArgs e)
         {
@@ -509,7 +510,7 @@ namespace HaruaConvert
         }
 
 
-        void ParamSave_Procedure()
+       public void ParamSave_Procedure()
         {
 
             int i = 0;
@@ -567,12 +568,11 @@ namespace HaruaConvert
 
             }
         }
-
+            
 
         private void Window_Closed(object sender, EventArgs e)
         {
 
-            ParamSave_Procedure();
 
         }
 
@@ -852,13 +852,7 @@ namespace HaruaConvert
             return ToString();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if(paramField != null)
-            Lw = new LogWindow(paramField);
-            Lw.Show();
-            Lw.Activate();
-        }
+     
     }
 
 }

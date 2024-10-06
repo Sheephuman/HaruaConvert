@@ -42,9 +42,11 @@ namespace HaruaConvert
         /// </summary>
         public Thread th1 { get; set; } = null!;
 
-        public LogWindow GetLw()
+        public void GetLw()
         {
-            return Lw;
+            //if(paramField != null)
+       //     Lw = new LogWindow(paramField);
+       //     return Lw;
         }
 
         //   delegate string addOptionDeligate(string _argument);
@@ -55,7 +57,7 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        public bool FileConvertExec(string _fullPath,object sender, LogWindow lw)
+        public bool FileConvertExec(string _fullPath,object sender)
         {
             
             escapes = new EscapePath();
@@ -142,14 +144,31 @@ namespace HaruaConvert
                     checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
 
                     paramField.isExecuteProcessed = checker;
-                    if(!checker) //pushed No
-                       return false;
+                //   if(!checker) //pushed No
+                //    return false;
 
+                if (Lw != null)
+                {
+                    if (!firstlogWindow)
+                    {
+                        Lw.Show();
+                        firstlogWindow = true;
 
+                    }
+                    else
+                    {
+                        Lw.WindowState = WindowState.Normal;
+                        Lw.Topmost = true;
+                        Lw.Activate();
+                        Lw.Topmost = false;
+                    }
+                }
 
-                th1 = new Thread(() => ffmpegProsseing());
+             
 
-                th1.Start();
+                //th1 = new Thread(() => ffmpegProsseing());
+
+                //th1.Start();
 
 
 
@@ -162,6 +181,8 @@ namespace HaruaConvert
 
             catch (Exception ex)
             {
+                th1.Join();
+
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -182,7 +203,7 @@ namespace HaruaConvert
             {
 
 
-                Lw = new LogWindow(paramField);
+               // Lw = new LogWindow(paramField);
 
                 // ParamField.isExitProcessed = false;
 
@@ -230,7 +251,7 @@ namespace HaruaConvert
         public LogWindow Lw { get; set; }
         public bool IsDefaultQuerySet { get; internal set; }
 
-        void ffmpegProsseing()
+       public void ffmpegProsseing()
         {
             ////////
             /////https://qiita.com/skitoy4321/items/10c47eea93e5c6145d48
@@ -257,9 +278,7 @@ namespace HaruaConvert
 
                     ffmpegProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
 
-
-
-                ffmpegProcess.EnableRaisingEvents = true;
+                    ffmpegProcess.EnableRaisingEvents = true;
 
 
                 
@@ -282,7 +301,7 @@ namespace HaruaConvert
                     //  Debug.WriteLine(Environment.NewLine);
 
 
-                       if (Lw.Lw_paramField.isAutoScroll)
+                       if (Lw.AutoScroll_Checker.IsChecked)
                            Lw.RichTextRogs.ScrollToEnd();
 
                        //Another thread accessing
@@ -296,16 +315,16 @@ namespace HaruaConvert
                 ffmpegProcess.Start();
 
 
+                paramField.ffmpeg_pid = ffmpegProcess.Id; ;
+
                 Thread.Sleep(1000);
                 ffmpegProcess.BeginErrorReadLine();
-
 
 
                 paramField.ctoken.Token.WaitHandle.WaitOne();
 
                 ffmpegProcess.WaitForExit(0);
-
-
+             
             }
 
         }
@@ -315,9 +334,9 @@ namespace HaruaConvert
         {
             var current = Directory.GetCurrentDirectory();
 
-
+            paramField.isExecuteProcessed = false;
             //wave出力の初期化
-            
+
             using (WaveOutEvent outputDevice = new WaveOutEvent())
             using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
             {
@@ -334,8 +353,8 @@ namespace HaruaConvert
                 await playbackCompleted.Task;
 
             }
-
-            paramField.isExecuteProcessed = false;
+            
+            
 
         }
 
@@ -360,7 +379,7 @@ namespace HaruaConvert
             //}
 
 
-
+            if(paramField.isOpenFolder)
             using (Process explorerProcess = new Process())
             {
                 explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
@@ -372,8 +391,10 @@ namespace HaruaConvert
 
                 explorerProcess.Start();
                 memorySize = explorerProcess.WorkingSet64;
+                
+                AllExplorerProcesses = new List<Process>();
 
-                Process[] exploreres = Process.GetProcessesByName("explorer.exe");
+                Process[] exploreres = Process.GetProcessesByName("explorer");
                 foreach (Process ex in exploreres)
                 {
                     AllExplorerProcesses.Add(ex);

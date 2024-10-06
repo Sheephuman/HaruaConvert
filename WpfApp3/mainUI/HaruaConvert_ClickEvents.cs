@@ -1,5 +1,7 @@
-﻿using HaruaConvert.Parameter;
+﻿using HaruaConvert.Methods;
+using HaruaConvert.Parameter;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -14,9 +16,9 @@ namespace HaruaConvert
 {
     public partial class MainWindow
     {
-        
 
-        
+
+
 
         private void NUD_DownButton_Click(object sender, RoutedEventArgs e)
         {
@@ -88,6 +90,17 @@ namespace HaruaConvert
                     }
                 }
         }
+      delegate void exitEvdel(object sender, ExitEventArgs e);
+
+        public void OnApplicationExit(object sender, ExitEventArgs e)
+        {
+
+            //{
+            //    var exd = new ExitProcedureClass(main);
+            //    exd.ExitProcedure(sender,e);
+        }
+
+
 
 
         private async void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -96,107 +109,91 @@ namespace HaruaConvert
             {
                 ParamSave_Procedure();
 
+                // 終了処理が完了したことを通知する変数
+                var Completed = new TaskCompletionSource<bool>();
 
                 // Closeだけでは確実にプロセスが終了されない
-                  if(Lw != null)
-                     Lw.Close();
-                // Close();
-                long threshold = 0;
+                if (Lw != null)
+                    Lw.Close();
+
+                //List<Process> smallestMemoryProcess = new List<Process>();
+               
+
+
+
+                Terminate_ProcessClass tpc = new Terminate_ProcessClass();
+                ProcessKill_deligate killProcessDell;
+                killProcessDell = tpc.Terminate_Process;
+
                 if (AllExplorerProcesses != null)
                 {
-
-
                     // 最小メモリサイズのプロセスを取得
-                    Process smallestMemoryProcess = AllExplorerProcesses
-                    .OrderBy(process => process.WorkingSet64) // メモリサイズでソート
-                    .FirstOrDefault(); // 最初のプロセスを取得（最小サイズ）
 
-                    threshold = smallestMemoryProcess.WorkingSet64 * 2; // 10MB
 
-                }
-
-                    using (var tpc = new Terminate_ProcessClass())
+                    using (tpc = new Terminate_ProcessClass())
                     {
-
-                        ProcessKill_deligate killProcessDell = tpc.Terminate_Process;
-
                       
-                        // explorer.exeの終了処理。
-                        if (AllExplorerProcesses != null)
-                        {
-                            // メモリサイズの閾値（例: 10MB = 10485760バイト）
-                          
 
-                            foreach (Process explorer in main.AllExplorerProcesses)
-                            {
-                                if (threshold >= explorer.WorkingSet64)
-                                    await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
-                            }
+                        //threshold = AllExplorerProcesses.Count /2 ;
 
-
-                            // 終了処理が完了したことを通知する変数
-                            var Completed = new TaskCompletionSource<bool>();
-
-
-                            // ここでタスクの完了を手動で設定
-                            Completed.SetResult(true);
-
-
-                            await Completed.Task;
-
-
-                            ///タスクバーが復活しなかった
-                            //ProcessStartInfo startInfo = new ProcessStartInfo
-                            //{
-                            //    FileName = "explorer.exe",    // 実行するファイル（explorer.exe）
-
-                            //};
+                        // ffmpegの強制終了// 最小メモリサイズのプロセスを取得
+                        //Process smallestMemoryProcess = AllExplorerProcesses
+                        //.OrderBy(process => process.WorkingSet64)// メモリサイズでソート
+                        //.Skip(threshold).FirstOrDefault(); //最小サイズから2番目のプロセスを取得
 
 
 
-                            // ffmpegの強制終了
-                            if (th1 != null)
-                            {
-                                await killProcessDell(paramField.ffmpeg_pid);  // 非同期にプロセスを終了
-                            }
-                        }
-                    // mainWindow Processが正常に終了されていない場合の対策
 
 
-                        if (mainProcess != null)
-                        {
-                            await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
-                        }
+
+                        //// explorer.exeの終了処理。
+                        //if (smallestMemoryProcess != null)
+                        //{
+                        //kill memory size 1/2 in AllExploreProcess
+                        foreach (Process explorer in AllExplorerProcesses)
+                            //if (smallestMemoryProcess.WorkingSet64 >= explorer.WorkingSet64)
+                            await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
+
+                        await Task.Delay(1000);
+
+
+
+                        // ここでタスクの完了を手動で設定
+                        Completed.SetResult(true);                      
 
                     }
-                  
-
-                
 
 
-               // Application.Current.Shutdown();  // アプリケーションの終了処理
-                                                     // 終了処理が完了するまで待機
-                   
 
-                
+
+                    var processStaert = new ProcessStartClass();
+                    var processParam = new SessionStartParames("cmd.exe", false, true, "/c start explorer.exe");
+                    processStaert.ProcessStartMethod(processParam);
+
+                }
+                Application.Current.Shutdown();
+                //await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
+
+
             }
-         
-        
-
-
             catch (TaskCanceledException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
             catch (System.ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            // Application.Current.Shutdown();  // アプリケーションの終了処理
 
-            //When Close() Only is not shutdown
+
         }
 
+
+    
+
+            
+        
 
 
         private void OriginalParamExecButton_Click(object sender, RoutedEventArgs e)
@@ -207,19 +204,19 @@ namespace HaruaConvert
             {
                 MessageBox.Show("ffmpwg.exeが実行中ですわ");
 
-                return; 
+                return;
             }
             //early return
 
-         
+
             else if (string.IsNullOrEmpty(paramField.usedOriginalArgument))
-                    {
-                        MessageBox.Show("ユーザーパラメータが空欄です");
-                        return;
-                    }
+            {
+                MessageBox.Show("ユーザーパラメータが空欄です");
+                return;
+            }
 
 
-            else　if (string.IsNullOrEmpty(InputSelector.FilePathBox.Text))
+            else if (string.IsNullOrEmpty(InputSelector.FilePathBox.Text))
             {
                 MessageBox.Show("入力パスが空欄です");
                 return;
@@ -232,7 +229,7 @@ namespace HaruaConvert
             }
 
 
-            paramField.isExecuteProcessed = FileConvertExec(paramField.setFile, sender, GetLw());
+            paramField.isExecuteProcessed = FileConvertExec(paramField.setFile, sender);
         }
 
 
@@ -254,19 +251,19 @@ namespace HaruaConvert
                     ParamSave_Procedure();
                     paramField.isParam_Edited = false;
                 }
-                
+
             }
             Generate_ParamSelector();
 
             ParamSelector_SetText(sender, true);
-            
-            
+        
+
 
         }
-        
+
     }
 
-    
+
 
 
 }
