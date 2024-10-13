@@ -26,9 +26,9 @@ namespace HaruaConvert.Parameter
         //Perfect Constructor menber
         readonly string inputPath_ReadOnly;
 
-        public string _convertFile;
+        public readonly string _convertFile;
 
-        public string arguments;
+        public readonly string arguments;
         /// <summary>
         /// parameterのEscapeを行う
         /// make Parameter

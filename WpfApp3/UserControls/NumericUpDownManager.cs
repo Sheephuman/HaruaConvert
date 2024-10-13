@@ -74,7 +74,7 @@ namespace HaruaConvert.UserControls
 
         // NUDButtonDown と NUDButtonUP_ClickProc は、
         // 直接数値操作を行い、不要な変換を避けるように最適化
-        public  void NUDButtonDown(TextBox NUDTextBox, int minvalue ,int interval)
+        public  void NUDButtonDown(TextBox NUDTextBox, int minvalue ,int interval) 
         {
 
             int selnumber = 0;

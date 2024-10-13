@@ -3,6 +3,7 @@ using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.HaruaServise;
 using HaruaConvert.Initilize_Method;
+using HaruaConvert.ini関連;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -150,7 +151,7 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
             Generate_ParamSelector();
-            var cm = new QuerryCommandManager(main);
+            var cm = new HaruaCommandManager(main);
             cm.AddCommands();
 
 
@@ -419,8 +420,6 @@ namespace HaruaConvert
             HaruaGrid.Height += 30;
         }
 
-        private delegate Task ProcessKill_deligate(int targetProcess);
-
         public delegate void ExitEvent_delegate(object sender , ExitEventArgs e);
 
         private void NoAudio_Checked(object sender, RoutedEventArgs e)
@@ -543,14 +542,14 @@ namespace HaruaConvert
 
 
 
-                var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
+                var checkedSet = new CheckBoxIniClass.CheckboxGetSetValueClass();
 
                 if (childCheckBoxList != null)
-                foreach (CheckBox chk in childCheckBoxList)
-                {
+                    foreach (CheckBox chk in childCheckBoxList)
+                    {
 
-                    checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                }
+                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                    }
 
 
                 var setWriter = new IniSettings_IOClass();
@@ -563,8 +562,10 @@ namespace HaruaConvert
                     IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
                 if (!string.IsNullOrEmpty(placeHolderList.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder ,  QueryNames.placeHolderCount , placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
 
+
+                IniDefinition.SetValue(paramField.iniPath, QueryNames.userControl, QueryNames.opacitySlider, harua_View.MainParams[0].BackImageOpacity.ToString("F1",CultureInfo.CurrentCulture)) ;
 
             }
         }
@@ -852,9 +853,48 @@ namespace HaruaConvert
             return ToString();
         }
 
-     
-    }
+        private void opacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (OpacityText == null)
+                return;
+            if (harua_View == null)
+                return;
 
+            // スライダーの値をウィンドウの透明度に反映
+            harua_View.MainParams[0].BackImageOpacity = opacitySlider.Value;
+
+
+            // テキストに現在の透明度を表示
+            OpacityText.Text = $"{opacitySlider.Value:f1}";
+         
+
+        }
+
+        private void OpacitySlider_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // マウスの位置を取得
+            Point mousePosition = e.GetPosition(opacitySlider);
+
+            // スライダーの幅を取得
+            double sliderWidth = opacitySlider.ActualWidth;
+
+            // スライダーの最小値と最大値を取得
+            double minValue = opacitySlider.Minimum;
+            double maxValue = opacitySlider.Maximum;
+
+            // クリック位置をスライダーの値に変換
+            double value = minValue + (mousePosition.X / sliderWidth) * (maxValue - minValue);
+
+            // 値をスライダーに設定
+        
+            Debug.WriteLine(Math.Max(minValue, Math.Min(maxValue, Math.Round(value, 1))));
+
+            var roundValue = Math.Max(minValue, Math.Min(maxValue, Math.Round(value, 1)));
+            
+            opacitySlider.SetValue(Slider.ValueProperty,roundValue);
+        }
+    }
+    
 }
 
 

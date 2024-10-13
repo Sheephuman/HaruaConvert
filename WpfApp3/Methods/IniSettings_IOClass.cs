@@ -62,6 +62,7 @@ namespace HaruaConvert.Methods
                 
                 main.NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
 
+                main.opacitySlider.Value = IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.userControl, QueryNames.opacitySlider,0.8);
             }
             catch(Exception ex)
             {

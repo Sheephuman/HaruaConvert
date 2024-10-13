@@ -1,4 +1,4 @@
-﻿using HaruaConvert.Methods;
+﻿using HaruaConvert.ini関連;
 using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
@@ -65,7 +65,8 @@ namespace HaruaConvert.Initilize_Method
 
         public void LoadCheckBoxStates(List<CheckBox> childCheckBoxList)
         {
-            var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
+            var iniChecker = new 
+                CheckBoxIniClass.CheckboxGetSetValueClass();
             foreach (var checkBox in childCheckBoxList)
             {
                 // CheckBoxの状態をINIファイルから読み込む

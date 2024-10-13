@@ -84,7 +84,7 @@ namespace HaruaConvert.UserControls
 
         public void NUDTextBox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-             nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue,-1,  e);
+            nuManager.NUDTextBox_PreviewKeyDownProc(NUDTextBox, minvalue, maxvalue,-1,  e);
         }
 
         public void NUDButtonUP_Click(object sender, RoutedEventArgs e)

@@ -74,13 +74,13 @@ namespace HaruaConvert.Methods
 
                          
 
-                            if (inputFile.Contains(place_1) || inputFile.Contains(place_2))
+                             if(inputFile.Contains(place_1) || inputFile.Contains(place_2))
                             {
                                 MessageBox.Show("ファイル名に変換対象の添え字が使われているわ\r\n ファイル名を修正してね");
                                 return false; }
 
                             var inputMatches = new Regex("\\" + place_1 + "input" + "\\" + place_2);
-                            mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + inputFile + @"""");
+                            mw.baseArguments = "-i "+ inputMatches.Replace(mw.baseArguments, @"""" + inputFile + @"""");
 
 
                             //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
@@ -90,7 +90,8 @@ namespace HaruaConvert.Methods
                             var OutputMatches = new Regex("\\" + place_1 + "output" + "\\" + place_2);
 
                             //Attach Output Path as Converted FileName
-                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments, @"""" + mw.OutputSelector.FilePathBox.Text);
+                           
+                            mw.baseArguments = " -y "+ OutputMatches.Replace(mw.baseArguments, @"""" + mw.OutputSelector.FilePathBox.Text);
 
 
                             string wEscapePlace = string.Empty;
@@ -129,7 +130,7 @@ namespace HaruaConvert.Methods
                             mw._arguments = mw.baseArguments;
 
                             extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
-                            if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention))
+                            if (!string.IsNullOrEmpty(extention))
                                 mw.paramField.check_output += extention;
 
                             mw._arguments = mw._arguments.TrimEnd();

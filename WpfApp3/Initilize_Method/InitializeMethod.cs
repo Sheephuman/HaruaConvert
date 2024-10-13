@@ -1,5 +1,4 @@
 ﻿using HaruaConvert.HaruaService;
-using HaruaConvert.HaruaServise;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
@@ -7,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace HaruaConvert
 {
@@ -29,7 +27,7 @@ namespace HaruaConvert
 
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"ViewModelの初期化中にエラーが発生しました: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"ViewModelの初期化中にエラーが発生しました: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
             
             
 
@@ -48,7 +46,8 @@ namespace HaruaConvert
                 isExecuteProcessed = false,
                 
                 iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini"),
-                profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
+                profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini"),
+                
             };
             Ffmpc = new FfmpegQueryClass(this);
             firstSet = true;
@@ -62,9 +61,6 @@ namespace HaruaConvert
 
             var setiniReader = new IniSettings_IOClass();
             setiniReader.IniSettingReader(paramField, this);
-
-         
-
         }
 
         private void SetupUIEvents()
@@ -91,8 +87,6 @@ namespace HaruaConvert
             {
                 selectorList.Add(paramSelector);
             }
-
-
             });
         }
 

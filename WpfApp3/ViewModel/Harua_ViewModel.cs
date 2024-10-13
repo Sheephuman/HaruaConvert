@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -47,15 +48,14 @@ namespace HaruaConvert.Parameter
                 MainParams = new ObservableCollection<MainBindingParam>
             {
                new MainBindingParam { StartQuery = IniDefinition.GetValueOrDefault
-                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, "-b:v 700k -codec:v libx265 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 "),
+                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, ClassShearingMenbers.defaultQuery),
                 OutputPath = MainTab_OutputDirectory,
                  endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
                                        (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
                 invisibleText = "",
-                placement = string.Empty
-
-                
+                placement = string.Empty,
+                BackImageOpacity = 0.6,                
                }
             };
 
@@ -90,6 +90,9 @@ namespace HaruaConvert.Parameter
         //public string invisibleText { get; set; }
         //public string StartQuery { get; set; }
         public string OutputPath { get; set; }
+
+
+
         //public string endString { get; set; }
         //public string placement { get; set; }
 
@@ -152,7 +155,11 @@ namespace HaruaConvert.Parameter
         public string buildParameter1 { get => buildParameter11; set => SetProperty(ref buildParameter11, value); }
 
 
-
+        // プロパティ変更通知を行うためのメソッド
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
 
     }

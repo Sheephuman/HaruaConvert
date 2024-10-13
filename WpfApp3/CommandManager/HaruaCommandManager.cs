@@ -1,20 +1,22 @@
-﻿using HaruaConvert.UserControls;
+﻿using HaruaConvert.Methods;
+using HaruaConvert.UserControls;
 using HaruaConvert.userintarface;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert.Command
 {
-    public class QuerryCommandManager
+    public class HaruaCommandManager
     {
         MainWindow _main;
         QueryCreateWindow qi;
 
         
 
-        public QuerryCommandManager(MainWindow main)
+        public HaruaCommandManager(MainWindow main)
         {
 
             _main = main;
@@ -23,7 +25,7 @@ namespace HaruaConvert.Command
             qi = new QueryCreateWindow(main);
 
             CommandBinding queryBuildCommandBinding = new CommandBinding(
-      QueryBuidCommand.QueryBuildWindow_Open,
+      HaruaButtonCommand.QueryBuildWindow_Open,
       QueryBuildWindow_Open,
       CanExecuteQueryBuildCommand);
 
@@ -35,22 +37,36 @@ namespace HaruaConvert.Command
         {
             // コマンドバインディングの追加
             CommandBinding queryBuildWindowOpenBinding = new CommandBinding(
-                QueryBuidCommand.QueryBuildWindow_Open,
+                HaruaButtonCommand.QueryBuildWindow_Open,
                 QueryBuildWindow_Open,
                 CanExecuteQueryBuildCommand
                 );
 
 
             CommandBinding defaultQueryBinding = new CommandBinding(
-                QueryBuidCommand.SetDefaultQuery,
-                defaultSetQueryBinding,
+                HaruaButtonCommand.SetDefaultQuery,
+                defaultSetQueryCommand,
                 CanExecuteSetDefaultQueryCommand);
+
+            CommandBinding ExplorerResterterBinding = new CommandBinding(
+                HaruaButtonCommand.ExplorerRestarter,
+                ExplorerResterterComand,
+                CanExecuteSetDefaultQueryCommand);
+
 
 
             _main.CommandBindings.Add(queryBuildWindowOpenBinding);
 
             _main.CommandBindings.Add(defaultQueryBinding);
 
+            _main.CommandBindings.Add(ExplorerResterterBinding);
+
+        }
+
+        private async void ExplorerResterterComand(object sender, ExecutedRoutedEventArgs e)
+        {
+            var exStart = new ExplorerRestarterClass();
+            await exStart.ExPlorerRestarter(_main.ExitExplorerChecker);
         }
 
         private void CanExecuteSetDefaultQueryCommand(object sender, CanExecuteRoutedEventArgs e)
@@ -80,7 +96,7 @@ namespace HaruaConvert.Command
         }
 
 
-        private void defaultSetQueryBinding(object sender, ExecutedRoutedEventArgs e)
+        private void defaultSetQueryCommand(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBoxResult msbr = MessageBox.Show("ffmpegにdefaultクエリを設定しますか？\r\n",
                "メッセージボックス", MessageBoxButton.YesNo,
@@ -88,8 +104,7 @@ namespace HaruaConvert.Command
             if (msbr == MessageBoxResult.Yes)
             {
 
-                _main.ParamText.Text = "-b:v 700k -codec:v " +
-                "libx265 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 ";
+                _main.ParamText.Text = ClassShearingMenbers.defaultQuery;
             }
 
             else

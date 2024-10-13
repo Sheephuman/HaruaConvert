@@ -12,18 +12,11 @@
       <HashCode>AAAAAAAAAAAAAAAACAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.Command.QuerryCommandManager" Collapsed="true">
-    <Position X="22.75" Y="13" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAFAAAEgAAAAAAAAAAAAACAAAAECAAAAAAA=</HashCode>
-      <FileName>ContextMenuCommand\QuerryCommandManager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HaruaConvert.Command.QueryBuidCommand" Collapsed="true">
+  <Class Name="HaruaConvert.Command.HaruaButtonCommand" Collapsed="true">
     <Position X="12.25" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
-      <FileName>ContextMenuCommand\QueryBuidCommand.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContextMenuCommand\HaruaButtonCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.HaruaService.SettingsService" Collapsed="true" BaseTypeListCollapsed="true">
@@ -52,14 +45,14 @@
   <Class Name="HaruaConvert.HaruaServise.SetUIEvent" Collapsed="true">
     <Position X="17.5" Y="15" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQACOAAAAKACAAAAAAAQAAIAAEBCAAAAACA=</HashCode>
+      <HashCode>AAAAAAAAAQACOAAAAKACAAAAAAAQAAIAAEBCABAAACA=</HashCode>
       <FileName>mainUI\SetUIEvent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="12.25" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>Iw4EJRACAoKiBuQByJ0hCUEhxAvYIAStSMCJARUAByw=</HashCode>
+      <HashCode>Iw4EJRACAoKiBuSByJ0hCUEhxAvYIwStSUCJARUAByw=</HashCode>
       <FileName>Initilize_Method\InitializeMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -126,7 +119,7 @@
   <Class Name="HaruaConvert.LogWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="21" Y="12" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAiAEEAAAAIAAAhAAAQIIAAAAAADAAQABCAAAQ=</HashCode>
+      <HashCode>AAAAABAiAEEAAAAIAAAhEAAQIIAIAAAADAAQABGAAAA=</HashCode>
       <FileName>mainUI\LogWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -163,7 +156,7 @@
   <Class Name="HaruaConvert.Methods.AddOptionClass" Collapsed="true">
     <Position X="12.25" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Methods\AddOptionClass.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -202,13 +195,6 @@
       <FileName>Methods\IniSettings_IOClass.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.Methods.isUserOriginalParameter" Collapsed="true">
-    <Position X="17.5" Y="12" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Methods\isUserOriginalParameter_Method.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="HaruaConvert.Methods.Save_Procedure" Collapsed="true">
     <Position X="19.25" Y="14" Width="1.5" />
     <TypeIdentifier>
@@ -226,14 +212,14 @@
   <Class Name="WpfApp3.Parameter.ClassShearingMenbers" Collapsed="true">
     <Position X="15.75" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAAABAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Parameter\ClassShearingMenbers.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.Parameter.EscapePath" Collapsed="true">
     <Position X="22.75" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAABAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Parameter\EscapePath.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -244,31 +230,32 @@
       <FileName>Parameter\IniSettingsConst.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="HaruaConvert.Parameter.MainParam" Collapsed="true">
+  <Class Name="HaruaConvert.Parameter.MainBindingParam" Collapsed="true">
     <Position X="22.75" Y="12" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQACAAAAACAAAAUBEAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQACAAIAACAAAA0BEIAAAAAABAAAACAAA=</HashCode>
       <FileName>Parameter\Main_Param.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HaruaConvert.Parameter.ParamCreateClasss" Collapsed="true">
     <Position X="17.5" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAACAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAgQAAAACAAAAACAAA=</HashCode>
       <FileName>Parameter\ParamCreateClasss.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.Parameter.ParamField" Collapsed="true">
     <Position X="19.25" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IIAIIAAMAABAAAAAAAAAAAAASEMAkAAAAAgAJgA4Igg=</HashCode>
+      <HashCode>YIAIIAAMAABAAAAAAAAAAAAASEMAkAAAAAwAJwA4Igg=</HashCode>
       <FileName>Parameter\ParamFields.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.Parameter.Harua_ViewModel" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="17.5" Y="11" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACCAAQAAgAAIADAAAC0CEAAQBAAAAAAAAAAgA=</HashCode>
+      <HashCode>AgAAAAACCAAAAAgAIIABAAAC0CEAAQBAAAAAAAAAAgA=</HashCode>
       <FileName>ViewModel\Harua_ViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -276,7 +263,7 @@
   <Class Name="HaruaConvert.UserControls.NumericUpDownManager" Collapsed="true">
     <Position X="15.75" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABABQAAAAAAAAAAAAAAACEEAEAACAAABAAAIAEAAAAA=</HashCode>
+      <HashCode>ABABQAAAAAAAAAAAAAAICEEAEAACAAABAAAIAEAAAAA=</HashCode>
       <FileName>UserControls\NumericUpDownManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -318,6 +305,13 @@
       <FileName>IDisposableBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HaruaConvert.Methods.isUserOriginalParameter" Collapsed="true">
+    <Position X="17.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAIAEAAAA=</HashCode>
+      <FileName>mainUI\isUserOriginalParameter_Method.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="HaruaConvert.HaruaService.ISettingsService" Collapsed="true">
     <Position X="15.75" Y="16.25" Width="1.5" />

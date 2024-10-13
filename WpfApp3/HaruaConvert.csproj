@@ -30,7 +30,7 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ApplicationIcon>bin\Debug\net8.0-windows10.0.22621.0\lib\harua.ico</ApplicationIcon>
+    <ApplicationIcon>lib\harua.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -159,6 +159,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="HaruaResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HaruaResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -172,6 +177,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="HaruaResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HaruaResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

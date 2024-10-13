@@ -85,6 +85,9 @@ namespace HaruaConvert.Parameter
             public const string profileQuery = nameof(profileQuery);
             public const string placeHolder = nameof(placeHolder);
             public const string placeHolderCount = nameof(placeHolder) + "_count";
+
+            public const string opacitySlider = nameof(opacitySlider);
+            public const string userControl = nameof(userControl);
         }
 
         public static class ButtonNameField

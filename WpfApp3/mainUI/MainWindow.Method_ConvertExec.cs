@@ -392,13 +392,7 @@ namespace HaruaConvert
                 explorerProcess.Start();
                 memorySize = explorerProcess.WorkingSet64;
                 
-                AllExplorerProcesses = new List<Process>();
-
-                Process[] exploreres = Process.GetProcessesByName("explorer");
-                foreach (Process ex in exploreres)
-                {
-                    AllExplorerProcesses.Add(ex);
-                }
+               
             }
 
             

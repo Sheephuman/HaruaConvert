@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
-using static HaruaConvert.Methods.IniCheckerClass;
+using static HaruaConvert.ini関連.CheckBoxIniClass;
 
 
 namespace HaruaConvert
@@ -264,25 +264,25 @@ namespace HaruaConvert
         {
             var initial = new InitilizeCheckBox(Lw_paramField);
             MenuCheckBoxList = initial.InitializeChildCheckBox(this, MenuCheckBoxList);
-            
+
 
             var checkedProcess = new CheckboxGetSetValueClass();
             // RichTextBoxのContextMenuを取得
-     
-                  
 
 
-                        // メニュー項目を取得
-                        foreach (var item in MenuCheckBoxList)
-                        {
 
-                            // コピーのMenuItemに対する操作
-                            item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
-                            if(item.Name == AutoScroll_Checker.Name)
-                                Lw_paramField.isAutoScroll = true;
-                        }
 
-                    }
+            // メニュー項目を取得
+            foreach (var item in MenuCheckBoxList)
+            {
+
+                // コピーのMenuItemに対する操作
+                item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
+                if (item.Name == AutoScroll_Checker.Name)
+                    Lw_paramField.isAutoScroll = true;
+            }
+
+        }
                 
                 //paramField.isBackImage = checkedProcess.CheckBoxiniGetVallue(BackImage_Checker, paramField.iniPath);
                 // BackImage_Checker.IsChecked = paramField.isBackImage;
