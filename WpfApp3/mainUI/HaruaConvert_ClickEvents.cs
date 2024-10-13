@@ -134,8 +134,8 @@ namespace HaruaConvert
 
                 tpc = new Terminate_ProcessClass();
 
-
-                await tpc.Terminate_Process(ffmpegProcess.Id);
+                if(ffmpegProcess != null)
+                   await tpc.Terminate_Process(ffmpegProcess.Id);
 
 
 
