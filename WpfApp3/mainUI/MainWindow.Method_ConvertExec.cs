@@ -149,10 +149,10 @@ namespace HaruaConvert
 
                 if (Lw != null)
                 {
-                    if (!firstlogWindow)
+                    if (!ParamField.firstlogWindow)
                     {
                         Lw.Show();
-                        firstlogWindow = true;
+                        ParamField.firstlogWindow = true;
 
                     }
                     else
@@ -267,9 +267,11 @@ namespace HaruaConvert
             using (ffmpegProcess = new Process())
             {
 
-
+                
                 ffmpegProcess.StartInfo.CreateNoWindow = true;
                 ffmpegProcess.StartInfo.UseShellExecute = false;
+                ///UseShellExecute: プロセスを直接起動し、標準入力、標準出力、標準エラーのリダイレクトが可能になります。
+                ///
                 ffmpegProcess.StartInfo.RedirectStandardInput = true;
 
                 ffmpegProcess.StartInfo.RedirectStandardError = true;
@@ -314,7 +316,7 @@ namespace HaruaConvert
                 });
                 ffmpegProcess.Start();
 
-
+                
                 paramField.ffmpeg_pid = ffmpegProcess.Id; ;
 
                 Thread.Sleep(1000);
@@ -346,6 +348,14 @@ namespace HaruaConvert
 
                 outputDevice.Play();
 
+
+               await this.Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Lw.RichTextRogs.AppendText("ffmpegが終了しました!");
+                }, DispatcherPriority.Render);
+
+
+                
 
                 OpenExplorer();
                 //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　

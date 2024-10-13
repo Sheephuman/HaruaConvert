@@ -17,15 +17,11 @@ namespace HaruaConvert.Methods
 
         private delegate Task ProcessKill_deligate(int targetProcess);
 
-       async public Task ExPlorerRestarter(CheckBox ExitExplorerChecker)
+       async public Task ExPlorerRestarter(Terminate_ProcessClass tpc)
         {
 
-
-            if (!ExitExplorerChecker.IsChecked.GetValueOrDefault())
-            {
-                return;
-            }
-                Terminate_ProcessClass tpc = new Terminate_ProcessClass();
+            
+            tpc = new Terminate_ProcessClass();
             ProcessKill_deligate killProcessDell;
             killProcessDell = tpc.Terminate_Process;
 

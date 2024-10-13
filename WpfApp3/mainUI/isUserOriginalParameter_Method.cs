@@ -22,14 +22,14 @@ namespace HaruaConvert.Methods
             mw = _main;
             place_1 = string.Empty;
             place_2 = string.Empty;
+            
         }
-
         // EscapePath escapes;
 
         public bool isUserOriginalParameter_Method(object sender)
         {
             try {
-                string extention = string.Empty;
+               
              
                 //"FileDropButton2"
                 if ((ButtonNameField._ExecButton == ((Button)sender).Name))
@@ -129,11 +129,11 @@ namespace HaruaConvert.Methods
 
                             mw._arguments = mw.baseArguments;
 
-                            extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
+                            string extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
                             if (!string.IsNullOrEmpty(extention))
                                 mw.paramField.check_output += extention;
 
-                            mw._arguments = mw._arguments.TrimEnd();
+                            mw._arguments = mw._arguments.TrimStart().TrimEnd();
 
                             if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 +extention, StringComparison.CurrentCultureIgnoreCase))
                             {

@@ -92,9 +92,12 @@ namespace HaruaConvert
 
                     StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
+                inputWriter.Flush();
+                inputWriter.WriteLine("q");
+                //inputWriter.Flush();
 
-                    inputWriter.WriteLine("q");
-                
+
+                RichTextRogs.AppendText("ffmpegの終了処理中です。暫くお待ちください.....");
 
                 Focus();
 
@@ -295,7 +298,9 @@ namespace HaruaConvert
         
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ParamField.firstlogWindow = false;
+           
+                
            this.Close();
         }
 

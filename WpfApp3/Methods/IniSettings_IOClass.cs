@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xml.Resolvers;
 using static HaruaConvert.Parameter.ParamField;
 
@@ -62,7 +63,7 @@ namespace HaruaConvert.Methods
                 
                 main.NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
 
-                main.opacitySlider.Value = IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.userControl, QueryNames.opacitySlider,0.8);
+                main.opacitySlider.SetValue(Slider.ValueProperty,IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.userControl, QueryNames.opacitySlider,0.2));
             }
             catch(Exception ex)
             {

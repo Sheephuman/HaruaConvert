@@ -66,7 +66,8 @@ namespace HaruaConvert.Command
         private async void ExplorerResterterComand(object sender, ExecutedRoutedEventArgs e)
         {
             var exStart = new ExplorerRestarterClass();
-            await exStart.ExPlorerRestarter(_main.ExitExplorerChecker);
+            Terminate_ProcessClass tpc = null;
+            await exStart.ExPlorerRestarter(tpc);
         }
 
         private void CanExecuteSetDefaultQueryCommand(object sender, CanExecuteRoutedEventArgs e)

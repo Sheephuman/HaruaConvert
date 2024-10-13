@@ -117,22 +117,28 @@ namespace HaruaConvert
                     Lw.Close();
 
                 //List<Process> smallestMemoryProcess = new List<Process>();
+                Terminate_ProcessClass tpc = null;
 
 
 
 
+                if (ExitExplorerChecker.IsChecked.GetValueOrDefault())
+                {           
 
                 var exrestart = new ExplorerRestarterClass();
-                await exrestart.ExPlorerRestarter(ExitExplorerChecker);
+                await exrestart.ExPlorerRestarter(tpc);
 
-
+                }
 
                 await Task.Delay(1000);
 
+                tpc = new Terminate_ProcessClass();
+
+
+                await tpc.Terminate_Process(ffmpegProcess.Id);
 
 
 
-                   
 
 
                 // ここでタスクの完了を手動で設定

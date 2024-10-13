@@ -23,6 +23,9 @@ namespace HaruaConvert
 
                 ///MainWindowのパラメータボックスで読み込むquery
                 DataContext = harua_View.MainParams;
+
+
+                
             }
 
             catch (Exception ex)

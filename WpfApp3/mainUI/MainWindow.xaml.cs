@@ -52,10 +52,10 @@ namespace HaruaConvert
         public List<ParamSelector> selectorList { get; set; }
 
 
+        public static bool firstShowLog { get; set; }
 
-
-        public static bool firstSet { get; set; } //初回起動用
-        public static bool firstlogWindow { get; set; } 
+    public static bool firstSet { get; set; } //初回起動用
+        
 
         public string baseArguments { get; set; }
 
