@@ -74,6 +74,7 @@ namespace HaruaConvert.Parameter
         public bool isClosedQueryBuildWindow { get; set; }
         public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
         public bool isSuccessdbuildQuery { get; internal set; }
+        public static bool firstlogWindow { get; internal set; }
 
         public static class QueryNames
         {
