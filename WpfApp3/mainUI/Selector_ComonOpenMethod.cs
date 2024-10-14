@@ -8,29 +8,31 @@ namespace HaruaConvert
 {
     internal class Selector_OpenMethodClass
     {
-        public Selector_OpenMethodClass(MainWindow _main)
+        public Selector_OpenMethodClass(MainWindow _main,ParamField _param)
         {
-            main = _main;
-
+           param = _param;
+        main = _main;
+         
         }
 
 
         MainWindow main { get; set; }
+        ParamField param { get; set; }
+      
 
-
-        public CommonFileDialogResult Selector_ComonOpenMethod(bool isFolder, FileSelector selector)
+    public CommonFileDialogResult Selector_ComonOpenMethod(bool isFolder, FileSelector selector)
         {
 
             //  ClassShearingMenbers.ButtonName = selector.Name;
+            var mfc = new mainUIparameter();
+            mfc.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_InputSelectorDirectory);
 
 
 
 
             if (selector.Name == ParamField.ControlField.InputSelector)
             {
-
-                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_InputSelectorDirectory);
-
+                
 
                 ParamField.InitialDirectory = string.Empty;
 
@@ -38,17 +40,17 @@ namespace HaruaConvert
             }
             else if (selector.Name == ParamField.ControlField.OutputSelector)
             {
-                main.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_OutputSelectorDirectory);
+                mfc.ofc = new CommonOpenDialogClass(isFolder, ParamField.ParamTab_OutputSelectorDirectory);
 
                 ParamField.InitialDirectory = string.Empty;
 
                 ParamField.InitialDirectory = ParamField.ParamTab_OutputSelectorDirectory;
             }
 
-            var commons = main.ofc.CommonOpens();
+            var commons = mfc.ofc.CommonOpens();
 
-            main.outputFileName = main.ofc.opFileName;
-            main.outputFileName = Path.ChangeExtension(main.outputFileName, null);
+            mfc.outputFileName = mfc.ofc.opFileName;
+            mfc.outputFileName = Path.ChangeExtension(mfc.outputFileName, null);
 
 
             if (commons == CommonFileDialogResult.Cancel)
@@ -65,13 +67,13 @@ namespace HaruaConvert
                 //  ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
 
 
-                ParamField.ParamTab_OutputSelectorDirectory = main.outputFileName;
+                ParamField.ParamTab_OutputSelectorDirectory = mfc.outputFileName;
 
                 //string dateNows = DateTime.Now.ToString("MM'-'dd'-'yyyy", CultureInfo.CurrentCulture);
 
 
 
-                selector.FilePathBox.Text = ParamField.ParamTab_OutputSelectorDirectory + "\\" + main.paramField.outputFileName_withoutEx + ClassShearingMenbers.endString + ".mp4";
+                selector.FilePathBox.Text = ParamField.ParamTab_OutputSelectorDirectory + "\\" + param.outputFileName_withoutEx + ClassShearingMenbers.endString + ".mp4";
 
 
             }
@@ -79,20 +81,19 @@ namespace HaruaConvert
             {
                 //Update inputSelectorDirectory
                 ParamField.ParamTab_InputSelectorDirectory
-                    = Path.GetDirectoryName(main.ofc.opFileName);
+                    = Path.GetDirectoryName(mfc.ofc.opFileName);
 
 
                 string file = ParamField.ParamTab_InputSelectorDirectory;
-                main.paramField.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(main.ofc.opFileName);
-                selector.FilePathBox.Text = main.ofc.opFileName;
+                param.outputFileName_withoutEx = Path.GetFileNameWithoutExtension(mfc.ofc.opFileName);
+                selector.FilePathBox.Text = mfc.ofc.opFileName;
 
                 SetUIEvent ui = new SetUIEvent(main);
-                var fileName = ui.OutputFileRename(file,
-                            main.paramField.outputFileName_withoutEx, main.harua_View.MainParams[0].endString);
-                main.OutputSelector.FilePathBox.Text = fileName;
-
-                main.paramField.check_output = string.Empty; //初期化
-                main.paramField.check_output = fileName;
+                var fileName = ui.OutputFileRename(file,param.outputFileName_withoutEx, main.harua_View.MainParams[0].endString);
+               main.OutputSelector.FilePathBox.Text = fileName;
+                
+                param.check_output = string.Empty; //初期化
+                param.check_output = fileName;
 
                 return commons;
             }

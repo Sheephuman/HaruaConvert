@@ -11,26 +11,26 @@ using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.Methods
 {
-    internal class isUserOriginalParameter
+    internal class isUserOriginalParameter 
     {
 
         MainWindow mw;
-        string place_1 { get; set; }
-        string place_2;
+     
         public isUserOriginalParameter(MainWindow _main)
         {
             mw = _main;
-            place_1 = string.Empty;
-            place_2 = string.Empty;
             
         }
+
+    
+
         // EscapePath escapes;
 
         public bool isUserOriginalParameter_Method(object sender)
         {
             try {
-               
-             
+                string place_1;
+                string place_2;
                 //"FileDropButton2"
                 if ((ButtonNameField._ExecButton == ((Button)sender).Name))
                 {

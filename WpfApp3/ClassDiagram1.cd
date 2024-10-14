@@ -15,8 +15,8 @@
   <Class Name="HaruaConvert.Command.HaruaButtonCommand" Collapsed="true">
     <Position X="12.25" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ContextMenuCommand\HaruaButtonCommand.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAACAAgAAAAAAAAAA=</HashCode>
+      <FileName>CommandManager\HaruaButtonCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.HaruaService.SettingsService" Collapsed="true" BaseTypeListCollapsed="true">
@@ -52,7 +52,7 @@
   <Class Name="HaruaConvert.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="12.25" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>Iw4EJRACAoKiBuSByJ0hCUEhxAvYIwStSUCJARUAByw=</HashCode>
+      <HashCode>Iw4EJRgCAgKiBuSByJ0hCUEhxAvYIwStSUCZARUAByw=</HashCode>
       <FileName>Initilize_Method\InitializeMethod.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -234,7 +234,7 @@
     <Position X="22.75" Y="12" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQACAAIAACAAAA0BEIAAAAAABAAAACAAA=</HashCode>
-      <FileName>Parameter\Main_Param.cs</FileName>
+      <FileName>Parameter\MainBindingParam.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -243,13 +243,6 @@
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAgQAAAACAAAAACAAA=</HashCode>
       <FileName>Parameter\ParamCreateClasss.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="HaruaConvert.Parameter.ParamField" Collapsed="true">
-    <Position X="19.25" Y="13" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>YIAIIAAMAABAAAAAAAAAAAAASEMAkAAAAAwAJwA4Igg=</HashCode>
-      <FileName>Parameter\ParamFields.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HaruaConvert.Parameter.Harua_ViewModel" Collapsed="true" BaseTypeListCollapsed="true">
@@ -309,8 +302,16 @@
   <Class Name="HaruaConvert.Methods.isUserOriginalParameter" Collapsed="true">
     <Position X="17.5" Y="12" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAIAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAAiAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>mainUI\isUserOriginalParameter_Method.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HaruaConvert.Parameter.ParamField" Collapsed="true">
+    <Position X="19.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YIAIIAAMAABAAgAAAAAAAAAASEMAkAAAAAwAJgA4Igg=</HashCode>
+      <FileName>Parameter\ParamFields.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="HaruaConvert.HaruaService.ISettingsService" Collapsed="true">

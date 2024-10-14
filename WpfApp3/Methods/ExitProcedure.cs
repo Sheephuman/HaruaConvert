@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HaruaConvert.Parameter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,8 @@ namespace HaruaConvert.Methods
 
         public void ExitProcedure(object sender , EventArgs e)
         {
-
-            main.ParamSave_Procedure();
+            ParamSaveClass paramSaver = new(main);
+            paramSaver.ParamSave_Procedure(main.paramField);
 
             //main.Lw.window_Closed(sender, e);
         }

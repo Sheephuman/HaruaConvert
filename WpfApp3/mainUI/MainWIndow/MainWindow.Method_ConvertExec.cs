@@ -123,8 +123,9 @@ namespace HaruaConvert
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
-                isOrigenelParam.isUserOriginalParameter_Method(sender);
-
+               
+               isOrigenelParam.isUserOriginalParameter_Method(sender);                 
+                
                 if (!paramField.isSuccessdbuildQuery)
                     return false;
                                                                                  //fetch flag State
@@ -408,13 +409,13 @@ namespace HaruaConvert
             
             
 
-            Debug.WriteLine($"/select, \"{paramField.check_output}\"");
+          //  Debug.WriteLine($"/select, \"{paramField.check_output}\"");
             
         }
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            //Debug.WriteLine(e);
+            //Debug.m(e);
         }
 
 

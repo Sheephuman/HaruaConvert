@@ -117,12 +117,16 @@
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
     <None Remove="harua.jpg" />
+    <None Remove="lib\HaruaOriginal3.png" />
   </ItemGroup>
 
   <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </CodeAnalysisDictionary>
+    <Resource Include="lib\HaruaOriginal3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <None Include="E:\Coding\WpfApp3 - Copy(1)\WpfApp3\.editorconfig" />
   </ItemGroup>
 
@@ -131,7 +135,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="lib\harua.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Methods\Alternate_GetFileName.cs" />
     <DesignDataWithDesignTimeCreatableTypes Include="TextBoxBehaviorSample.cs" />

@@ -48,7 +48,7 @@ namespace HaruaConvert
 
                 if (killp.ExitCode == 0 || killp.Container != null)
                 {
-                    Debug.WriteLine($"Process {target_id} killed successfully.");
+                   // Debug.WriteLine($"Process {target_id} killed successfully.");
                     
                 }
 

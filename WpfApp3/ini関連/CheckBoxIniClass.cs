@@ -29,7 +29,7 @@ namespace HaruaConvert.ini関連
                 {
                     IniDefinition.SetValue(iniPath, "CheckState", checkControl.Name,
                     ((MenuItem)checkControl).IsChecked.ToString());
-                    Debug.WriteLine(((MenuItem)checkControl).Name + $"{((MenuItem)checkControl).IsChecked}:Saved");
+                   // Debug.WriteLine(((MenuItem)checkControl).Name + $"{((MenuItem)checkControl).IsChecked}:Saved");
 
 
                 }
@@ -42,7 +42,7 @@ namespace HaruaConvert.ini関連
             public bool CheckBoxiniGetVallue<T>(T check, string iniPath)
             {
                 var checkControl = check as Control;
-                Debug.WriteLine(checkControl.Name);
+              //  Debug.WriteLine(checkControl.Name);
 
                 var setbool = IniDefinition.GetValueOrDefault(iniPath, "CheckState", checkControl.Name, false);
                 return setbool;

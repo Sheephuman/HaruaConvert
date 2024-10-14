@@ -11,7 +11,12 @@ namespace HaruaConvert
 {
     public partial class MainWindow : Window
     {
-       public void InitializeViewModels()
+
+
+        ParamSaveClass paramSarver;
+
+
+        public void InitializeViewModels()
         {
             try
             {
@@ -24,8 +29,8 @@ namespace HaruaConvert
                 ///MainWindowのパラメータボックスで読み込むquery
                 DataContext = harua_View.MainParams;
 
-
-                
+                mfc= new mainUIparameter();
+                paramSarver = new(main);
             }
 
             catch (Exception ex)
@@ -41,6 +46,7 @@ namespace HaruaConvert
 
         private void InitializeParameters()
         {
+
 
             //iniPathにカレントディレクトリを設定
             paramField = new ParamField

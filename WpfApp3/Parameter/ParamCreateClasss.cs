@@ -1,11 +1,5 @@
-﻿using FFMpegCore;
-using FFMpegCore.Arguments;
-using HaruaConvert.Methods;
-using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
-using WpfApp3.Parameter;
 
 namespace HaruaConvert.Parameter
 {
@@ -59,8 +53,7 @@ namespace HaruaConvert.Parameter
 
 
         }
-
-
+        
         public string GetExtentionFileNamepattern(string target)
         {
            
@@ -75,7 +68,7 @@ namespace HaruaConvert.Parameter
                 extension = "." +match.Groups[1].Value;
                 
                 
-                Debug.WriteLine("拡張子: " + extension);
+            //    Debug.WriteLine("拡張子: " + extension);
             
             }
 

@@ -24,11 +24,11 @@ namespace HaruaConvert.HaruaServise
 
 
             //get Interface instance
-            _main.mainTabEvents = new IMainTabEvents[]
-             {
+            _main.mainTabEvents =
+             [
 
                 new Directory_ClickProcedure(_main)
-             };
+             ];
             //var dclicks = new Directory_ClickProcedure(this);
 
 

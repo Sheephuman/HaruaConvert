@@ -7,7 +7,7 @@
        xmlns:local="clr-namespace:HaruaConvert.Command"
         xmlns:UserControls="clr-namespace:HaruaConvert.UserControls" xmlns:parameter="clr-namespace:HaruaConvert.Parameter" d:DataContext="{d:DesignInstance Type=parameter:Harua_ViewModel}" x:Class="HaruaConvert.MainWindow"
         mc:Ignorable="d"
-        Title="はるあちゃんこんば～た" Height="440" Width="550"
+        Title="はるあちゃんこんば～た" Height="480" Width="550"
         MinHeight="460"
         MinWidth="308"
        WindowStyle="None"
@@ -15,7 +15,7 @@
         Opacity="1"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
-        Icon="../lib/harua.ico"
+        Icon="/lib/harua.ico"
         >
 
 
@@ -111,7 +111,7 @@
                     >
 
                     <TabControl.Background>
-                        <ImageBrush x:Name="haruaBackImegeBrush" Opacity="{Binding BackImageOpacity, UpdateSourceTrigger=PropertyChanged}" ImageSource= "..\BackImage\harua.jpg"/>
+                        <ImageBrush x:Name="haruaBackImegeBrush" Opacity="{Binding BackImageOpacity, UpdateSourceTrigger=PropertyChanged}" ImageSource= "\BackImage\harua.jpg"/>
                     </TabControl.Background>
 
 
@@ -125,7 +125,7 @@
                           Margin="0,50,0,0">
 
 
-                            <StackPanel  Height="440"
+                            <StackPanel  Height="450"
                                          
                                 Margin="0,-46,0,-33" Orientation="Horizontal">
                                 <StackPanel x:Name="mainSelectGroup" Orientation="Vertical">
@@ -140,22 +140,37 @@
                                                       Visibility="Hidden"
                                                       />
 
+                                                
+                                            <StackPanel Orientation="Horizontal" Height="80" CanVerticallyScroll="True">
 
-                                            <StackPanel Height="40" CanVerticallyScroll="True">
-
-                                                <TextBlock Grid.Row="2" x:Name="FileNameLabel"
+                                                    <TextBlock Grid.Row="1" x:Name="FileNameLabel"
                                           Margin="0,-20,0,0"
                                                                Text="{Binding SourcePathText}"
                                                ToolTip="{Binding SourcePathText}"
-                                               Width="380"
+                                               Width="290"
                                                TextWrapping="Wrap"                
+                                                HorizontalAlignment="Left"
                                                                />
+                                                    <TextBlock Width="96" Height="108"
+                                                                x:Name="CaractorBlock"
+                                                               Margin="0,-30,0,0">
+                                                        <TextBlock.Background >
+                                                        <ImageBrush ImageSource="\lib\HaruaOriginal3.png"
+                                                                Stretch="None" 
+                                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                                                />
 
-                                            </StackPanel>
+                                                        </TextBlock.Background>
+
+                                                    </TextBlock>
+
+
+                                                </StackPanel>
+                                           
                                             <Button x:Name="Directory_DropButon" 
                                             Height="30"
                                             FontSize="20" Content="参照"
-                                            Margin="0,4,0,0"
+                                            Margin="0,0,0,0"
                               
                                                     
                                             AllowDrop="True"     
@@ -247,8 +262,8 @@
                                                 <StackPanel VerticalAlignment="Top"
                                             Margin="0,0,0,0"
                                                     x:Name="OptionPanel"
-                                    Width="400"
-                                    Height="100"
+                                    Width="300"
+                                    Height="90"
                                     Orientation="Horizontal" >
 
                                                     <Label Content="変換オプション"/>
@@ -264,7 +279,7 @@
                                                     </StackPanel>
                                                     <Border Width="5" Background="Transparent" />
                                                     <StackPanel x:Name="RotatePanel" 
-                                                                Height="100"
+                                                                Height="90"
                                                                >
                                                         <RadioButton FontSize="16" x:Name="NoRotate" Content="回転しない" Margin="0" 
                                                          Checked="RotateOption_Checked"
@@ -283,13 +298,15 @@
                                         </StackPanel>
                                     </Grid>
                                 </StackPanel>
-                                <StackPanel Margin="150,100,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <StackPanel Margin="-300,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
 
 
                                     <RichTextBox x:Name="SorceFileDataBox"                                            
+                                                 HorizontalContentAlignment="Left"
+                                                 
                                                            Block.LineHeight="1"          
                                                         Grid.ColumnSpan="2"
-                                                        Margin="-250,170,0,0"
+                                                        Margin="200,-200,0,0"
                                                         Height="120" 
                                                         Width="250"
                                                                   />
@@ -297,11 +314,13 @@
 
 
                                 </StackPanel>
-                                <StackPanel Margin="0,0,0,0" x:Name="ConvertStuck"  VerticalAlignment="Center">
+                                <StackPanel Margin="0,-30,0,0" x:Name="ConvertStuck"                                            
+                                            HorizontalAlignment="Left">
                                     <Label x:Name="Drop_Label"
                                        VerticalContentAlignment="Center"
+                                        HorizontalAlignment="Center"
                                        FontSize="25"
-                                           
+
                                         Content="  File Drop ">
                                         <Label.Template>
 
@@ -311,14 +330,13 @@
                                                     Name="Convert_DropButton"
                                                 AllowDrop="True"
                                                     
-                                                Margin="-160,-180,0,0"                                                                                               
-                                                VerticalContentAlignment="Center"     
+                                                Margin="-150,20,0,0"                                                                                               
+                                                VerticalContentAlignment="Center"                                                    
                                                 Background="Transparent"
-                                                VerticalAlignment="Center"  
-                                                
-                                                Height="230"                                                      
+                                                                                               
+                                                Height="220"                                                      
                                                 Width="130"
-                                                HorizontalAlignment="Center"
+                                                HorizontalAlignment="Left"
                                                 Content="{TemplateBinding Content}"/>
                                             </ControlTemplate>
                                         </Label.Template>
@@ -537,7 +555,8 @@
                                             x:Name="OpacityText" Text="sss" Margin="0,0,0,0" Grid.Column="1"
                                                    Width="60"/>
                                     </Grid>
-                                </GroupBox>
+                                </GroupBox>           
+                                    
                             </StackPanel>
                         </GroupBox>
 

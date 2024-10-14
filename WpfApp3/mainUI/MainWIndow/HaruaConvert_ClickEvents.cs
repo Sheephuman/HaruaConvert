@@ -107,7 +107,8 @@ namespace HaruaConvert
         {
             try
             {
-                ParamSave_Procedure();
+             
+                paramSarver.ParamSave_Procedure(main.paramField);
 
                 // 終了処理が完了したことを通知する変数
                 var Completed = new TaskCompletionSource<bool>();
@@ -157,7 +158,7 @@ namespace HaruaConvert
             }
             catch (System.ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
          
 
@@ -222,7 +223,7 @@ namespace HaruaConvert
                 if (MessageBox.Show("LabelかParameterが変更されているわ。保存するの？", "Information", MessageBoxButton.YesNo,
                        MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
-                    ParamSave_Procedure();
+                   paramSarver.ParamSave_Procedure(main.paramField);
                     paramField.isParam_Edited = false;
                 }
 

@@ -38,7 +38,7 @@ namespace HaruaConvert
         /// </summary>
         public ParamField paramField { get; set; }
 
-
+        mainUIparameter mfc { get; set; }
 
         CommonOpenDialogClass cod { get; set; }
 
@@ -59,7 +59,7 @@ namespace HaruaConvert
 
         public string baseArguments { get; set; }
 
-        List<CheckBox> childCheckBoxList;
+       public List<CheckBox> childCheckBoxList { get; set; }
 
 
         /// <summary>
@@ -509,67 +509,6 @@ namespace HaruaConvert
         }
 
 
-       public void ParamSave_Procedure()
-        {
-
-            int i = 0;
-
-            //Add Number and Save setting.ini evey selector 
-            foreach (var selector in selectorList)
-            {
-
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
-                    selector.ArgumentEditor.Text);
-
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
-                    selector.ParamLabel.Text);
-
-                i++;
-
-
-
-                //if Check Selector Radio, Save Check State
-                if (selector.SlectorRadio.IsChecked.Value)
-                {
-                    var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", radioCount);
-
-                }
-            }
-
-
-            {
-
-
-
-                var checkedSet = new CheckBoxIniClass.CheckboxGetSetValueClass();
-
-                if (childCheckBoxList != null)
-                    foreach (CheckBox chk in childCheckBoxList)
-                    {
-
-                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                    }
-
-
-                var setWriter = new IniSettings_IOClass();
-                setWriter.IniSettingWriter(paramField, this);
-
-                if (!string.IsNullOrEmpty(ParamText.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
-
-                if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
-
-                if (!string.IsNullOrEmpty(placeHolderList.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
-
-
-                IniDefinition.SetValue(paramField.iniPath, QueryNames.userControl, QueryNames.opacitySlider, harua_View.MainParams[0].BackImageOpacity.ToString("F1",CultureInfo.CurrentCulture)) ;
-
-            }
-        }
-            
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -595,7 +534,7 @@ namespace HaruaConvert
 
 
 
-        public CommonOpenDialogClass ofc { get; set; }
+    //    public CommonOpenDialogClass ofc { get; set; }
         internal FfmpegQueryClass Ffmpc { get; set; }
 
         public void FileSelector_MouseDown(object sender, RoutedEventArgs e)
@@ -608,7 +547,7 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ansest.Name;
 
-            var selOpens = new Selector_OpenMethodClass(this);
+            var selOpens = new Selector_OpenMethodClass(this,paramField);
 
 
             CommonFileDialogResult res = ansest.Name == ControlField.InputSelector ?
@@ -623,25 +562,24 @@ namespace HaruaConvert
 
             if (res == CommonFileDialogResult.Ok)
             {
+                mfc.ofc = new CommonOpenDialogClass(false, ParamField.ParamTab_OutputSelectorDirectory);
                 if (ansest.Name == InputSelector.Name)
                 {
                     //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileNameClass(InputSelector.FilePathBox.Text);
                     //  string _fileName = OutputSelector.FilePathBox.Text = param.ConvertFileNameClass(InputSelector.FilePathBox.Text);
 
-                    ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
+                    ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(mfc.ofc.opFileName);
                 }
                 if (ansest.Name == OutputSelector.Name)
                 {
-                    ParamField.ParamTab_OutputSelectorDirectory = ofc.opFileName;
+                   
+                    ParamField.ParamTab_OutputSelectorDirectory = mfc.ofc.opFileName;
+                    
                 }
             }
 
 
         }
-
-
-        public string outputFileName { get; set; }
-
 
 
 
@@ -887,7 +825,7 @@ namespace HaruaConvert
 
             // 値をスライダーに設定
         
-            Debug.WriteLine(Math.Max(minValue, Math.Min(maxValue, Math.Round(value, 1))));
+            //Debug.WriteLine(Math.Max(minValue, Math.Min(maxValue, Math.Round(value, 1))));
 
             var roundValue = Math.Max(minValue, Math.Min(maxValue, Math.Round(value, 1)));
             

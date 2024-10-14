@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing.Text;
-using System.IO;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using System.Threading;
 
 
@@ -23,7 +18,7 @@ namespace HaruaConvert.Parameter
         public string  check_output { get; set; }
 
         public  string iniPath { get; set; }
-        public string profileQueryIni { get; set; } = "";
+        public string profileQueryIni { get; set; } = string.Empty;
 
         public  string setFile { get; set; }
 
@@ -72,7 +67,7 @@ namespace HaruaConvert.Parameter
 
         public bool isPaused { get; set; }
         public bool isClosedQueryBuildWindow { get; set; }
-        public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
+        //public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
         public bool isSuccessdbuildQuery { get; internal set; }
         public static bool firstlogWindow { get; internal set; }
 
@@ -93,11 +88,11 @@ namespace HaruaConvert.Parameter
 
         public static class ButtonNameField
         {
-            public const string Convert_DropButton = "Convert_DropButton";
-            public const string Directory_DropButon = "Directory_DropButon";
-            public const string OutputButton = "OutputButton";
+            public const string Convert_DropButton = nameof(Convert_DropButton);
+            public const string Directory_DropButon = nameof(Directory_DropButon);
+            public const string OutputButton = nameof(OutputButton);
 
-            public const string _openButton =   "_openButton";
+            public const string _openButton = "_openButton";
             public const string _ExecButton = "ExecButton";
                                               
         }
