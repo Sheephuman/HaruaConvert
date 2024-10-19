@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using static HaruaConvert.Parameter.ParamField;
 
-namespace HaruaConvert.HaruaServise
+namespace HaruaConvert.mainUI.mainWindow
 {
     public class SetUIEvent
     {
@@ -57,7 +57,7 @@ namespace HaruaConvert.HaruaServise
             //_main.OutputSelector.FilePathBox.PreviewDragOver += OutSelector_PreviewDragOver;
             _main.DragOver += MainWindow_DragOver;
             _main.Directory_DropButon.Drop += MainWindow_FileDrop;
-          
+
             _main.InputSelector.FilePathBox.Drop += selector_FileDrop;
             // その他のUI操作に関わるイベントハンドラを設定
             // _main.btnSaveSettings.Click += BtnSaveSettings_Click;
@@ -123,7 +123,7 @@ namespace HaruaConvert.HaruaServise
 
 
                 _main.FileNameLabel.Text = string.Empty;
-                
+
 
                 var ClickedControl = sender as TextBox;
                 if (_main.InputSelector.FilePathBox == ClickedControl)
@@ -134,12 +134,12 @@ namespace HaruaConvert.HaruaServise
 
                 _main.ClearSourceFileData();
 
-                IMainTabEvents tabEv = new Directory_ClickProcedure( _main) ;
+                IMainTabEvents tabEv = new Directory_ClickProcedure(_main);
                 tabEv.DisplayMedia();
 
                 if (!isSelectorBox)
                 {
-                  
+
 
                     isSelectorBox = true;
                 }
@@ -147,7 +147,7 @@ namespace HaruaConvert.HaruaServise
             }
         }
 
-       
+
 
         private void InputSelector_PreviewDragOver(object sender, DragEventArgs e)
         {
@@ -169,7 +169,7 @@ namespace HaruaConvert.HaruaServise
                 }
 
 
-                _main.Directory_DropButon.Click += mainUIButtons_ClickHandle;                       
+                _main.Directory_DropButon.Click += mainUIButtons_ClickHandle;
             }
         }
 
@@ -219,10 +219,10 @@ namespace HaruaConvert.HaruaServise
 
 
             if (ClickedControl.Name == _main.OutputSelector.Name)
-                     _main.OutputSelector.FilePathBox.Text = _main.paramField.setFile;
-            
+                _main.OutputSelector.FilePathBox.Text = _main.paramField.setFile;
 
-            if (ClickedControl.Name == _main.InputSelector.Name + ParamField.ButtonNameField._openButton)
+
+            if (ClickedControl.Name == _main.InputSelector.Name + ButtonNameField._openButton)
                 _main.InputSelector.FilePathBox.Text = _main.paramField.setFile;
 
 
@@ -233,7 +233,7 @@ namespace HaruaConvert.HaruaServise
                 {
                     button.Directory_DropButon_Click(sender, e);
 
-                   
+
                     return;
                 }
 
@@ -241,7 +241,7 @@ namespace HaruaConvert.HaruaServise
                 {
                     button.Convert_DropButton_Click(sender, e);
 
-                  
+
                     return;
                 }
 

@@ -1,4 +1,5 @@
-﻿using HaruaConvert.Methods;
+﻿using HaruaConvert.mainUI.mainWindow;
+using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using NAudio.Wave;
 using System;
