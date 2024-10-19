@@ -15,7 +15,7 @@
         Opacity="0.8"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
-        Icon="../lib/harua.ico"
+        Icon="/lib/harua.ico"
         >
 
 
@@ -37,11 +37,11 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock MaxHeight="35" Width="35"
+                <TextBlock  Width="35"
                        Grid.Column="0 "                       
                        SnapsToDevicePixels="True"
                        HorizontalAlignment="Left"
-                       Height="35" Margin="0,-1,0,0"
+                       Height="Auto" Margin="0,-1,0,0"
                        >
                     <TextBlock.Background>
                         <ImageBrush
@@ -111,7 +111,7 @@
                     >
 
                     <TabControl.Background>
-                        <ImageBrush x:Name="myBrush" Opacity="0.2" ImageSource= "..\BackImage\harua.jpg"/>
+                        <ImageBrush x:Name="myBrush" Opacity="0.2" ImageSource= "\BackImage\harua.jpg"/>
                     </TabControl.Background>
 
 
@@ -119,26 +119,38 @@
 
 
                     <TabItem  x:Name="MainTab"                              
-                              PreviewMouseDown="TabItem_MouseDown" Header="Main" Margin="-2,-2,2,0" >
+                              PreviewMouseDown="TabItem_MouseDown" Header="Main" >
 
                         <Grid x:Name = "MainGrid" Grid.Row="0" VerticalAlignment="Center" 
-                          Margin="0,50,0,0">
-
-
-                            <StackPanel  Height="440"
-                                         
-                                Margin="0,-46,0,-33" Orientation="Horizontal">
+                          Margin="0,0,0,0">
+                            <StackPanel  Height="460"
+                                Margin="0,10,0,0"         
+                                 Orientation="Horizontal"
+                                         VerticalAlignment="Top">
                                 <StackPanel x:Name="mainSelectGroup" Orientation="Vertical">
                                     <GroupBox 
                                     FontSize="16"
                                     Margin="5,-5,0,0" Header="ソースファイル(DragするかButtonクリック)">
-                                        <StackPanel>
+                                        <StackPanel Height="100">
                                             <CheckBox x:Name="isForceExecCheckBox"
                                                       Content="ffmpeg.exe を強制的に実行する"
                                                    Margin="150,0,0,0"  
                                                       
                                                       Visibility="Hidden"
                                                       />
+
+                                            <TextBlock 
+                                                Margin="20"                                                
+                                                HorizontalAlignment="Right"
+                                                x:Name="CharactorBox" Height="60" Width="60">
+                                                <TextBlock.Background>
+                                                    <ImageBrush
+                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                         
+                                                     ImageSource="\lib\harua_origin_test.png" />
+                                                </TextBlock.Background>
+
+                                            </TextBlock>
 
 
                                             <StackPanel Height="40" CanVerticallyScroll="True">
@@ -343,7 +355,7 @@
 
                     <TabItem x:Name="ParameterTab"
                     PreviewMouseDown ="TabItem_MouseDown"
-                    Header="Parameter"  HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Center" Margin="2,0,0,0">
+                    Header="Parameter"  HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Center">
 
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -478,7 +490,7 @@
 
                 <TabItem  x:Name="SettingsTab"                              
                               PreviewMouseDown="TabItem_MouseDown" 
-                              Header="Settings" Margin="-2,-2,2,0" >
+                              Header="Settings" >
                     <GroupBox Header="一般設定">
                             <StackPanel>
                                 <CheckBox x:Name="IsOpenForuderChecker"
@@ -496,11 +508,43 @@
                                 <CheckBox x:Name="ExitExplorerChecker">
                                     <CheckBox.Content>
                                         <TextBlock TextWrapping="Wrap">
-                                   終了時、一部のExplorer.exeを終了させる (タスクバーが消えることがあります)
+                                   終了時、Explorer.exeの再起動
                                         </TextBlock>
                                     </CheckBox.Content>
                                 </CheckBox>
+
+                                <GroupBox x:Name="appearanceGroup" Header="外観設定" BorderBrush="Black">
+                                    <Grid>
+                                        <Grid.RowDefinitions  >
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                    <StackPanel x:Name="ApparentStack" Orientation="Horizontal" Grid.Column="0" Height="30">
+                                        <Label Content ="背景画像の透明度"/>                                       
+                                        <Slider
+                                            HorizontalAlignment="Left"
+                                            Margin="5" 
+                                            x:Name="OpacitySlider" Width="150" Height="50"/>
+                                        <Label x:Name="OpacityView" Content="ss" />
+                                          
+                                    </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                            <Label Content="色調" />
+                                            <Slider Width="150" Height="20"/>
+                                            <Label Content="testView" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="3">
+                                            <Label Content="彩度" />
+                                            <Slider Width="150" Height="20"/>
+                                            <Label Content="testView" />
+                                        </StackPanel>
+
+                                    </Grid>
+                                </GroupBox>
+
                             </StackPanel>
+                         
                         </GroupBox>
                         
                     </TabItem>

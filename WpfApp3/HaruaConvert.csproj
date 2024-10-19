@@ -117,6 +117,7 @@
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
     <None Remove="harua.jpg" />
+    <None Remove="lib\harua_origin_test.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -131,10 +132,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="lib\harua.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <None Include="Methods\Alternate_GetFileName.cs" />
     <DesignDataWithDesignTimeCreatableTypes Include="TextBoxBehaviorSample.cs" />
+    <Resource Include="lib\harua_origin_test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="NumericStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Resource>

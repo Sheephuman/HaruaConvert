@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using static HaruaConvert.Parameter.ParamField;
 
-namespace HaruaConvert.Methods
+namespace HaruaConvert.mainUI.mainWindow
 {
     internal class isUserOriginalParameter
     {
@@ -28,11 +28,12 @@ namespace HaruaConvert.Methods
 
         public bool isUserOriginalParameter_Method(object sender)
         {
-            try {
+            try
+            {
                 string extention = string.Empty;
-             
+
                 //"FileDropButton2"
-                if ((ButtonNameField._ExecButton == ((Button)sender).Name))
+                if (ButtonNameField._ExecButton == ((Button)sender).Name)
                 {
 
 
@@ -65,19 +66,20 @@ namespace HaruaConvert.Methods
                             }
 
 
-                              
+
 
                             place_1 = dictionary[mw.harua_View.MainParams[0].placement][0];
                             place_2 = dictionary[mw.harua_View.MainParams[0].placement][1];
 
 
 
-                         
+
 
                             if (inputFile.Contains(place_1) || inputFile.Contains(place_2))
                             {
                                 MessageBox.Show("ファイル名に変換対象の添え字が使われているわ\r\n ファイル名を修正してね");
-                                return false; }
+                                return false;
+                            }
 
                             var inputMatches = new Regex("\\" + place_1 + "input" + "\\" + place_2);
                             mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + inputFile + @"""");
@@ -134,7 +136,7 @@ namespace HaruaConvert.Methods
 
                             mw._arguments = mw._arguments.TrimEnd();
 
-                            if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 +extention, StringComparison.CurrentCultureIgnoreCase))
+                            if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 + extention, StringComparison.CurrentCultureIgnoreCase))
                             {
                                 MessageBox.Show($"パラメータ末尾に文字列{place_1}output{place_2}{extention}が入っていなければなりません \n\r　" +
                                     "パラメータの見直しをお願いします");
@@ -159,12 +161,12 @@ namespace HaruaConvert.Methods
                 return true;
 
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 MessageBox.Show("添え字が選択されていないわ \r\n" + ex.Message);
                 return false;
             }
         }
-        
+
     }
 }
