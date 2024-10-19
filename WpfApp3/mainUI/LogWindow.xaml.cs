@@ -88,9 +88,12 @@ namespace HaruaConvert
 
             try
             {
-              
+                if (MainWindow.ffmpegProcess != null)
+                {
+                    return;
+                }
 
-                    StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
+                      StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
 
                     inputWriter.WriteLine("q");

@@ -146,7 +146,11 @@ namespace HaruaConvert
                     paramField.isExecuteProcessed = checker;
                 //   if(!checker) //pushed No
                 //    return false;
-
+                if (paramField.isExecuteProcessed)
+                  th1 = new Thread(() => ffmpegProsseing()); 
+                        
+                //th1 = new Thread(() => ffmpegProsseing());
+                th1.Start();
                 if (Lw != null)
                 {
                     if (!firstlogWindow)
@@ -203,9 +207,12 @@ namespace HaruaConvert
             {
 
 
-               // Lw = new LogWindow(paramField);
+                // Lw = new LogWindow(paramField);
 
                 // ParamField.isExitProcessed = false;
+
+                th1 = new Thread(() => ffmpegProsseing());
+                th1.Start();
 
                 return true;
 
@@ -346,6 +353,8 @@ namespace HaruaConvert
 
                 outputDevice.Play();
 
+                ffmpegProcess.CancelErrorRead();
+                //プロセスを正常に終了させるため、エラー出力をキャンセル
 
                 OpenExplorer();
                 //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
