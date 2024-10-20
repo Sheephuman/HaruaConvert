@@ -12,20 +12,20 @@ namespace HaruaConvert.HaruaInterFace
 {
 
     public interface IMainTabEvents
-        {
-           public void Directory_DropButon_Click(object sender, RoutedEventArgs e);
-           public void Convert_DropButton_Click(object sender, RoutedEventArgs e);
-           public void DisplayMedia();
-        }
-
-     
-
-     public class Directory_ClickProcedure : IMainTabEvents
     {
-        MainWindow main ;
-        public Directory_ClickProcedure(MainWindow _main)         
-        { 
-        main = _main;        
+        public void Directory_DropButon_Click(object sender, RoutedEventArgs e);
+        public void Convert_DropButton_Click(object sender, RoutedEventArgs e);
+        public void DisplayMedia();
+    }
+
+
+
+    public class Directory_ClickProcedure : IMainTabEvents
+    {
+        MainWindow main;
+        public Directory_ClickProcedure(MainWindow _main)
+        {
+            main = _main;
         }
 
         public void Directory_DropButon_Click(object sender, RoutedEventArgs e)
@@ -37,7 +37,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-            if (main.paramField.isExecuteProcessed )
+            if (main.paramField.isExecuteProcessed)
             {
                 MessageBox.Show("ffmpeg.exeが実行中です");
 
@@ -79,8 +79,8 @@ namespace HaruaConvert.HaruaInterFace
                 {
                     return;
                 }
-                    
-             
+
+
                 //  ParamField.ConvertDirectory = ofc.opFileName;
             }
 
@@ -112,7 +112,7 @@ namespace HaruaConvert.HaruaInterFace
         }
 
         public IMediaAnalysis CallFfprobe(string setFile)
-        {                 
+        {
 
             FFOptions probe = new FFOptions();
             probe.BinaryFolder = "dll";
@@ -151,20 +151,20 @@ namespace HaruaConvert.HaruaInterFace
             {
                 //Convert Process Improvement Part
 
-                
+
                 main.paramField.isExecuteProcessed = main.FileConvertExec(main.paramField.setFile, sender);
 
-                if (main.Lw == null)
+                if (MainWindow.Lw == null)
                 {
-                    main.Lw = new LogWindow(main.paramField);
-                   
-                        main.Lw.Show();
-                       
-                    
+                    MainWindow.Lw = new LogWindow(main.paramField);
+
+                    MainWindow.Lw.Show();
+
+
                 }
 
-                main.Lw.Activate();
-            }            
+                MainWindow.Lw.Activate();
+            }
             else
             {
                 Directory_DropButon_Click(sender, e);
@@ -174,10 +174,10 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-            
 
 
 
-    }
 
-   
+}
+
+

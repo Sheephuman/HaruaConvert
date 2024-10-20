@@ -7,12 +7,12 @@
        xmlns:local="clr-namespace:HaruaConvert.Command"
         xmlns:UserControls="clr-namespace:HaruaConvert.UserControls" xmlns:parameter="clr-namespace:HaruaConvert.Parameter" d:DataContext="{d:DesignInstance Type=parameter:Harua_ViewModel}" x:Class="HaruaConvert.MainWindow"
         mc:Ignorable="d"
-        Title="はるあちゃんこんば～た" Height="440" Width="550"
-        MinHeight="460"
+        Title="はるあちゃんこんば～た" Height="490" Width="550"
+        
         MinWidth="308"
        WindowStyle="None"
         AllowsTransparency="True"
-        Opacity="0.8"        
+        Opacity="1"        
        Closed="Window_Closed"
        StateChanged="Window_StateChanged"
         Icon="/lib/harua.ico"
@@ -28,7 +28,7 @@
         <StackPanel  
             VerticalAlignment="Top"
             x:Name="TitleStack"
-            Height="35">
+            Height="45">
 
             <Grid x:Name="titleGrid">
                 <Grid.ColumnDefinitions>
@@ -97,22 +97,16 @@
         <StackPanel Grid.Row="0"    Margin="0,10,0,-10" >
 
             <Grid  Margin="0,30,0,0"
-                  Height="410"
+                  Height="440"
               VerticalAlignment="Top"
               >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="82*"/>
-                </Grid.ColumnDefinitions>
-
 
                 <TabControl 
                 VerticalAlignment="Top"
                 Margin="0,-12,0,0"
-                Height="430"                    
+                Height="460"                    
         Panel.ZIndex="0" 
-                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" Grid.ColumnSpan="3" 
+                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" Grid.ColumnSpan="2" 
                     >
 
                     <TabControl.Background>
@@ -128,15 +122,15 @@
 
                         <Grid x:Name = "MainGrid" Grid.Row="0" VerticalAlignment="Top" 
                           Margin="0,0,0,0">
-                            <StackPanel  Height="400"
+                            <StackPanel  Height="420"
                                 Margin="0,10,0,0"         
                                  Orientation="Horizontal"
                                          VerticalAlignment="Top">
                                 <StackPanel x:Name="mainSelectGroup" Orientation="Vertical">
                                     <GroupBox 
                                     FontSize="16"
-                                    Margin="5,-5,0,0" Header="ソースファイル(DragするかButtonクリック)">
-                                        <StackPanel Width="390" Height="100" Orientation="Vertical" HorizontalAlignment="Left">
+                                    Margin="5,0,0,0" Header="ソースファイル(DragするかButtonクリック)">
+                                        <StackPanel Width="420" Height="100" Orientation="Vertical" HorizontalAlignment="Left">
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="*"/>
@@ -162,7 +156,7 @@
 
 
                                                 <TextBlock 
-                                                Margin="0,0,0,0"                                                          VerticalAlignment="Top"
+                                                Margin="0,0,30,0"                                                          VerticalAlignment="Top"
                                                 HorizontalAlignment="Right"
                                                 x:Name="CharactorBox" Height="60" Width="60">
                                                     <TextBlock.Background>
@@ -248,8 +242,8 @@
 
 
 
+
                                                 </StackPanel>
-                                                <CheckBox x:Name="NoDialogCheck" Content="No Check Diarog" Margin="5,0,0,5"/>
 
                                             </StackPanel>
                                         </StackPanel>
@@ -257,15 +251,16 @@
                                     </GroupBox>
 
                                     <Grid HorizontalAlignment="Left">
-
-                                        <StackPanel Margin="0,-20,0,0"
-                                              Height="110" Width="Auto" Orientation="Horizontal">
+                                        <CheckBox x:Name="NoDialogCheck" Content="No Check Diarog" 
+VerticalAlignment="Top"/>
+                                        <StackPanel Margin="0,16,0,0"
+                                              Height="120" Width="Auto" Orientation="Horizontal">
 
                                             <Expander x:Name="detailExpander" Header="detail" 
                                                   IsEnabled="True"
                                                   IsExpanded="True"
-                                              Margin="0,0,0,0" Height="140" Width="300"
-                                               
+                                              Margin="0,0,0,0" Height="100" Width="300"
+                                               VerticalAlignment="Top"
                                                
                                               >
 
@@ -273,7 +268,7 @@
                                             Margin="0,0,0,0"
                                                     x:Name="OptionPanel"
                                     Width="300"
-                                    Height="90"
+                                    Height="120"
                                     Orientation="Horizontal" >
 
                                                     <Label Content="変換オプション"/>
@@ -289,7 +284,7 @@
                                                     </StackPanel>
                                                     <Border Width="5" Background="Transparent" />
                                                     <StackPanel x:Name="RotatePanel" 
-                                                                Height="100"
+                                                                Height="120"
                                                                >
                                                         <RadioButton FontSize="16" x:Name="NoRotate" Content="回転しない" Margin="0" 
                                                          Checked="RotateOption_Checked"
@@ -311,7 +306,7 @@
                                 Margin="30,0,0,0"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Height="120" 
+                                Height="100" 
                                 Width="200"
                                           />
                                         </StackPanel>
@@ -368,10 +363,6 @@ VerticalAlignment="Top"
                             </StackPanel>
 
 
-                            <StackPanel 
-   Margin="0,0,0,0"             >
-
-                            </StackPanel>
                         </Grid>
 
                     </TabItem>

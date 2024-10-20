@@ -223,7 +223,7 @@ namespace HaruaConvert
 
         }
 
-        bool FileExsosts_and_NoDialogCheck(string check_output, bool _DialogChecled)        //public async Task<string> CollectStandardOutput()
+        bool FileExsosts_and_NoDialogCheck(string check_output, bool _DialogChecked)        //public async Task<string> CollectStandardOutput()
         {
             var sw = new Stopwatch();
 
@@ -236,10 +236,10 @@ namespace HaruaConvert
             //bool exsisted = alterExsists.FileExsists(check_output);
             bool exsisted = File.Exists(check_output);
 
-            bool DialogChecled = _DialogChecled;
+            bool DialogChecked = _DialogChecked;
             bool satisfied = false;
 
-            if (exsisted && !DialogChecled)
+            if (exsisted && !DialogChecked)
                 satisfied = true;
 
             // 計測停止
@@ -354,10 +354,6 @@ namespace HaruaConvert
                     outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
 
                     outputDevice.Play();
-
-                    //ffmpegProcess.CancelErrorRead();
-                    //プロセスを正常に終了させるため、エラー出力をキャンセル
-
                     OpenExplorer();
                     //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
                     // 再生が完了するまで待機
