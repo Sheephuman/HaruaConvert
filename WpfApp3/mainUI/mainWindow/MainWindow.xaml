@@ -500,15 +500,18 @@
           Unchecked="isOpenFolder_Checked">
 
                                     <CheckBox.Content>
-                                        <TextBlock TextWrapping="Wrap">
+                                        <TextBlock FontSize="16"
+                                        TextWrapping="Wrap">
             変換終了後にフォルダを自動的に開く            （メモリを占有しPCが重くなることがあります）
                                         </TextBlock>
                                     </CheckBox.Content>
 
                                 </CheckBox>
-                                <CheckBox x:Name="ExitExplorerChecker">
+                                <CheckBox x:Name="ExplorerExitChecker">
                                     <CheckBox.Content>
-                                        <TextBlock TextWrapping="Wrap">
+                                        <TextBlock
+                                        FontSize="16"
+                                        TextWrapping="Wrap">
                                    終了時、Explorer.exeの再起動
                                         </TextBlock>
                                     </CheckBox.Content>
