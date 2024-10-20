@@ -30,7 +30,7 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ApplicationIcon>bin\Debug\net8.0-windows10.0.22621.0\lib\harua.ico</ApplicationIcon>
+    <ApplicationIcon>lib\harua.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -116,6 +116,22 @@
     <None Remove="App.config" />
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
+    <None Remove="dll\DotNetProjects.Wpf.Extended.Toolkit.dll" />
+    <None Remove="dll\ffmpeg.exe" />
+    <None Remove="dll\FFMpegCore.dll" />
+    <None Remove="dll\ffprobe.exe" />
+    <None Remove="dll\Instances.dll" />
+    <None Remove="dll\Microsoft.Windows.SDK.NET.dll" />
+    <None Remove="dll\Microsoft.WindowsAPICodePack.dll" />
+    <None Remove="dll\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <None Remove="dll\NAudio.Asio.dll" />
+    <None Remove="dll\NAudio.Core.dll" />
+    <None Remove="dll\NAudio.dll" />
+    <None Remove="dll\NAudio.Midi.dll" />
+    <None Remove="dll\NAudio.Wasapi.dll" />
+    <None Remove="dll\NAudio.WinForms.dll" />
+    <None Remove="dll\NAudio.WinMM.dll" />
+    <None Remove="dll\WinRT.Runtime.dll" />
     <None Remove="harua.jpg" />
     <None Remove="lib\harua_origin_test.png" />
   </ItemGroup>
@@ -183,54 +199,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="dll\DotNetProjects.Wpf.Extended.Toolkit.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\ffmpeg.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\FFMpegCore.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\ffprobe.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\Instances.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\Microsoft.Windows.SDK.NET.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\Microsoft.WindowsAPICodePack.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\Microsoft.WindowsAPICodePack.Shell.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.Asio.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.Core.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.Midi.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.Wasapi.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.WinForms.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.WinMM.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\WinRT.Runtime.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="dll\しょどーる参上.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
