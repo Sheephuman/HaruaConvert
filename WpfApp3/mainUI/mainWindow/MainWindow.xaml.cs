@@ -31,7 +31,7 @@ namespace HaruaConvert
     public partial class MainWindow : Window
     {
         public Harua_ViewModel harua_View { get; set; }
-
+        ///
         /// <summary>
         /// 共有箇所：LogWindow
         /// </summary>
