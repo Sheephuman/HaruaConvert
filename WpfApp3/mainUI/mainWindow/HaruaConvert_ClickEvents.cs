@@ -19,6 +19,7 @@ namespace HaruaConvert
 
 
 
+        public static ProcessKill_deligate killProcessDell { get; set; }
 
         private void NUD_DownButton_Click(object sender, RoutedEventArgs e)
         {

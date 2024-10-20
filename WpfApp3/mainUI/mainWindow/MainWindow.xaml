@@ -187,8 +187,9 @@
                                               >
                                             <TextBox.ContextMenu>
                                                 <ContextMenu>
-                                                    <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}" />
-                                                    <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:QueryBuidCommand.SetDefaultQuery}" />
+                                                    <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}" />
+                                                    <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:HaruaButtonCommand.SetDefaultQuery}" />
+
                                                 </ContextMenu>
 
 
@@ -198,7 +199,7 @@
                                             Width="30"      
                                             Margin="6,0,0,0"
                                            Background="Transparent"
-                                            Command="{x:Static local:QueryBuidCommand.QueryBuildWindow_Open}"
+                                            Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}"
                                            
                                             Content="para"/>
                                     </StackPanel>

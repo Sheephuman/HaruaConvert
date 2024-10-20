@@ -23,7 +23,7 @@ namespace HaruaConvert.Command
             qi = new QueryCreateWindow(main);
 
             CommandBinding queryBuildCommandBinding = new CommandBinding(
-      QueryBuidCommand.QueryBuildWindow_Open,
+      HaruaButtonCommand.QueryBuildWindow_Open,
       QueryBuildWindow_Open,
       CanExecuteQueryBuildCommand);
 
@@ -35,23 +35,39 @@ namespace HaruaConvert.Command
         {
             // コマンドバインディングの追加
             CommandBinding queryBuildWindowOpenBinding = new CommandBinding(
-                QueryBuidCommand.QueryBuildWindow_Open,
+                HaruaButtonCommand.QueryBuildWindow_Open,
                 QueryBuildWindow_Open,
                 CanExecuteQueryBuildCommand
                 );
 
 
             CommandBinding defaultQueryBinding = new CommandBinding(
-                QueryBuidCommand.SetDefaultQuery,
+                HaruaButtonCommand.SetDefaultQuery,
                 defaultSetQueryBinding,
                 CanExecuteSetDefaultQueryCommand);
+
+
+            CommandBinding ExplorerResterterComandBinding = new CommandBinding(
+               HaruaButtonCommand.ExplorerRestarter,
+               ExplorerResterterComand,
+               CanExecuteSetDefaultQueryCommand);
+
 
 
             _main.CommandBindings.Add(queryBuildWindowOpenBinding);
 
             _main.CommandBindings.Add(defaultQueryBinding);
+            _main.CommandBindings.Add(ExplorerResterterComandBinding);
+        }
+
+        private async void ExplorerResterterComand(object sender, ExecutedRoutedEventArgs e)
+        {
+            ExplorerRestarterClass explorerRestarterClass = new ExplorerRestarterClass();
+            Terminate_ProcessClass tpc = null;
+            await explorerRestarterClass.ExPlorerRestarter(tpc);
 
         }
+
 
         private void CanExecuteSetDefaultQueryCommand(object sender, CanExecuteRoutedEventArgs e)
         {
