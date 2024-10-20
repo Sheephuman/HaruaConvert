@@ -26,9 +26,9 @@ namespace HaruaConvert
         /// <summary>
         /// 共有箇所：LogWindowのConvertStopButton
         /// </summary>
-       
 
-       public EscapePath escapes { get; set; }
+
+        public EscapePath escapes { get; set; }
 
 
 
@@ -46,8 +46,8 @@ namespace HaruaConvert
         public void GetLw()
         {
             //if(paramField != null)
-       //     Lw = new LogWindow(paramField);
-       //     return Lw;
+            //     Lw = new LogWindow(paramField);
+            //     return Lw;
         }
 
         //   delegate string addOptionDeligate(string _argument);
@@ -58,9 +58,9 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        public bool FileConvertExec(string _fullPath,object sender)
+        public bool FileConvertExec(string _fullPath, object sender)
         {
-            
+
             escapes = new EscapePath();
 
 
@@ -80,7 +80,7 @@ namespace HaruaConvert
             if (ClassShearingMenbers.ButtonName == chButton.Name)
             {
                 //先頭パラメータを付ける
-                
+
 
 
 
@@ -102,9 +102,9 @@ namespace HaruaConvert
 
                 string extention = param.GetExtentionFileNamepattern(target);
 
-                
 
-                escapes = param.AddParamEscape(escapes,extention);
+
+                escapes = param.AddParamEscape(escapes, extention);
                 if (!string.IsNullOrEmpty(extention))
                     paramField.check_output = escapes.NonEscape_outputPath;
 
@@ -114,9 +114,9 @@ namespace HaruaConvert
 
                 _arguments = _arguments.Replace("{FileName}" + extention, "");
 
-                
+
                 //オプションと出力先ファイル文字列の追加
-                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{ escapes.outputPath}";
+                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{escapes.outputPath}";
 
             }
 
@@ -128,34 +128,33 @@ namespace HaruaConvert
 
                 if (!paramField.isSuccessdbuildQuery)
                     return false;
-                                                                                 //fetch flag State
+                //fetch flag State
             }
 
             #region ファイル存在判定
-         
+
             //IDisposable alterr = new IDisposableBase();
             //alterr.Dispose();
             bool checker = false;
 
             var ifNoFiles = new IfNoFileExsistsClass(this);
-            
+
             try
             {
-                
-                    checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
 
-                    paramField.isExecuteProcessed = checker;
+                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
+
+                paramField.isExecuteProcessed = checker;
                 //   if(!checker) //pushed No
                 //    return false;
-                if (paramField.isExecuteProcessed)
-                  th1 = new Thread(() => ffmpegProsseing()); 
-                        
+
                 //th1 = new Thread(() => ffmpegProsseing());
-                th1.Start();
+                //th1.Start();
                 if (Lw != null)
                 {
                     if (!firstlogWindow)
                     {
+                        th1 = new Thread(() => ffmpegProsseing());
                         Lw.Show();
                         firstlogWindow = true;
 
@@ -169,7 +168,7 @@ namespace HaruaConvert
                     }
                 }
 
-             
+
 
                 //th1 = new Thread(() => ffmpegProsseing());
 
@@ -181,7 +180,7 @@ namespace HaruaConvert
 
                 return true;
             }
-            
+
             #endregion
 
             catch (Exception ex)
@@ -191,7 +190,7 @@ namespace HaruaConvert
                 MessageBox.Show(ex.Message);
                 return false;
             }
-            
+
         }
 
 
@@ -218,9 +217,9 @@ namespace HaruaConvert
                 return true;
 
             }
-            else         
+            else
                 return false;
-            
+
 
         }
 
@@ -255,11 +254,11 @@ namespace HaruaConvert
         }
 
         long memorySize { get; set; }
-        List<Process> AllExplorerProcesses { get; set; }
-        public LogWindow Lw { get; set; }
+
+        public static LogWindow Lw { get; set; }
         public bool IsDefaultQuerySet { get; internal set; }
 
-       public void ffmpegProsseing()
+        public void ffmpegProsseing()
         {
             ////////
             /////https://qiita.com/skitoy4321/items/10c47eea93e5c6145d48
@@ -284,12 +283,12 @@ namespace HaruaConvert
                 ffmpegProcess.StartInfo.FileName = "cmd.exe";
 
 
-                    ffmpegProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
+                ffmpegProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
 
-                    ffmpegProcess.EnableRaisingEvents = true;
+                ffmpegProcess.EnableRaisingEvents = true;
 
 
-                
+
 
                 ffmpegProcess.Exited += new EventHandler(ffmpeg_Exited);
 
@@ -299,26 +298,26 @@ namespace HaruaConvert
                 {
                     if (Lw != null)
                         Dispatcher.Invoke(() =>
-                   {
-                       
-
-                       Lw.RichTextRogs.AppendText(e.Data);
-                       Lw.RichTextRogs.AppendText(Environment.NewLine);
-
-                   //    Debug.WriteLine(e.Data);
-                    //  Debug.WriteLine(Environment.NewLine);
+                        {
 
 
-                       if (Lw.AutoScroll_Checker.IsChecked)
-                           Lw.RichTextRogs.ScrollToEnd();
+                            Lw.RichTextRogs.AppendText(e.Data);
+                            Lw.RichTextRogs.AppendText(Environment.NewLine);
 
-                       //Another thread accessing
-                       //-                    
-                       ////https://psycodedeveloper.wordpress.com/2019/07/31/how-to-pause-or-resume-a-process-with-c/
-
+                            //    Debug.WriteLine(e.Data);
+                            //  Debug.WriteLine(Environment.NewLine);
 
 
-                   });
+                            if (Lw.AutoScroll_Checker.IsChecked)
+                                Lw.RichTextRogs.ScrollToEnd();
+
+                            //Another thread accessing
+                            //-                    
+                            ////https://psycodedeveloper.wordpress.com/2019/07/31/how-to-pause-or-resume-a-process-with-c/
+
+
+
+                        });
                 });
                 ffmpegProcess.Start();
 
@@ -332,7 +331,7 @@ namespace HaruaConvert
                 paramField.ctoken.Token.WaitHandle.WaitOne();
 
                 ffmpegProcess.WaitForExit(0);
-             
+
             }
 
         }
@@ -340,31 +339,37 @@ namespace HaruaConvert
 
         private async void ffmpeg_Exited(object sender, EventArgs e)
         {
-            var current = Directory.GetCurrentDirectory();
-
-            paramField.isExecuteProcessed = false;
-            //wave出力の初期化
-
-            using (WaveOutEvent outputDevice = new WaveOutEvent())
-            using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
+            try
             {
-                outputDevice.Init(afr);
-                var playbackCompleted = new TaskCompletionSource<bool>();
-                outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
+                var current = Directory.GetCurrentDirectory();
 
-                outputDevice.Play();
+                paramField.isExecuteProcessed = false;
+                //wave出力の初期化
 
-                ffmpegProcess.CancelErrorRead();
-                //プロセスを正常に終了させるため、エラー出力をキャンセル
+                using (WaveOutEvent outputDevice = new WaveOutEvent())
+                using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
+                {
+                    outputDevice.Init(afr);
+                    var playbackCompleted = new TaskCompletionSource<bool>();
+                    outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
 
-                OpenExplorer();
-                //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
-                // 再生が完了するまで待機
-                await playbackCompleted.Task;
+                    outputDevice.Play();
+
+                    //ffmpegProcess.CancelErrorRead();
+                    //プロセスを正常に終了させるため、エラー出力をキャンセル
+
+                    OpenExplorer();
+                    //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
+                    // 再生が完了するまで待機
+                    await playbackCompleted.Task;
+
+                }
 
             }
-            
-            
+            catch (System.IO.FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message + "\r\n" + "Waveファイルが見つかりません");
+            }
 
         }
 
@@ -388,34 +393,29 @@ namespace HaruaConvert
             //    explorerProcess.Start();
             //}
 
+            bool exsist = Path.Exists(paramField.check_output);
+            if (paramField.isOpenFolder)
+                if (exsist)
+                    using (Process explorerProcess = new Process())
+                    {
+                        explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
+                            Arguments = $"/select, \"{paramField.check_output}\"", // 引数に「/select,」を付ける
+                            UseShellExecute = true
+                        };
 
-            if(paramField.isOpenFolder)
-            using (Process explorerProcess = new Process())
-            {
-                explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
-                    Arguments = $"/select, \"{paramField.check_output}\"", // 引数に「/select,」を付ける
-                    UseShellExecute = true
-                };
+                        explorerProcess.Start();
+                        //memorySize = explorerProcess.WorkingSet64;
 
-                explorerProcess.Start();
-                memorySize = explorerProcess.WorkingSet64;
-                
-                AllExplorerProcesses = new List<Process>();
 
-                Process[] exploreres = Process.GetProcessesByName("explorer");
-                foreach (Process ex in exploreres)
-                {
-                    AllExplorerProcesses.Add(ex);
-                }
-            }
+                    }
 
-            
-            
+
+
 
             Debug.WriteLine($"/select, \"{paramField.check_output}\"");
-            
+
         }
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -424,6 +424,6 @@ namespace HaruaConvert
         }
 
 
-        
+
     }
 }

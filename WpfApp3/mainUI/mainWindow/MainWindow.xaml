@@ -97,21 +97,26 @@
         <StackPanel Grid.Row="0"    Margin="0,10,0,-10" >
 
             <Grid  Margin="0,30,0,0"
-                  Height="428"
+                  Height="410"
               VerticalAlignment="Top"
               >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="82*"/>
+                </Grid.ColumnDefinitions>
 
 
                 <TabControl 
                 VerticalAlignment="Top"
                 Margin="0,-12,0,0"
-                Height="440"                    
+                Height="430"                    
         Panel.ZIndex="0" 
-                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" 
+                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" Grid.ColumnSpan="3" 
                     >
 
                     <TabControl.Background>
-                        <ImageBrush x:Name="myBrush" Opacity="0.2" ImageSource= "\BackImage\harua.jpg"/>
+                        <ImageBrush x:Name="myBrush" Opacity="{Binding BackImageOpacity}" ImageSource= "\BackImage\harua.jpg"/>
                     </TabControl.Background>
 
 
@@ -121,9 +126,9 @@
                     <TabItem  x:Name="MainTab"                              
                               PreviewMouseDown="TabItem_MouseDown" Header="Main" >
 
-                        <Grid x:Name = "MainGrid" Grid.Row="0" VerticalAlignment="Center" 
+                        <Grid x:Name = "MainGrid" Grid.Row="0" VerticalAlignment="Top" 
                           Margin="0,0,0,0">
-                            <StackPanel  Height="460"
+                            <StackPanel  Height="400"
                                 Margin="0,10,0,0"         
                                  Orientation="Horizontal"
                                          VerticalAlignment="Top">
@@ -131,48 +136,56 @@
                                     <GroupBox 
                                     FontSize="16"
                                     Margin="5,-5,0,0" Header="ソースファイル(DragするかButtonクリック)">
-                                        <StackPanel Height="100">
-                                            <CheckBox x:Name="isForceExecCheckBox"
+                                        <StackPanel Width="390" Height="100" Orientation="Vertical" HorizontalAlignment="Left">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <CheckBox x:Name="isForceExecCheckBox"
                                                       Content="ffmpeg.exe を強制的に実行する"
                                                    Margin="150,0,0,0"  
                                                       
                                                       Visibility="Hidden"
                                                       />
 
-                                            <TextBlock 
-                                                Margin="20"                                                
-                                                HorizontalAlignment="Right"
-                                                x:Name="CharactorBox" Height="60" Width="60">
-                                                <TextBlock.Background>
-                                                    <ImageBrush
-                                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                         
-                                                     ImageSource="\lib\harua_origin_test.png" />
-                                                </TextBlock.Background>
-
-                                            </TextBlock>
-
-
-                                            <StackPanel Height="40" CanVerticallyScroll="True">
-
-                                                <TextBlock Grid.Row="2" x:Name="FileNameLabel"
-                                          Margin="0,-20,0,0"
-                                                               Text="{Binding SourcePathText}"
+                                                <TextBlock  x:Name="FileNameLabel"
+                                          Margin="0,0,0,0"
+                                               HorizontalAlignment="Left"
+                                               Text="{Binding SourcePathText}"
                                                ToolTip="{Binding SourcePathText}"
-                                               Width="380"
+                                               Width="290"
                                                TextWrapping="Wrap"                
                                                                />
 
-                                            </StackPanel>
-                                            <Button x:Name="Directory_DropButon" 
-                                            Height="30"
-                                            FontSize="20" Content="参照"
-                                            Margin="0,4,0,0"
-                              
-                                                    
-                                            AllowDrop="True"     
-                                            Background="Transparent"
-                                />
+
+
+                                                <TextBlock 
+                                                Margin="0,0,0,0"                                                          VerticalAlignment="Top"
+                                                HorizontalAlignment="Right"
+                                                x:Name="CharactorBox" Height="60" Width="60">
+                                                    <TextBlock.Background>
+                                                        <ImageBrush
+                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                         
+                                                     ImageSource="\lib\harua_origin_test.png" />
+                                                    </TextBlock.Background>
+
+                                                </TextBlock>
+
+                                                <Button x:Name="Directory_DropButon" 
+                                            Grid.Row ="2"
+                                          Height="30"
+                                          Width="380"
+                                          Content="参照"
+                                             Background="Transparent"
+                                             Margin="0,10,0,0"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             />
+                                            </Grid>
+
 
                                         </StackPanel>
                                     </GroupBox>
@@ -189,7 +202,6 @@
                                                 <ContextMenu>
                                                     <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}" />
                                                     <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:HaruaButtonCommand.SetDefaultQuery}" />
-
                                                 </ContextMenu>
 
 
@@ -199,7 +211,7 @@
                                             Width="30"      
                                             Margin="6,0,0,0"
                                            Background="Transparent"
-                                            Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}"
+                                            Command="{x:Static local:HaruaButtonCommand.ExplorerRestarter}"
                                            
                                             Content="para"/>
                                     </StackPanel>
@@ -223,7 +235,7 @@
                                             Margin="5,0,0,5"/>
                                             <StackPanel Height="70" Orientation="Vertical">
                                                 <StackPanel Orientation="Horizontal" 
-                                               Margin="10"
+                                               Margin="30"
                                                             
                                      HorizontalAlignment="Stretch" 
                                                VerticalAlignment="Stretch" >
@@ -247,7 +259,7 @@
                                     <Grid HorizontalAlignment="Left">
 
                                         <StackPanel Margin="0,-20,0,0"
-                                              Height="110" Width="300" >
+                                              Height="110" Width="Auto" Orientation="Horizontal">
 
                                             <Expander x:Name="detailExpander" Header="detail" 
                                                   IsEnabled="True"
@@ -260,8 +272,8 @@
                                                 <StackPanel VerticalAlignment="Top"
                                             Margin="0,0,0,0"
                                                     x:Name="OptionPanel"
-                                    Width="400"
-                                    Height="100"
+                                    Width="300"
+                                    Height="90"
                                     Orientation="Horizontal" >
 
                                                     <Label Content="変換オプション"/>
@@ -293,62 +305,73 @@
 
 
                                             </Expander>
+
+                                            <RichTextBox x:Name="SorceFileDataBox"         
+                                   Block.LineHeight="1"                                          
+                                Margin="30,0,0,0"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Height="120" 
+                                Width="200"
+                                          />
                                         </StackPanel>
                                     </Grid>
-                                </StackPanel>
-                                <StackPanel Margin="150,100,0,0" HorizontalAlignment="Right" VerticalAlignment="Top">
-
-
-                                    <RichTextBox x:Name="SorceFileDataBox"                                            
-                                                           Block.LineHeight="1"          
-                                                        Grid.ColumnSpan="2"
-                                                        Margin="-250,170,0,0"
-                                                        Height="120" 
-                                                        Width="250"
-                                                                  />
-
 
 
                                 </StackPanel>
-                                <StackPanel Margin="0,0,0,0" x:Name="ConvertStuck"  VerticalAlignment="Center">
+                                <StackPanel Orientation="Vertical" 
+                                HorizontalAlignment="Left"
+                             Margin="-90,0,0,0"           >
                                     <Label x:Name="Drop_Label"
-                                       VerticalContentAlignment="Center"
-                                       FontSize="25"
-                                           
-                                        Content="  File Drop ">
+                   HorizontalAlignment="Left"
+                     FontSize="25"
+       
+                         Content="  File Drop ">
                                         <Label.Template>
 
                                             <!--FileDrop Buttonの位置とサイズ-->
                                             <ControlTemplate TargetType="{x:Type Label}">
                                                 <Button
-                                                    Name="Convert_DropButton"
-                                                AllowDrop="True"
-                                                    
-                                                Margin="-160,-180,0,0"                                                                                               
-                                                VerticalContentAlignment="Center"     
-                                                Background="Transparent"
-                                                VerticalAlignment="Center"  
-                                                
-                                                Height="230"                                                      
-                                                Width="130"
-                                                HorizontalAlignment="Center"
-                                                Content="{TemplateBinding Content}"/>
+                Name="Convert_DropButton"
+            AllowDrop="True"
+                
+            Margin="-30,0,0,0"                                                                                               
+            VerticalContentAlignment="Center"     
+
+            Background="Transparent"
+            VerticalAlignment="Top"
+            
+            Height="200"                                                      
+            Width="130"
+            HorizontalAlignment="Center"
+            Content="{TemplateBinding Content}"/>
                                             </ControlTemplate>
                                         </Label.Template>
                                     </Label>
-                                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
-                                   Margin="-20,-30,0,0"             >
-                                        <Label Margin="-380,40,0,5" Content="ファイル名末尾の文字"
-                                           Width="200" FontSize="16"
-                                           FontWeight="Bold"/>
-                                        <TextBox x:Name="endStringBox" Margin="-150,-36,0,5" Text= "{Binding endString}" 
-                                                FontSize="20" Width="128" Height="28"/>
-                                    </StackPanel>
-                                </StackPanel>
+                                    <StackPanel
+                                    
+                                    Margin="-200,0,0,0"
+                                    Orientation="Horizontal">
+                                        <Label Margin="0,0,-40,0" Content="ファイル名末尾の文字"
 
+VerticalAlignment="Top"
+   Width="200" FontSize="16"
+   FontWeight="Bold"/>
+                                        <TextBox x:Name="endStringBox" Margin="0,0,0,0" Text= "{Binding endString}" 
+        FontSize="20" Width="140" Height="28"/>
+
+
+
+                                    </StackPanel>
+
+                                </StackPanel>
                             </StackPanel>
 
 
+                            <StackPanel 
+   Margin="0,0,0,0"             >
+
+                            </StackPanel>
                         </Grid>
 
                     </TabItem>
@@ -487,19 +510,19 @@
 
 
 
-               </TabItem>
+                    </TabItem>
 
-                <TabItem  x:Name="SettingsTab"                              
+                    <TabItem  x:Name="SettingsTab"                              
                               PreviewMouseDown="TabItem_MouseDown" 
                               Header="Settings" >
-                    <GroupBox Header="一般設定">
+                        <GroupBox Header="一般設定">
                             <StackPanel>
                                 <CheckBox x:Name="IsOpenForuderChecker"
           IsChecked="False"
           Checked="isOpenFolder_Checked"
           Unchecked="isOpenFolder_Checked">
 
-                                    <CheckBox.Content>
+                                    <CheckBox.Content >
                                         <TextBlock FontSize="16"
                                         TextWrapping="Wrap">
             変換終了後にフォルダを自動的に開く            （メモリを占有しPCが重くなることがあります）
@@ -509,22 +532,23 @@
                                 </CheckBox>
                                 <CheckBox x:Name="ExplorerExitChecker">
                                     <CheckBox.Content>
-                                        <TextBlock
-                                        FontSize="16"
+                                        <TextBlock  FontSize="16"
                                         TextWrapping="Wrap">
                                    終了時、Explorer.exeの再起動
                                         </TextBlock>
                                     </CheckBox.Content>
                                 </CheckBox>
+
                                 <Button
-       Margin="10"
-       x:Name="ExploreRestarterButton"
-           HorizontalAlignment="Left"
-           Content="Explorerを再起動する"
-           Height="30" Width="130"
-           Background="Transparent"
-       
-       Command="{x:Static local:HaruaButtonCommand.ExplorerRestarter}"/>
+                                    Margin="10"
+                                    x:Name="ExploreRestarterButton"
+                                        HorizontalAlignment="Left"
+                                        Content="Explorerを再起動する"
+                                        Height="20" Width="130"
+                                        Background="Transparent"
+                                    
+                                    Command="{x:Static local:HaruaButtonCommand.ExplorerRestarter}"/>
+
                                 <GroupBox x:Name="appearanceGroup" Header="外観設定" BorderBrush="Black">
                                     <Grid>
                                         <Grid.RowDefinitions  >
@@ -532,39 +556,55 @@
                                             <RowDefinition />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                    <StackPanel x:Name="ApparentStack" Orientation="Horizontal" Grid.Column="0" Height="30">
-                                        <Label Content ="背景画像の透明度"/>                                       
-                                        <Slider
+                                        <StackPanel x:Name="ApparentStack" Orientation="Horizontal" Grid.Column="0" Height="30">
+                                            <Label Content ="背景画像の透明度"/>
+                                            <Slider
+                                            Maximum ="1"
+                                            Value="{Binding BackImageOpacity,UpdateSourceTrigger=PropertyChanged}"                 
                                             HorizontalAlignment="Left"
                                             Margin="5" 
-                                            x:Name="OpacitySlider" Width="150" Height="50"/>
-                                        <Label x:Name="OpacityView" Content="ss" />
-                                          
-                                    </StackPanel>
+ IsSnapToTickEnabled="True"                                            
+ValueChanged="OpacitySlider_ValueChanged"
+TickFrequency ="0.1"
+IsMoveToPointEnabled ="True"
+                                            x:Name="opacitySlider" Width="150" Height="50"/>
+                                            <Label 
+                                            x:Name="OpacityText" 
+FontSize="16" Content="ss" />
+
+                                        </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                            <Label Content="色調" />
+                                            <Label Content="色調" FontSize="16" />
                                             <Slider Width="150" Height="20"/>
                                             <Label Content="testView" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                            <Label Content="彩度" />
+                                            <Label Content="彩度" FontSize="16" />
                                             <Slider Width="150" Height="20"/>
                                             <Label Content="testView" />
                                         </StackPanel>
 
                                     </Grid>
                                 </GroupBox>
+                                <GroupBox Header="ファイルパス設定" >
 
+
+                                </GroupBox>
                             </StackPanel>
-                         
+
                         </GroupBox>
-                        
+
                     </TabItem>
 
                     <TabItem Header="credit" x:Name="CreditTab" Width="50" HorizontalAlignment="Left">
                         <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="17"/>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="522*"/>
+                            </Grid.ColumnDefinitions>
 
-                            <StackPanel HorizontalAlignment="Left">
+                            <StackPanel HorizontalAlignment="Left" Grid.ColumnSpan="3">
                                 <Label Content="安倍春明(あべはるあ) t／砂雲空風" FontSize="30"/>
                                 <TextBlock  FontSize="20">
                                      <Hyperlink NavigateUri = "https://twitter.com/shiyokatadragon"

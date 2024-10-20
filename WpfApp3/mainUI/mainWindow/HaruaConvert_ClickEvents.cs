@@ -117,67 +117,31 @@ namespace HaruaConvert
                 if (Lw != null)
                     Lw.Close();
 
-                //List<Process> smallestMemoryProcess = new List<Process>();
+                await killProcessDell(ffmpegProcess.Id);  // ffmpegの強制終了処理
 
-
-
-
-                Terminate_ProcessClass tpc = new Terminate_ProcessClass();
+                var tpc = new Terminate_ProcessClass();
 
                 killProcessDell = tpc.Terminate_Process;
-                List<Process> AllExplorerProcess = new();
-                var exploreres = Process.GetProcessesByName("explorer");
+                                
 
-                // 最小メモリサイズのプロセスを取得
-
-
-                using (tpc = new Terminate_ProcessClass())
-                {
+               var exes = new ExplorerRestarterClass();
 
 
-                    //threshold = AllExplorerProcesses.Count /2 ;
+                if (ExplorerExitChecker.IsChecked.Value)
+                    await exes.ExPlorerRestarter(tpc);
 
-                    // ffmpegの強制終了// 最小メモリサイズのプロセスを取得
-                    //Process smallestMemoryProcess = AllExplorerProcesses
-                    //.OrderBy(process => process.WorkingSet64)// メモリサイズでソート
-                    //.Skip(threshold).FirstOrDefault(); //最小サイズから2番目のプロセスを取得
-
-
-
-                    var exes = new ExplorerRestarterClass();
-
-
-                    if (ExplorerExitChecker.IsChecked.Value)
-                        await exes.ExPlorerRestarter(tpc);
-
-
-
-                    //// explorer.exeの終了処理。
-                    //if (smallestMemoryProcess != null)
-                    //{
-                    //kill memory size 1/2 in AllExploreProcess
-
-
-
-                    //foreach (Process explorer in exploreres)
-                    //    //if (smallestMemoryProcess.WorkingSet64 >= explorer.WorkingSet64)
-                    //    await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
 
                     await Task.Delay(1000);
-
-
-
-
 
                     // ここでタスクの完了を手動で設定
                     Completed.SetResult(true);
 
-                }
-
-
+                
 
                 Application.Current.Shutdown();
-                //await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
+                
+                
+                
 
 
             }

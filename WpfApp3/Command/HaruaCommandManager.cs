@@ -7,14 +7,14 @@ using System.Windows.Input;
 
 namespace HaruaConvert.Command
 {
-    public class QuerryCommandManager
+    public class HaruaCommandManager
     {
         MainWindow _main;
         QueryCreateWindow qi;
 
         
 
-        public QuerryCommandManager(MainWindow main)
+        public HaruaCommandManager(MainWindow main)
         {
 
             _main = main;
