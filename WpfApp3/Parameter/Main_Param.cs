@@ -20,6 +20,10 @@ namespace HaruaConvert.Parameter
 
 
 
+        public double BackImageOpacity { get; set; }
+
+
+
         private string sourcePath;
         //原因の切り分けのために例外を投げさせる実装
         public string SourcePathText

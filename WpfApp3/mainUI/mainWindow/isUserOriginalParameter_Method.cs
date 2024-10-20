@@ -82,7 +82,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             }
 
                             var inputMatches = new Regex("\\" + place_1 + "input" + "\\" + place_2);
-                            mw.baseArguments = inputMatches.Replace(mw.baseArguments, @"""" + inputFile + @"""");
+                            mw.baseArguments = inputMatches.Replace(mw.baseArguments, "-i " + @"""" + inputFile + @"""").TrimEnd();
 
 
                             //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
@@ -92,7 +92,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             var OutputMatches = new Regex("\\" + place_1 + "output" + "\\" + place_2);
 
                             //Attach Output Path as Converted FileName
-                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments, @"""" + mw.OutputSelector.FilePathBox.Text);
+                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments, "-y " + @"""" + mw.OutputSelector.FilePathBox.Text);
 
 
                             string wEscapePlace = string.Empty;
@@ -119,6 +119,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             //mw.param._convertFile = mw.OutputSelector.FilePathBox.Text;
 
                             mw.th1.DisableComObjectEagerCleanup();
+                            //COMオブジェクトの早期クリーンアップを無効にするメソッド
 
                             if (mw.baseArguments.Contains("%03d", StringComparison.Ordinal))
                             { mw.baseArguments += @""""; }
@@ -131,7 +132,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             mw._arguments = mw.baseArguments;
 
                             extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
-                            if (!string.IsNullOrEmpty(extention) && !mw.baseArguments.Contains(extention))
+                            if (!mw.baseArguments.Contains(extention))
                                 mw.paramField.check_output += extention;
 
                             mw._arguments = mw._arguments.TrimEnd();

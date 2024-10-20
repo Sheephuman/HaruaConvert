@@ -31,7 +31,7 @@ namespace HaruaConvert
     public partial class MainWindow : Window
     {
         public Harua_ViewModel harua_View { get; set; }
-        ///
+
         /// <summary>
         /// 共有箇所：LogWindow
         /// </summary>
@@ -54,7 +54,7 @@ namespace HaruaConvert
 
 
         public static bool firstSet { get; set; } //初回起動用
-        public static bool firstlogWindow { get; set; } 
+        public static bool firstlogWindow { get; set; }
 
         public string baseArguments { get; set; }
 
@@ -74,7 +74,7 @@ namespace HaruaConvert
             static public bool isHorizontalRotate { get; set; }
             static public bool isNoRotate { get; set; }
         }
-      
+
         //     bool isLabelEited { get; set; }
 
 
@@ -98,11 +98,11 @@ namespace HaruaConvert
         public MainWindow()
         {
             InitializeComponent();
-         
+
             main = this;
 
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
-            
+
             SetUIEvent uiManager = new SetUIEvent(main);
             uiManager.RegisterUIDropEvent();
 
@@ -111,14 +111,14 @@ namespace HaruaConvert
             InitializeParameters();
 
             Lw = new LogWindow(paramField);
-　　　　　
+
 
             InitializeViewModels();
             var initail = new InitilizeCheckBox(paramField);
 
-           childCheckBoxList = initail.InitializeChildCheckBox(this,childCheckBoxList);
-            if(childCheckBoxList != null)
-            initail.LoadCheckBoxStates(childCheckBoxList);
+            childCheckBoxList = initail.InitializeChildCheckBox(this, childCheckBoxList);
+            if (childCheckBoxList != null)
+                initail.LoadCheckBoxStates(childCheckBoxList);
 
             SelectorEventHandlers();
 
@@ -135,7 +135,7 @@ namespace HaruaConvert
 
 
 
-        
+
 
 
             SetupUIEvents();
@@ -150,7 +150,7 @@ namespace HaruaConvert
 
             FileList = new ObservableCollection<string>();
             Generate_ParamSelector();
-            var cm = new QuerryCommandManager(main);
+            var cm = new HaruaCommandManager(main);
             cm.AddCommands();
 
 
@@ -159,7 +159,7 @@ namespace HaruaConvert
 
 
 
-        
+
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);
@@ -394,7 +394,7 @@ namespace HaruaConvert
 
             ClassShearingMenbers.ButtonName = ((RadioButton)sender).Name;
 
-            
+
 
             cod = new CommonOpenDialogClass(true, MainTab_OutputDirectory);
 
@@ -421,7 +421,7 @@ namespace HaruaConvert
 
         public delegate Task ProcessKill_deligate(int targetProcess);
 
-        public delegate void ExitEvent_delegate(object sender , ExitEventArgs e);
+        public delegate void ExitEvent_delegate(object sender, ExitEventArgs e);
 
         private void NoAudio_Checked(object sender, RoutedEventArgs e)
         {
@@ -510,7 +510,7 @@ namespace HaruaConvert
         }
 
 
-       public void ParamSave_Procedure()
+        public void ParamSave_Procedure()
         {
 
             int i = 0;
@@ -546,11 +546,11 @@ namespace HaruaConvert
                 var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
 
                 if (childCheckBoxList != null)
-                foreach (CheckBox chk in childCheckBoxList)
-                {
+                    foreach (CheckBox chk in childCheckBoxList)
+                    {
 
-                    checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                }
+                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                    }
 
 
                 var setWriter = new IniSettings_IOClass();
@@ -563,12 +563,14 @@ namespace HaruaConvert
                     IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
                 if (!string.IsNullOrEmpty(placeHolderList.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder ,  QueryNames.placeHolderCount , placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
 
+                //背景画像のOpacity書き込み
+                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
 
             }
         }
-            
+
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -852,7 +854,17 @@ namespace HaruaConvert
             return ToString();
         }
 
-     
+        private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (OpacityText != null && harua_View != null)
+            {
+
+                harua_View.MainParams[0].BackImageOpacity = opacitySlider.Value;
+                OpacityText.Content = $"{opacitySlider.Value:f1}";
+
+
+            }
+        }
     }
 
 }
