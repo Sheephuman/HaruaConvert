@@ -1,4 +1,5 @@
-﻿using HaruaConvert.Methods;
+﻿using HaruaConvert.Command;
+using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,6 @@ namespace HaruaConvert
 
 
 
-        public static ProcessKill_deligate killProcessDell { get; set; }
 
         private void NUD_DownButton_Click(object sender, RoutedEventArgs e)
         {
@@ -91,7 +91,7 @@ namespace HaruaConvert
                     }
                 }
         }
-      delegate void exitEvdel(object sender, ExitEventArgs e);
+        delegate void exitEvdel(object sender, ExitEventArgs e);
 
         public void OnApplicationExit(object sender, ExitEventArgs e)
         {
@@ -102,7 +102,7 @@ namespace HaruaConvert
         }
 
 
-
+        public static ProcessKill_deligate killProcessDell { get; set; }
 
         private async void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -118,60 +118,64 @@ namespace HaruaConvert
                     Lw.Close();
 
                 //List<Process> smallestMemoryProcess = new List<Process>();
-               
+
 
 
 
                 Terminate_ProcessClass tpc = new Terminate_ProcessClass();
-                ProcessKill_deligate killProcessDell;
+
                 killProcessDell = tpc.Terminate_Process;
+                List<Process> AllExplorerProcess = new();
+                var exploreres = Process.GetProcessesByName("explorer");
 
-                if (AllExplorerProcesses != null)
+                // 最小メモリサイズのプロセスを取得
+
+
+                using (tpc = new Terminate_ProcessClass())
                 {
-                    // 最小メモリサイズのプロセスを取得
 
 
-                    using (tpc = new Terminate_ProcessClass())
-                    {
-                      
+                    //threshold = AllExplorerProcesses.Count /2 ;
 
-                        //threshold = AllExplorerProcesses.Count /2 ;
-
-                        // ffmpegの強制終了// 最小メモリサイズのプロセスを取得
-                        //Process smallestMemoryProcess = AllExplorerProcesses
-                        //.OrderBy(process => process.WorkingSet64)// メモリサイズでソート
-                        //.Skip(threshold).FirstOrDefault(); //最小サイズから2番目のプロセスを取得
+                    // ffmpegの強制終了// 最小メモリサイズのプロセスを取得
+                    //Process smallestMemoryProcess = AllExplorerProcesses
+                    //.OrderBy(process => process.WorkingSet64)// メモリサイズでソート
+                    //.Skip(threshold).FirstOrDefault(); //最小サイズから2番目のプロセスを取得
 
 
 
+                    var exes = new ExplorerRestarterClass();
+
+
+                    if (ExplorerExitChecker.IsChecked.Value)
+                        await exes.ExPlorerRestarter(tpc);
 
 
 
-                        //// explorer.exeの終了処理。
-                        //if (smallestMemoryProcess != null)
-                        //{
-                        //kill memory size 1/2 in AllExploreProcess
-                        foreach (Process explorer in AllExplorerProcesses)
-                            //if (smallestMemoryProcess.WorkingSet64 >= explorer.WorkingSet64)
-                            await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
-
-                        await Task.Delay(1000);
+                    //// explorer.exeの終了処理。
+                    //if (smallestMemoryProcess != null)
+                    //{
+                    //kill memory size 1/2 in AllExploreProcess
 
 
 
-                        // ここでタスクの完了を手動で設定
-                        Completed.SetResult(true);                      
+                    //foreach (Process explorer in exploreres)
+                    //    //if (smallestMemoryProcess.WorkingSet64 >= explorer.WorkingSet64)
+                    //    await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
 
-                    }
+                    await Task.Delay(1000);
 
 
 
 
-                    var processStaert = new ProcessStartClass();
-                    var processParam = new SessionStartParames("cmd.exe", false, true, "/c start explorer.exe");
-                    processStaert.ProcessStartMethod(processParam);
+
+                    // ここでタスクの完了を手動で設定
+                    Completed.SetResult(true);
 
                 }
+
+
+
                 Application.Current.Shutdown();
                 //await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
 
@@ -191,10 +195,10 @@ namespace HaruaConvert
         }
 
 
-    
 
-            
-        
+
+
+
 
 
         private void OriginalParamExecButton_Click(object sender, RoutedEventArgs e)
@@ -257,7 +261,7 @@ namespace HaruaConvert
             Generate_ParamSelector();
 
             ParamSelector_SetText(sender, true);
-        
+
 
 
         }
