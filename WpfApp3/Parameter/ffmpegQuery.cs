@@ -11,22 +11,18 @@ namespace HaruaConvert
             _main = main;
 
         }
-        public FfmpegQueryClass(string _ffmepg)
-        {
-            setQuery = _ffmepg;
-
-        }
+     
         public FfmpegQueryClass(string _ffmepg, string _UserParam)
         {
             setQuery = _ffmepg;
             UserParam = _UserParam;
-            
+
         }
         static string UserParam;
         readonly string setQuery;
         //public static string ffmpegQuery;
-        
-        
+
+
 
         string SetQuery;
 
@@ -38,19 +34,19 @@ namespace HaruaConvert
         /// <returns></returns>
         public string AddsetQuery(string input, Harua_ViewModel harua_view)
         {
-     //      var dh = new Harua_ViewModel();
+            //      var dh = new Harua_ViewModel();
             if (string.IsNullOrEmpty(UserParam))
             {
                 //var hview = new Harua_ViewModel(_main);
-                
-                SetQuery = "-i " + $"{input} " + harua_view.MainParams[0].StartQuery;
+
+                SetQuery = "-i " + $"{input} " + "-y " + harua_view.MainParams[0].StartQuery;
             }
             else
-                SetQuery = "-i " + $"{input}" + " " + UserParam;
+                SetQuery = "-i " + $"{input}" + "-y " + UserParam;
 
 
             return SetQuery;
-            
+
         }
 
 

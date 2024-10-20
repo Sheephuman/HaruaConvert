@@ -25,7 +25,7 @@ namespace HaruaConvert
 
 
 
-    public partial class LogWindow : Window
+    public partial class LogWindow : Window, IDisposable
     {
 
 
@@ -35,7 +35,7 @@ namespace HaruaConvert
         // Pragraph要素のインスタンスを作成します。
 
 
-       public ParamField Lw_paramField { get; set; }
+        public ParamField Lw_paramField { get; set; }
         public LogWindow(ParamField _paramField)
         {
             InitializeComponent();
@@ -65,9 +65,9 @@ namespace HaruaConvert
             //TextColor = new SolidColorBrush(PreTextColor);
 
 
-            
+
             Lw_paramField.isPaused = false;
-           
+
         }
 
 
@@ -88,16 +88,16 @@ namespace HaruaConvert
 
             try
             {
-                if (MainWindow.ffmpegProcess != null)
+                if (MainWindow.ffmpegProcess == null)
                 {
                     return;
                 }
 
-                      StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
+                StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
 
-                    inputWriter.WriteLine("q");
-                
+                inputWriter.WriteLine("q");
+
 
                 Focus();
 
@@ -202,9 +202,9 @@ namespace HaruaConvert
 
         private void AutoScroll_Checker_Checked(object sender, RoutedEventArgs e)
         {
-            if(Lw_paramField != null)
-            Lw_paramField.isAutoScroll = AutoScroll_Checker.IsChecked ? true : false;
-            
+            if (Lw_paramField != null)
+                Lw_paramField.isAutoScroll = AutoScroll_Checker.IsChecked ? true : false;
+
         }
 
         private void BackImage_Checker_Checked(object sender, RoutedEventArgs e)
@@ -214,7 +214,7 @@ namespace HaruaConvert
 
 
 
-            Lw_paramField.isBackImage = BackImage_Checker.IsChecked ? true : false ;
+            Lw_paramField.isBackImage = BackImage_Checker.IsChecked ? true : false;
 
             ImageBrush image = new ImageBrush();
             try
@@ -267,44 +267,71 @@ namespace HaruaConvert
         {
             var initial = new InitilizeCheckBox(Lw_paramField);
             MenuCheckBoxList = initial.InitializeChildCheckBox(this, MenuCheckBoxList);
-            
+
 
             var checkedProcess = new CheckboxGetSetValueClass();
             // RichTextBoxのContextMenuを取得
-     
-                  
 
 
-                        // メニュー項目を取得
-                        foreach (var item in MenuCheckBoxList)
-                        {
-
-                            // コピーのMenuItemに対する操作
-                            item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
-                            if(item.Name == AutoScroll_Checker.Name)
-                                Lw_paramField.isAutoScroll = true;
-                        }
-
-                    }
-                
-                //paramField.isBackImage = checkedProcess.CheckBoxiniGetVallue(BackImage_Checker, paramField.iniPath);
-                // BackImage_Checker.IsChecked = paramField.isBackImage;
-
-                // paramField.IsAutoScroll = checkedProcess.CheckBoxiniGetVallue(AutoScroll_Checker, paramField.iniPath);
-                // AutoScroll_Checker.IsChecked = paramField.IsAutoScroll;
 
 
-            
-        
+            // メニュー項目を取得
+            foreach (var item in MenuCheckBoxList)
+            {
+
+                // コピーのMenuItemに対する操作
+                item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
+                if (item.Name == AutoScroll_Checker.Name)
+                    Lw_paramField.isAutoScroll = true;
+            }
+
+        }
+
+        //paramField.isBackImage = checkedProcess.CheckBoxiniGetVallue(BackImage_Checker, paramField.iniPath);
+        // BackImage_Checker.IsChecked = paramField.isBackImage;
+
+        // paramField.IsAutoScroll = checkedProcess.CheckBoxiniGetVallue(AutoScroll_Checker, paramField.iniPath);
+        // AutoScroll_Checker.IsChecked = paramField.IsAutoScroll;
+
+
+
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+            MainWindow.firstlogWindow = false;
+            //MainWindow.Lw = null;
 
-           this.Close();
         }
 
         private void window_Loded(object sender, RoutedEventArgs e)
         {
 
+        }
+        private bool disposed; // 破棄済みかどうかのフラグ
+
+        void IDisposable.Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this); // ガベージコレクターに対してファイナライザーを呼ばないように指示
+        }
+
+        // クリーンアップの実際の処理を行うメソッド
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    // マネージドリソースの解放
+                    // 例えば、イベントハンドラーの解除や、IDisposableなオブジェクトのDispose呼び出しなど
+                }
+
+                // アンマネージドリソースの解放
+                // 例えば、ファイルハンドルやデータベース接続などの解放
+
+                disposed = true; // 破棄済みフラグを設定
+            }
         }
     }
 
