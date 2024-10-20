@@ -419,7 +419,7 @@ namespace HaruaConvert
             HaruaGrid.Height += 30;
         }
 
-        private delegate Task ProcessKill_deligate(int targetProcess);
+        public delegate Task ProcessKill_deligate(int targetProcess);
 
         public delegate void ExitEvent_delegate(object sender , ExitEventArgs e);
 
