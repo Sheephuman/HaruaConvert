@@ -40,7 +40,7 @@ namespace HaruaConvert
         {
             InitializeComponent();
 
-            Lw_paramField = new ParamField();
+            
             Lw_paramField = _paramField;
 
 
@@ -76,15 +76,8 @@ namespace HaruaConvert
 
         private void ConvertStop_Click(object sender, RoutedEventArgs e)
         {
-            //var TC = new Terminate_ProcessClass();
 
-            //TC.mainTerminate_deligateExec(ParamField.ffmpeg_pid);
-
-
-            //if (mainWindow._FfmpProcess.d == true)
-            //  return;
-            //if (paramField.isExecuteProcessed) //Check Stream is Null 
-            //    return;
+            Lw_paramField.isExecuteProcessed = false;
 
             try
             {
@@ -92,6 +85,8 @@ namespace HaruaConvert
                 {
                     return;
                 }
+
+              
 
                 StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
@@ -258,7 +253,7 @@ namespace HaruaConvert
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+               MessageBox.Show(ex.Message);
 
             }
         }

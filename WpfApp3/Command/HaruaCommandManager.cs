@@ -105,7 +105,7 @@ namespace HaruaConvert.Command
             {
 
                 _main.ParamText.Text = "-b:v 700k -codec:v " +
-                "libx265 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -y -threads 2 ";
+                "libx265 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -threads 2 ";
             }
 
             else
