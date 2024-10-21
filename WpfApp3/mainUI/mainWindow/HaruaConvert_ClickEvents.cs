@@ -117,39 +117,27 @@ namespace HaruaConvert
                 if (Lw != null)
                     Lw.Close();
 
-                //List<Process> smallestMemoryProcess = new List<Process>();
-
-
+                var tpc = new Terminate_ProcessClass();
+                killProcessDell = tpc.Terminate_Process;
+                    ;
+                ///ffmpeg.exeの強制終了
                 if (ffmpegProcess != null)
                 {
                     ffmpegProcess.CancelErrorRead();
-
+                  //  ffmpegProcess.CancelOutputRead();
+                   
                     await killProcessDell(ffmpegProcess.Id);
                 }
                 //プロセスを正常に終了させるため、エラー出力をキャンセル
 
 
-
-                Terminate_ProcessClass tpc = new Terminate_ProcessClass();
-
-                killProcessDell = tpc.Terminate_Process;
-
-                var exploreres = Process.GetProcessesByName("explorer");
-
-                // 最小メモリサイズのプロセスを取得
+                if(paramField.ctoken != null)
+                     paramField.ctoken.Cancel();
+                
 
 
                 using (tpc = new Terminate_ProcessClass())
                 {
-
-
-                    //threshold = AllExplorerProcesses.Count /2 ;
-
-                    // ffmpegの強制終了// 最小メモリサイズのプロセスを取得
-                    //Process smallestMemoryProcess = AllExplorerProcesses
-                    //.OrderBy(process => process.WorkingSet64)// メモリサイズでソート
-                    //.Skip(threshold).FirstOrDefault(); //最小サイズから2番目のプロセスを取得
-
 
 
                     var exes = new ExplorerRestarterClass();
@@ -158,19 +146,6 @@ namespace HaruaConvert
                     if (ExplorerExitChecker.IsChecked.Value)
                         await exes.ExPlorerRestarter(tpc);
 
-
-
-
-                    //// explorer.exeの終了処理。
-                    //if (smallestMemoryProcess != null)
-                    //{
-                    //kill memory size 1/2 in AllExploreProcess
-
-
-
-                    //foreach (Process explorer in exploreres)
-                    //    //if (smallestMemoryProcess.WorkingSet64 >= explorer.WorkingSet64)
-                    //    await killProcessDell(explorer.Id);  // 非同期にプロセスを終了
 
 
                     await Task.Delay(1000);
@@ -183,8 +158,10 @@ namespace HaruaConvert
                     Completed.SetResult(true);
 
                 }
+              
 
 
+                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
                 Application.Current.Shutdown();
                 //await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
@@ -197,7 +174,7 @@ namespace HaruaConvert
             }
             catch (System.ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
             }
             // Application.Current.Shutdown();  // アプリケーションの終了処理
 

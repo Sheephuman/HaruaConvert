@@ -110,7 +110,6 @@ namespace HaruaConvert
 
             InitializeParameters();
 
-            Lw = new LogWindow(paramField);
 
 
             InitializeViewModels();

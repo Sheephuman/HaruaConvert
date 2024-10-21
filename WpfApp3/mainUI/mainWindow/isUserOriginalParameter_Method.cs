@@ -92,7 +92,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             var OutputMatches = new Regex("\\" + place_1 + "output" + "\\" + place_2);
 
                             //Attach Output Path as Converted FileName
-                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments, "-y " + @"""" + mw.OutputSelector.FilePathBox.Text);
+                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments,  @"""" + mw.OutputSelector.FilePathBox.Text);
 
 
                             string wEscapePlace = string.Empty;

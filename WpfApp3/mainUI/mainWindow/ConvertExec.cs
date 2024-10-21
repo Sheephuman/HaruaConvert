@@ -145,6 +145,9 @@ namespace HaruaConvert
                 checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
 
                 paramField.isExecuteProcessed = checker;
+
+                if (!paramField.isExecuteProcessed)
+                    return false;
                 //   if(!checker) //pushed No
                 //    return false;
 
@@ -346,6 +349,8 @@ namespace HaruaConvert
                 paramField.isExecuteProcessed = false;
                 //wave出力の初期化
 
+
+
                 using (WaveOutEvent outputDevice = new WaveOutEvent())
                 using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
                 {
@@ -360,6 +365,9 @@ namespace HaruaConvert
                     await playbackCompleted.Task;
 
                 }
+                th1.Join(); // スレッドの終了を待機
+                th1 = null;　//参照を破棄
+
 
             }
             catch (System.IO.FileNotFoundException ex)
@@ -375,19 +383,7 @@ namespace HaruaConvert
         void OpenExplorer()
         {
 
-            //using (Process explorerProcess = new Process())
-            //{
-            //    explorerProcess.StartInfo.FileName = "explorer.exe";
-
-
-            //    // /select オプションを使用して、ファイルを選択して表示
-            //    explorerProcess.StartInfo.Arguments = $"/select, \"{paramField.check_output}\"";
-
-
-
-            //    // Explorerプロセスを開始
-            //    explorerProcess.Start();
-            //}
+          
 
             bool exsist = Path.Exists(paramField.check_output);
             if (paramField.isOpenFolder)
