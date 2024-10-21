@@ -142,7 +142,7 @@ namespace HaruaConvert
             try
             {
 
-                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists();
+                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists(Lw);
 
                 paramField.isExecuteProcessed = checker;
 
@@ -151,26 +151,9 @@ namespace HaruaConvert
                 //   if(!checker) //pushed No
                 //    return false;
 
-                //th1 = new Thread(() => ffmpegProsseing());
                 //th1.Start();
-                if (Lw != null)
-                {
-                    if (!firstlogWindow)
-                    {
-                        th1 = new Thread(() => ffmpegProsseing());
-                        Lw.Show();
-                        firstlogWindow = true;
 
-                    }
-                    else
-                    {
-                        Lw.WindowState = WindowState.Normal;
-                        Lw.Topmost = true;
-                        Lw.Activate();
-                        Lw.Topmost = false;
-                    }
-                }
-
+                LogWindowShow();
 
 
                 //th1 = new Thread(() => ffmpegProsseing());
@@ -196,7 +179,24 @@ namespace HaruaConvert
 
         }
 
+     public  void LogWindowShow() {
+            if (!firstlogWindow)
+            {
+                th1 = new Thread(() => ffmpegProsseing());
+                Lw = new LogWindow(paramField);
+                Lw.Show();
+                firstlogWindow = true;
 
+            }
+            else
+            {
+                Lw.WindowState = WindowState.Normal;
+                Lw.Topmost = true;
+                Lw.Activate();
+                Lw.Topmost = false;
+            }
+
+        }
 
         bool DialogMethod()
         {
@@ -365,9 +365,7 @@ namespace HaruaConvert
                     await playbackCompleted.Task;
 
                 }
-                th1.Join(); // スレッドの終了を待機
-                th1 = null;　//参照を破棄
-
+             
 
             }
             catch (System.IO.FileNotFoundException ex)

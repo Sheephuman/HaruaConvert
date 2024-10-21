@@ -16,12 +16,13 @@ namespace HaruaConvert.Methods
         }
         MainWindow main;
 
-        public bool IfNoFileExsists()
+        public bool IfNoFileExsists(LogWindow Lw)
         {
             //ffmpegが終了している状態のとき
             if (!main.paramField.isExecuteProcessed)
             {
-
+                main.LogWindowShow();                
+                
 
                 main.th1 = new Thread(() => main.ffmpegProsseing());
                 main.th1.IsBackground = true; // メインスレッドが終了すると自動的に終了
