@@ -156,15 +156,8 @@ namespace HaruaConvert.HaruaInterFace
 
                 if (!main.paramField.isExecuteProcessed)
                     return;
-
-                if (MainWindow.Lw == null)
-                {
-                    MainWindow.Lw = new LogWindow(main.paramField);
-
-                    MainWindow.Lw.Show();
-
-
-                }
+                
+                main.LogWindowShow();
 
                 MainWindow.Lw.Activate();
             }

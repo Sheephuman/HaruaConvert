@@ -205,7 +205,7 @@
                                             Width="30"      
                                             Margin="6,0,0,0"
                                            Background="Transparent"
-                                            Command="{x:Static local:HaruaButtonCommand.ExplorerRestarter}"
+                                            Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}"
                                            
                                             Content="para"/>
                                     </StackPanel>
