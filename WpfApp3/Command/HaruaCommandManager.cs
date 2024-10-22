@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert.Command
 {
@@ -104,8 +105,7 @@ namespace HaruaConvert.Command
             if (msbr == MessageBoxResult.Yes)
             {
 
-                _main.ParamText.Text = "-b:v 700k -codec:v " +
-                "libx265 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -threads 2 ";
+                _main.ParamText.Text = ClassShearingMenbers.defaultQuery ;
             }
 
             else
