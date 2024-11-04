@@ -152,7 +152,7 @@ namespace HaruaConvert.HaruaInterFace
                 //Convert Process Improvement Part
 
 
-                main.paramField.isExecuteProcessed = main.FileConvertExec(main.paramField.setFile, sender);
+                main.paramField.isExecuteProcessed = main.mainFileConvertExec(main.paramField.setFile, sender);
 
                 
                 main.LogWindowShow();

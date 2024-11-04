@@ -156,9 +156,6 @@ namespace HaruaConvert
         }
 
 
-
-
-
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);

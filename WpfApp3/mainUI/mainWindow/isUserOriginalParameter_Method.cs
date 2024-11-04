@@ -55,7 +55,10 @@ namespace HaruaConvert.mainUI.mainWindow
                         if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
                         {
 
-                            string inputFile = mw.InputSelector.FilePathBox.Text;
+                            string inputFile = mw.InputSelector.FilePathBox.Text; ;
+                            string outputFile = mw.OutputSelector.FilePathBox.Text;
+
+                            ParamField.ParamTab_OutputSelectorDirectory = Path.GetDirectoryName(outputFile);
 
 
                             var dictionary = (Dictionary<string, List<string>>)mw.placeHolderList.ItemsSource;
@@ -92,7 +95,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             var OutputMatches = new Regex("\\" + place_1 + "output" + "\\" + place_2);
 
                             //Attach Output Path as Converted FileName
-                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments,  @"""" + mw.OutputSelector.FilePathBox.Text);
+                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments,  @"""" + outputFile);
 
 
                             string wEscapePlace = string.Empty;
@@ -101,15 +104,15 @@ namespace HaruaConvert.mainUI.mainWindow
                             {
                                 wEscapePlace = place_1 + place_1;
                                 wEscapePlace2 = place_2 + place_2;
-                                mw.baseArguments = mw.baseArguments.Replace(wEscapePlace + "input" + wEscapePlace2, @"""" + mw.InputSelector.FilePathBox.Text + @"""");
+                                mw.baseArguments = mw.baseArguments.Replace(wEscapePlace + "input" + wEscapePlace2, @"""" + outputFile + @"""");
                                 //"\"{{{input}}}}\""
-                                mw.baseArguments = mw.baseArguments.Replace(wEscapePlace + "output" + wEscapePlace2, @"""" + mw.OutputSelector.FilePathBox.Text);
+                                mw.baseArguments = "-y " + mw.baseArguments.Replace(wEscapePlace + "output" + wEscapePlace2, @"""" + outputFile);
                             }
                             else
                             {
-                                mw.baseArguments = mw.baseArguments.Replace(place_1 + "input" + place_2, @"""" + mw.InputSelector.FilePathBox.Text + @"""");
+                                mw.baseArguments = mw.baseArguments.Replace(place_1 + "input" + place_2, @"""" + outputFile + @"""");
                                 //"\"{{{input}}}}\""
-                                mw.baseArguments = mw.baseArguments.Replace(place_1 + "output" + place_2, @"""" + mw.OutputSelector.FilePathBox.Text);
+                                mw.baseArguments = "-y " + mw.baseArguments.Replace(place_1 + "output" + place_2, @"""" + outputFile);
 
 
                             }
@@ -131,11 +134,14 @@ namespace HaruaConvert.mainUI.mainWindow
 
                             mw._arguments = mw.baseArguments;
 
+                            mw.paramField.check_output = outputFile;
                             extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
-                            if (!mw.baseArguments.Contains(extention))
+                            if (!outputFile.Contains(extention))
                                 mw.paramField.check_output += extention;
 
                             mw._arguments = mw._arguments.TrimEnd();
+
+                            
 
                             if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 + extention, StringComparison.CurrentCultureIgnoreCase))
                             {

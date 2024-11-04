@@ -61,6 +61,9 @@ namespace HaruaConvert.Methods
 
                 
                 main.NumericUpDown1.NUDTextBox.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Selector_Generate, IniSettingsConst.Selector_Generate, "1");
+                
+               string opacityValue = IniDefinition.GetValueOrDefault(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
+                main.opacitySlider.Value = double.Parse(opacityValue,CultureInfo.CurrentCulture);
 
             }
             catch(Exception ex)

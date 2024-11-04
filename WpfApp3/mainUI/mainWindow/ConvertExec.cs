@@ -1,10 +1,12 @@
 ﻿using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
+using Moq;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -58,7 +60,7 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        public bool FileConvertExec(string _fullPath, object sender)
+        public bool mainFileConvertExec(string _fullPath, object sender)
         {
 
             escapes = new EscapePath();
@@ -96,9 +98,9 @@ namespace HaruaConvert
                 param = new ParamCreateClasss(_fullPath, paramField.check_output);
 
 
-                string pattern = @"\{FileName\}\.(\w+)";
+                //string pattern = @"\{FileName\}\.(\w+)";
                 var target = main.harua_View.MainParams[0].StartQuery;
-                Match match = Regex.Match(target, pattern);
+               //System.Text.RegularExpressions.Match match = Regex.Match(target, pattern);
 
                 string extention = param.GetExtentionFileNamepattern(target);
 
@@ -124,7 +126,7 @@ namespace HaruaConvert
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
-                isOrigenelParam.isUserOriginalParameter_Method(sender);
+             bool isExecuteProcessed = isOrigenelParam.isUserOriginalParameter_Method(sender);
 
                 if (!paramField.isSuccessdbuildQuery)
                     return false;
@@ -295,7 +297,7 @@ namespace HaruaConvert
 
                 ffmpegProcess.Exited += new EventHandler(ffmpeg_Exited);
 
-
+                    
 
                 ffmpegProcess.ErrorDataReceived += new DataReceivedEventHandler(delegate (object obj, DataReceivedEventArgs e)
                 {
@@ -340,6 +342,15 @@ namespace HaruaConvert
         }
 
 
+
+        public IOpenExplorer _openExplorerTest { get; }
+
+        public MainWindow(IOpenExplorer openExplorer)
+        {
+            _openExplorerTest = openExplorer;
+        }
+
+
         private async void ffmpeg_Exited(object sender, EventArgs e)
         {
             try
@@ -359,7 +370,13 @@ namespace HaruaConvert
                     outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
 
                     outputDevice.Play();
-                    OpenExplorer();
+
+                    var opex = new OpernExplorerClass();
+                   opex.OpenExplorer(paramField);
+
+
+
+
                     //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
                     // 再生が完了するまで待機
                     await playbackCompleted.Task;
@@ -378,35 +395,6 @@ namespace HaruaConvert
 
 
 
-        void OpenExplorer()
-        {
-
-          
-
-            bool exsist = Path.Exists(paramField.check_output);
-            if (paramField.isOpenFolder)
-                if (exsist)
-                    using (Process explorerProcess = new Process())
-                    {
-                        explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
-                        {
-                            FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
-                            Arguments = $"/select, \"{paramField.check_output}\"", // 引数に「/select,」を付ける
-                            UseShellExecute = true
-                        };
-
-                        explorerProcess.Start();
-                        //memorySize = explorerProcess.WorkingSet64;
-
-
-                    }
-
-
-
-
-            Debug.WriteLine($"/select, \"{paramField.check_output}\"");
-
-        }
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
