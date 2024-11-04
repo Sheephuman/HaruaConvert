@@ -1,5 +1,8 @@
-﻿using HaruaConvert.UserControls;
+﻿using HaruaConvert.Methods;
+using HaruaConvert.Parameter;
+using HaruaConvert.UserControls;
 using HaruaConvert.userintarface;
+using Moq;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -115,6 +118,21 @@ namespace HaruaConvert.Command
         
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
+            //// モックの作成例
+            //var mockOpenExplorer = new Mock<IOpenExplorer>();
+            //mockOpenExplorer.Setup(m => m.OpenExplorer(It.IsAny<ParamField>()));
+            ///特定の型（この場合は ParamField 型）の任意の値が渡されたことを示すために使われます。
+            ///
+            IOpenExplorer openI = new OpernExplorerClass();
+
+            
+
+            var maintest = new MainWindow(openI);
+            
+            maintest._openExplorerTest.OpenExplorer(_main.paramField);
+            
+
+
 
             if (_main.paramField.isClosedQueryBuildWindow)
             {
