@@ -185,7 +185,7 @@ namespace HaruaConvert
             if (!firstlogWindow)
             {
                 th1 = new Thread(() => ffmpegProsseing());
-                Lw = new LogWindow(paramField);
+                Lw = new LogWindow( paramField);
                 Lw.Show();
                 firstlogWindow = true;
 
@@ -357,7 +357,11 @@ namespace HaruaConvert
             {
                 var current = Directory.GetCurrentDirectory();
 
+                
+
                 paramField.isExecuteProcessed = false;
+
+
                 //wave出力の初期化
 
 

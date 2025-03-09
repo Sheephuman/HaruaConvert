@@ -42,10 +42,10 @@ namespace HaruaConvert
         {
 
             //iniPathにカレントディレクトリを設定
-            paramField = new ParamField
+            paramField = new ParamField()
             {
                 isParam_Edited = false,
-                isExecuteProcessed = false,
+           //   isExecuteProcessed = false,
                 
                 iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini"),
                 profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
