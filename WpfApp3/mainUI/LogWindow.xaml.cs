@@ -40,8 +40,8 @@ namespace HaruaConvert
         {
             InitializeComponent();
 
-            
             Lw_paramField = _paramField;
+            //Lw_paramField.isExecuteProcessed = _paramField.isExecuteProcessed;
 
 
             //AutoScroll_Checker.IsChecked = true;
@@ -78,7 +78,7 @@ namespace HaruaConvert
         {
 
             Lw_paramField.isExecuteProcessed = false;
-
+            
             try
             {
                 if (MainWindow.ffmpegProcess == null)

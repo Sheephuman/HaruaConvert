@@ -18,14 +18,18 @@ namespace HaruaConvert.HaruaInterFace
         public void DisplayMedia();
     }
 
-
+    
 
     public class Directory_ClickProcedure : IMainTabEvents
     {
         MainWindow main;
-        public Directory_ClickProcedure(MainWindow _main)
+
+        ParamField mainParames;
+        public Directory_ClickProcedure(ParamField _mainParames , MainWindow _main)
         {
             main = _main;
+            this.mainParames = _mainParames;
+            //参照値渡しによりプロパティの状態を受け渡す
         }
 
         public void Directory_DropButon_Click(object sender, RoutedEventArgs e)
@@ -37,7 +41,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-            if (main.paramField.isExecuteProcessed)
+            if ( mainParames.isExecuteProcessed)
             {
                 MessageBox.Show("ffmpeg.exeが実行中です");
 
@@ -55,7 +59,7 @@ namespace HaruaConvert.HaruaInterFace
                 {
 
 
-                    main.paramField.setFile = ofc.opFileName;
+                    mainParames.setFile = ofc.opFileName;
                     main.harua_View.SourcePathText = main.paramField.setFile;
                     main.FileNameLabel.Text = main.harua_View.SourcePathText;
                     main.FileNameLabel.ToolTip = main.harua_View.SourcePathText;
@@ -137,7 +141,7 @@ namespace HaruaConvert.HaruaInterFace
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (main.paramField.isExecuteProcessed)
+            if (main.paramField.isExecuteProcessed) 
             {
                 MessageBox.Show("ffmpeg.exeが実行中ですよ");
                 return;
@@ -152,7 +156,7 @@ namespace HaruaConvert.HaruaInterFace
                 //Convert Process Improvement Part
 
 
-                main.paramField.isExecuteProcessed = main.mainFileConvertExec(main.paramField.setFile, sender);
+              main.mainFileConvertExec(main.paramField.setFile, sender);
 
                 
                 main.LogWindowShow();
