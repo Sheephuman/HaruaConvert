@@ -1,11 +1,5 @@
 ﻿using HaruaConvert.Command;
-using HaruaConvert.Methods;
-using HaruaConvert.Parameter;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -113,27 +107,30 @@ namespace HaruaConvert
                 // 終了処理が完了したことを通知する変数
                 var Completed = new TaskCompletionSource<bool>();
 
+
                 // Closeだけでは確実にプロセスが終了されない
                 if (Lw != null)
                     Lw.Close();
 
                 var tpc = new Terminate_ProcessClass();
                 killProcessDell = tpc.Terminate_Process;
-                    ;
+
+
+
                 ///ffmpeg.exeの強制終了
                 if (ffmpegProcess != null)
                 {
                     ffmpegProcess.CancelErrorRead();
-                  //  ffmpegProcess.CancelOutputRead();
-                   
+                    //  ffmpegProcess.CancelOutputRead();
+
                     await killProcessDell(ffmpegProcess.Id);
                 }
                 //プロセスを正常に終了させるため、エラー出力をキャンセル
 
 
-                if(paramField.ctoken != null)
-                     paramField.ctoken.Cancel();
-                
+                if (paramField.ctoken != null)
+                    paramField.ctoken.Cancel();
+
 
 
                 using (tpc = new Terminate_ProcessClass())
@@ -158,7 +155,7 @@ namespace HaruaConvert
                     Completed.SetResult(true);
 
                 }
-              
+
 
 
                 Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
@@ -176,6 +173,11 @@ namespace HaruaConvert
             {
                 MessageBox.Show(ex.Message);
             }
+            catch (System.InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             // Application.Current.Shutdown();  // アプリケーションの終了処理
 
 
