@@ -7,24 +7,24 @@ using System.Windows;
 
 namespace HaruaConvert.HaruaServise
 {
-    public class MediaInfoService:IMediaInfoManager
+    public class MediaInfoService : IMediaInfoManager
     {
 
         MainWindow main;
-       public MediaInfoService(MainWindow _main)
-            {
-            
-            main= _main;
-            }
-            
-       readonly IMediaInfoManager mediaInfoManager;
-       public MediaInfoService(IMediaInfoManager imedia)
+        public MediaInfoService(MainWindow _main)
+        {
+
+            main = _main;
+        }
+
+        readonly IMediaInfoManager mediaInfoManager;
+        public MediaInfoService(IMediaInfoManager imedia)
         {
             this.mediaInfoManager = imedia ?? throw new ArgumentNullException(nameof(imedia));
 
         }
 
-  
+
 
 
         public void HandleMediaAnalysisException(Exception ex)
@@ -83,48 +83,59 @@ namespace HaruaConvert.HaruaServise
         public List<string> DisplayMediaInfo(IMediaAnalysis mediaInfo)
         {
             var MediaResultList = new List<string>();
-
-            if (mediaInfo == null)
-                return MediaResultList;
-
-
-            if (mediaInfo.PrimaryAudioStream == null)
+            try
             {
-                MessageBox.Show("primary streams がhullだわ");
+
+
+                if (mediaInfo == null)
+                    return MediaResultList;
+
+
+                if (mediaInfo.PrimaryAudioStream == null)
+                {
+                    MessageBox.Show("primary streams がhullだわ");
+                    return MediaResultList;
+                }
+
+                var resultFramerate = Math.Truncate(mediaInfo.PrimaryVideoStream.AvgFrameRate);
+
+
+                var resultHeight = mediaInfo.PrimaryVideoStream.Height;
+                var resultWidth = mediaInfo.PrimaryVideoStream.Width;
+
+
+                var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
+                var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
+                var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
+                var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
+                var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
+
+                MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("Codec:" + $"{resultCodec}");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("Framerate:" + $"{resultFramerate}");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("Height:" + $"{resultHeight}");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("Width:" + $"{resultWidth}");
+                MediaResultList.Add(Environment.NewLine);
+                MediaResultList.Add("Cannels:" + $"{resultCannels}");
+
+
                 return MediaResultList;
+
             }
+            catch (Exception ex)
+            {
+                HandleMediaAnalysisException(ex);
+                return MediaResultList;
 
-            var resultFramerate = Math.Truncate(mediaInfo.PrimaryVideoStream.AvgFrameRate);
-
-
-            var resultHeight = mediaInfo.PrimaryVideoStream.Height;
-            var resultWidth = mediaInfo.PrimaryVideoStream.Width;
-
-
-            var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
-            var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
-            var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
-            var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
-            var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
-
-            MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
-            MediaResultList.Add(Environment.NewLine);
-            MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
-            MediaResultList.Add(Environment.NewLine);
-            MediaResultList.Add("Codec:" + $"{resultCodec}");
-            MediaResultList.Add(Environment.NewLine);
-            MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
-            MediaResultList.Add(Environment.NewLine);
-            MediaResultList.Add("Framerate:" + $"{resultFramerate}");
-            MediaResultList.Add(Environment.NewLine);
-            MediaResultList.Add("Height:" + $"{resultHeight}");
-            MediaResultList.Add(Environment.NewLine);            
-            MediaResultList.Add("Width:" + $"{resultWidth}");
-            MediaResultList.Add(Environment.NewLine);
-            MediaResultList.Add("Cannels:" + $"{resultCannels}");
-            
-
-            return MediaResultList;
+            }
         }
     }
 }
