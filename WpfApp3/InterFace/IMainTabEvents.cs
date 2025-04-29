@@ -2,7 +2,7 @@
 using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,17 +15,17 @@ namespace HaruaConvert.HaruaInterFace
     {
         public void Directory_DropButon_Click(object sender, RoutedEventArgs e);
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e);
-        public void DisplayMedia();
+
     }
 
-    
+
 
     public class Directory_ClickProcedure : IMainTabEvents
     {
         MainWindow main;
 
         ParamField mainParames;
-        public Directory_ClickProcedure(ParamField _mainParames , MainWindow _main)
+        public Directory_ClickProcedure(ParamField _mainParames, MainWindow _main)
         {
             main = _main;
             this.mainParames = _mainParames;
@@ -41,7 +41,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-            if ( mainParames.isExecuteProcessed)
+            if (mainParames.isExecuteProcessed)
             {
                 MessageBox.Show("ffmpeg.exeが実行中です");
 
@@ -76,7 +76,13 @@ namespace HaruaConvert.HaruaInterFace
                     ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
                     main.ClearSourceFileData();
 
-                    DisplayMedia();
+                    IMediaInfoManager media = new MediaInfoService(main);
+
+                    var proc = new Directory_ClickProcedure(main.paramField, main);
+                    var analysis = proc.CallFfprobe(main.paramField.setFile);
+                    media.DisplayMediaInfo(analysis);
+
+
 
                 }
                 else //Selected Cancel
@@ -93,31 +99,9 @@ namespace HaruaConvert.HaruaInterFace
         }
 
 
-        public void DisplayMedia()
-        {
-
-            IMediaInfoManager Imedia = new MediaInfoService(main);
-            var media = CallFfprobe(main.paramField.setFile);
-            List<string> mediaLists = Imedia.DisplayMediaInfo(media);
-
-            main.Dispatcher.Invoke(() =>
-            {
-
-
-
-                foreach (var mediaData in mediaLists)
-                {
-                    main.SorceFileDataBox.AppendText(mediaData);
-                }
-
-            });
-
-
-        }
 
         public IMediaAnalysis CallFfprobe(string setFile)
         {
-
             FFOptions probe = new FFOptions();
             probe.BinaryFolder = "dll";
 
@@ -133,15 +117,26 @@ namespace HaruaConvert.HaruaInterFace
                 MessageBox.Show(ex.Message);
 
             }
+            catch (Win32Exception ex)
+            {
+                var media = new MediaInfoService(main);
+                media.HandleMediaAnalysisException(ex);
+
+
+            }
 
             return mediaInfo;
-
         }
+
+
+
+
+
 
         public void Convert_DropButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (main.paramField.isExecuteProcessed) 
+            if (main.paramField.isExecuteProcessed)
             {
                 MessageBox.Show("ffmpeg.exeが実行中ですよ");
                 return;
@@ -156,12 +151,12 @@ namespace HaruaConvert.HaruaInterFace
                 //Convert Process Improvement Part
 
 
-              main.mainFileConvertExec(main.paramField.setFile, sender);
+                main.mainFileConvertExec(main.paramField.setFile, sender);
 
-                
+
                 main.LogWindowShow();
 
-             
+
             }
             else
             {
