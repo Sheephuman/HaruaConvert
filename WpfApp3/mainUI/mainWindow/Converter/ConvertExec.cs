@@ -1,14 +1,11 @@
-﻿using HaruaConvert.mainUI.mainWindow;
+﻿using HaruaConvert.mainUI.ConvertProcess;
+using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
-using Moq;
 using NAudio.Wave;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -100,7 +97,7 @@ namespace HaruaConvert
 
                 //string pattern = @"\{FileName\}\.(\w+)";
                 var target = main.harua_View.MainParams[0].StartQuery;
-               //System.Text.RegularExpressions.Match match = Regex.Match(target, pattern);
+                //System.Text.RegularExpressions.Match match = Regex.Match(target, pattern);
 
                 string extention = param.GetExtentionFileNamepattern(target);
 
@@ -119,14 +116,14 @@ namespace HaruaConvert
 
                 //オプションと出力先ファイル文字列の追加
                 _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{escapes.outputPath}";
-
+                Debug.WriteLine(_arguments);
             }
 
 
             else if (isUserParameter.IsChecked.Value) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
-             bool isExecuteProcessed = isOrigenelParam.isUserOriginalParameter_Method(sender);
+                bool isExecuteProcessed = isOrigenelParam.isUserOriginalParameter_Method(sender);
 
                 if (!paramField.isSuccessdbuildQuery)
                     return false;
@@ -181,11 +178,12 @@ namespace HaruaConvert
 
         }
 
-     public  void LogWindowShow() {
+        public void LogWindowShow()
+        {
             if (!firstlogWindow)
             {
-                th1 = new Thread(() => ffmpegProsseing());
-                Lw = new LogWindow( paramField);
+                th1 = new Thread(async () => await FfmpegProcessingAsnc());
+                Lw = new LogWindow(paramField);
                 Lw.Show();
                 firstlogWindow = true;
 
@@ -216,7 +214,7 @@ namespace HaruaConvert
 
                 // ParamField.isExitProcessed = false;
 
-                th1 = new Thread(() => ffmpegProsseing());
+                th1 = new Thread(async () => await FfmpegProcessingAsnc());
                 th1.Start();
 
                 return true;
@@ -263,85 +261,73 @@ namespace HaruaConvert
         public static LogWindow Lw { get; set; }
         public bool IsDefaultQuerySet { get; internal set; }
 
-        public void ffmpegProsseing()
+
+        //TaskCompletionSource<bool> tcs;
+        public async Task FfmpegProcessingAsnc(CancellationToken cancellationToken = default)
         {
-            ////////
-            /////https://qiita.com/skitoy4321/items/10c47eea93e5c6145d48
-            ///////
-            ///
-            ////
-            ////Enable Asnc Task Canceller
-
-
-
-
-            using (paramField.ctoken = new CancellationTokenSource())
-            using (ffmpegProcess = new Process())
+            try
             {
+                using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                await using var asyncProcess = new AsyncProcessWrapper(new ProcessStartInfo
+                {
 
+                    FileName = Path.Combine("dll", "ffmpeg.exe"),
+                    Arguments = $"{_arguments}",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true
+                });
 
-                ffmpegProcess.StartInfo.CreateNoWindow = true;
-                ffmpegProcess.StartInfo.UseShellExecute = false;
-                ffmpegProcess.StartInfo.RedirectStandardInput = true;
-
-                ffmpegProcess.StartInfo.RedirectStandardError = true;
-                ffmpegProcess.StartInfo.FileName = "cmd.exe";
-
-
-                ffmpegProcess.StartInfo.Arguments = $"/c dll\\ffmpeg.exe {_arguments}";
-
+                var ffmpegProcess = asyncProcess.Process;
                 ffmpegProcess.EnableRaisingEvents = true;
 
+                MainWindow.ffmpegProcess = ffmpegProcess;
+                //nullかどうか判定用
+
+                var tcs = new TaskCompletionSource<bool>();
+                ffmpegProcess.ErrorDataReceived += (sender, e) =>
+                {
+                    if (e.Data != null && Lw != null)
+                    {
+                        Dispatcher.InvokeAsync(() =>
+                        {
+                            Lw.RichTextRogs.AppendText(e.Data + Environment.NewLine);
+                            if (Lw.AutoScroll_Checker.IsChecked == true)
+                                Lw.RichTextRogs.ScrollToEnd();
+                        });
+                    }
 
 
+                };
+
+                ffmpegProcess.Exited += (sender, e) => tcs.TrySetResult(true);
 
                 ffmpegProcess.Exited += new EventHandler(ffmpeg_Exited);
 
-                    
-
-                ffmpegProcess.ErrorDataReceived += new DataReceivedEventHandler(delegate (object obj, DataReceivedEventArgs e)
-                {
-                    if (Lw != null)
-                        Dispatcher.Invoke(() =>
-                        {
-
-
-                            Lw.RichTextRogs.AppendText(e.Data);
-                            Lw.RichTextRogs.AppendText(Environment.NewLine);
-
-                            //    Debug.WriteLine(e.Data);
-                            //  Debug.WriteLine(Environment.NewLine);
-
-
-                            if (Lw.AutoScroll_Checker.IsChecked)
-                                Lw.RichTextRogs.ScrollToEnd();
-
-                            //Another thread accessing
-                            //-                    
-                            ////https://psycodedeveloper.wordpress.com/2019/07/31/how-to-pause-or-resume-a-process-with-c/
-
-
-
-                        });
-                });
-                ffmpegProcess.Start();
-
-
-                paramField.ffmpeg_pid = ffmpegProcess.Id; ;
-
-                Thread.Sleep(1000);
+                asyncProcess.Start();
+                paramField.ffmpeg_pid = ffmpegProcess.Id;
                 ffmpegProcess.BeginErrorReadLine();
 
+                await Task.WhenAny(
+                    Task.Delay(Timeout.Infinite, cts.Token),
+                    tcs.Task
+                );
 
-                paramField.ctoken.Token.WaitHandle.WaitOne();
-
-                ffmpegProcess.WaitForExit(0);
-
+                if (cts.Token.IsCancellationRequested)
+                {
+                    cts.Token.ThrowIfCancellationRequested(); // キャンセル例外をスロー
+                }
             }
-
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    Lw?.RichTextRogs.AppendText($"Error: {ex.Message}{Environment.NewLine}");
+                });
+            }
         }
-
-
 
         public IOpenExplorer _openExplorerTest { get; }
 
@@ -355,9 +341,14 @@ namespace HaruaConvert
         {
             try
             {
+                // プロセス終了時の処理
+                var tcs = new TaskCompletionSource<bool>();
+                tcs.TrySetResult(true); // プロセス終了を通知
+
+
                 var current = Directory.GetCurrentDirectory();
 
-                
+
 
                 paramField.isExecuteProcessed = false;
 
@@ -376,7 +367,7 @@ namespace HaruaConvert
                     outputDevice.Play();
 
                     var opex = new OpernExplorerClass();
-                   opex.OpenExplorer(paramField);
+                    opex.OpenExplorer(paramField);
 
 
 
@@ -386,7 +377,7 @@ namespace HaruaConvert
                     await playbackCompleted.Task;
 
                 }
-             
+
 
             }
             catch (System.IO.FileNotFoundException ex)
@@ -408,4 +399,6 @@ namespace HaruaConvert
 
 
     }
+
+
 }
