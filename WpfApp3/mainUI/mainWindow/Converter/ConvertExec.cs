@@ -1,4 +1,5 @@
-﻿using HaruaConvert.mainUI.ConvertProcess;
+﻿
+using HaruaConvert.mainUI.ConvertProcess;
 using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;

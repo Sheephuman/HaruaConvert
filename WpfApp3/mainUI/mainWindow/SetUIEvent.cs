@@ -1,8 +1,6 @@
 ﻿using HaruaConvert.HaruaInterFace;
-using HaruaConvert.Parameter;
+using HaruaConvert.HaruaServise;
 using System;
-using System.Collections.Generic;
-using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +25,7 @@ namespace HaruaConvert.mainUI.mainWindow
             _main.mainTabEvents = new IMainTabEvents[]
              {
 
-                new Directory_ClickProcedure(_main)
+                new Directory_ClickProcedure(_main.paramField ,_main)
              };
             //var dclicks = new Directory_ClickProcedure(this);
 
@@ -95,10 +93,7 @@ namespace HaruaConvert.mainUI.mainWindow
 
         }
 
-        private void FilePathBox_PreviewDragEnter(object sender, DragEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public void MainWindow_FileDrop(object sender, DragEventArgs e)
         {
@@ -134,8 +129,11 @@ namespace HaruaConvert.mainUI.mainWindow
 
                 _main.ClearSourceFileData();
 
-                IMainTabEvents tabEv = new Directory_ClickProcedure(_main);
-                tabEv.DisplayMedia();
+                IMediaInfoManager media = new MediaInfoService(_main);
+
+                var proc = new Directory_ClickProcedure(_main.paramField, _main);
+                var analysis = proc.CallFfprobe(_main.paramField.setFile);
+                media.DisplayMediaInfo(analysis);
 
                 if (!isSelectorBox)
                 {
