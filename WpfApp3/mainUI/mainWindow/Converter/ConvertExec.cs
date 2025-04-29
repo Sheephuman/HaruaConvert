@@ -280,7 +280,7 @@ namespace HaruaConvert
                     RedirectStandardInput = true
                 });
 
-                var ffmpegProcess = asyncProcess.Process;
+                ffmpegProcess = asyncProcess.Process;
                 ffmpegProcess.EnableRaisingEvents = true;
 
                 MainWindow.ffmpegProcess = ffmpegProcess;
