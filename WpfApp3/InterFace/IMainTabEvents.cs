@@ -24,11 +24,17 @@ namespace HaruaConvert.HaruaInterFace
     {
         MainWindow main;
 
+
+
         ParamField mainParames;
+
         public Directory_ClickProcedure(ParamField _mainParames, MainWindow _main)
         {
             main = _main;
             this.mainParames = _mainParames;
+
+
+
             //参照値渡しによりプロパティの状態を受け渡す
         }
 
@@ -76,12 +82,9 @@ namespace HaruaConvert.HaruaInterFace
                     ParamField.Maintab_InputDirectory = Path.GetDirectoryName(ofc.opFileName);
                     main.ClearSourceFileData();
 
-                    IMediaInfoManager media = new MediaInfoService(main);
 
-                    var proc = new Directory_ClickProcedure(main.paramField, main);
-                    var analysis = proc.CallFfprobe(main.paramField.setFile);
-                    media.DisplayMediaInfo(analysis);
-
+                    main.paramField.infoDelll.Invoke(main)
+                        .ForEach(token => main.SorceFileDataBox.AppendText(token));
 
 
                 }
@@ -119,7 +122,7 @@ namespace HaruaConvert.HaruaInterFace
             }
             catch (Win32Exception ex)
             {
-                var media = new MediaInfoService(main);
+                var media = new MediaInfoService();
                 media.HandleMediaAnalysisException(ex);
 
 
@@ -152,6 +155,9 @@ namespace HaruaConvert.HaruaInterFace
 
 
                 main.mainFileConvertExec(main.paramField.setFile, sender);
+
+                main.paramField.infoDelll.Invoke(main);
+
 
 
                 main.LogWindowShow();

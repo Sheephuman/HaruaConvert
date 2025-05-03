@@ -1,9 +1,6 @@
-﻿using System;
+﻿using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaServise;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing.Text;
-using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 
@@ -16,18 +13,41 @@ namespace HaruaConvert.Parameter
     /// 
 
     ////Case:use static When share used parameter on Class 
-    public class ParamField 
+    public class ParamField
     {
-        public string inputPath_ReadOnly { get;}
+        public ParamField()
+        {
+            infoDelll = displayMedia;
+            //Delegateを登録
 
-        public string  check_output { get; set; }
+        }
+        public displayInfoDell infoDelll { get; set; }
 
-        public  string iniPath { get; set; }
+        public string inputPath_ReadOnly { get; }
+
+        public string check_output { get; set; }
+
+        public string iniPath { get; set; }
         public string profileQueryIni { get; set; } = "";
 
-        public  string setFile { get; set; }
+        public string setFile { get; set; }
 
-        
+
+        public delegate List<string> displayInfoDell(MainWindow main);
+
+        public List<string> displayMedia(MainWindow main)
+        {
+            IMediaInfoManager media = new MediaInfoService();
+
+            var proc = new Directory_ClickProcedure(main.paramField, main);
+            var analysis = proc.CallFfprobe(main.paramField.setFile);
+
+
+            // 処理内容
+            return media.DisplayMediaInfo(analysis); ;
+        }
+        // public static ProcessKill_deligate killProcessDell { get; set; }
+
 
 
         public bool isExecuteProcessed { get; set; }
@@ -45,12 +65,12 @@ namespace HaruaConvert.Parameter
 #pragma warning restore CA1711 // 識別子は、不適切なサフィックスを含むことはできません
 
         public string tooltipText { get; set; }
-       
+
 
         public int ffmpeg_pid { get; set; }
-        public  CancellationTokenSource ctoken { get; set; }
+        public CancellationTokenSource ctoken { get; set; }
 
-   
+
 
         public static string OutputPath { get; set; }
 
@@ -59,15 +79,15 @@ namespace HaruaConvert.Parameter
         public static string MainTab_OutputDirectory { get; set; }
         public static string ParamTab_InputSelectorDirectory { get; set; }
         public static string ParamTab_OutputSelectorDirectory { get; set; }
-        public bool isParam_Edited { get; set; } 
+        public bool isParam_Edited { get; set; }
 
         public string usedOriginalArgument { get; set; }
 
 
-       public bool isAutoScroll { get; set; }
-        
+        public bool isAutoScroll { get; set; }
 
-  
+
+
 
 
         public bool isPaused { get; set; }
@@ -93,13 +113,13 @@ namespace HaruaConvert.Parameter
             public const string Directory_DropButon = "Directory_DropButon";
             public const string OutputButton = "OutputButton";
 
-            public const string _openButton =   "_openButton";
+            public const string _openButton = "_openButton";
             public const string _ExecButton = "ExecButton";
-                                              
+
         }
-      
+
         public static class ControlField
-        {           
+        {
             public const string ParamSelector = nameof(ParamSelector);
             public const string OutputSelector = nameof(OutputSelector);
             public const string InputSelector = nameof(InputSelector);

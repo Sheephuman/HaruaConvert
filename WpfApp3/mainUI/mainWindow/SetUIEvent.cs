@@ -1,5 +1,4 @@
 ﻿using HaruaConvert.HaruaInterFace;
-using HaruaConvert.HaruaServise;
 using System;
 using System.IO;
 using System.Windows;
@@ -129,11 +128,9 @@ namespace HaruaConvert.mainUI.mainWindow
 
                 _main.ClearSourceFileData();
 
-                IMediaInfoManager media = new MediaInfoService(_main);
+                _main.paramField.infoDelll.Invoke(_main)
+                       .ForEach(token => _main.SorceFileDataBox.AppendText(token));
 
-                var proc = new Directory_ClickProcedure(_main.paramField, _main);
-                var analysis = proc.CallFfprobe(_main.paramField.setFile);
-                media.DisplayMediaInfo(analysis);
 
                 if (!isSelectorBox)
                 {
