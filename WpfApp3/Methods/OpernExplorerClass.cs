@@ -1,11 +1,6 @@
 ﻿using HaruaConvert.Parameter;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xceed.Wpf.Toolkit;
 
 namespace HaruaConvert.Methods
@@ -14,7 +9,7 @@ namespace HaruaConvert.Methods
 
     public interface IOpenExplorer
     {
-       public void OpenExplorer(ParamField paramField);
+        public void OpenExplorer(ParamField paramField);
     }
 
 
@@ -25,11 +20,17 @@ namespace HaruaConvert.Methods
         public void OpenExplorer(ParamField paramField)
         {
 
+            if (!paramField.isOpenFolder)
+                return;
+
+
             bool exsist = Path.Exists(paramField.check_output);
             if (!exsist)
             {
                 paramField.check_output = string.Empty;
             }
+
+
 
             if (!string.IsNullOrEmpty(paramField.check_output))
                 using (Process explorerProcess = new Process())
