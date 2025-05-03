@@ -8,7 +8,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
 using static HaruaConvert.Methods.IniCheckerClass;
@@ -78,7 +77,7 @@ namespace HaruaConvert
         {
 
             Lw_paramField.isExecuteProcessed = false;
-            
+
             try
             {
                 if (MainWindow.ffmpegProcess == null)
@@ -86,7 +85,7 @@ namespace HaruaConvert
                     return;
                 }
 
-              
+
 
                 StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
 
@@ -95,6 +94,8 @@ namespace HaruaConvert
 
 
                 Focus();
+
+                inputWriter.Dispose();
 
             }
 
@@ -253,7 +254,7 @@ namespace HaruaConvert
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
 
             }
         }
