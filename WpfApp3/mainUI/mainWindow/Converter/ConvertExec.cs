@@ -1,6 +1,4 @@
-﻿
-using HaruaConvert.mainUI.ConvertProcess;
-using HaruaConvert.mainUI.mainWindow;
+﻿using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using NAudio.Wave;
@@ -269,7 +267,7 @@ namespace HaruaConvert
             try
             {
                 using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                await using var asyncProcess = new AsyncProcessWrapper(new ProcessStartInfo
+                var ffProcessInfo = new ProcessStartInfo()
                 {
 
                     FileName = Path.Combine("dll", "ffmpeg.exe"),
@@ -278,12 +276,18 @@ namespace HaruaConvert
                     UseShellExecute = false,
                     RedirectStandardError = true,
                     RedirectStandardInput = true
-                });
+                };
 
-                ffmpegProcess = asyncProcess.Process;
+                ffmpegProcess = new Process()
+                {
+                    StartInfo = ffProcessInfo,
+
+                };
+
+
+
                 ffmpegProcess.EnableRaisingEvents = true;
 
-                MainWindow.ffmpegProcess = ffmpegProcess;
                 //nullかどうか判定用
 
                 var tcs = new TaskCompletionSource<bool>();
@@ -306,7 +310,10 @@ namespace HaruaConvert
 
                 ffmpegProcess.Exited += new EventHandler(ffmpeg_Exited);
 
-                asyncProcess.Start();
+                ffmpegProcess.Start();
+
+
+                MainWindow.ffmpegProcess = ffmpegProcess;
                 paramField.ffmpeg_pid = ffmpegProcess.Id;
                 ffmpegProcess.BeginErrorReadLine();
 

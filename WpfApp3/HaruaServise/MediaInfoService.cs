@@ -10,11 +10,9 @@ namespace HaruaConvert.HaruaServise
     public class MediaInfoService : IMediaInfoManager
     {
 
-        MainWindow main;
-        public MediaInfoService(MainWindow _main)
+        public MediaInfoService()
         {
 
-            main = _main;
         }
 
         readonly IMediaInfoManager mediaInfoManager;
