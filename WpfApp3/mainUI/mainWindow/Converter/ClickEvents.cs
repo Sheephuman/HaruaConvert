@@ -102,7 +102,10 @@ namespace HaruaConvert
         {
             try
             {
-                ParamSave_Procedure();
+
+                //未編集なら保存処理を行わない
+                if (paramField.isParam_Edited)
+                    ParamSave_Procedure();
 
                 // 終了処理が完了したことを通知する変数
                 var Completed = new TaskCompletionSource<bool>();

@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:HaruaConvert="clr-namespace:HaruaConvert"
+        
        xmlns:local="clr-namespace:HaruaConvert.Command"
+       xmlns:c ="clr-namespace:MakizunoUI.Controls;assembly=SinWaveSample"
         xmlns:UserControls="clr-namespace:HaruaConvert.UserControls" xmlns:parameter="clr-namespace:HaruaConvert.Parameter" d:DataContext="{d:DesignInstance Type=parameter:Harua_ViewModel}" x:Class="HaruaConvert.MainWindow"
         mc:Ignorable="d"
         Title="はるあちゃんこんば～た" Height="490" Width="550"
@@ -186,21 +188,26 @@
                                     <StackPanel
                                         Orientation="Horizontal"
                                         HorizontalAlignment="Left">
-                                        <TextBox 
-                                            IsUndoEnabled ="True"
-                                            Width="350" Margin="10,3,0,0"
-                                        x:Name="ParamText" Text ="{Binding StartQuery,UpdateSourceTrigger=PropertyChanged}"   FontSize="16"   
-                                               ToolTip="ffmpegに渡すオプションです。"
-                                              >
-                                            <TextBox.ContextMenu>
+                                        <c:IdleTextBox 
+                                        InputIdle="ParamText_InputIdle"
+                                        Loaded="ParamText_Loaded"
+                                       PreviewKeyDown="ParamText_PreviewKeyDown"
+    IsUndoEnabled="True"
+    Width="350" 
+    Margin="10,3,0,0"
+    x:Name="ParamText" 
+    Text="{Binding StartQuery, UpdateSourceTrigger=PropertyChanged}" 
+    FontSize="16"   
+    ToolTip="ffmpegに渡すオプションです。">
+                                            <c:IdleTextBox.ContextMenu 
+                                             
+                                            >
                                                 <ContextMenu>
                                                     <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}" />
                                                     <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:HaruaButtonCommand.SetDefaultQuery}" />
                                                 </ContextMenu>
-
-
-                                            </TextBox.ContextMenu>
-                                        </TextBox >
+                                            </c:IdleTextBox.ContextMenu>
+                                        </c:IdleTextBox>
                                         <Button 
                                             Width="30"      
                                             Margin="6,0,0,0"
