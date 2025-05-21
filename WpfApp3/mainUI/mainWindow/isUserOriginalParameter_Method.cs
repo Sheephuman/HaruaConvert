@@ -1,9 +1,7 @@
-﻿using FFMpegCore.Arguments;
-using HaruaConvert.Parameter;
+﻿using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +29,7 @@ namespace HaruaConvert.mainUI.mainWindow
             try
             {
                 string extention = string.Empty;
-
+                string baseArguments = string.Empty;
                 //"FileDropButton2"
                 if (ButtonNameField._ExecButton == ((Button)sender).Name)
                 {
@@ -42,7 +40,7 @@ namespace HaruaConvert.mainUI.mainWindow
                     {
                         if (sp.SlectorRadio.IsChecked.Value)
                         {
-                            mw.baseArguments = sp.ArgumentEditor.Text;
+                            baseArguments = sp.ArgumentEditor.Text;
                         }
                     }
 
@@ -85,7 +83,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             }
 
                             var inputMatches = new Regex("\\" + place_1 + "input" + "\\" + place_2);
-                            mw.baseArguments = inputMatches.Replace(mw.baseArguments, "-i " + @"""" + inputFile + @"""").TrimEnd();
+                            baseArguments = inputMatches.Replace(baseArguments, "-i " + @"""" + inputFile + @"""").TrimEnd();
 
 
                             //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
@@ -95,7 +93,7 @@ namespace HaruaConvert.mainUI.mainWindow
                             var OutputMatches = new Regex("\\" + place_1 + "output" + "\\" + place_2);
 
                             //Attach Output Path as Converted FileName
-                            mw.baseArguments = OutputMatches.Replace(mw.baseArguments,  @"""" + outputFile);
+                            baseArguments = OutputMatches.Replace(baseArguments, @"""" + outputFile);
 
 
                             string wEscapePlace = string.Empty;
@@ -104,48 +102,51 @@ namespace HaruaConvert.mainUI.mainWindow
                             {
                                 wEscapePlace = place_1 + place_1;
                                 wEscapePlace2 = place_2 + place_2;
-                                mw.baseArguments = mw.baseArguments.Replace(wEscapePlace + "input" + wEscapePlace2, @"""" + outputFile + @"""");
+                                baseArguments = baseArguments.Replace(wEscapePlace + "input" + wEscapePlace2, @"""" + outputFile + @"""");
                                 //"\"{{{input}}}}\""
-                                mw.baseArguments = "-y " + mw.baseArguments.Replace(wEscapePlace + "output" + wEscapePlace2, @"""" + outputFile);
+                                baseArguments = "-y " + baseArguments.Replace(wEscapePlace + "output" + wEscapePlace2, @"""" + outputFile);
                             }
                             else
                             {
-                                mw.baseArguments = mw.baseArguments.Replace(place_1 + "input" + place_2, @"""" + outputFile + @"""");
+                                baseArguments = baseArguments.Replace(place_1 + "input" + place_2, @"""" + outputFile + @"""");
                                 //"\"{{{input}}}}\""
-                                mw.baseArguments = "-y " + mw.baseArguments.Replace(place_1 + "output" + place_2, @"""" + outputFile);
+                                baseArguments = "-y " + baseArguments.Replace(place_1 + "output" + place_2, @"""" + outputFile);
 
 
                             }
 
 
-                            mw.baseArguments += @"""";
+                            baseArguments += @"""";
                             //mw.param._convertFile = mw.OutputSelector.FilePathBox.Text;
 
                             mw.th1.DisableComObjectEagerCleanup();
                             //COMオブジェクトの早期クリーンアップを無効にするメソッド
 
-                            if (mw.baseArguments.Contains("%03d", StringComparison.Ordinal))
-                            { mw.baseArguments += @""""; }
+                            if (baseArguments.Contains("%03d", StringComparison.Ordinal))
+                            { baseArguments += @""""; }
 
                             else if (mw.baseArguments.Contains("%04d", StringComparison.Ordinal))
                             {
-                                mw.baseArguments += @"""";
+                                baseArguments += @"""";
                             }
 
-                            mw._arguments = mw.baseArguments;
+                            mw._arguments = baseArguments;
 
                             mw.paramField.check_output = outputFile;
-                            extention = Path.GetExtension(sp.ArgumentEditor.Text).Replace("\"", "");
+
+
+                            string targetHolder = place_1 + "output" + place_2;
+
                             if (!outputFile.Contains(extention))
                                 mw.paramField.check_output += extention;
 
                             mw._arguments = mw._arguments.TrimEnd();
 
-                            
+                            extention = baseArguments.EndsWith(targetHolder, StringComparison.CurrentCulture) ? Path.GetExtension(Path.GetFileName(baseArguments)) : string.Empty;
 
-                            if (!sp.ArgumentEditor.Text.EndsWith(place_1 + "output" + place_2 + extention, StringComparison.CurrentCultureIgnoreCase))
+                            if (!sp.ArgumentEditor.Text.EndsWith(targetHolder, StringComparison.CurrentCulture))
                             {
-                                MessageBox.Show($"パラメータ末尾に文字列{place_1}output{place_2}{extention}が入っていなければなりません \n\r　" +
+                                MessageBox.Show($"パラメータ末尾に文字列{targetHolder}{extention}が入っていなければなりません \n\r　" +
                                     "パラメータの見直しをお願いします");
                                 mw.paramField.isSuccessdbuildQuery = false;
                                 return false;
