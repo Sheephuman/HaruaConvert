@@ -1,11 +1,11 @@
-﻿using FFMpegCore;
-using HaruaConvert.Command;
+﻿using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Initilize_Method;
 using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using SinWaveSample;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -100,7 +100,7 @@ namespace HaruaConvert
             InitializeComponent();
 
             main = this;
-
+            drawhelper = new TextBoxStylingHelper();
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
 
             SetUIEvent uiManager = new SetUIEvent(main);
@@ -158,6 +158,8 @@ namespace HaruaConvert
 
         public void ArgumentEditor_TextChanged(object sender, TextChangedEventArgs e)
         {
+
+
             var ansest = VisualTreeHelperWrapperHelpers.FindAncestor<ParamSelector>((TextBox)sender);
             //var ansest = sender as ParamSelector;
             if (ansest == null)
@@ -165,8 +167,8 @@ namespace HaruaConvert
 
                 return;
             }
-
-            paramField.isParam_Edited = firstSet ? false : true;
+            if (!paramField.isParam_Edited)
+                paramField.isParam_Edited = true;
 
             paramField.usedOriginalArgument = ansest.ArgumentEditor.Text;
 
@@ -860,6 +862,28 @@ namespace HaruaConvert
 
 
             }
+        }
+
+        TextBoxStylingHelper drawhelper;
+
+        private void ParamText_InputIdle(object sender, EventArgs e)
+        {
+
+
+
+            drawhelper.DrawSinWave(ParamText, "rules.json");
+        }
+
+        private void ParamText_Loaded(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+
+        private void ParamText_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (!paramField.isParam_Edited)
+                paramField.isParam_Edited = true;
         }
     }
 
