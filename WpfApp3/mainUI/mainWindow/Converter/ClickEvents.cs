@@ -115,29 +115,34 @@ namespace HaruaConvert
                 if (Lw != null)
                     Lw.Close();
 
-                var tpc = new Terminate_ProcessClass();
-                killProcessDell = tpc.Terminate_Process;
-
-
-
-                ///ffmpeg.exeの強制終了
-                if (ffmpegProcess != null)
+                using (var tpc = new Terminate_ProcessClass())
                 {
-                    ffmpegProcess.CancelErrorRead();
-                    //  ffmpegProcess.CancelOutputRead();
 
-                    await killProcessDell(ffmpegProcess.Id);
-                }
-                //プロセスを正常に終了させるため、エラー出力をキャンセル
+                    killProcessDell = tpc.Terminate_Process;
 
 
-                if (paramField.ctoken != null)
-                    paramField.ctoken.Cancel();
+                    ///ffmpeg.exeの強制終了
+                    if (ffmpegProcess != null)
+                    {
+                        ffmpegProcess.CancelErrorRead();
+
+                        //  ffmpegProcess.CancelOutputRead();
+
+
+                        await killProcessDell(ffmpegProcess.Id);
+
+                    }
 
 
 
-                using (tpc = new Terminate_ProcessClass())
-                {
+                    //プロセスを正常に終了させるため、エラー出力をキャンセル
+
+
+                    if (paramField.ctoken != null)
+                        paramField.ctoken.Cancel();
+
+
+
 
 
                     var exes = new ExplorerRestarterClass();
@@ -156,8 +161,8 @@ namespace HaruaConvert
 
                     // ここでタスクの完了を手動で設定
                     Completed.SetResult(true);
-
                 }
+
 
 
 

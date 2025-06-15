@@ -1,5 +1,4 @@
 ﻿using HaruaConvert.Methods;
-using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -10,7 +9,7 @@ namespace HaruaConvert.Command
         internal async Task ExPlorerRestarter(Terminate_ProcessClass tpc)
         {
             var getExplorer = Process.GetProcessesByName("Explorer");
-            tpc = new Terminate_ProcessClass();
+
             MainWindow.killProcessDell = tpc.Terminate_Process;
 
             foreach (var process in getExplorer)

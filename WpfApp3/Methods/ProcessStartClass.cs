@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace HaruaConvert.Methods
 {
@@ -13,11 +8,11 @@ namespace HaruaConvert.Methods
         {
 
         }
-         public void ProcessStartMethod(SessionStartParames prosessStart)
+        public void ProcessStartMethod(SessionStartParames prosessStart)
         {
             using (Process targetProcess = new Process())
             {
-               targetProcess.StartInfo.FileName = prosessStart.processName;
+                targetProcess.StartInfo.FileName = prosessStart.processName;
                 targetProcess.StartInfo.UseShellExecute = prosessStart.useShellExcute;
 
                 targetProcess.StartInfo.CreateNoWindow = prosessStart.CreateNoWindow;
@@ -25,8 +20,8 @@ namespace HaruaConvert.Methods
 
                 targetProcess.Start();
                 // プロセスが終了するのを非同期的に待つ
-                 targetProcess.WaitForExitAsync(); // これにより、await がサポートされる
-                targetProcess.WaitForExit();
+                targetProcess.WaitForExitAsync(); // これにより、await がサポートされる
+
             }
         }
     }
@@ -35,7 +30,7 @@ namespace HaruaConvert.Methods
     {
         public SessionStartParames(string _processName, bool _useSheelExcute, bool _CreateNoWindow, string _arguments)
         {
-             processName = _processName;
+            processName = _processName;
             useShellExcute = _useSheelExcute;
             CreateNoWindow = _CreateNoWindow;
             Arguments = _arguments;
