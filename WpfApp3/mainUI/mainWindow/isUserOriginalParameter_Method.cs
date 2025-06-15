@@ -46,10 +46,6 @@ namespace HaruaConvert.mainUI.mainWindow
 
                     foreach (var sp in mw.selectorList)
                     {
-
-
-
-
                         if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
                         {
 
@@ -85,6 +81,16 @@ namespace HaruaConvert.mainUI.mainWindow
                             var inputMatches = new Regex("\\" + place_1 + "input" + "\\" + place_2);
                             baseArguments = inputMatches.Replace(baseArguments, "-i " + @"""" + inputFile + @"""").TrimEnd();
 
+
+                            //事前に変換対象の拡張子を抜き出す
+                            // 正規表現にマッチする箇所を探索
+                            var extentionMathes = Regex.Match(baseArguments, "\\.\\w+(?=\\s*$)");
+                            ///\.：ドット（.）をリテラルとしてマッチ
+                            //////\w +：英数字やアンダースコア1文字以上（拡張子部分）
+                            ///(?= "\s*$)：直後にダブルクォートと末尾（もしくは空白+末尾）が続く位置だけを対象にする「肯定の先読み」..
+
+
+                            extention = extentionMathes.Success ? extentionMathes.Value : string.Empty;
 
                             //   mw.paramField.check_output = mw.OutputSelector.FilePathBox.Text;
 
@@ -132,28 +138,35 @@ namespace HaruaConvert.mainUI.mainWindow
 
                             mw._arguments = baseArguments;
 
-                            mw.paramField.check_output = outputFile;
+                            mw.paramField.check_output = outputFile + extention;
 
+                            ///\. ：ドット（.）をエスケープして文字としてマッチ
+                            //\w + ：1文字以上の英数字やアンダースコアにマッチ（拡張子の本体）
+                            //$ ：文字列の末尾にマッチ
 
-                            string targetHolder = place_1 + "output" + place_2;
+                            string targetHolder = place_1 + "output" + place_2 + extention;
 
-                            if (!outputFile.Contains(extention))
-                                mw.paramField.check_output += extention;
 
                             mw._arguments = mw._arguments.TrimEnd();
 
-                            extention = baseArguments.EndsWith(targetHolder, StringComparison.CurrentCulture) ? Path.GetExtension(Path.GetFileName(baseArguments)) : string.Empty;
+                            //extention = baseArguments.EndsWith(targetHolder + extention, StringComparison.CurrentCulture) ? Path.GetExtension(Path.GetFileName(baseArguments)) : string.Empty;
+
+
+
 
                             if (!sp.ArgumentEditor.Text.EndsWith(targetHolder, StringComparison.CurrentCulture))
                             {
-                                MessageBox.Show($"パラメータ末尾に文字列{targetHolder}{extention}が入っていなければなりません \n\r　" +
-                                    "パラメータの見直しをお願いします");
+                                MessageBox.Show(@"パラメータ末尾に文字列\r\n
+                               {targetHolder}{extention}が入っていなければなりません\r\n
+                                  パラメータの見直しをお願いします");
                                 mw.paramField.isSuccessdbuildQuery = false;
                                 return false;
                             }
                             else
+                            {
                                 mw.paramField.isSuccessdbuildQuery = true;
 
+                            }
 
 
 

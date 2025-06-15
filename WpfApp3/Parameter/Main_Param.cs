@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HaruaConvert.Parameter
+﻿namespace HaruaConvert.Parameter
 {
     public class MainBindingParam
     {
@@ -34,7 +27,8 @@ namespace HaruaConvert.Parameter
 
                 //if (string.IsNullOrEmpty(value))
                 //{
-                //    throw new ArgumentException("Value is Null");
+                //    throw new
+                //    ("Value is Null");
                 //}
 
                 //else
