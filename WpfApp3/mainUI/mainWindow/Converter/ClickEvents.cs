@@ -128,8 +128,8 @@ namespace HaruaConvert
 
                         //  ffmpegProcess.CancelOutputRead();
 
-
-                        await killProcessDell(ffmpegProcess.Id);
+                        if (!paramField.isExecuteProcessed)
+                            await killProcessDell(ffmpegProcess.Id);
 
                     }
 

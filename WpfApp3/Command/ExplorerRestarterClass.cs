@@ -10,6 +10,9 @@ namespace HaruaConvert.Command
         {
             var getExplorer = Process.GetProcessesByName("Explorer");
 
+            tpc = new Terminate_ProcessClass();
+            //new が必要
+
             MainWindow.killProcessDell = tpc.Terminate_Process;
 
             foreach (var process in getExplorer)
