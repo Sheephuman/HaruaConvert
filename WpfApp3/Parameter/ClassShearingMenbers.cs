@@ -7,6 +7,6 @@
         public static string ButtonName { get; set; }
 
         public static string endString { get; set; }
-
+        public static string extention { get; internal set; }
     }
 }
