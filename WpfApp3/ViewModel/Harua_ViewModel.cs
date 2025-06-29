@@ -25,29 +25,29 @@ namespace HaruaConvert.Parameter
 
         private ISettingsService _settingsService;
 
-        public Harua_ViewModel(ISettingsService settingsService) 
+        public Harua_ViewModel(ISettingsService settingsService)
         {
             // mainWindow = _main ?? throw new ArgumentNullException(nameof(_main));
 
             _settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
 
-            
+
 
             LoadInitialData(_settingsService.GetIniPath());
             //    mainWindow = _main;
 
 
-        
+
 
 
         }
         public void LoadInitialData(string iniPath)
         {
-
-                MainParams = new ObservableCollection<MainBindingParam>
+            ClassShearingMenbers.ffmpegQuery = IniDefinition.GetValueOrDefault
+                                          (iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ClassShearingMenbers.defaultQuery);
+            MainParams = new ObservableCollection<MainBindingParam>
             {
-               new MainBindingParam { StartQuery = IniDefinition.GetValueOrDefault
-                                       (iniPath, QueryNames.ffmpegQuery , QueryNames.BaseQuery, ClassShearingMenbers.defaultQuery),
+               new MainBindingParam { StartQuery = ClassShearingMenbers.ffmpegQuery,
                 OutputPath = MainTab_OutputDirectory,
                  endString = IniDefinition.GetValueOrDefault(iniPath, QueryNames.ffmpegQuery , QueryNames.endStrings, "_Harua"),
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
@@ -55,7 +55,7 @@ namespace HaruaConvert.Parameter
                 invisibleText = "",
                 placement = string.Empty
 
-                
+
                }
             };
 
@@ -72,7 +72,7 @@ namespace HaruaConvert.Parameter
         {
             get => _mainParam; // コレクションを取得するためのゲッター
             set
-            {             
+            {
                 if (_mainParam != value)
                 {
                     _mainParam = value; // 新しいコレクションを設定
@@ -94,20 +94,22 @@ namespace HaruaConvert.Parameter
         //public string placement { get; set; }
 
         public Dictionary<string, List<string>> placehondersList
-        { get; set; } 
+        { get; set; }
         //public string SourcePathText = "Source File";
 
 
         protected void RaisePropertyChanged(string propertyName)
         {
-             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private string _sourcePathText;
         //原因の切り分けのために例外を投げさせる実装
-        public string SourcePathText {             
-            get { return _sourcePathText; } 
-            set{
+        public string SourcePathText
+        {
+            get { return _sourcePathText; }
+            set
+            {
 
                 if (_sourcePathText != value)
                 {
@@ -116,9 +118,9 @@ namespace HaruaConvert.Parameter
                     _sourcePathText = value;
                     RaisePropertyChanged(nameof(SourcePathText));
                 }
-            }           
-            
             }
+
+        }
 
         int _propValue;
         public int PropValue
