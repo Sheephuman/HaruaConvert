@@ -8,5 +8,6 @@
 
         public static string endString { get; set; }
         public static string extention { get; internal set; }
+        public static string ffmpegQuery { get; internal set; }
     }
 }
