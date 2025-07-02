@@ -1,10 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows;
 
 namespace HaruaConvert
 {
@@ -67,6 +64,7 @@ namespace HaruaConvert
 
 
 
+
             // 出力値の初期化
             outputValue = defaultValue;
 
@@ -92,6 +90,8 @@ namespace HaruaConvert
             // null終端文字までの内容を文字列に変換
             string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
 
+
+            Debug.WriteLine($"INI読み込み: file={filePath}, section={sectionName}, key={keyName}, value='{resultString}'");
             // 空文字列のチェック
             if (string.IsNullOrEmpty(resultString))
             {
@@ -104,8 +104,9 @@ namespace HaruaConvert
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
                 if (converter != null && converter.CanConvertFrom(typeof(string)))
                 {
-                    outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
 
+                    outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
+                    Debug.WriteLine($"INI読み込み2: file={filePath}");
                     return true; // 変換に成功
                 }
             }
@@ -130,7 +131,7 @@ namespace HaruaConvert
         {
             T ret = defaultValue;
             TryGetValueOrDefault(filePath, sectionName, keyName, defaultValue, out ret);
-           
+
             return ret;
         }
 
