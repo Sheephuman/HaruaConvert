@@ -15,6 +15,8 @@ namespace HaruaConvert.Parameter
     ////Case:use static When share used parameter on Class 
     public class ParamField
     {
+
+
         public ParamField()
         {
             infoDelll = displayMedia;
@@ -79,7 +81,7 @@ namespace HaruaConvert.Parameter
         public static string MainTab_OutputDirectory { get; set; }
         public static string ParamTab_InputSelectorDirectory { get; set; }
         public static string ParamTab_OutputSelectorDirectory { get; set; }
-        public bool isParam_Edited { get; set; }
+        public bool isEditedParam { get; set; }
 
         public string usedOriginalArgument { get; set; }
 
@@ -94,6 +96,7 @@ namespace HaruaConvert.Parameter
         public bool isClosedQueryBuildWindow { get; set; }
         public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
         public bool isSuccessdbuildQuery { get; internal set; }
+        public bool isCheckerChanged { get; internal set; }
 
         public static class QueryNames
         {
