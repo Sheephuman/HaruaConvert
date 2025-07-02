@@ -1,7 +1,6 @@
 ﻿using HaruaConvert.Parameter;
 using System.Diagnostics;
 using System.IO;
-using Xceed.Wpf.Toolkit;
 
 namespace HaruaConvert.Methods
 {
@@ -20,6 +19,7 @@ namespace HaruaConvert.Methods
         public void OpenExplorer(ParamField paramField)
         {
 
+
             if (!paramField.isOpenFolder)
                 return;
 
@@ -30,29 +30,25 @@ namespace HaruaConvert.Methods
                 paramField.check_output = string.Empty;
             }
 
+            string homeDir = "C:\\"; // デフォルトのホームディレクトリを設定
 
-
-            if (!string.IsNullOrEmpty(paramField.check_output))
-                using (Process explorerProcess = new Process())
-                {
-                    explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
-                        Arguments = $"/select, \"{paramField.check_output}\"", // 引数に「/select,」を付ける
-                        UseShellExecute = true
-                    };
-
-                    explorerProcess.Start();
-                    //memorySize = explorerProcess.WorkingSet64;
-
-
-                }
+            string setArgument = string.IsNullOrEmpty(paramField.check_output) ? homeDir : $"/select, \"{paramField.check_output}\""; // 
 
 
 
-            else
+            using (Process explorerProcess = new Process())
             {
-                MessageBox.Show("ファイルが出力されませんでしたわ");
+                explorerProcess.StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
+                    Arguments = setArgument,
+                    UseShellExecute = true
+                };
+
+                explorerProcess.Start();
+                //memorySize = explorerProcess.WorkingSet64;
+
+
             }
 
 
