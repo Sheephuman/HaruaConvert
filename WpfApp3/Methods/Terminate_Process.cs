@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace HaruaConvert
 {
 
-    public class Terminate_ProcessClass:IDisposable
+    public class Terminate_ProcessClass : IDisposable
     {
 
         Process killp;
@@ -20,7 +19,7 @@ namespace HaruaConvert
             KillProcessDeligate kp = Terminate_Process;
 
             kp(_target_id);
-           
+
         }
 
         public Task Terminate_Process(int Target_P)
@@ -49,7 +48,7 @@ namespace HaruaConvert
                 if (killp.ExitCode == 0 || killp.Container != null)
                 {
                     Debug.WriteLine($"Process {target_id} killed successfully.");
-                    
+
                 }
 
                 return Task.CompletedTask;
@@ -88,7 +87,7 @@ namespace HaruaConvert
             }
         }
 
-       
+
 
         public void Dispose()
         {
