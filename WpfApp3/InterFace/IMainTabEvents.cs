@@ -145,13 +145,14 @@ namespace HaruaConvert.HaruaInterFace
                 return;
             }
 
-
+            main.paramField.isExecuteProcessed = true;
 
             ClassShearingMenbers.ButtonName = ((Button)sender).Name;
             //var runinng = Process.GetProcessesByName("ffmpeg.exe");
             if (!string.IsNullOrEmpty(main.paramField.setFile))
             {
                 //Convert Process Improvement Part
+
 
 
                 main.mainFileConvertExec(main.paramField.setFile, sender);

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using static HaruaConvert.Terminate_ProcessClass;
 
 namespace HaruaConvert.Methods
 {
@@ -13,16 +7,16 @@ namespace HaruaConvert.Methods
 
         MainWindow main { get; }
         public ExitProcedureClass(MainWindow _main)
-         {
-          main = _main;
-        
-        }
-            
-
-        public void ExitProcedure(object sender , EventArgs e)
         {
+            main = _main;
 
-            main.ParamSave_Procedure();
+        }
+
+
+        public void ExitProcedure(object sender, EventArgs e)
+        {
+            if (main.paramField.isEditedParam)
+                main.ParamSave_Procedure();
 
             //main.Lw.window_Closed(sender, e);
         }

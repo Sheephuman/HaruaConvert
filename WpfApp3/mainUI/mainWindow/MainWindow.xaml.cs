@@ -577,8 +577,6 @@ namespace HaruaConvert
                 var ffjQuery = new CommandHistory();
 
                 CommandHistoryIO qHistory = new();
-                string json = string.Empty;
-
 
                 foreach (var item in ParamText.Items)
                 {
@@ -924,6 +922,11 @@ namespace HaruaConvert
             InnerTextBox.ContextMenu = contextMenu;
 
 
+            InnerTextBox.KeyDown += (sender, e) =>
+                {
+                    main.paramField.isEditedParam = true;
+                };
+
 
 
             InnerTextBox.KeyDown += (sender, e) =>
@@ -958,13 +961,6 @@ namespace HaruaConvert
 
         }
 
-        private void ParamText_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            Debug.WriteLine("");
-        }
     }
 
 }
-
-
-
