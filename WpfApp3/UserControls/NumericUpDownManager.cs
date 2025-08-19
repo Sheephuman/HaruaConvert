@@ -191,8 +191,6 @@ namespace HaruaConvert.UserControls
             currentVal += interval;
 
 
-
-
             if (currentVal > maxvalue)
                 currentVal = maxvalue; // 最大値を超えないようにする
 
