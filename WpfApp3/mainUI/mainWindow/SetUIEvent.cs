@@ -59,6 +59,9 @@ namespace HaruaConvert.mainUI.mainWindow
             // その他のUI操作に関わるイベントハンドラを設定
             // _main.btnSaveSettings.Click += BtnSaveSettings_Click;
             //   _main.btnLoadSettings.Click += BtnLoadSettings_Click;
+
+
+
         }
 
         private void selector_FileDrop(object sender, DragEventArgs e)
