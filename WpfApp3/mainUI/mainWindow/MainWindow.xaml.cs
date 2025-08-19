@@ -1,11 +1,13 @@
 ﻿using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Initilize_Method;
+using HaruaConvert.Json;
 using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
-using MakizunoSpellChecker;
+
 using Microsoft.WindowsAPICodePack.Dialogs;
+using SinWaveSample;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +23,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WpfApp3.Parameter;
 using static HaruaConvert.Parameter.ParamField;
+
 
 namespace HaruaConvert
 {
@@ -153,6 +156,8 @@ namespace HaruaConvert
             cm.AddCommands();
 
 
+
+
         }
 
 
@@ -217,6 +222,8 @@ namespace HaruaConvert
         {
             /////初回のみ呼ばれるようにする
             firstSet = ParamSelector_SetText(sender, firstSet);
+
+
         }
 
 
@@ -566,6 +573,23 @@ namespace HaruaConvert
                 //背景画像のOpacity書き込み
                 IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
 
+
+                var ffjQuery = new CommandHistory();
+
+                CommandHistoryIO qHistory = new();
+                string json = string.Empty;
+
+
+                foreach (var item in ParamText.Items)
+                {
+
+                    ffjQuery.ffQueryToken.Add(item.ToString());
+
+
+                }
+
+
+                qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
             }
         }
 
@@ -865,18 +889,43 @@ namespace HaruaConvert
         }
 
         TextBoxStylingHelper drawhelper;
-
+        TextBox InnerTextBox;
         private void ParamText_InputIdle(object sender, EventArgs e)
         {
+            var combo = sender as ComboBox;
+            ///ConboBox is Editable = true
+            ///
+            // ComboBox のテンプレートから TextBox を探す
+            InnerTextBox = combo.Template.FindName("PART_EditableTextBox", combo) as TextBox;
 
-
-
-            drawhelper.DrawSinWave(ParamText, "rules.json", 3);
+            drawhelper.DrawSinWave(InnerTextBox, "rules.json", 3);
         }
+
+
+
 
         private void ParamText_Loaded(object sender, RoutedEventArgs e)
         {
+            ParamText.Items.Add(ClassShearingMenbers.ffmpegQuery);
 
+            var combo = sender as ComboBox;
+
+            InnerTextBox = combo.Template.FindName("PART_EditableTextBox", combo) as TextBox;
+
+            InnerTextBox.KeyDown += (sender, e) =>
+            {
+                if (Keyboard.IsKeyDown(Key.Enter))
+                    if (!ParamText.Items.Contains(InnerTextBox.Text))
+                        ParamText.Items.Add(InnerTextBox.Text);
+            };
+
+
+            var Jsonreader = new CommandHistoryIO();
+
+
+            var tokenList = Jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
+            foreach (string token in tokenList)
+                ParamText.Items.Add(token);
 
         }
 
@@ -884,6 +933,20 @@ namespace HaruaConvert
         {
             if (!paramField.isParam_Edited)
                 paramField.isParam_Edited = true;
+        }
+
+        private void ParamText_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+
+            if (Keyboard.IsKeyDown(Key.Down) || Keyboard.IsKeyDown(Key.Up) && !ParamText.IsDropDownOpen)
+                ParamText.IsDropDownOpen = true; // Ensure the dropdown remains open after selection change
+
+        }
+
+        private void ParamText_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine("");
         }
     }
 

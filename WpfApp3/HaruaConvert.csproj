@@ -116,7 +116,7 @@
     <None Remove="App.config" />
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
-    <None Remove="dll\DotNetProjects.Wpf.Extended.Toolkit.dll" />
+    <None Remove="dll\DotNetProjects.Wpf.Extended.Toolkit&#xD;&#xA;    " />
     <None Remove="dll\ffmpeg.exe" />
     <None Remove="dll\FFMpegCore.dll" />
     <None Remove="dll\ffprobe.exe" />
@@ -165,9 +165,10 @@
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
     <PackageReference Include="FFMpegCore" Version="5.1.0" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
+    <PackageReference Include="Mk1.MakizunoSpellChecker" Version="1.0.0.3" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
   </ItemGroup>
 
@@ -233,14 +234,7 @@
     <Folder Include="MediaInfo\" />
     <Folder Include="UserControls\QueryBuildwindow\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="SinWaveSample">
-      <HintPath>C:\TestCode\SinWaveSample\SinWaveSample\bin\Debug\net8.0-windows\SinWaveSample.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-
+  
 
 
 </Project>

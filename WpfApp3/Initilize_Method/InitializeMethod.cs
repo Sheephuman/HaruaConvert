@@ -62,7 +62,6 @@ namespace HaruaConvert
             setiniReader.IniSettingReader(paramField, this);
 
 
-
         }
 
         private void SetupUIEvents()
