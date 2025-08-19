@@ -15,7 +15,7 @@ namespace HaruaConvert.Parameter
     ////Case:use static When share used parameter on Class 
     public class ParamField
     {
-
+        internal bool isParam_Edited;
 
         public ParamField()
         {

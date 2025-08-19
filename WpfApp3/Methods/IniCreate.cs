@@ -101,11 +101,14 @@ namespace HaruaConvert
             // 型Tへの変換を試みる
             try
             {
-                TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
+                TypeConverter converter = TypeDescriptor.GetConverter(typeof(string));
                 if (converter != null && converter.CanConvertFrom(typeof(string)))
                 {
 
                     outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
+
+                    //CultureInfo.InvariantCulture を指定することで、必ず . を小数点として認識します。
+
                     Debug.WriteLine($"INI読み込み2: file={filePath}");
                     return true; // 変換に成功
                 }

@@ -4,8 +4,8 @@ using HaruaConvert.Initilize_Method;
 using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
+using MakizunoSpellChecker;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using SinWaveSample;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -871,7 +871,7 @@ namespace HaruaConvert
 
 
 
-            drawhelper.DrawSinWave(ParamText, "rules.json");
+            drawhelper.DrawSinWave(ParamText, "rules.json", 3);
         }
 
         private void ParamText_Loaded(object sender, RoutedEventArgs e)
