@@ -89,7 +89,7 @@ namespace HaruaConvert.UserControls
         public void NUDButtonUP_Click(object sender, RoutedEventArgs e)
         {
 
-            nuManager.NUDButtonUP(NUDTextBox, maxvalue, 1);
+            nuManager.NUDButtonUP_ClickProc(NUDTextBox, maxvalue, 1);
         }
 
         public static explicit operator WpfNumericUpDown(QueryCreateUpDown v)
