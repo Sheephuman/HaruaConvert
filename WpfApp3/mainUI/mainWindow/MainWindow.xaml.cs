@@ -912,12 +912,26 @@ namespace HaruaConvert
 
             InnerTextBox = combo.Template.FindName("PART_EditableTextBox", combo) as TextBox;
 
+
+
+            var contextMenu = new ContextMenu();
+
+            contextMenu.Items.Add(HaruaButtonCommand.SetDefaultQuery);
+
+            contextMenu.Items.Add(HaruaButtonCommand.QueryBuildWindow_Open);
+
+
+            InnerTextBox.ContextMenu = contextMenu;
+
+
+
+
             InnerTextBox.KeyDown += (sender, e) =>
-            {
-                if (Keyboard.IsKeyDown(Key.Enter))
-                    if (!ParamText.Items.Contains(InnerTextBox.Text))
-                        ParamText.Items.Add(InnerTextBox.Text);
-            };
+                {
+                    if (Keyboard.IsKeyDown(Key.Enter))
+                        if (!ParamText.Items.Contains(InnerTextBox.Text))
+                            ParamText.Items.Add(InnerTextBox.Text);
+                };
 
 
             var Jsonreader = new CommandHistoryIO();
