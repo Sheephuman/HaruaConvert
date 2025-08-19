@@ -25,13 +25,7 @@ namespace HaruaConvert.Json
 
             foreach (var to in qHistory.ffQueryToken)
             {
-                {
-                    //// エスケープされたクォートを除去
-                    //var sanitizedOption = JsonConvert.DeserializeObject<string>($"\"{opt}\"");
-
-                    tokens.Add(to);
-                }
-
+                tokens.Add(to);
             }
             return tokens;
         }

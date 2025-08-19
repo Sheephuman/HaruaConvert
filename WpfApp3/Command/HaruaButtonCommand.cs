@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace HaruaConvert.Command
 {
-    static class HaruaButtonCommand
+    public static class HaruaButtonCommand
     {
         public static readonly RoutedUICommand QueryBuildWindow_Open = new RoutedUICommand(
      "ffmpegコマンド組み立て", // コマンドの名前
