@@ -193,8 +193,7 @@
                                         IsEditable="True"
                                         InputIdle="ParamText_InputIdle"
                                         Loaded="ParamText_Loaded"
-                                        DataContextChanged="ParamText_DataContextChanged"
-                                        
+                                                    
                                      SelectionChanged="ParamText_SelectionChanged" PreviewKeyDown="ParamText_PreviewKeyDown"
     
     Width="350" 
