@@ -145,8 +145,6 @@ namespace HaruaConvert.HaruaInterFace
                 return;
             }
 
-            main.paramField.isExecuteProcessed = true;
-
             ClassShearingMenbers.ButtonName = ((Button)sender).Name;
             //var runinng = Process.GetProcessesByName("ffmpeg.exe");
             if (!string.IsNullOrEmpty(main.paramField.setFile))
@@ -160,8 +158,6 @@ namespace HaruaConvert.HaruaInterFace
                 main.paramField.infoDelll.Invoke(main);
 
 
-
-                main.LogWindowShow();
 
 
             }
