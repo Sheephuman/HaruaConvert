@@ -151,7 +151,7 @@ namespace HaruaConvert
 
                 //th1.Start();
 
-                LogWindowShow();
+
 
 
                 //th1 = new Thread(() => ffmpegProsseing());
@@ -208,8 +208,9 @@ namespace HaruaConvert
             if (msbr == MessageBoxResult.Yes)
             {
 
-
+                LogWindowShow();
                 // Lw = new LogWindow(paramField);
+                main.paramField.isExecuteProcessed = true;
 
                 // ParamField.isExitProcessed = false;
 
@@ -227,12 +228,8 @@ namespace HaruaConvert
 
         bool FileExsosts_and_NoDialogCheck(string check_output, bool _DialogChecked)        //public async Task<string> CollectStandardOutput()
         {
-            var sw = new Stopwatch();
 
             //-----------------
-            // 計測開始
-            sw.Start();
-
             //  var alterExsists = new Alternate_FileExsists();
 
             //bool exsisted = alterExsists.FileExsists(check_output);
@@ -244,18 +241,10 @@ namespace HaruaConvert
             if (exsisted && !DialogChecked)
                 satisfied = true;
 
-            // 計測停止
-            sw.Stop();
 
-            Debug.WriteLine("■処理Aにかかった時間");
-            TimeSpan ts = sw.Elapsed;
-            Debug.WriteLine($"　{ts}");
-            Debug.WriteLine($"　{ts.Hours}時間 {ts.Minutes}分 {ts.Seconds}秒 {ts.Milliseconds}ミリ秒");
-            Debug.WriteLine($"　{sw.ElapsedMilliseconds}ミリ秒");
             return satisfied;
         }
 
-        long memorySize { get; set; }
 
         public static LogWindow Lw { get; set; }
         public bool IsDefaultQuerySet { get; internal set; }

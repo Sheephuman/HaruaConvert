@@ -17,7 +17,7 @@ namespace HaruaConvert.Methods
             if (!main.paramField.isExecuteProcessed)
             {
                 main.LogWindowShow();
-
+                main.paramField.isExecuteProcessed = true;
 
                 main.th1 = new Thread(async () => await main.FfmpegProcessingAsnc());
                 main.th1.IsBackground = true; // メインスレッドが終了すると自動的に終了
