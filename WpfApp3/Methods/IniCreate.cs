@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -103,13 +105,19 @@ namespace HaruaConvert
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
                 if (converter != null && converter.CanConvertFrom(typeof(string)))
                 {
+                    if (typeof(T) == typeof(int))
+                    {
+                        double d = double.Parse(resultString, CultureInfo.CurrentCulture);
+                        outputValue = (T)(object)Convert.ToInt32(d);  // 明示的キャスト
+                        ///例外回避のため2段キャストを行う
 
-                    outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
+                        // outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
 
-                    //CultureInfo.InvariantCulture を指定することで、必ず . を小数点として認識します。
+                        //CultureInfo.InvariantCulture を指定することで、必ず . を小数点として認識します。
 
-                    //       Debug.WriteLine($"INI読み込み2: file={filePath}");
-                    return true; // 変換に成功
+                        //       Debug.WriteLine($"INI読み込み2: file={filePath}");
+                        return true; // 変換に成功
+                    }
                 }
             }
             catch
