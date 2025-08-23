@@ -1,11 +1,4 @@
-﻿using FFMpegCore;
-using FFMpegCore.Arguments;
-using HaruaConvert.Methods;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
-using WpfApp3.Parameter;
+﻿using System.Text.RegularExpressions;
 
 namespace HaruaConvert.Parameter
 {
@@ -13,7 +6,7 @@ namespace HaruaConvert.Parameter
     public class ParamCreateClasss
     {
 
-        public ParamCreateClasss(string _fullPath , string ConvertFile)
+        public ParamCreateClasss(string _fullPath, string ConvertFile)
         {
 
 
@@ -22,7 +15,7 @@ namespace HaruaConvert.Parameter
 
             //check_output_Readonly = param.check_output_Readonly;
         }
-        
+
         //Perfect Constructor menber
         readonly string inputPath_ReadOnly;
 
@@ -36,23 +29,23 @@ namespace HaruaConvert.Parameter
         /// <returns></returns>      /// 
 
 
-        
+
         public EscapePath AddParamEscape(EscapePath escape, string extention)
         {
-           
+
 
             //inputPath = @"""" + inputPath_ReadOnly + @"""";
             escape.inputPath = "\"" + inputPath_ReadOnly + "\"";
 
-             escape.outputPath = "\"" + _convertFile + extention  + "\"";
-            
-            if(!string.IsNullOrEmpty(extention))
-               escape.NonEscape_outputPath = _convertFile + extention;
+            escape.outputPath = "\"" + _convertFile + extention + "\"";
+
+            if (!string.IsNullOrEmpty(extention))
+                escape.NonEscape_outputPath = _convertFile + extention;
 
             return escape;
-            
-            
-               
+
+
+
             //変換後のファイル名p 
             //出力先にエスケープ文字を追加
             //ソースファイル名にエスケープ文字を追加
@@ -63,7 +56,7 @@ namespace HaruaConvert.Parameter
 
         public string GetExtentionFileNamepattern(string target)
         {
-           
+
             string pattern = @"\{FileName\}\.(\w+)";
 
             string extension = string.Empty;
@@ -72,16 +65,16 @@ namespace HaruaConvert.Parameter
             Match match = Regex.Match(target, pattern);
             if (match.Success)
             {
-                extension = "." +match.Groups[1].Value;
-                
-                
-                Debug.WriteLine("拡張子: " + extension);
-            
+                extension = "." + match.Groups[1].Value;
+
+
+                //   Debug.WriteLine("拡張子: " + extension);
+
             }
 
-            return extension; 
+            return extension;
         }
-     
+
 
 
 

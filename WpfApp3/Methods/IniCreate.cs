@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -91,7 +90,7 @@ namespace HaruaConvert
             string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
 
 
-            Debug.WriteLine($"INI読み込み: file={filePath}, section={sectionName}, key={keyName}, value='{resultString}'");
+            //   Debug.WriteLine($"INI読み込み: file={filePath}, section={sectionName}, key={keyName}, value='{resultString}'");
             // 空文字列のチェック
             if (string.IsNullOrEmpty(resultString))
             {
@@ -101,7 +100,7 @@ namespace HaruaConvert
             // 型Tへの変換を試みる
             try
             {
-                TypeConverter converter = TypeDescriptor.GetConverter(typeof(string));
+                TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
                 if (converter != null && converter.CanConvertFrom(typeof(string)))
                 {
 
@@ -109,7 +108,7 @@ namespace HaruaConvert
 
                     //CultureInfo.InvariantCulture を指定することで、必ず . を小数点として認識します。
 
-                    Debug.WriteLine($"INI読み込み2: file={filePath}");
+                    //       Debug.WriteLine($"INI読み込み2: file={filePath}");
                     return true; // 変換に成功
                 }
             }

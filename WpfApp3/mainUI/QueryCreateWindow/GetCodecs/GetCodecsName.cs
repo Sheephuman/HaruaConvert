@@ -1,12 +1,7 @@
-﻿using FFMpegCore.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows.Documents;
-using Windows.Devices.Enumeration;
 
 namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
 {
@@ -111,7 +106,7 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
                                         if (!lineDic.ContainsKey(codecDoc))
                                         {
 
-                                            Debug.WriteLine(codecName);
+                                            //        Debug.WriteLine(codecName);
                                             lineDic.Add(codecDoc, codecName);
                                         }
                                     }
