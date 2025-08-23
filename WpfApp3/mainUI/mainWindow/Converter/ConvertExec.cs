@@ -115,7 +115,7 @@ namespace HaruaConvert
 
                 //オプションと出力先ファイル文字列の追加
                 _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{escapes.outputPath}";
-                Debug.WriteLine(_arguments);
+                //  Debug.WriteLine(_arguments);
             }
 
 
