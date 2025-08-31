@@ -105,7 +105,7 @@ namespace HaruaConvert
                     // 読み取りが成功したかどうかをチェック
                     if (readChars == 0)
                     {
-                        return false;
+                        return true;
 
                     }
 
