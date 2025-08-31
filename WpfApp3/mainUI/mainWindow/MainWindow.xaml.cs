@@ -566,49 +566,50 @@ namespace HaruaConvert
 
 
 
-            var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
-            if (isChecked)
-            {
-                if (childCheckBoxList != null)
-                    foreach (CheckBox chk in childCheckBoxList)
-                    {
+                var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
+                if (isChecked)
+                {
+                    if (childCheckBoxList != null)
+                        foreach (CheckBox chk in childCheckBoxList)
+                        {
 
-                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                    }
+                            checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                        }
 
 
-                var setWriter = new IniSettings_IOClass();
-                setWriter.IniSettingWriter(paramField, this);
+                    var setWriter = new IniSettings_IOClass();
+                    setWriter.IniSettingWriter(paramField, this);
 
-                if (!string.IsNullOrEmpty(ParamText.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
+                    if (!string.IsNullOrEmpty(ParamText.Text))
+                        IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
 
-                if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
+                    if (!string.IsNullOrEmpty(endStringBox.Text))
+                        IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
-                if (!string.IsNullOrEmpty(placeHolderList.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+                    if (!string.IsNullOrEmpty(placeHolderList.Text))
+                        IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+                }
+
+
+                //背景画像のOpacity書き込み
+                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
+
+
+                var ffjQuery = new CommandHistory();
+
+                CommandHistoryIO qHistory = new();
+
+                foreach (var item in ParamText.Items)
+                {
+
+                    ffjQuery.ffQueryToken.Add(item.ToString());
+
+
+                }
+
+
+                qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
             }
-
-
-            //背景画像のOpacity書き込み
-            IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
-
-
-            var ffjQuery = new CommandHistory();
-
-            CommandHistoryIO qHistory = new();
-
-            foreach (var item in ParamText.Items)
-            {
-
-                ffjQuery.ffQueryToken.Add(item.ToString());
-
-
-            }
-
-
-            qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
         }
 
 

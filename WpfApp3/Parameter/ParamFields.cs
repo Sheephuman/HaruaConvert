@@ -95,6 +95,7 @@ namespace HaruaConvert.Parameter
         public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
         public bool isSuccessdbuildQuery { get; internal set; }
         public bool isCheckerChanged { get; internal set; }
+        public bool isParam_Edited { get; internal set; }
 
         public static class QueryNames
         {

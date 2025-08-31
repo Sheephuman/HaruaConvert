@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
+
 namespace HaruaConvert.Initilize_Method
 {
     class InitilizeCheckBox
@@ -14,6 +15,7 @@ namespace HaruaConvert.Initilize_Method
         }
         ParamField paramField { get; set; }
 
+        List<CheckBox> childCheckBoxList;
 
         public List<CheckBox> InitializeChildCheckBox(Window main)
         {
@@ -37,7 +39,6 @@ namespace HaruaConvert.Initilize_Method
 
 
 
-            });
             return CheckBoxList;
         }
 
@@ -65,12 +66,12 @@ namespace HaruaConvert.Initilize_Method
         public bool LoadCheckBoxStates(CheckBox checkBox)
         {
             var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
-            foreach (var checkBox in childCheckBoxList)
+            foreach (var checker in childCheckBoxList)
             {
                 // CheckBoxの状態をINIファイルから読み込む
-                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
+                checker.IsChecked = iniChecker.CheckBoxiniGetVallue(checker, paramField.iniPath);
             }
-
+            return true;
         }
 
     }
