@@ -1,10 +1,6 @@
 ﻿using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,13 +12,13 @@ namespace HaruaConvert.Initilize_Method
         {
             paramField = _paramfield;
         }
-        ParamField paramField {  get; set; }
+        ParamField paramField { get; set; }
 
 
-        public List<CheckBox> InitializeChildCheckBox(Window main, List<CheckBox> CheckBoxList)
+        public List<CheckBox> InitializeChildCheckBox(Window main)
         {
-         
-            CheckBoxList = new List<CheckBox>();
+
+            var CheckBoxList = new List<CheckBox>();
 
 
             //  childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
@@ -36,9 +32,22 @@ namespace HaruaConvert.Initilize_Method
                     CheckBoxList.Add(checkBox);
                 }
 
-               
 
             });
+
+
+
+            foreach (var che in CheckBoxList)
+            {
+
+                che.Checked += (o, e) =>
+                {
+                    paramField.isCheckerChanged = true;
+                };
+
+            }
+
+
             return CheckBoxList;
         }
 
@@ -63,16 +72,19 @@ namespace HaruaConvert.Initilize_Method
             return menuList;
         }
 
-        public void LoadCheckBoxStates(List<CheckBox> childCheckBoxList)
+        public bool LoadCheckBoxStates(CheckBox checkBox)
         {
             var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
-            foreach (var checkBox in childCheckBoxList)
-            {
-                // CheckBoxの状態をINIファイルから読み込む
-                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
-            }
+
+            // CheckBoxの状態をINIファイルから読み込む
+
+            return iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
+
+
+
 
         }
 
     }
 }
+

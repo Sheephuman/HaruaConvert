@@ -3,9 +3,11 @@ using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert
 {
@@ -19,6 +21,7 @@ namespace HaruaConvert
                 //  Set Default Parameter on FfmpegQueryClass
                 var settingsService = new SettingsService(paramField.iniPath);
                 harua_View = new Harua_ViewModel(settingsService);
+
 
 
                 ///MainWindowのパラメータボックスで読み込むquery
@@ -42,12 +45,14 @@ namespace HaruaConvert
             //iniPathにカレントディレクトリを設定
             paramField = new ParamField()
             {
-                isParam_Edited = false,
+                isParamEdited = false,
                 isExecuteProcessed = false,
 
-                iniPath = Path.Combine(Environment.CurrentDirectory, "Settings.ini"),
+                iniPath = Path.Combine(AppContext.BaseDirectory, ClassShearingMenbers.SettingsIni),
                 profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
             };
+
+            Debug.WriteLine("Test" + paramField.iniPath);
             Ffmpc = new FfmpegQueryClass(this);
             firstSet = true;
             _arguments = string.Empty;
