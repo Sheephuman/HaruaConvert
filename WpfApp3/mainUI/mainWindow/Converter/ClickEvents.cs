@@ -104,9 +104,9 @@ namespace HaruaConvert
             try
             {
 
-                //編集済みかCheckBoxのCheck状態が
-                //変化したら保存処理
-                ParamSave_Procedure(paramField.isParamEdited, paramField.isCheckerChanged);
+                //未編集なら保存処理を行わない
+                if (paramField.isParam_Edited || paramField.isCheckerChanged)
+                    ParamSave_Procedure();
 
                 // 終了処理が完了したことを通知する変数
                 var Completed = new TaskCompletionSource<bool>();

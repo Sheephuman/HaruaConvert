@@ -521,8 +521,7 @@ VerticalAlignment="Top"
                         <GroupBox Header="一般設定">
                             <StackPanel>
                                 <CheckBox x:Name="IsOpenFolderChecker"         
-                                Checked="IsOpenFolderChecker_Checked"
-                                Unchecked="IsOpenFolderChecker_Checked"
+
          >
 
                                     <CheckBox.Content >

@@ -104,6 +104,7 @@ namespace HaruaConvert
 
 
 
+
             main = this;
             drawhelper = new TextBoxStylingHelper();
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
@@ -119,7 +120,6 @@ namespace HaruaConvert
 
             InitializeViewModels();
             var initail = new InitilizeCheckBox(paramField);
-
 
             childCheckBoxList = initail.InitializeChildCheckBox(this);
             if (childCheckBoxList != null)
@@ -533,10 +533,9 @@ namespace HaruaConvert
         public void ParamSave_Procedure(bool isEdit, bool isChecked)
         {
 
-
-
             int i = 0;
-            if (isEdit)
+            if (paramField.isParam_Edited)
+            {
                 //Add Number and Save setting.ini evey selector 
                 foreach (var selector in selectorList)
                 {
@@ -561,9 +560,9 @@ namespace HaruaConvert
 
                     }
                 }
+            }
 
-
-
+            {
 
 
 
@@ -950,7 +949,7 @@ namespace HaruaConvert
 
             InnerTextBox.KeyDown += (sender, e) =>
                 {
-                    main.paramField.isParamEdited = true;
+                    main.paramField.isParam_Edited = true;
                 };
 
 
