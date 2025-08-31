@@ -65,6 +65,9 @@ namespace HaruaConvert.Initilize_Method
 
         public bool LoadCheckBoxStates(CheckBox checkBox)
         {
+
+            childCheckBoxList = new List<CheckBox>();
+
             var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
             foreach (var checker in childCheckBoxList)
             {

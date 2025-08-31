@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using static HaruaConvert.IniCreate;
 using static HaruaConvert.Parameter.ParamField;
 
 

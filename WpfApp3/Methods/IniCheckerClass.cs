@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Controls;
 using WpfApp3.Parameter;
+using static HaruaConvert.IniCreate;
 
 namespace HaruaConvert.Methods
 {

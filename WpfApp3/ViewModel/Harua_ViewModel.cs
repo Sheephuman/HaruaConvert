@@ -2,8 +2,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using WpfApp3.Parameter;
+using static HaruaConvert.IniCreate;
 using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.Parameter
@@ -37,6 +40,11 @@ namespace HaruaConvert.Parameter
         }
         public void LoadInitialData(string iniPath)
         {
+
+            Debug.WriteLine("[LoadInitialData] iniPath=" + iniPath);
+            Debug.WriteLine("[LoadInitialData] exists=" + File.Exists(iniPath));
+
+
             ClassShearingMenbers.ffmpegQuery = IniDefinition.GetValueOrDefault
                                           (iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ClassShearingMenbers.defaultQuery);
             MainParams = new ObservableCollection<MainBindingParam>
