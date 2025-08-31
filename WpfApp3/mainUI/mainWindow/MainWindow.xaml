@@ -528,7 +528,7 @@ VerticalAlignment="Top"
                                     <CheckBox.Content >
                                         <TextBlock FontSize="16"
                                         TextWrapping="Wrap">
-            変換終了後にフォルダを自動的に開く            （メモリを占有しPCが重くなることがあります）
+            変換終了後にフォルダを自動的に開く 
                                         </TextBlock>
                                     </CheckBox.Content>
 
@@ -541,6 +541,21 @@ VerticalAlignment="Top"
                                         </TextBlock>
                                     </CheckBox.Content>
                                 </CheckBox>
+
+                                <CheckBox x:Name="isFileOpenChecker"         
+                       Checked="isFileOpenChecker_Checked"
+                       Unchecked="isFileOpenChecker_Checked"
+>
+
+                                    <CheckBox.Content >
+                                        <TextBlock FontSize="16"
+                               TextWrapping="Wrap">
+   変換終了後に動画ファイルを開く
+                                        </TextBlock>
+                                    </CheckBox.Content>
+
+                                </CheckBox>
+
 
                                 <Button
                                     Margin="10"
