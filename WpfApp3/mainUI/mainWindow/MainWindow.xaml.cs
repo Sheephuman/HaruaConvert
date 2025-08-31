@@ -22,6 +22,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using WpfApp3.Parameter;
+using static HaruaConvert.IniCreate;
 using static HaruaConvert.Parameter.ParamField;
 
 
@@ -558,59 +559,59 @@ namespace HaruaConvert
                         var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
                         IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
-                }
-            }
-
-            {
-
-
-
-            if (isChecked)
-            {
-                var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
-
-                if (childCheckBoxList != null)
-                    foreach (CheckBox chk in childCheckBoxList)
-                    {
-
-                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
                     }
-            }
-
-            var setWriter = new IniSettings_IOClass();
-            setWriter.IniSettingWriter(paramField, this);
-
-                    if (!string.IsNullOrEmpty(ParamText.Text))
-                        IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
-
-                    if (!string.IsNullOrEmpty(endStringBox.Text))
-                        IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
-
-                    if (!string.IsNullOrEmpty(placeHolderList.Text))
-                        IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
                 }
 
-
-                //背景画像のOpacity書き込み
-                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
+            {
 
 
-                var ffjQuery = new CommandHistory();
 
-                CommandHistoryIO qHistory = new();
-
-                foreach (var item in ParamText.Items)
+                if (isChecked)
                 {
+                    var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
 
-                    ffjQuery.ffQueryToken.Add(item.ToString());
+                    if (childCheckBoxList != null)
+                        foreach (CheckBox chk in childCheckBoxList)
+                        {
 
-
+                            checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                        }
                 }
 
+                var setWriter = new IniSettings_IOClass();
+                setWriter.IniSettingWriter(paramField, this);
 
-                qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
+                if (!string.IsNullOrEmpty(ParamText.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
+
+                if (!string.IsNullOrEmpty(endStringBox.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
+
+                if (!string.IsNullOrEmpty(placeHolderList.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
             }
+
+
+            //背景画像のOpacity書き込み
+            IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
+
+
+            var ffjQuery = new CommandHistory();
+
+            CommandHistoryIO qHistory = new();
+
+            foreach (var item in ParamText.Items)
+            {
+
+                ffjQuery.ffQueryToken.Add(item.ToString());
+
+
+            }
+
+
+            qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
         }
+
 
 
 

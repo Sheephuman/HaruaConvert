@@ -3,7 +3,6 @@ using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -48,11 +47,11 @@ namespace HaruaConvert
                 isParamEdited = false,
                 isExecuteProcessed = false,
 
-                iniPath = Path.Combine(Directory.GetCurrentDirectory(), ClassShearingMenbers.SettingsIni),
-                profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
+                iniPath = Path.Combine(AppContext.BaseDirectory, ClassShearingMenbers.SettingsIni),
+                profileQueryIni = Path.Combine(AppContext.BaseDirectory, "QueryProfile.ini")
             };
 
-            Debug.WriteLine("Test" + paramField.iniPath);
+            //Debug.WriteLine("Test" + paramField.iniPath);
             Ffmpc = new FfmpegQueryClass(this);
             firstSet = true;
             _arguments = string.Empty;
