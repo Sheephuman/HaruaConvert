@@ -1,4 +1,5 @@
 ﻿using HaruaConvert.Initilize_Method;
+using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using static HaruaConvert.Methods.IniCheckerClass;
 
 
 namespace HaruaConvert
@@ -114,7 +114,7 @@ namespace HaruaConvert
 
         public void window_Closed(object sender, EventArgs e)
         {
-            var checkProcess = new CheckboxGetSetValueClass();
+            var checkProcess = new IniCheckerClass();
             checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
             checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.iniPath);
 
@@ -125,7 +125,7 @@ namespace HaruaConvert
         {
             e.Cancel = true;
             this.Visibility = Visibility.Collapsed;
-            var checkProcess = new CheckboxGetSetValueClass();
+            var checkProcess = new IniCheckerClass();
 
             checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
             checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.iniPath);
@@ -268,7 +268,7 @@ namespace HaruaConvert
             MenuCheckBoxList = initial.InitializeChildCheckBox(this, MenuCheckBoxList);
 
 
-            var checkedProcess = new CheckboxGetSetValueClass();
+            var checkedProcess = new IniCheckerClass();
             // RichTextBoxのContextMenuを取得
 
 
