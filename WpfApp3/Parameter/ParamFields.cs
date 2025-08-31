@@ -15,7 +15,7 @@ namespace HaruaConvert.Parameter
     ////Case:use static When share used parameter on Class 
     public class ParamField
     {
-        internal bool isParam_Edited;
+        internal bool isParamEdited;
 
         public ParamField()
         {
@@ -81,8 +81,6 @@ namespace HaruaConvert.Parameter
         public static string MainTab_OutputDirectory { get; set; }
         public static string ParamTab_InputSelectorDirectory { get; set; }
         public static string ParamTab_OutputSelectorDirectory { get; set; }
-        public bool isEditedParam { get; set; }
-
         public string usedOriginalArgument { get; set; }
 
 
