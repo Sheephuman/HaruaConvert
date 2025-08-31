@@ -63,8 +63,8 @@ namespace HaruaConvert
         {
             isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
-            var setiniReader = new IniSettings_IOClass();
-            setiniReader.IniSettingReader(paramField, this);
+            var setIniReader = new IniSettings_IOClass();
+            setIniReader.IniSettingReader(paramField, this);
 
 
         }
@@ -113,11 +113,5 @@ namespace HaruaConvert
 
         }
 
-
-        public void SetCommandBindings()
-        {
-
-
-        }
     }
 }

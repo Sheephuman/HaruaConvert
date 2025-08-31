@@ -30,13 +30,8 @@ namespace HaruaConvert.Parameter
 
             _settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
 
-
-
             LoadInitialData(_settingsService.GetIniPath());
             //    mainWindow = _main;
-
-
-
 
 
         }
