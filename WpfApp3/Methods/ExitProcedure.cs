@@ -15,7 +15,7 @@ namespace HaruaConvert.Methods
 
         public void ExitProcedure(object sender, EventArgs e)
         {
-            if (main.paramField.isEditedParam)
+            if (main.paramField.isParamEdited)
                 main.ParamSave_Procedure();
 
             //main.Lw.window_Closed(sender, e);
