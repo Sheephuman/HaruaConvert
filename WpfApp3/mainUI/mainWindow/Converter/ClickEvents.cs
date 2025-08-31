@@ -98,13 +98,14 @@ namespace HaruaConvert
 
         public static ProcessKill_deligate killProcessDell { get; set; }
 
-        private async void CloseButton_Click(object sender, RoutedEventArgs e)
+        private async void
+            CloseButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
 
                 //未編集なら保存処理を行わない
-                if (paramField.isParam_Edited)
+                if (paramField.isParamEdited)
                     ParamSave_Procedure();
 
                 // 終了処理が完了したことを通知する変数
@@ -244,14 +245,14 @@ namespace HaruaConvert
             //if (!isUPDownClicked)
             //{ return; }
 
-            if (paramField.isParam_Edited)
+            if (paramField.isParamEdited)
             {
 
                 if (MessageBox.Show("LabelかParameterが変更されているわ。保存するの？", "Information", MessageBoxButton.YesNo,
                        MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     ParamSave_Procedure();
-                    paramField.isParam_Edited = false;
+                    paramField.isParamEdited = false;
                 }
 
             }

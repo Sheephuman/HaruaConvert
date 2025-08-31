@@ -1,4 +1,5 @@
 ﻿using HaruaConvert.mainUI.mainWindow;
+using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using NAudio.Wave;

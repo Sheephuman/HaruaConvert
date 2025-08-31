@@ -5,9 +5,9 @@ using HaruaConvert.Json;
 using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
-
+using MakizunoSpellChecker;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using SinWaveSample;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -102,6 +102,8 @@ namespace HaruaConvert
         {
             InitializeComponent();
 
+
+
             main = this;
             drawhelper = new TextBoxStylingHelper();
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
@@ -118,9 +120,22 @@ namespace HaruaConvert
             InitializeViewModels();
             var initail = new InitilizeCheckBox(paramField);
 
-            childCheckBoxList = initail.InitializeChildCheckBox(this, childCheckBoxList);
+
+            childCheckBoxList = initail.InitializeChildCheckBox(this);
             if (childCheckBoxList != null)
-                initail.LoadCheckBoxStates(childCheckBoxList);
+            {
+                foreach (var chk in childCheckBoxList)
+                {
+                    chk.IsChecked = initail.LoadCheckBoxStates(chk);
+
+                    Debug.WriteLine($"[{chk.Name}] load value = {chk.IsChecked.Value}");
+
+
+                }
+            }
+
+
+
 
             SelectorEventHandlers();
 
@@ -172,8 +187,8 @@ namespace HaruaConvert
 
                 return;
             }
-            if (!paramField.isParam_Edited)
-                paramField.isParam_Edited = true;
+            if (!paramField.isParamEdited)
+                paramField.isParamEdited = true;
 
             paramField.usedOriginalArgument = ansest.ArgumentEditor.Text;
 
@@ -251,7 +266,7 @@ namespace HaruaConvert
                     IniSettingsConst.ParameterLabel + "_" + $"{i}",
                  "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
 
-                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", "0");
+                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", "0");
                     int rcountInt = int.Parse(rcount, CultureInfo.CurrentCulture);
 
 
@@ -530,6 +545,8 @@ namespace HaruaConvert
                 IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
                     selector.ParamLabel.Text);
 
+
+
                 i++;
 
 
@@ -538,58 +555,58 @@ namespace HaruaConvert
                 if (selector.SlectorRadio.IsChecked.Value)
                 {
                     var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(paramField.iniPath, "CheckState", ParamField.ControlField.ParamSelector + "_Check", radioCount);
+                    IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
                 }
             }
 
 
-            {
 
 
 
-                var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
 
-                if (childCheckBoxList != null)
-                    foreach (CheckBox chk in childCheckBoxList)
-                    {
+            var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
 
-                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                    }
-
-
-                var setWriter = new IniSettings_IOClass();
-                setWriter.IniSettingWriter(paramField, this);
-
-                if (!string.IsNullOrEmpty(ParamText.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
-
-                if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
-
-                if (!string.IsNullOrEmpty(placeHolderList.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
-
-                //背景画像のOpacity書き込み
-                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
-
-
-                var ffjQuery = new CommandHistory();
-
-                CommandHistoryIO qHistory = new();
-
-                foreach (var item in ParamText.Items)
+            if (childCheckBoxList != null)
+                foreach (CheckBox chk in childCheckBoxList)
                 {
 
-                    ffjQuery.ffQueryToken.Add(item.ToString());
-
-
+                    checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
                 }
 
 
-                qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
+            var setWriter = new IniSettings_IOClass();
+            setWriter.IniSettingWriter(paramField, this);
+
+            if (!string.IsNullOrEmpty(ParamText.Text))
+                IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
+
+            if (!string.IsNullOrEmpty(endStringBox.Text))
+                IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
+
+            if (!string.IsNullOrEmpty(placeHolderList.Text))
+                IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+
+            //背景画像のOpacity書き込み
+            IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
+
+
+            var ffjQuery = new CommandHistory();
+
+            CommandHistoryIO qHistory = new();
+
+            foreach (var item in ParamText.Items)
+            {
+
+                ffjQuery.ffQueryToken.Add(item.ToString());
+
+
             }
+
+
+            qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
         }
+
 
 
         private void Window_Closed(object sender, EventArgs e)
@@ -862,12 +879,7 @@ namespace HaruaConvert
 
         }
 
-        private void isOpenFolder_Checked(object sender, RoutedEventArgs e)
-        {
-            paramField.isOpenFolder = (bool)IsOpenForuderChecker.IsChecked ? true : false;
 
-
-        }
 
         private string GetDebuggerDisplay()
         {
@@ -904,7 +916,16 @@ namespace HaruaConvert
 
         private void ParamText_Loaded(object sender, RoutedEventArgs e)
         {
-            ParamText.Items.Add(ClassShearingMenbers.ffmpegQuery);
+            var Jsonreader = new CommandHistoryIO();
+
+
+            var tokenList = Jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
+            foreach (string token in tokenList)
+            {
+                if (!ParamText.Items.Contains(token))
+                    ParamText.Items.Add(token);
+            }
+
 
             var combo = sender as ComboBox;
 
@@ -924,9 +945,8 @@ namespace HaruaConvert
 
             InnerTextBox.KeyDown += (sender, e) =>
                 {
-                    main.paramField.isEditedParam = true;
+                    main.paramField.isParamEdited = true;
                 };
-
 
 
             InnerTextBox.KeyDown += (sender, e) =>
@@ -937,19 +957,14 @@ namespace HaruaConvert
                 };
 
 
-            var Jsonreader = new CommandHistoryIO();
 
-
-            var tokenList = Jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
-            foreach (string token in tokenList)
-                ParamText.Items.Add(token);
 
         }
 
         private void ParamText_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (!paramField.isParam_Edited)
-                paramField.isParam_Edited = true;
+            if (!paramField.isParamEdited)
+                paramField.isParamEdited = true;
         }
 
         private void ParamText_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -961,6 +976,10 @@ namespace HaruaConvert
 
         }
 
+        private void IsOpenFolderChecker_Checked(object sender, RoutedEventArgs e)
+        {
+            paramField.isOpenFolder = IsOpenFolderChecker.IsChecked.Value ? true : false;
+        }
     }
 
 }

@@ -191,7 +191,9 @@
                                         HorizontalAlignment="Left">
                                         <c:IdleComboBox 
                                         IsEditable="True"
-                                        InputIdle="ParamText_InputIdle"
+                                       
+                                       InputIdle="ParamText_InputIdle"
+                                       
                                         Loaded="ParamText_Loaded"
                                                     
                                      SelectionChanged="ParamText_SelectionChanged" PreviewKeyDown="ParamText_PreviewKeyDown"
@@ -518,10 +520,10 @@ VerticalAlignment="Top"
                               Header="Settings" >
                         <GroupBox Header="一般設定">
                             <StackPanel>
-                                <CheckBox x:Name="IsOpenForuderChecker"
-          IsChecked="False"
-          Checked="isOpenFolder_Checked"
-          Unchecked="isOpenFolder_Checked">
+                                <CheckBox x:Name="IsOpenFolderChecker"         
+                                Checked="IsOpenFolderChecker_Checked"
+                                Unchecked="IsOpenFolderChecker_Checked"
+         >
 
                                     <CheckBox.Content >
                                         <TextBlock FontSize="16"
