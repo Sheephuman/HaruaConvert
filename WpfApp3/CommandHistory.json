@@ -1,0 +1,8 @@
+{
+  "ffQueryToken": [
+    "-codec:v libx265 -r 60 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -threads 2",
+    "rrrtt ttt44 jjjj ffff",
+    "rrrtt ttt44",
+    "rrrtt ttt44 jjjj "
+  ]
+}

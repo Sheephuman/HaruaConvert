@@ -30,7 +30,7 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ApplicationIcon>lib\harua.ico</ApplicationIcon>
+    <ApplicationIcon>lib\harua.ico</ApplicationIcon>    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -147,9 +147,9 @@
     <Resource Include="BackImage\\harua.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="lib\harua.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Content Include="lib\harua.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>      
+    </Content>
     <None Include="Methods\Alternate_GetFileName.cs" />
     <DesignDataWithDesignTimeCreatableTypes Include="TextBoxBehaviorSample.cs" />
     <Resource Include="lib\harua_origin_test.png">
@@ -202,6 +202,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CommandHistory.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="rules.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Settings.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="settings\dll\しょどーる参上.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
