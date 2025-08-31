@@ -1,0 +1,27 @@
+{
+  "profile1": {
+    "input": "inputfile.mp4",
+    "output": "output.mp4",
+    "options": [
+      "-codec:v",
+      "libx265",
+      "-vf",
+      "yadif=0:-1:1",
+      "-pix_fmt",
+      "yuv420p",
+      "-acodec",
+      "aac",
+      "-threads",
+      "2",
+      "-r 60"
+    ]
+  },
+  "profile2": {
+    "input": "inputfile.mp4",
+    "output": "output.gif",
+    "options": [
+      "-filter_complex",
+      "[0:v] fps=10,scale=320:-1:flags=lanczos,palettegen=stats_mode=diff [p];[0:v][p] paletteuse"
+    ]
+  }
+}
