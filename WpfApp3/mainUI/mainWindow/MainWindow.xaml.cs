@@ -530,50 +530,52 @@ namespace HaruaConvert
         }
 
 
-        public void ParamSave_Procedure()
+        public void ParamSave_Procedure(bool isEdit, bool isChecked)
         {
 
             int i = 0;
 
-            //Add Number and Save setting.ini evey selector 
-            foreach (var selector in selectorList)
+            if (isEdit)
+                //Add Number and Save setting.ini evey selector 
+                foreach (var selector in selectorList)
+                {
+
+                    IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
+                        selector.ArgumentEditor.Text);
+
+                    IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
+                        selector.ParamLabel.Text);
+
+
+
+                    i++;
+
+
+
+                    //if Check Selector Radio, Save Check State
+                    if (selector.SlectorRadio.IsChecked.Value)
+                    {
+                        var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
+                        IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
+
+                    }
+                }
+
+
+
+
+
+            if (isChecked)
             {
+                var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
 
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
-                    selector.ArgumentEditor.Text);
+                if (childCheckBoxList != null)
+                    foreach (CheckBox chk in childCheckBoxList)
+                    {
 
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
-                    selector.ParamLabel.Text);
-
-
-
-                i++;
-
-
-
-                //if Check Selector Radio, Save Check State
-                if (selector.SlectorRadio.IsChecked.Value)
-                {
-                    var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
-
-                }
+                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                    }
             }
-
-
-
-
-
-
-            var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
-
-            if (childCheckBoxList != null)
-                foreach (CheckBox chk in childCheckBoxList)
-                {
-
-                    checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                }
-
 
             var setWriter = new IniSettings_IOClass();
             setWriter.IniSettingWriter(paramField, this);
@@ -984,6 +986,11 @@ namespace HaruaConvert
         private void isFileOpenChecker_Checked(object sender, RoutedEventArgs e)
         {
             paramField.isOpenFile = isFileOpenChecker.IsChecked.Value ? true : false;
+        }
+
+        private void minimzizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 
