@@ -1,6 +1,5 @@
 ﻿using HaruaConvert.HaruaService;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -93,10 +92,6 @@ namespace HaruaConvert.Parameter
         //public string endString { get; set; }
         //public string placement { get; set; }
 
-        public Dictionary<string, List<string>> placehondersList
-        { get; set; }
-        //public string SourcePathText = "Source File";
-
 
         protected void RaisePropertyChanged(string propertyName)
         {
@@ -148,11 +143,6 @@ namespace HaruaConvert.Parameter
 
             return false;
         }
-
-        private string buildParameter11;
-
-        public string buildParameter1 { get => buildParameter11; set => SetProperty(ref buildParameter11, value); }
-
 
 
 
