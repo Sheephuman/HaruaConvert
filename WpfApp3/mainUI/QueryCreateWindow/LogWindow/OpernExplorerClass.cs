@@ -127,7 +127,14 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.LogWindow
                 else
                 {
 
-                    Thread.Sleep(1000); // ウィンドウが開くまで待機
+                // 指定パスを開く
+                shell.Open(folderName);
+
+                //指定のファイルを開く
+                if (paramField.isOpenFile)
+                    shell.Open(filePath);
+
+                Thread.Sleep(1000); // ウィンドウが開くまで待機
 
 
 

@@ -534,8 +534,8 @@ namespace HaruaConvert
         {
 
             int i = 0;
-            if (paramField.isParam_Edited)
-            {
+
+            if (isEdit)
                 //Add Number and Save setting.ini evey selector 
                 foreach (var selector in selectorList)
                 {
@@ -558,7 +558,6 @@ namespace HaruaConvert
                         var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
                         IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
-                    }
                 }
             }
 
@@ -566,19 +565,20 @@ namespace HaruaConvert
 
 
 
+            if (isChecked)
+            {
                 var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
-                if (isChecked)
-                {
-                    if (childCheckBoxList != null)
-                        foreach (CheckBox chk in childCheckBoxList)
-                        {
 
-                            checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                        }
+                if (childCheckBoxList != null)
+                    foreach (CheckBox chk in childCheckBoxList)
+                    {
 
+                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                    }
+            }
 
-                    var setWriter = new IniSettings_IOClass();
-                    setWriter.IniSettingWriter(paramField, this);
+            var setWriter = new IniSettings_IOClass();
+            setWriter.IniSettingWriter(paramField, this);
 
                     if (!string.IsNullOrEmpty(ParamText.Text))
                         IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
@@ -984,6 +984,16 @@ namespace HaruaConvert
         private void IsOpenFolderChecker_Checked(object sender, RoutedEventArgs e)
         {
             paramField.isOpenFolder = IsOpenFolderChecker.IsChecked.Value ? true : false;
+        }
+
+        private void isFileOpenChecker_Checked(object sender, RoutedEventArgs e)
+        {
+            paramField.isOpenFile = isFileOpenChecker.IsChecked.Value ? true : false;
+        }
+
+        private void minimzizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 
