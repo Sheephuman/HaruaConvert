@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace HaruaConvert
 {
@@ -133,7 +133,7 @@ namespace HaruaConvert
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
 
             return false;
