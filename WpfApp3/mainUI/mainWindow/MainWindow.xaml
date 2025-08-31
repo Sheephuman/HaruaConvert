@@ -35,13 +35,13 @@
 
             <Grid x:Name="titleGrid">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="0.45*"/>
+                    <ColumnDefinition Width="2*"/>                    
+                    <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock  Width="35"
-                       Grid.Column="0 "                       
+                       Grid.Column="0"                       
                        SnapsToDevicePixels="True"
                        HorizontalAlignment="Left"
                        Height="Auto" Margin="0,-1,0,0"
@@ -58,36 +58,52 @@
 
                 <StackPanel Grid.Column="1">
                     <TextBlock Background="{Binding Background, ElementName=HaruaGrid}"             
+                    
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                   Height="25"
                        FontSize="16"
                   TextAlignment="Left"                       
                    Text="はるあこんば～た"
-                       Margin="-70,8,0,0"/>
+                       Margin="0,8,0,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
-                            Grid.Column="1"
+                            Grid.Column="4"
                             
                             VerticalAlignment="Center">
+
+
+                    
+
+                </StackPanel>
+
+                <StackPanel 
+
+                    Orientation="Horizontal"                    
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Grid.Column="4">
 
                     <Button 
                         x:Name="HintButton"
                         Content="❓"
                         Width="25" Height="25"                          
                         BorderBrush="{x:Null}"
+                        
                            >
-
                     </Button>
-
-                </StackPanel>
-
-                <StackPanel 
-                    Orientation="Horizontal"                    
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Right"
-                    Grid.Column="2">
+                    <Button 
+x:Name="minimzizeButton"
+Content="＿"
+FontStyle="Normal"
+FontWeight="Bold"
+Width="25" Height="25"                          
+BorderBrush="{x:Null}"
+Background="Transparent"
+Click="minimzizeButton_Click"
+   >
+                    </Button>
                     <!-- 閉じる-->
                     <Button Background="{Binding Background, ElementName=HaruaGrid}"                      
                         BorderBrush="{x:Null}"  x:Name="CloseButton" 
