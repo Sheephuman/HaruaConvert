@@ -1,4 +1,4 @@
-﻿using HaruaConvert.Methods;
+﻿using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
 using HaruaConvert.userintarface;
 using System.Windows;
 using System.Windows.Input;

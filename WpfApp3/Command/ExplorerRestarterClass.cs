@@ -1,6 +1,8 @@
 ﻿using HaruaConvert.Methods;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HaruaConvert.Command
 {
@@ -14,12 +16,20 @@ namespace HaruaConvert.Command
             //new が必要
 
             MainWindow.killProcessDell = tpc.Terminate_Process;
-
-            foreach (var process in getExplorer)
+            try
             {
-                await MainWindow.killProcessDell(process.Id);
+                foreach (var process in getExplorer)
+                {
+                    await MainWindow.killProcessDell(process.Id);
+                }
             }
 
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message);
+
+
+            }
             await Task.Delay(1000);
 
             var sessions = new SessionStartParames("cmd.exe", false, true, "/c start explorer.exe");
@@ -27,6 +37,9 @@ namespace HaruaConvert.Command
                 );                                                            //start explorer.exe
 
             prosessStart.ProcessStartMethod(sessions);
+
+
         }
+
     }
 }
