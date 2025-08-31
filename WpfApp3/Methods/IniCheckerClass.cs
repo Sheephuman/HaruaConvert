@@ -54,6 +54,15 @@ namespace HaruaConvert.Methods
                 bool setbool = IniDefinition.GetValueOrDefault(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, false);
 
 
+
+                var setbool = IniDefinition.GetValueOrDefault(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, false);
+
+
+
+                Debug.WriteLine(checkControl.Name + ":" + ((CheckBox)checkControl).IsChecked.Value.ToString());
+
+
+
                 return setbool;
 
             }

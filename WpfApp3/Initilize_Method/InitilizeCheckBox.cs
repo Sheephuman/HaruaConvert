@@ -37,17 +37,7 @@ namespace HaruaConvert.Initilize_Method
 
 
 
-            foreach (var che in CheckBoxList)
-            {
-
-                che.Checked += (o, e) =>
-                {
-                    paramField.isCheckerChanged = true;
-                };
-
-            }
-
-
+            });
             return CheckBoxList;
         }
 
@@ -75,13 +65,11 @@ namespace HaruaConvert.Initilize_Method
         public bool LoadCheckBoxStates(CheckBox checkBox)
         {
             var iniChecker = new IniCheckerClass.CheckboxGetSetValueClass();
-
-            // CheckBoxの状態をINIファイルから読み込む
-
-            return iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
-
-
-
+            foreach (var checkBox in childCheckBoxList)
+            {
+                // CheckBoxの状態をINIファイルから読み込む
+                checkBox.IsChecked = iniChecker.CheckBoxiniGetVallue(checkBox, paramField.iniPath);
+            }
 
         }
 

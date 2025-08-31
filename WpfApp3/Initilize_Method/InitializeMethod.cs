@@ -48,7 +48,7 @@ namespace HaruaConvert
                 isParamEdited = false,
                 isExecuteProcessed = false,
 
-                iniPath = Path.Combine(AppContext.BaseDirectory, ClassShearingMenbers.SettingsIni),
+                iniPath = Path.Combine(Directory.GetCurrentDirectory(), ClassShearingMenbers.SettingsIni),
                 profileQueryIni = Path.Combine(Environment.CurrentDirectory, "QueryProfile.ini")
             };
 
