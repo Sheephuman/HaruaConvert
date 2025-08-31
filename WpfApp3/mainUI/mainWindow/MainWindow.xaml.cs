@@ -533,86 +533,95 @@ namespace HaruaConvert
 
         public void ParamSave_Procedure(bool isEdit, bool isChecked)
         {
+            try
+            {
+                int i = 0;
 
-            int i = 0;
-
-            if (isEdit)
-                //Add Number and Save setting.ini evey selector 
-                foreach (var selector in selectorList)
-                {
-
-                    IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
-                        selector.ArgumentEditor.Text);
-
-                    IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
-                        selector.ParamLabel.Text);
-
-
-
-                    i++;
-
-
-
-                    //if Check Selector Radio, Save Check State
-                    if (selector.SlectorRadio.IsChecked.Value)
+                if (isEdit)
+                    //Add Number and Save setting.ini evey selector 
+                    foreach (var selector in selectorList)
                     {
-                        var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
-                        IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
-                    }
-                }
+                        IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
+                            selector.ArgumentEditor.Text);
 
-            {
-
+                        IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
+                            selector.ParamLabel.Text);
 
 
-                if (isChecked)
-                {
-                    var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
 
-                    if (childCheckBoxList != null)
-                        foreach (CheckBox chk in childCheckBoxList)
+                        i++;
+
+
+
+                        //if Check Selector Radio, Save Check State
+                        if (selector.SlectorRadio.IsChecked.Value)
                         {
+                            var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
+                            IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
-                            checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
                         }
+                    }
+
+                {
+
+
+
+                    if (isChecked)
+                    {
+                        var checkedSet = new IniCheckerClass();
+
+                        if (childCheckBoxList != null)
+                            foreach (CheckBox chk in childCheckBoxList)
+                            {
+
+                                checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                            }
+                    }
+
+                    var setWriter = new IniSettings_IOClass();
+                    setWriter.IniSettingWriter(paramField, this);
+
+                    if (!string.IsNullOrEmpty(ParamText.Text))
+                        IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
+
+                    if (!string.IsNullOrEmpty(endStringBox.Text))
+                        IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
+
+                    if (!string.IsNullOrEmpty(placeHolderList.Text))
+                        IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
                 }
 
-                var setWriter = new IniSettings_IOClass();
-                setWriter.IniSettingWriter(paramField, this);
 
-                if (!string.IsNullOrEmpty(ParamText.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
+                //背景画像のOpacity書き込み
+                IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
 
-                if (!string.IsNullOrEmpty(endStringBox.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
-                if (!string.IsNullOrEmpty(placeHolderList.Text))
-                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+                var ffjQuery = new CommandHistory();
+
+                CommandHistoryIO qHistory = new();
+
+                foreach (var item in ParamText.Items)
+                {
+
+                    ffjQuery.ffQueryToken.Add(item.ToString());
+
+
+                }
+
+                string history = Path.Combine(AppContext.BaseDirectory, "CommandHistory.json");
+
+                if (!File.Exists(history))
+                    return;
+                qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
             }
-
-
-            //背景画像のOpacity書き込み
-            IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));
-
-
-            var ffjQuery = new CommandHistory();
-
-            CommandHistoryIO qHistory = new();
-
-            foreach (var item in ParamText.Items)
+            catch (Exception ex)
             {
-
-                ffjQuery.ffQueryToken.Add(item.ToString());
-
+                MessageBox.Show(ex.Message);
 
             }
 
-
-            qHistory.SaveToJsonFile(ffjQuery, "CommandHistory.json");
         }
-
-
 
 
         private void Window_Closed(object sender, EventArgs e)
@@ -914,6 +923,11 @@ namespace HaruaConvert
             // ComboBox のテンプレートから TextBox を探す
             InnerTextBox = combo.Template.FindName("PART_EditableTextBox", combo) as TextBox;
 
+
+            if (!File.Exists("rules.json"))
+                return;
+
+
             drawhelper.DrawSinWave(InnerTextBox, "rules.json", 3);
         }
 
@@ -922,50 +936,66 @@ namespace HaruaConvert
 
         private void ParamText_Loaded(object sender, RoutedEventArgs e)
         {
-            var Jsonreader = new CommandHistoryIO();
-
-
-            var tokenList = Jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
-            foreach (string token in tokenList)
+            try
             {
-                if (!ParamText.Items.Contains(token))
-                    ParamText.Items.Add(token);
+                var Jsonreader = new CommandHistoryIO();
+
+                string history = Path.Combine(AppContext.BaseDirectory, "CommandHistory.json");
+
+                if (!File.Exists(history))
+                    return;
+
+
+                var tokenList = Jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
+                foreach (string token in tokenList)
+                {
+                    if (!ParamText.Items.Contains(token))
+                        ParamText.Items.Add(token);
+                }
+
+
+                var combo = sender as ComboBox;
+
+                InnerTextBox = combo.Template.FindName("PART_EditableTextBox", combo) as TextBox;
+
+
+
+                var contextMenu = new ContextMenu();
+
+                contextMenu.Items.Add(HaruaButtonCommand.SetDefaultQuery);
+
+                contextMenu.Items.Add(HaruaButtonCommand.QueryBuildWindow_Open);
+
+
+                InnerTextBox.ContextMenu = contextMenu;
+
+
+                InnerTextBox.KeyDown += (sender, e) =>
+                    {
+                        main.paramField.isParam_Edited = true;
+                    };
+
+
+                InnerTextBox.KeyDown += (sender, e) =>
+                    {
+                        if (Keyboard.IsKeyDown(Key.Enter))
+                            if (!ParamText.Items.Contains(InnerTextBox.Text))
+                                ParamText.Items.Add(InnerTextBox.Text);
+                    };
+
+
+
+
             }
+            catch (System.IO.FileNotFoundException ex)
+            {
+                MessageBox.Show("ファイルがみつからないわ" + ex.Message + ex.FileName);
 
-
-            var combo = sender as ComboBox;
-
-            InnerTextBox = combo.Template.FindName("PART_EditableTextBox", combo) as TextBox;
-
-
-
-            var contextMenu = new ContextMenu();
-
-            contextMenu.Items.Add(HaruaButtonCommand.SetDefaultQuery);
-
-            contextMenu.Items.Add(HaruaButtonCommand.QueryBuildWindow_Open);
-
-
-            InnerTextBox.ContextMenu = contextMenu;
-
-
-            InnerTextBox.KeyDown += (sender, e) =>
-                {
-                    main.paramField.isParam_Edited = true;
-                };
-
-
-            InnerTextBox.KeyDown += (sender, e) =>
-                {
-                    if (Keyboard.IsKeyDown(Key.Enter))
-                        if (!ParamText.Items.Contains(InnerTextBox.Text))
-                            ParamText.Items.Add(InnerTextBox.Text);
-                };
-
-
-
-
+            }
         }
+
+
+
 
         private void ParamText_PreviewKeyDown(object sender, KeyEventArgs e)
         {

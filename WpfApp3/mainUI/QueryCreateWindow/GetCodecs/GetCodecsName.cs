@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
 {
@@ -19,7 +21,11 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
             {
 
                 // ffmpegのパスを設定
-                var ffmpegPath = @"dll\\ffmpeg.exe";
+                var ffmpegPath = Path.Combine(AppContext.BaseDirectory, @"dll\\ffmpeg.exe");
+
+                if (!Path.Exists(ffmpegPath))
+                    return lineDic;
+
                 var startInfo = new ProcessStartInfo(ffmpegPath, "-encoders")
                 {
                     UseShellExecute = false,
@@ -127,7 +133,7 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                MessageBox.Show(ex.Message);
                 return lineDic;
 
             }
