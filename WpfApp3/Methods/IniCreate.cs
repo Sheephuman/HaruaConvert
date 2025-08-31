@@ -1,5 +1,4 @@
-﻿using HaruaConvert.settings.ini;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -80,7 +79,7 @@ namespace HaruaConvert
                 char[] buffer = new char[1024];  // //CA1838 の解決
 
                 // GetPrivateProfileStringを呼び出して設定値を読み取る
-                uint readChars = IniDefinitionUtf8.TryGetValueOrDefault(filePath, sectionName, keyName, defaultValue, out outputValue);
+                uint readChars = (uint)(object)GetValueOrDefault(filePath, sectionName, keyName, defaultValue);
                 //GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
 
 
