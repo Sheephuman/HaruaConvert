@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HaruaConvert.settings.ini;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -7,6 +8,10 @@ using System.Runtime.InteropServices;
 
 namespace HaruaConvert
 {
+
+    /// <summary>
+    /// GetPrivateProfileString　UTF-16 LE(Bom付き)しか読み込めない
+    /// </summary>
     internal sealed class IniCreate
     {
 
@@ -40,14 +45,7 @@ namespace HaruaConvert
         /// <param name="nSize"></param>
         /// <param name="iniFilename"></param>
         /// <returns></returns>
-        [DllImport("kernel32", CharSet = CharSet.Unicode)]
-        internal static extern uint GetPrivateProfileString(
-    string lpAppName,
-    string lpKeyName,
-    string lpDefault,
-    [Out] char[] lpReturnString,
-    uint nSize,   //char[]のサイズをnSizeパラメータで正確に指定
-    string iniFilename);
+
 
 
         /// <summary>
@@ -61,7 +59,12 @@ namespace HaruaConvert
         /// <param name="defaultValue">初期値</param>
         /// <param name="outputValue">出力値</param>
         /// <returns>取得の成功有無</returns>
-        public static bool TryGetValueOrDefault<T>(string filePath, string sectionName, string keyName, T defaultValue, out T outputValue)
+        public static bool TryGetValueOrDefault<T>(
+              string filePath,
+              string sectionName,
+              string keyName,
+              T defaultValue,
+              out T outputValue)
         {
             // 出力値の初期化
             outputValue = defaultValue;
@@ -77,7 +80,8 @@ namespace HaruaConvert
                 char[] buffer = new char[1024];  // //CA1838 の解決
 
                 // GetPrivateProfileStringを呼び出して設定値を読み取る
-                uint readChars = GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
+                uint readChars = IniDefinitionUtf8.TryGetValueOrDefault(filePath, sectionName, keyName, defaultValue, out outputValue);
+                //GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
 
 
                 // 読み取りが成功したかどうかをチェック
@@ -135,6 +139,7 @@ namespace HaruaConvert
 
             return false;
         }
+
 
 
         /// <summary>

@@ -116,22 +116,22 @@
     <None Remove="App.config" />
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
-    <None Remove="dll\DotNetProjects.Wpf.Extended.Toolkit&#xD;&#xA;    " />
-    <None Remove="dll\ffmpeg.exe" />
-    <None Remove="dll\FFMpegCore.dll" />
-    <None Remove="dll\ffprobe.exe" />
-    <None Remove="dll\Instances.dll" />
-    <None Remove="dll\Microsoft.Windows.SDK.NET.dll" />
-    <None Remove="dll\Microsoft.WindowsAPICodePack.dll" />
-    <None Remove="dll\Microsoft.WindowsAPICodePack.Shell.dll" />
-    <None Remove="dll\NAudio.Asio.dll" />
-    <None Remove="dll\NAudio.Core.dll" />
-    <None Remove="dll\NAudio.dll" />
-    <None Remove="dll\NAudio.Midi.dll" />
-    <None Remove="dll\NAudio.Wasapi.dll" />
-    <None Remove="dll\NAudio.WinForms.dll" />
-    <None Remove="dll\NAudio.WinMM.dll" />
-    <None Remove="dll\WinRT.Runtime.dll" />
+    <None Remove="settings\dll\DotNetProjects.Wpf.Extended.Toolkit&#xD;&#xA;    " />
+    <None Remove="settings\dll\ffmpeg.exe" />
+    <None Remove="settings\dll\FFMpegCore.dll" />
+    <None Remove="settings\dll\ffprobe.exe" />
+    <None Remove="settings\dll\Instances.dll" />
+    <None Remove="settings\dll\Microsoft.Windows.SDK.NET.dll" />
+    <None Remove="settings\dll\Microsoft.WindowsAPICodePack.dll" />
+    <None Remove="settings\dll\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <None Remove="settings\dll\NAudio.Asio.dll" />
+    <None Remove="settings\dll\NAudio.Core.dll" />
+    <None Remove="settings\dll\NAudio.dll" />
+    <None Remove="settings\dll\NAudio.Midi.dll" />
+    <None Remove="settings\dll\NAudio.Wasapi.dll" />
+    <None Remove="settings\dll\NAudio.WinForms.dll" />
+    <None Remove="settings\dll\NAudio.WinMM.dll" />
+    <None Remove="settings\dll\WinRT.Runtime.dll" />
     <None Remove="harua.jpg" />
     <None Remove="lib\harua_origin_test.png" />
   </ItemGroup>
@@ -202,7 +202,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="dll\しょどーる参上.wav">
+    <None Update="settings\dll\しょどーる参上.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="HaruaConvert.exe.config">
