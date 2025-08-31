@@ -165,7 +165,7 @@
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
     <PackageReference Include="FFMpegCore" Version="5.1.0" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
-    <PackageReference Include="Mk1.MakizunoSpellChecker" Version="1.0.0.3" />
+    
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -233,6 +233,12 @@
   <ItemGroup>
     <Folder Include="MediaInfo\" />
     <Folder Include="UserControls\QueryBuildwindow\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MK1.MakizunoSpellChecker">
+      <HintPath>C:\git\MakizunoSpellChecker\MakizunoSpellChecker\bin\Debug\net9.0-windows7.0\Mk1.MakizunoSpellChecker.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
 

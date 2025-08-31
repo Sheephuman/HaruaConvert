@@ -9,5 +9,7 @@
         public static string endString { get; set; }
         public static string extention { get; internal set; }
         public static string ffmpegQuery { get; internal set; }
+        public static string CheckState { get; internal set; } = nameof(CheckState);
+        public static string SettingsIni { get; set; } = "Settings.ini";
     }
 }
