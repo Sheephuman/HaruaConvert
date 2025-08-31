@@ -2,7 +2,7 @@
   "profiles": {
     "HaruaConvert": {
       "commandName": "Project",
-      "nativeDebugging": false,
+      "nativeDebugging": true,
       "remoteDebugEnabled": false,
       "sqlDebugging": false,
       "jsWebView2Debugging": false,
