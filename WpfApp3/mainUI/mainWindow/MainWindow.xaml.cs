@@ -980,6 +980,11 @@ namespace HaruaConvert
         {
             paramField.isOpenFolder = IsOpenFolderChecker.IsChecked.Value ? true : false;
         }
+
+        private void isFileOpenChecker_Checked(object sender, RoutedEventArgs e)
+        {
+            paramField.isOpenFile = isFileOpenChecker.IsChecked.Value ? true : false;
+        }
     }
 
 }
