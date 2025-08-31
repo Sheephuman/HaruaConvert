@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert.Methods
 {
@@ -18,14 +20,21 @@ namespace HaruaConvert.Methods
             {
                 var checkControl = check as Control;
 
-                if (checkControl is CheckBox)
-                    IniDefinition.SetValue(iniPath, "CheckState", checkControl.Name,
-                      ((CheckBox)checkControl).IsChecked.Value.ToString());
-
-                else if (checkControl is MenuItem)
+                if (checkControl is CheckBox chk)
                 {
-                    IniDefinition.SetValue(iniPath, "CheckState", checkControl.Name,
-                    ((MenuItem)checkControl).IsChecked.ToString());
+                    string isChecked = chk.IsChecked.Value.ToString();
+
+                    IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, isChecked);
+                    ;
+
+                    Debug.WriteLineIf(true, isChecked);
+                }
+                else if (checkControl is MenuItem menucheck)
+                {
+                    IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name,
+                    menucheck.IsChecked.ToString());
+
+
                     //  Debug.WriteLine(((MenuItem)checkControl).Name + $"{((MenuItem)checkControl).IsChecked}:Saved");
 
 
@@ -39,9 +48,12 @@ namespace HaruaConvert.Methods
             public bool CheckBoxiniGetVallue<T>(T check, string iniPath)
             {
                 var checkControl = check as Control;
-                // Debug.WriteLine(checkControl.Name);
 
-                var setbool = IniDefinition.GetValueOrDefault(iniPath, "CheckState", checkControl.Name, false);
+
+
+                bool setbool = IniDefinition.GetValueOrDefault(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, false);
+
+
                 return setbool;
 
             }
