@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -62,46 +63,42 @@ namespace HaruaConvert
         /// <returns>取得の成功有無</returns>
         public static bool TryGetValueOrDefault<T>(string filePath, string sectionName, string keyName, T defaultValue, out T outputValue)
         {
-
-
-
-
             // 出力値の初期化
             outputValue = defaultValue;
-
-            // ファイルパスの有効性をチェック
-            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
-            {
-                return false;
-            }
-
-            // 読み取りバッファの準備
-            char[] buffer = new char[1024];  // //CA1838 の解決
-
-            // GetPrivateProfileStringを呼び出して設定値を読み取る
-            uint readChars = GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
-
-
-            // 読み取りが成功したかどうかをチェック
-            if (readChars == 0)
-            {
-                return false; // 読み取りに失敗
-            }
-
-            // null終端文字までの内容を文字列に変換
-            string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
-
-
-            //   Debug.WriteLine($"INI読み込み: file={filePath}, section={sectionName}, key={keyName}, value='{resultString}'");
-            // 空文字列のチェック
-            if (string.IsNullOrEmpty(resultString))
-            {
-                return false;
-            }
-
-            // 型Tへの変換を試みる
             try
             {
+                // ファイルパスの有効性をチェック
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                {
+                    return false;
+                }
+
+                // 読み取りバッファの準備
+                char[] buffer = new char[1024];  // //CA1838 の解決
+
+                // GetPrivateProfileStringを呼び出して設定値を読み取る
+                uint readChars = GetPrivateProfileString(sectionName, keyName, null, buffer, (uint)buffer.Length, filePath);
+
+
+                // 読み取りが成功したかどうかをチェック
+                if (readChars == 0)
+                {
+                    return false;
+
+                }
+
+                // null終端文字までの内容を文字列に変換
+                string resultString = new string(buffer, 0, (int)readChars).TrimEnd('\0');
+
+
+                //   Debug.WriteLine($"INI読み込み: file={filePath}, section={sectionName}, key={keyName}, value='{resultString}'");
+                // 空文字列のチェック
+                if (string.IsNullOrEmpty(resultString))
+                {
+                    return false;
+                }
+
+
                 TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
                 if (converter != null && converter.CanConvertFrom(typeof(string)))
                 {
@@ -109,24 +106,36 @@ namespace HaruaConvert
                     {
                         double d = double.Parse(resultString, CultureInfo.CurrentCulture);
                         outputValue = (T)(object)Convert.ToInt32(d);  // 明示的キャスト
-                        ///例外回避のため2段キャストを行う
+                        return true;
 
-                        // outputValue = (T)converter.ConvertFromString(resultString);  //CA1305 の解決
+                    }
 
-                        //CultureInfo.InvariantCulture を指定することで、必ず . を小数点として認識します。
+                    else if (typeof(T) == typeof(bool))
+                    {
+                        if (bool.TryParse(resultString, out bool b))
+                        {
+                            outputValue = (T)(object)b;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        // それ以外は TypeConverter に任せる
+                        outputValue = (T)converter.ConvertFromString(null, CultureInfo.InvariantCulture, resultString);
+                        return true;
 
-                        //       Debug.WriteLine($"INI読み込み2: file={filePath}");
-                        return true; // 変換に成功
                     }
                 }
+
             }
-            catch
+            catch (Exception ex)
             {
-                // 変換に失敗した場合は、ここで処理される
+                Debug.WriteLine(ex.ToString());
             }
 
-            return false; // 変換に失敗または変換器が見つからない
+            return false;
         }
+
 
         /// <summary>
         /// INIファイルからキーの値を取得します
@@ -164,5 +173,9 @@ namespace HaruaConvert
             }
         }
 
+        internal static void SetValue(string iniPath, object checkState, string name, string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
