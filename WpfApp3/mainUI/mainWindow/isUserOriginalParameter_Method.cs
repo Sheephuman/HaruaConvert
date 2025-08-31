@@ -55,7 +55,10 @@ namespace HaruaConvert.mainUI.mainWindow
                             ParamField.ParamTab_OutputSelectorDirectory = Path.GetDirectoryName(outputFile);
 
 
-                            var dictionary = (Dictionary<string, List<string>>)mw.placeHolderList.ItemsSource;
+                            var dictionary = (Dictionary<string, List<string>>)
+                           mw.placeHolderList.ItemsSource;
+
+
                             if (string.IsNullOrEmpty(mw.harua_View.MainParams[0].placement))
                             {
                                 MessageBox.Show("添え字が選択されていないわ");
