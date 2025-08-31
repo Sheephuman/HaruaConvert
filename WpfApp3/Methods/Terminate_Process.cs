@@ -43,13 +43,15 @@ namespace HaruaConvert
                     killp.Start();
                     killp.WaitForExit();
 
+
+                    if (killp.ExitCode == 0 || killp.Container != null)
+                    {
+                        return Task.CompletedTask;
+
+                    }
+
                 }
 
-                if (killp.ExitCode == 0 || killp.Container != null)
-                {
-                    //   Debug.WriteLine($"Process {target_id} killed successfully.");
-
-                }
 
                 return Task.CompletedTask;
             }
