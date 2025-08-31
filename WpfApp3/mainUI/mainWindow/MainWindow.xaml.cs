@@ -530,35 +530,37 @@ namespace HaruaConvert
         }
 
 
-        public void ParamSave_Procedure()
+        public void ParamSave_Procedure(bool isEdit, bool isChecked)
         {
 
+
+
             int i = 0;
-
-            //Add Number and Save setting.ini evey selector 
-            foreach (var selector in selectorList)
-            {
-
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
-                    selector.ArgumentEditor.Text);
-
-                IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
-                    selector.ParamLabel.Text);
-
-
-
-                i++;
-
-
-
-                //if Check Selector Radio, Save Check State
-                if (selector.SlectorRadio.IsChecked.Value)
+            if (isEdit)
+                //Add Number and Save setting.ini evey selector 
+                foreach (var selector in selectorList)
                 {
-                    var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
-                    IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
 
+                    IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", "Arguments_" + $"{i}",
+                        selector.ArgumentEditor.Text);
+
+                    IniDefinition.SetValue(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.ParameterLabel + "_" + $"{i}",
+                        selector.ParamLabel.Text);
+
+
+
+                    i++;
+
+
+
+                    //if Check Selector Radio, Save Check State
+                    if (selector.SlectorRadio.IsChecked.Value)
+                    {
+                        var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
+                        IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
+
+                    }
                 }
-            }
 
 
 
@@ -566,26 +568,29 @@ namespace HaruaConvert
 
 
             var checkedSet = new IniCheckerClass.CheckboxGetSetValueClass();
+            if (isChecked)
+            {
+                if (childCheckBoxList != null)
+                    foreach (CheckBox chk in childCheckBoxList)
+                    {
 
-            if (childCheckBoxList != null)
-                foreach (CheckBox chk in childCheckBoxList)
-                {
-
-                    checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
-                }
+                        checkedSet.CheckediniSetVallue(chk, paramField.iniPath);
+                    }
 
 
-            var setWriter = new IniSettings_IOClass();
-            setWriter.IniSettingWriter(paramField, this);
+                var setWriter = new IniSettings_IOClass();
+                setWriter.IniSettingWriter(paramField, this);
 
-            if (!string.IsNullOrEmpty(ParamText.Text))
-                IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
+                if (!string.IsNullOrEmpty(ParamText.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.BaseQuery, ParamText.Text);
 
-            if (!string.IsNullOrEmpty(endStringBox.Text))
-                IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
+                if (!string.IsNullOrEmpty(endStringBox.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.ffmpegQuery, QueryNames.endStrings, endStringBox.Text);
 
-            if (!string.IsNullOrEmpty(placeHolderList.Text))
-                IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+                if (!string.IsNullOrEmpty(placeHolderList.Text))
+                    IniDefinition.SetValue(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, placeHolderList.SelectedIndex.ToString(CultureInfo.CurrentCulture));
+            }
+
 
             //背景画像のOpacity書き込み
             IniDefinition.SetValue(paramField.iniPath, IniSettingsConst.Apperance, IniSettingsConst.BackImageOpacity, main.harua_View.MainParams[0].BackImageOpacity.ToString(CultureInfo.CurrentCulture));

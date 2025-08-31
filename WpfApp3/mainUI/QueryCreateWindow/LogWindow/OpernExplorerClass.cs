@@ -17,6 +17,24 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.LogWindow
 
     public class OpernExplorerClass : IOpenExplorer
     {
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        public static void ActivateExplorerWindow(dynamic explorer)
+        {
+            try
+            {
+                // explorer.HWND でウィンドウハンドルを取得
+                IntPtr hwnd = (IntPtr)explorer.HWND;
+                SetForegroundWindow(hwnd); // 前面に表示
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Explorer をアクティブにできません: {ex.Message}");
+            }
+        }
+
+
         dynamic WindowCounter(dynamic windows, dynamic explorer, string normalizedOpenPath)
         {
             for (int i = 0; i < windows.Count; i++)
@@ -72,71 +90,70 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.LogWindow
                 dynamic windows = shell.Windows();
                 dynamic explorer = null;
 
-
-
-
                 string normalizedOpenPath = filePath.Replace('\\', '/'); // スラッシュを統一
 
 
                 string folderName = Path.GetDirectoryName(normalizedOpenPath);
 
-                explorer = WindowCounter(windows, explorer, normalizedOpenPath);
-
-
-                if (explorer is null)
-                    return;
-
-
-                // フォルダを選択
-                bool found = false;
-
-                // 指定パスを開く
-                shell.Open(folderName);
-                Thread.Sleep(1000); // ウィンドウが開くまで待機
-
-
-
-                dynamic items = explorer.Document.Folder.Items();
-
-                string fileName = Path.GetFileName(filePath);
-
-                explorer.Document.SelectItem(fileName, 1); // 1 = 選択
-
-                Debug.WriteLine($"フォルダ '{folderName}' を選択しました: {filePath}");
-
-
-
-
-
-
-                if (!found)
+                // 既存ウィンドウを探す
+                foreach (var window in windows)
                 {
-                    Debug.WriteLine($"フォルダ '{folderName}' が見つかりませんでした。");
-                    return;
+                    try
+                    {
+                        string path = Path.GetFullPath(window.Document.Folder.Self.Path);
+                        if (string.Equals(path.TrimEnd('\\'), folderName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            explorer = window;
+
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+
+                    }
                 }
 
 
+                string fileName = Path.GetFileName(filePath);
+
+                if (explorer is null)
+                {
+                    // ウィンドウが無いので新しく開く
+                    Process.Start("explorer.exe", "/select," + filePath);
+                }
+
+                else
+                {
+
+                    Thread.Sleep(1000); // ウィンドウが開くまで待機
 
 
 
-                string homeDir = "C:\\"; // デフォルトのホームディレクトリを設定
+                    dynamic items = explorer.Document.Folder.Items();
 
-                string setArgument = string.IsNullOrEmpty(filePath) ? homeDir : $"/select, \"{filePath}\""; // 
+                    foreach (var item in items)
+                    {
+                        if (string.Equals(item.Name, fileName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            explorer.Document.SelectItem(item, 0x1); // 1 = SVSI_SELECT
 
-                //Exception
+                            break;
+                        }
 
 
-                //using (Process explorerProcess = new Process())
-                //{
-                //    explorerProcess.StartInfo = new ProcessStartInfo
-                //    {
-                //        FileName = "explorer", // フルパスで指定せず「explorer」とだけ書く
-                //        Arguments = setArgument,
-                //        UseShellExecute = true
-                //    };
 
-                //    explorerProcess.Start();
-                //    //memorySize = explorerProcess.WorkingSet64;
+
+                    }
+
+
+                    ActivateExplorerWindow(explorer);
+
+
+
+
+                }
 
             }
             catch (Exception ex)

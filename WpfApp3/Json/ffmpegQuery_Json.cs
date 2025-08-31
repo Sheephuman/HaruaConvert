@@ -5,7 +5,7 @@ namespace HaruaConvert.Json
 {
     public class CommandHistory
     {
-        [JsonProperty("ffQueryToken")]
+        [JsonProperty(nameof(ffQueryToken))]
         public List<string> ffQueryToken { get; set; } = new();
 
     }
