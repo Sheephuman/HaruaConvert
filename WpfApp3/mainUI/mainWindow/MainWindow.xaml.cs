@@ -738,7 +738,6 @@ namespace HaruaConvert
         void Generate_ParamSelector()
         {
             if (!firstSet)
-            {
                 SelectorStack.Children.Clear();
 
                 selectorList.Clear();
