@@ -67,6 +67,7 @@ namespace HaruaConvert.HaruaInterFace
 
                     mainParames.setFile = ofc.opFileName;
                     main.harua_View.SourcePathText = main.paramField.setFile;
+
                     main.FileNameLabel.Text = main.harua_View.SourcePathText;
                     main.FileNameLabel.ToolTip = main.harua_View.SourcePathText;
 
@@ -155,7 +156,7 @@ namespace HaruaConvert.HaruaInterFace
 
                 main.mainFileConvertExec(main.paramField.setFile, sender);
 
-                main.paramField.infoDelll.Invoke(main);
+                //    main.paramField.infoDelll.Invoke(main);
 
 
 

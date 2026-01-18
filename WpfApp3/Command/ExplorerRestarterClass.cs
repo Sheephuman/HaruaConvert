@@ -34,7 +34,7 @@ namespace HaruaConvert.Command
             await Task.Delay(1000);
 
             var sessions = new SessionStartParames("cmd.exe", false, true, "/c start explorer.exe");
-            var prosessStart = new ProcessStartClass(
+            var prosessStart = new ProcessStartManager(
                 );                                                            //start explorer.exe
 
             prosessStart.ProcessStartMethod(sessions);

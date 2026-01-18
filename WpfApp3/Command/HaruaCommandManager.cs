@@ -1,5 +1,4 @@
-﻿using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
-using HaruaConvert.userintarface;
+﻿using HaruaConvert.userintarface;
 using System.Windows;
 using System.Windows.Input;
 using WpfApp3.Parameter;
@@ -113,12 +112,12 @@ namespace HaruaConvert.Command
 
         private void QueryBuildWindow_Open(object sender, ExecutedRoutedEventArgs e)
         {
-            IOpenExplorer openI = new OpernExplorerClass();
+            //IOpenExplorer openI = new OpernExplorerClass();
 
 
-            var maintest = new MainWindow(openI);
+            //var maintest = new MainWindow(openI);
 
-            maintest._openExplorerTest.OpenExplorer(_main.paramField);
+            //maintest._openExplorerTest.OpenExplorer(_main.paramField);
 
 
             if (_main.paramField.isClosedQueryBuildWindow)

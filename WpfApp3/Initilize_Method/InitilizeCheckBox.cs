@@ -15,12 +15,11 @@ namespace HaruaConvert.Initilize_Method
         }
         ParamField paramField { get; set; }
 
-        List<CheckBox> childCheckBoxList;
 
         public List<CheckBox> InitializeChildCheckBox(Window main)
         {
 
-            childCheckBoxList = new List<CheckBox>();
+            var childCheckBoxList = new List<CheckBox>();
 
 
             //  childCheckBoxList.Capacity = 5; //現在のCheckBoxの数を指定
@@ -73,11 +72,11 @@ namespace HaruaConvert.Initilize_Method
             return menuList;
         }
 
-        public bool LoadCheckBoxStates(CheckBox checkBox)
+        public bool LoadCheckBoxStates(List<CheckBox> childCheckBoxList)
         {
 
 
-            var iniChecker = new IniCheckerClass();
+            var iniChecker = new IniCheckBoxSetClass();
             foreach (var checker in childCheckBoxList)
             {
                 // CheckBoxの状態をINIファイルから読み込む
