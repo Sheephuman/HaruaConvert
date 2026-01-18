@@ -15,12 +15,8 @@ namespace HaruaConvert.HaruaServise
 
         }
 
-        readonly IMediaInfoManager mediaInfoManager;
-        public MediaInfoService(IMediaInfoManager imedia)
-        {
-            this.mediaInfoManager = imedia ?? throw new ArgumentNullException(nameof(imedia));
 
-        }
+
 
 
 
@@ -84,46 +80,68 @@ namespace HaruaConvert.HaruaServise
             try
             {
 
-
                 if (mediaInfo == null)
                     return MediaResultList;
 
 
-                if (mediaInfo.PrimaryAudioStream == null)
-                {
-                    MessageBox.Show("primary streams がhullだわ");
-                    return MediaResultList;
-                }
+                var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
+
+                MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
+
+
+                MediaResultList.Add(Environment.NewLine);
+
+                var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
+
+                MediaResultList.Add("Codec:" + $"{resultCodec}");
+
+
+                MediaResultList.Add(Environment.NewLine);
+
 
                 var resultFramerate = Math.Truncate(mediaInfo.PrimaryVideoStream.AvgFrameRate);
 
-
-                var resultHeight = mediaInfo.PrimaryVideoStream.Height;
-                var resultWidth = mediaInfo.PrimaryVideoStream.Width;
-
-
-                var resultBitRate = Math.Truncate(mediaInfo.PrimaryVideoStream.BitRate * 0.001);
-                var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
-                var resultCodec = mediaInfo.PrimaryVideoStream.CodecLongName;
-                var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
-                var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
-
-                MediaResultList.Add("BitRate:" + $"{resultBitRate}" + "Kbps");
-                MediaResultList.Add(Environment.NewLine);
-                MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
-                MediaResultList.Add(Environment.NewLine);
-                MediaResultList.Add("Codec:" + $"{resultCodec}");
-                MediaResultList.Add(Environment.NewLine);
-                MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
-                MediaResultList.Add(Environment.NewLine);
                 MediaResultList.Add("Framerate:" + $"{resultFramerate}");
                 MediaResultList.Add(Environment.NewLine);
-                MediaResultList.Add("Height:" + $"{resultHeight}");
-                MediaResultList.Add(Environment.NewLine);
-                MediaResultList.Add("Width:" + $"{resultWidth}");
-                MediaResultList.Add(Environment.NewLine);
-                MediaResultList.Add("Cannels:" + $"{resultCannels}");
 
+                var resultHeight = mediaInfo.PrimaryVideoStream.Height;
+
+                MediaResultList.Add("Height:" + $"{resultHeight}");
+
+
+                MediaResultList.Add(Environment.NewLine);
+                var resultWidth = mediaInfo.PrimaryVideoStream.Width;
+                MediaResultList.Add("Width:" + $"{resultWidth}");
+
+                MediaResultList.Add(Environment.NewLine);
+
+
+
+                if (mediaInfo.PrimaryAudioStream != null)
+                {
+                    var resultAudioBitRate = Math.Truncate(mediaInfo.PrimaryAudioStream.BitRate * 0.001);
+                    MediaResultList.Add("AudioBitRate:" + $"{resultAudioBitRate}" + "Kbps");
+
+                    MediaResultList.Add(Environment.NewLine);
+
+                    var resultAudioCodec = mediaInfo.PrimaryAudioStream.CodecLongName;
+
+                    MediaResultList.Add("AudioCodec:" + $"{resultAudioCodec}");
+
+                    MediaResultList.Add(Environment.NewLine);
+
+                    var resultCannels = mediaInfo.PrimaryAudioStream.Channels;
+                    MediaResultList.Add("Cannels:" + $"{resultCannels}");
+
+
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Audio Streamがないわ");
+
+                }
 
                 return MediaResultList;
 
