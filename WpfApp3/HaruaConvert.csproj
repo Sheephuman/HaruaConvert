@@ -9,7 +9,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest-All</AnalysisLevel>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows10.0.22621.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.22621.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>HaruaConvert</AssemblyName>
     <Platforms>AnyCPU;x86;x64;ARM64</Platforms>
@@ -26,17 +26,20 @@
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <SignAssembly>True</SignAssembly>
     <NeutralLanguage>ja</NeutralLanguage>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <SupportedOSPlatformVersion>10.0.18362.1</SupportedOSPlatformVersion>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ApplicationIcon>lib\harua.ico</ApplicationIcon>    
+    <ApplicationIcon>lib\harua.ico</ApplicationIcon>
+    <DelaySign>False</DelaySign>
+    <PackageLicenseExpression>BSD-2-Clause-first-lines</PackageLicenseExpression>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <OutputPath>bin\Debug\net5.0-windows\</OutputPath>
     <Optimize>True</Optimize>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
@@ -44,7 +47,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>True</Optimize>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
@@ -52,7 +55,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <Optimize>True</Optimize>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
@@ -60,35 +63,35 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Optimize>True</Optimize>
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>portable</DebugType>
+    <DebugType>full</DebugType>
     <Deterministic>False</Deterministic>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <NoWarn>9057</NoWarn>
@@ -116,22 +119,20 @@
     <None Remove="App.config" />
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
-    <None Remove="settings\dll\DotNetProjects.Wpf.Extended.Toolkit&#xD;&#xA;    " />
-    <None Remove="settings\dll\ffmpeg.exe" />
-    <None Remove="settings\dll\FFMpegCore.dll" />
-    <None Remove="settings\dll\ffprobe.exe" />
-    <None Remove="settings\dll\Instances.dll" />
-    <None Remove="settings\dll\Microsoft.Windows.SDK.NET.dll" />
-    <None Remove="settings\dll\Microsoft.WindowsAPICodePack.dll" />
-    <None Remove="settings\dll\Microsoft.WindowsAPICodePack.Shell.dll" />
-    <None Remove="settings\dll\NAudio.Asio.dll" />
-    <None Remove="settings\dll\NAudio.Core.dll" />
-    <None Remove="settings\dll\NAudio.dll" />
-    <None Remove="settings\dll\NAudio.Midi.dll" />
-    <None Remove="settings\dll\NAudio.Wasapi.dll" />
-    <None Remove="settings\dll\NAudio.WinForms.dll" />
-    <None Remove="settings\dll\NAudio.WinMM.dll" />
-    <None Remove="settings\dll\WinRT.Runtime.dll" />
+    <None Remove="dll\DotNetProjects.Wpf.Extended.Toolkit&#xD;&#xA;    " />
+    <None Remove="dll\FFMpegCore.dll" />
+    <None Remove="dll\Instances.dll" />
+    <None Remove="dll\Microsoft.Windows.SDK.NET.dll" />
+    <None Remove="dll\Microsoft.WindowsAPICodePack.dll" />
+    <None Remove="dll\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <None Remove="dll\NAudio.Asio.dll" />
+    <None Remove="dll\NAudio.Core.dll" />
+    <None Remove="dll\NAudio.dll" />
+    <None Remove="dll\NAudio.Midi.dll" />
+    <None Remove="dll\NAudio.Wasapi.dll" />    
+    <None Remove="dll\NAudio.WinMM.dll" />
+    <None Remove="dll\WinRT.Runtime.dll" />
+    <None Remove="dll\しょどーる参上.wav" />
     <None Remove="harua.jpg" />
     <None Remove="lib\harua_origin_test.png" />
   </ItemGroup>
@@ -147,9 +148,12 @@
     <Resource Include="BackImage\\harua.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="lib\harua.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>      
+    <Content Include="dll\しょどーる参上.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="lib\harua.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>      
+    </Resource>
     <None Include="Methods\Alternate_GetFileName.cs" />
     <DesignDataWithDesignTimeCreatableTypes Include="TextBoxBehaviorSample.cs" />
     <Resource Include="lib\harua_origin_test.png">
@@ -162,14 +166,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
-    <PackageReference Include="FFMpegCore" Version="5.1.0" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.124" />
+    <PackageReference Include="FFMpegCore" Version="5.2.0" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+    <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -205,13 +210,19 @@
     <None Update="CommandHistory.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="dll\ffmpeg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\ffprobe.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="dll\NAudio.WinForms.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="rules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="settings\dll\しょどーる参上.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="HaruaConvert.exe.config">

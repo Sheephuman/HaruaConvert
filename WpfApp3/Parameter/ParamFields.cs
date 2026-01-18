@@ -23,9 +23,9 @@ namespace HaruaConvert.Parameter
             //Delegateを登録
 
         }
+
         public displayInfoDell infoDelll { get; set; }
 
-        public string inputPath_ReadOnly { get; }
 
         public string check_output { get; set; }
 
@@ -53,8 +53,7 @@ namespace HaruaConvert.Parameter
 
 
         public bool isExecuteProcessed { get; set; }
-        public string output { get; set; }
-
+      
         public bool isOpenFolder { get; set; }
         public bool isBackImage { get; set; }
 
@@ -74,7 +73,11 @@ namespace HaruaConvert.Parameter
 
 
 
-        public static string OutputPath { get; set; }
+
+
+        public string ShereAreguments { get; set; } = string.Empty;
+
+
 
         public static string InitialDirectory { get; set; }
         public static string Maintab_InputDirectory { get; set; }

@@ -1,4 +1,8 @@
-﻿namespace HaruaConvert.Parameter
+﻿
+
+using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
+
+namespace HaruaConvert.Parameter
 {
     public class MainBindingParam
     {
@@ -9,7 +13,6 @@
         public string endString { get; set; }
         public string placement { get; set; }
 
-        public ParamField paramField { get; set; }
 
 
 
@@ -18,6 +21,8 @@
 
 
         private string sourcePath;
+        internal ffmpegDetailsOptionsStateModel ffmpegOptionsStateModel;
+
         //原因の切り分けのために例外を投げさせる実装
         public string SourcePathText
         {

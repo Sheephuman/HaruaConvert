@@ -25,12 +25,7 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnPreviewTextInputUpdate(object sender, TextCompositionEventArgs e)
-        {
-
-
-           
-        }
+      
         
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {

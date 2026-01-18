@@ -5,7 +5,7 @@ using static HaruaConvert.IniCreate;
 
 namespace HaruaConvert.Methods
 {
-    internal class IniCheckerClass
+    internal class IniCheckBoxSetClass
     {
 
         public void CheckediniSetVallue<T>(T check, string iniPath)
@@ -15,12 +15,12 @@ namespace HaruaConvert.Methods
 
             if (checkControl is CheckBox chk)
             {
-                string isChecked = chk.IsChecked.Value.ToString();
+                string isCheckedStrings = chk.IsChecked.Value.ToString();
 
-                IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, isChecked);
+                IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, isCheckedStrings);
                 ;
 
-                Debug.WriteLineIf(true, isChecked);
+                Debug.WriteLineIf(true, isCheckedStrings);
             }
             else if (checkControl is MenuItem menucheck)
             {

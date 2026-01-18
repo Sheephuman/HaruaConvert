@@ -1,18 +1,5 @@
-﻿using HaruaConvert.Parameter;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Drawing.Imaging;
-using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
-
-using static HaruaConvert.Parameter.ParamField;
-using WpfApp3.Parameter;
-using static HaruaConvert.MainWindow;
 
 namespace HaruaConvert
 {

@@ -3,6 +3,7 @@ using HaruaConvert.QueryBuilder;
 using HaruaConvert.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using static HaruaConvert.IniCreate;
@@ -15,6 +16,8 @@ namespace HaruaConvert.userintarface
     /// QueryCreateWindow.xaml の相互作用ロジック
     /// </summary>
     /// 
+
+
 
 
 
@@ -50,11 +53,16 @@ namespace HaruaConvert.userintarface
             var codecsToFindVideo = new List<string>
 {
     "av1",
+    "libsvtav1",
+    "mpeg4",
 "hevc",
 "libx265",
+"libx264",
+"dvvideo",
 "h264",
 "jpeg2000",
 "vp9",
+"libvpx-vp9",
 "prores",
 "dnxhd",
 "xvid",
@@ -63,7 +71,11 @@ namespace HaruaConvert.userintarface
 "mjpeg",
 "cineform",
 "avc-intra",
-
+"ffv1",
+"huffyuv",
+"rawvideo",
+"Indeo",
+"msvideo"
 };
 
             var codecsToFindAudio = new List<string>
@@ -250,15 +262,6 @@ namespace HaruaConvert.userintarface
 
         }
 
-        private void VideoCodecBox_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void testLabel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -282,15 +285,72 @@ namespace HaruaConvert.userintarface
         {
 
             qf.UpdateAllInput();
+            if (FileNameExtentionBox.SelectedItem is null)
+                return;
+
+
+            if (FileNameExtentionBox.SelectedItem.ToString() == ".mp4")
+            {
+
+                qf.FfmpegVideoCacheDic = new Dictionary<string, string>();
+                //FileNameExtentionBox.ItemsSource =
+
+                VideoCodecBox.ItemsSource = null;
+
+                List<string> mp4BindingList = new()
+                {
+                    "libx264",
+                    "libx265",
+                    "mpeg4",
+                    "vp9",
+                    "av1",
+                };
+
+
+                Dictionary<string, string> mp3Bindin = new();
+                foreach (string token in mp4BindingList)
+                {
+                    var filtered = qf.FfmpegVideoCodecDic
+                        .Where(x => x.Key.Contains(token))
+                        .ToDictionary(ktoken => ktoken.Key, ktoken => ktoken.Value);
+
+                    foreach (var kv in filtered)
+                    {
+                        if (kv.Key.Contains("librav1e")) //.mkv
+                            continue;
+
+                        if (kv.Key.Contains("msmpeg4")) //.wmv
+                            continue;
+
+                        mp3Bindin[kv.Key] = kv.Value; // 重複キーは上書き
+                    }
+                }
+
+
+                VideoCodecBox.ItemsSource = mp3Bindin;
+
+                /// return GetEqualityComponents()
+                // .Select(x => x != null ? x.GetHashCode() : 0)
+                //  .Aggregate((x, y) => x ^ y);
+
+
+            }
+            else
+            {
+
+                VideoCodecBox.ItemsSource = qf.FfmpegVideoCodecDic;
+            }
         }
 
-        private void QueryBuidButton_Click(object sender, RoutedEventArgs e)
+        private void QueryApplayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(PreviewBlock.Text))
             {
-                // main.ParamText.SelectAll();
-                // main.ParamText.SelectedText = "";
-                //    main.ParamText.SelectedText = PreviewBlock.Text;
+                main.ParamText.Text = PreviewBlock.Text;
+
+                var combo = main.ParamText;
+                if (!combo.Items.Contains(combo.Text))
+                    combo.Items.Add(combo.Text);
             }
             //メインウィンドウのBinding先がMainParamクラスであるため、
             //その中の変数に直接アクセスしてもBindingに反映されない
@@ -336,6 +396,11 @@ namespace HaruaConvert.userintarface
         private void QueryCreateWindowForm_Loaded(object sender, RoutedEventArgs e)
         {
             main.paramField.isClosedQueryBuildWindow = false;
+        }
+
+        private void FileNameExtentionBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            VideoCodecBox.SelectedIndex = 1;
         }
     }
 }

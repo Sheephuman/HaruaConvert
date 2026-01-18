@@ -1,4 +1,6 @@
 ﻿using HaruaConvert;
+using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
+using Windows.Media;
 
 namespace HaruaConvert.Methods
 {
@@ -6,10 +8,8 @@ namespace HaruaConvert.Methods
     {
         public AddOptionClass()
         {
-
+            
         }
-
-
 
         /// <summary>
         ///一連のオプションを追加するかどうか
@@ -18,10 +18,20 @@ namespace HaruaConvert.Methods
         /// <returns></returns>
         public static string AddOption(string _arguments)
         {
+            ffmpegDetailsOptionsStateModel _detailsOptions = new ffmpegDetailsOptionsStateModel();
 
-            if (MainWindow.ChekOptionStruct.isAudio)　//チェックすると音声無し
+
+            if (!_detailsOptions.IsNoAudio)　//音声を削除する
             {
+                if(_arguments.StartsWith("-an", System.StringComparison.OrdinalIgnoreCase))
                 _arguments += " -an ";
+            }
+            else //音声を保持する
+            {
+                if (_arguments.StartsWith("-an", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    _arguments = _arguments.Replace(" -an ", " ");
+                }
             }
 
 

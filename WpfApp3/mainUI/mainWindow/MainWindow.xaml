@@ -16,7 +16,7 @@
        WindowStyle="None"
         AllowsTransparency="True"
         Opacity="1"        
-       Closed="Window_Closed"
+       
        StateChanged="Window_StateChanged"
         Icon="/lib/harua.ico"
         >
@@ -125,7 +125,8 @@ Click="minimzizeButton_Click"
                 Margin="0,-12,0,0"
                 Height="460"                    
         Panel.ZIndex="0" 
-                x:Name="mainTub"  SelectionChanged ="mainTub_SelectionChanged_1" Grid.ColumnSpan="2" 
+                x:Name="mainTub"  
+                Grid.ColumnSpan="2" 
                     >
 
                     <TabControl.Background>
@@ -137,7 +138,7 @@ Click="minimzizeButton_Click"
 
 
                     <TabItem  x:Name="MainTab"                              
-                              PreviewMouseDown="TabItem_MouseDown" Header="Main" >
+                          Header="Main" >
 
                         <Grid x:Name = "MainGrid" Grid.Row="0" VerticalAlignment="Top" 
                           Margin="0,0,0,0">
@@ -303,7 +304,10 @@ VerticalAlignment="Top"/>
                                                     <StackPanel >
                                                         <CheckBox 
                                                 FontSize="16"
-                                                x:Name="NoAudio"  Content="No Audio" Margin="3" Unchecked="NoAudio_Checked" Checked="NoAudio_Checked"/>
+                                                x:Name="NoAudio" 
+                                                IsChecked="{Binding ffmpegOptionsStateModel.IsNoAudio}"
+                                                
+                                                Content="No Audio" Margin="3"/>
                                                         <CheckBox 
                                                 FontSize="16"
                                                 x:Name="Force30FPS" Content="Force 30FPS" Margin="3" Unchecked="Force30FPS_Checked"  Checked="Force30FPS_Checked"/>
@@ -397,7 +401,7 @@ VerticalAlignment="Top"
 
 
                     <TabItem x:Name="ParameterTab"
-                    PreviewMouseDown ="TabItem_MouseDown"
+                    
                     Header="Parameter"  HorizontalAlignment="Left" Width="60" Height="20" VerticalAlignment="Center">
 
                         <Grid >
@@ -532,13 +536,16 @@ VerticalAlignment="Top"
                     </TabItem>
 
                     <TabItem  x:Name="SettingsTab"                              
-                              PreviewMouseDown="TabItem_MouseDown" 
+                              
                               Header="Settings" >
                         <GroupBox Header="一般設定">
                             <StackPanel>
-                                <CheckBox x:Name="IsOpenFolderChecker"         
+                                <CheckBox x:Name="IsOpenFolderChecker"
+                                
 
-         >
+                                Checked="IsOpenFolderChecker_Checked"
+                                Unchecked="IsOpenFolderChecker_Checked"
+                                >
 
                                     <CheckBox.Content >
                                         <TextBlock FontSize="16"
@@ -580,7 +587,7 @@ VerticalAlignment="Top"
                                         Height="20" Width="130"
                                         Background="Transparent"
                                     
-                                    Command="{x:Static local:HaruaButtonCommand.ExplorerRestarter}"/>
+                                />
 
                                 <GroupBox x:Name="appearanceGroup" Header="外観設定" BorderBrush="Black">
                                     <Grid>

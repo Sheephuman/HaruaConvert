@@ -2,6 +2,8 @@
 using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
+using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
+using HaruaConvert.ViewModel.ffmpegOptions.MainParameter;
 using NAudio.Wave;
 using System;
 using System.Diagnostics;
@@ -29,12 +31,11 @@ namespace HaruaConvert
 
         public EscapePath escapes { get; set; }
 
-
-
+        AddOptionClass _addOption = new();
         public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
-#pragma warning restore CA1051 // 参照可能なインスタンス フィールドを宣言しません
+#pragma warning restore CA1051 // 参F照可能なインスタンス フィールドを宣言しません
 
 
         /// <summary>
@@ -363,6 +364,8 @@ namespace HaruaConvert
                     outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
 
                     outputDevice.Play();
+
+
 
                     var opex = new OpernExplorerClass();
                     opex.OpenExplorer(paramField);

@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace HaruaConvert
 {
-    static class DependencyObjectExtension
+    static class EnumAllControls
     {
 
         /// <summary>
@@ -19,6 +19,10 @@ namespace HaruaConvert
                 if (child is DependencyObject)
                 {
                     act(child as DependencyObject);
+                    ///「ツリー内のすべての子要素（DependencyObject）に対して、呼び出し元で指定した処理を実行する」
+
+
+
                     Walk(child as DependencyObject, act);
                 }
             }

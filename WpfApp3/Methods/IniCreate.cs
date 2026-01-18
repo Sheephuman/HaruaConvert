@@ -171,10 +171,12 @@ namespace HaruaConvert
             /// <returns>キー値</returns>
             public static T GetValueOrDefault<T>(string filePath, string sectionName, string keyName, T defaultValue)
             {
-                T ret = defaultValue;
-                TryGetValueOrDefault(filePath, sectionName, keyName, defaultValue, out ret);
-
-                return ret;
+                T output = defaultValue;
+                TryGetValueOrDefault(filePath, sectionName, keyName, defaultValue, out output);
+                //if (keyName == "IsOpenFolderChecker" && output.Equals
+                //    (true))
+                //    MessageBox.Show(keyName + "is True");
+                return output;
             }
 
             /// <summary>

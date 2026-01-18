@@ -2,9 +2,9 @@
 
 namespace HaruaConvert.Methods
 {
-    internal class ProcessStartClass
+    internal class ProcessStartManager
     {
-        public ProcessStartClass()
+        public ProcessStartManager()
         {
 
         }

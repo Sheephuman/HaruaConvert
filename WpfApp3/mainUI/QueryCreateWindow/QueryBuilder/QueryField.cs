@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Security.Permissions;
-using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace HaruaConvert.QueryBuilder
 {
@@ -21,16 +18,16 @@ namespace HaruaConvert.QueryBuilder
         private string _fileExtentionName;
         public string FileExtentionName
         {
-            get =>  _fileExtentionName;
+            get => _fileExtentionName;
             set => SetProperty(ref _fileExtentionName, value, UpdateAllInput);
 
         }
 
 
-        private bool SetProperty<T>(ref T field, T Value, Action onChanged= null, [CallerMemberName] string propertyName = null)
+        private bool SetProperty<T>(ref T field, T Value, Action onChanged = null, [CallerMemberName] string propertyName = null)
         {
             ///ジェネリック型Tのフィールドfieldと、新しい値Valueが等しくないかどうかを確認
-            if (!EqualityComparer<T>.Default.Equals(field,Value))
+            if (!EqualityComparer<T>.Default.Equals(field, Value))
             {
                 field = Value;
 
@@ -64,11 +61,11 @@ namespace HaruaConvert.QueryBuilder
         public void UpdateAllInput()
         {
             var _bitRateQuery = _isBitrateChecked ? $"-b:v {_bitRateInput}k " : string.Empty;
-            var _videoCodecesQuery = _isVideoCodec ? $"-codec:v {_videoCodecStrings} " :  string.Empty;
+            var _videoCodecesQuery = _isVideoCodec ? $"-codec:v {_videoCodecStrings} " : string.Empty;
 
             var _audioCodecQuery = _isAudioCodec ? $"-codec:a {AudioCodecStrings} " : string.Empty;
 
-            
+
 
             string EnableTwitterQuery = _isEnableTwitter ? new Func<string>(() =>
             {
@@ -79,12 +76,12 @@ namespace HaruaConvert.QueryBuilder
 
             var otherFileName_ExQuery = _isOtherFileNameEx ? new Func<string>(() =>
             {
-                
-                return "{FileName}" +_fileExtentionName;
+
+                return "{FileName}" + _fileExtentionName;
 
             })() : string.Empty;
 
-            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + otherFileName_ExQuery ;
+            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + otherFileName_ExQuery;
 
             OnPropertyChanged();
         }
@@ -98,7 +95,7 @@ namespace HaruaConvert.QueryBuilder
             set => SetProperty(ref _isEnableTwitter, value);
         }
 
-   
+
 
         string makeIndexer(string value)
         {
@@ -112,7 +109,7 @@ namespace HaruaConvert.QueryBuilder
             return result;
         }
 
-      
+
 
 
 
@@ -150,7 +147,7 @@ namespace HaruaConvert.QueryBuilder
                 audioIndex = makeIndexer(value);
                 if (!string.IsNullOrEmpty(videoIndex))
                     _audioCodecStrings = $"{audioIndex}";
-                
+
 
             }
         }
@@ -159,15 +156,16 @@ namespace HaruaConvert.QueryBuilder
         string videoIndex = string.Empty;
         //Codec Dictionary
         public string VideoCodecStrings
-        { get => _videoCodecStrings;
+        {
+            get => _videoCodecStrings;
 
             set
             {
-                       videoIndex = makeIndexer(value);
-                        // videoIndex = value;
-                        if (!string.IsNullOrEmpty(videoIndex))
-                           _videoCodecStrings = $"{videoIndex}";
-                                                     
+                videoIndex = makeIndexer(value);
+                // videoIndex = value;
+                if (!string.IsNullOrEmpty(videoIndex))
+                    _videoCodecStrings = $"{videoIndex}";
+
             }
 
 
@@ -181,7 +179,7 @@ namespace HaruaConvert.QueryBuilder
 
 
 
-        private bool _isOtherFileNameEx ;
+        private bool _isOtherFileNameEx;
         public bool IsOtherFileNameExtension
         {
             get => _isOtherFileNameEx;
@@ -209,11 +207,14 @@ namespace HaruaConvert.QueryBuilder
         //private string _ffmpegAudioCodecDic;
         public Dictionary<string, string> FfmpegAudioCodecDic { get; set; }
 
-       
+
 
 
 
         public Dictionary<string, string> FfmpegVideoCodecDic { get; internal set; }
+
+
+        public Dictionary<string, string> FfmpegVideoCacheDic { get; internal set; }
 
         private bool _isVideoCodec;
         public bool isVideoCodec
@@ -229,22 +230,22 @@ namespace HaruaConvert.QueryBuilder
                     OnPropertyChanged(nameof(isVideoCodec));
                 }
             }
-        }   
+        }
 
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            {
-                // プロパティ名が空またはnullの場合は例外を投げる。
-                if (string.IsNullOrEmpty(propertyName)) throw new ArgumentNullException(nameof(propertyName));
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            // プロパティ名が空またはnullの場合は例外を投げる。
+            if (string.IsNullOrEmpty(propertyName)) throw new ArgumentNullException(nameof(propertyName));
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
-            }
-
-     
         }
+
+
     }
+}
