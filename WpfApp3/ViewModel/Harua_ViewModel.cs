@@ -1,10 +1,10 @@
 ﻿using HaruaConvert.HaruaService;
+using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
+using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.CompilerServices;
 using WpfApp3.Parameter;
 using static HaruaConvert.IniCreate;
 using static HaruaConvert.Parameter.ParamField;
@@ -19,10 +19,17 @@ namespace HaruaConvert.Parameter
     /// 各変数の初期化
     /// mainインスタンスのini設定内容読み込み
     /// </summary>
+    /// 
+    /// 
+    /// 責務の再定義；Harua_ViewModelは各ViewModelの参照のみを持つ
+    /// <summary>
 
-    public class Harua_ViewModel : INotifyPropertyChanged
+    public class Harua_ViewModel : BindableBase
 
     {
+
+        
+
         //ParamField paramField { get; set; }
 
         private ISettingsService _settingsService;
@@ -55,14 +62,19 @@ namespace HaruaConvert.Parameter
                 SourcePathText = "フォルダ:" + IniDefinition.GetValueOrDefault
                                        (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
                 invisibleText = "",
-                placement = string.Empty
-
+                placement = string.Empty,
+                ffmpegOptionsStateModel = new ffmpegDetailsOptionsStateModel()
+                {
+                    IsNoAudio = IniDefinition.GetValueOrDefault(iniPath, "ffmpegOptions", "IsAudio", false),
+                }
 
                }
             };
 
 
         }
+
+
         private ObservableCollection<MainBindingParam> _mainParam = new ObservableCollection<MainBindingParam>();
 
 
@@ -75,18 +87,10 @@ namespace HaruaConvert.Parameter
             get => _mainParam; // コレクションを取得するためのゲッター
             set
             {
-                if (_mainParam != value)
-                {
-                    _mainParam = value; // 新しいコレクションを設定
-                    RaisePropertyChanged(nameof(_mainParam)); // プロパティが変更されたことを通知
-                }
+                    SetProperty(ref _mainParam, value);
+
             }
         }
-
-
-
-        // INotifyPropertyChangedの実装
-        public event PropertyChangedEventHandler PropertyChanged;
 
 
         //public string invisibleText { get; set; }
@@ -96,59 +100,43 @@ namespace HaruaConvert.Parameter
         //public string placement { get; set; }
 
 
-        protected void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
-        private string _sourcePathText;
+
+
+
+        
         //原因の切り分けのために例外を投げさせる実装
         public string SourcePathText
         {
-            get { return _sourcePathText; }
+            get { return field; }
             set
             {
 
-                if (_sourcePathText != value)
-                {
-                    if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(_sourcePathText, "_sourcePathText is null");
+                    if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(field, "_sourcePathText is null");
 
-                    _sourcePathText = value;
-                    RaisePropertyChanged(nameof(SourcePathText));
+                    
+                   SetProperty(ref field,value);
                 }
             }
 
         }
 
-        int _propValue;
-        public int PropValue
-        {
-            get { return _propValue; }
-            set
-            {
-                if (_propValue != value)
-                {
-                    _propValue = value;
-                    RaisePropertyChanged(nameof(PropValue));
-                }
 
-            }
-        }
 
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
 
-            return false;
-        }
+        //protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        //{
+        //    if (!Equals(field, newValue))
+        //    {
+        //        field = newValue;
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
 
 
 
 
     }
-}
