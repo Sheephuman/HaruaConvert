@@ -27,15 +27,19 @@ namespace HaruaConvert.Parameter
     public class Harua_ViewModel : BindableBase
 
     {
-
-        
+        public Harua_ViewModel(MainWindow main) {        
+            _main = main;
+        }
+        MainWindow _main { get;}
 
         //ParamField paramField { get; set; }
 
         private ISettingsService _settingsService;
 
-        public Harua_ViewModel(ISettingsService settingsService)
+        public Harua_ViewModel(ISettingsService settingsService, MainWindow main)
         {
+            _main =main ?? throw new ArgumentNullException(nameof(main));
+
             // mainWindow = _main ?? throw new ArgumentNullException(nameof(_main));
 
             _settingsService = settingsService ?? throw new ArgumentNullException(nameof(settingsService));
@@ -48,8 +52,8 @@ namespace HaruaConvert.Parameter
         public void LoadInitialData(string iniPath)
         {
 
-            Debug.WriteLine("[LoadInitialData] iniPath=" + iniPath);
-            Debug.WriteLine("[LoadInitialData] exists=" + File.Exists(iniPath));
+           // Debug.WriteLine("[LoadInitialData] iniPath=" + iniPath);
+          //  Debug.WriteLine("[LoadInitialData] exists=" + File.Exists(iniPath));
 
 
             ClassShearingMenbers.ffmpegQuery = IniDefinition.GetValueOrDefault
@@ -63,9 +67,9 @@ namespace HaruaConvert.Parameter
                                        (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
                 invisibleText = "",
                 placement = string.Empty,
-                ffmpegOptionsStateModel = new ffmpegDetailsOptionsStateModel()
+                ffmpegOptionsStateModel = new ffmpegDetailsOptionsStateModel(_main._arguments)
                 {
-                    IsNoAudio = IniDefinition.GetValueOrDefault(iniPath, "ffmpegOptions", "IsAudio", false),
+                    IsNoAudio = IniDefinition.GetValueOrDefault(iniPath,ClassShearingMenbers.CheckState,"NoAudio", false),
                 }
 
                }
