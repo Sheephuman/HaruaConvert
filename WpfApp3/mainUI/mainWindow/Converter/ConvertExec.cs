@@ -305,20 +305,21 @@ namespace HaruaConvert
                 ///
 
 
-                ///ffmpegProcess.ErrorDataReceived -= handler;
-                //が、同じインスタンスを確実に解除できるようになる
+                ///↓↓↓以下変更↓↓↓
+                ///
+
                 handler = (sender, e) =>
-{
-    if (e.Data != null && Lw != null)
-    {
-        Dispatcher.InvokeAsync(() =>
-        {
-            Lw.RichTextRogs.AppendText(e.Data + Environment.NewLine);
-            if (Lw.AutoScroll_Checker.IsChecked == true)
-                Lw.RichTextRogs.ScrollToEnd();
-        });
-    }
-};
+                {
+                    if (e.Data != null && Lw != null)
+                    {
+                        Dispatcher.InvokeAsync(() =>
+                        {
+                            Lw.RichTextRogs.AppendText(e.Data + Environment.NewLine);
+                            if (Lw.AutoScroll_Checker.IsChecked == true)
+                                Lw.RichTextRogs.ScrollToEnd();
+                        });
+                    }
+                };
 
                 ffmpegProcess.ErrorDataReceived += handler;
 
