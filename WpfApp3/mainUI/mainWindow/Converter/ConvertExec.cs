@@ -132,6 +132,8 @@ namespace HaruaConvert
             //IsChecked.HasValue は「値があるかどうか」だけを見る
             //通常の2 - stateチェックボックスでは true / false どちらでも値はあるため、ほぼ常に true
 
+            ///test
+
             else if (isUserParameter.IsChecked == true) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
