@@ -67,7 +67,7 @@ namespace HaruaConvert.Parameter
                                        (iniPath, "Directory", IniSettingsConst.ConvertDirectory, "Source File"),
                 invisibleText = "",
                 placement = string.Empty,
-                ffmpegOptionsStateModel = new ffmpegDetailsOptionsStateModel(_main._arguments)
+                ffmpegOptionsStateModel = new ffmpegDetailsOptionsStateModel()
                 {
                     IsNoAudio = IniDefinition.GetValueOrDefault(iniPath,ClassShearingMenbers.CheckState,"NoAudio", false),
                 }

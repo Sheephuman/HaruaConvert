@@ -163,6 +163,8 @@ namespace HaruaConvert
                     {
                         var exes = new ExplorerRestarterClass();
 
+
+                    if (ExplorerExitChecker.IsChecked.Value)
                         await exes.ExPlorerRestarter(tpc);
                     }
 

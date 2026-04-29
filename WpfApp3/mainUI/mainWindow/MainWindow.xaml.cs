@@ -53,6 +53,7 @@ namespace HaruaConvert
             static public bool isRightRotate { get; set; }
             static public bool isHorizontalRotate { get; set; }
             static public bool isNoRotate { get; set; }
+            public static bool isAudio { get; internal set; }
         }
 
         //     bool isLabelEited { get; set; }
@@ -225,11 +226,25 @@ namespace HaruaConvert
 
         public delegate void ExitEvent_delegate(object sender, ExitEventArgs e);
 
+        private void NoAudio_Checked(object sender, RoutedEventArgs e)
+        {
+
+            ChekOptionStruct.isAudio = NoAudio.IsChecked == true;
+
+            if (!ChekOptionStruct.isAudio)
+            {
+                _arguments = _arguments.Replace("-an", "");
+            }
+            else if (ChekOptionStruct.isAudio)
+            {
+                _arguments += (" -an ");
+            }
+        }
 
 
         private void Force30FPS_Checked(object sender, RoutedEventArgs e)
         {
-            ChekOptionStruct.isForceFPS = Force30FPS.IsChecked.Value;
+            ChekOptionStruct.isForceFPS = Force30FPS.IsChecked == true;
 
             if (!ChekOptionStruct.isForceFPS)
             {
@@ -290,11 +305,11 @@ namespace HaruaConvert
 
         private void isUserOriginalParameter_Checked(object sender, RoutedEventArgs e)
         {
-            isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
+            isUseOriginalCheckProc(isUserParameter.IsChecked == true);
 
             if (ParaSelectGroup.Background != null)
                 ParaSelectGroup.Background.Opacity =
-                isUserParameter.IsChecked.Value ? 0 : 1;
+                isUserParameter.IsChecked == true ? 0 : 1;
         }
 
 
@@ -322,7 +337,7 @@ namespace HaruaConvert
 
 
                         //if Check Selector Radio, Save Check State
-                        if (selector.SlectorRadio.IsChecked.Value)
+                        if (selector.SlectorRadio.IsChecked == true)
                         {
                             var radioCount = selector.Name.Remove(0, ParamField.ControlField.ParamSelector.Length);
                             IniDefinition.SetValue(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", radioCount);
@@ -456,7 +471,7 @@ namespace HaruaConvert
         private void isForceExec_
             (object sender, RoutedEventArgs e)
         {
-            isForceExec = isForceExecCheckBox.IsChecked.Value ? true : false;
+            isForceExec = isForceExecCheckBox.IsChecked == true ? true : false;
         }
 
 
@@ -493,11 +508,6 @@ namespace HaruaConvert
 
         }
 
-        private void NoAudio_Checked(object sender, RoutedEventArgs e)
-        {
-          _arguments = AddOptionClass.AddOption( _arguments, NoAudio.IsChecked.Value);
-
-        }
 
       
     }
