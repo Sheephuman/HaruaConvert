@@ -25,8 +25,9 @@ namespace HaruaConvert
 
 
 
-        internal readonly string typeAudio  = @"^\s*(A\.....D?)(\s+)([^\s]+)(\s+)(.*)";
+        //internal readonly string typeAudio  = @"^\s*(A\.....D?)(\s+)([^\s]+)(\s+)(.*)";
 
+        internal readonly string typeAudio  = @"^^\s*(A[^\s]{5})\s+([^\s]+)\s+(.*)";
 
 
 

@@ -1,4 +1,5 @@
-﻿using HaruaConvert.Command;
+﻿using Castle.Components.DictionaryAdapter.Xml;
+using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Initilize_Method;
 using HaruaConvert.Json;
@@ -46,7 +47,7 @@ namespace HaruaConvert
         /// </summary>
         public struct ChekOptionStruct
         {
-         
+
             static public bool isForceFPS { get; set; }
             static public bool isLeftRotate { get; set; }
             static public bool isRightRotate { get; set; }
@@ -69,7 +70,7 @@ namespace HaruaConvert
         Process mainProcess;
 
 
-       
+
         public static MainWindow main { get; set; }
 
 
@@ -432,7 +433,7 @@ namespace HaruaConvert
             {
                 if (ansest.Name == InputSelector.Name)
                 {
-                 
+
                     ParamField.ParamTab_InputSelectorDirectory = Path.GetDirectoryName(ofc.opFileName);
                 }
                 if (ansest.Name == OutputSelector.Name)
@@ -491,6 +492,13 @@ namespace HaruaConvert
             }
 
         }
-    }
 
+        private void NoAudio_Checked(object sender, RoutedEventArgs e)
+        {
+          _arguments = AddOptionClass.AddOption( _arguments, NoAudio.IsChecked.Value);
+
+        }
+
+      
+    }
 }

@@ -305,8 +305,10 @@ VerticalAlignment="Top"/>
                                                         <CheckBox 
                                                 FontSize="16"
                                                 x:Name="NoAudio" 
-                                                IsChecked="{Binding ffmpegOptionsStateModel.IsNoAudio}"
-                                                
+                                                IsChecked="{Binding ffmpegDetailsOptionsStateModel.IsNoAudio,Mode=OneWayToSource}"
+                                                Checked="NoAudio_Checked"
+                                                Unchecked="NoAudio_Checked"
+
                                                 Content="No Audio" Margin="3"/>
                                                         <CheckBox 
                                                 FontSize="16"

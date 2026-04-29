@@ -1,4 +1,5 @@
 ﻿using HaruaConvert.mainUI.QueryCreateWindow.GetCodecs;
+using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
 using HaruaConvert.QueryBuilder;
 using HaruaConvert.UserControls;
 using System;
@@ -19,20 +20,20 @@ namespace HaruaConvert.userintarface
 
 
 
-
-
     public partial class QueryCreateWindow : Window
     {
         //readonly int minValue = 100;
         MultiValueConverter converter;
 
-
+       public QueryWindowViewModel _queryviewModel { get; set; }
         //  public static TextBlock queryPreview { get; set; }
 
         private QueryField qf;
         public static QueryCreateWindow qc { get; set; }
 
         MainWindow main;
+
+        bool isFirstLoad;
 
         public QueryCreateWindow(MainWindow _main)
         {
@@ -47,8 +48,9 @@ namespace HaruaConvert.userintarface
             var getCoudecs = new GetCodecsName();
 
             var codec = new CodecTypeManager();
-
             qf = new QueryField();
+            _queryviewModel = new QueryWindowViewModel(qf);
+         
 
             var codecsToFindVideo = new List<string>
 {
@@ -85,8 +87,8 @@ namespace HaruaConvert.userintarface
 "flac",      // 可逆音声コーデック
 "aac",       // 高効率音声コーデック
 "mp3",       // 一般的な音声コーデック
-"wavpack"    // 可逆音声コーデック
-
+"wavpack",    // 可逆音声コーデック
+"opus"      // 高効率音声コーデック
 };
 
 
@@ -126,7 +128,9 @@ namespace HaruaConvert.userintarface
 
             NUDButtonUP.Click += queryBuidUpdown.NUDButtonUP_Click;
             NUDButtonDown.Click += queryBuidUpdown.NUDButtonDown_Click;
+
             DataContext = qf;
+
 
             MouseLeftButtonDown += (sender, e) => { DragMove(); };
 
@@ -152,14 +156,14 @@ namespace HaruaConvert.userintarface
                 converter.IsBitrateChecked = false;
 
             if (!string.IsNullOrEmpty(BitRateNumBox.Text))
-                qf.UpdateAllInput();
+                qf.UpdateAllInput(FileNameExtentionBox.Text);
         }
 
 
         private void EnableVideoCodecChecker_Checked(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(VideoCodecBox.Text))
-                qf.UpdateAllInput();
+                qf.UpdateAllInput(FileNameExtentionBox.Text);
 
             if (EnableVideoCodecChecker.IsChecked == true)
             {
@@ -183,87 +187,31 @@ namespace HaruaConvert.userintarface
             //  qf.VideoCodecStrings = VideoCodecBox.SelectedValue.ToString();
 
             EnableVideoCodecChecker.IsEnabled = enablePostTwitterChecker.IsChecked == true ? false : true;
-            qf.UpdateAllInput();
-
-
-            //-codec:v h264 -vf yadif=0:-1:1
-            //if (enablePostTwitterChecker.IsChecked == true)
-            //{
-            //    converter.isVideoCodec = true;
-
-
-            //}
-            //else
-            //{
-
-            //    EnableVideoCodecChecker.IsEnabled = true;
-            //}
-        }
-
-        private void VideoCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-
-            if (VideoCodecBox.SelectedItem != null)
-            {
-
-                qf.VideoCodecStrings = indexMake(VideoCodecBox);
-
-                qf.UpdateAllInput();
-            }
+            qf.UpdateAllInput(FileNameExtentionBox.Text);
 
 
         }
 
+      
 
-        string indexMake(ComboBox CodecBox)
-        {
-            string removeText = string.Empty;
-
-
-            removeText = CodecBox.SelectedItem.ToString();
-
-
-
-            var result = removeText.Replace("[", "").Replace("]", "");
-
-
-            //if (!string.IsNullOrEmpty(result))
-            //   qf.VideoCodecStrings = result;
-
-
-            return result;
-
-        }
-
-        //private void SelectItemBySubstring(ComboBox comboBox, string substring)
-        //{
-        //    foreach (var item in comboBox.Items)
-        //    {
-        //        if (item.ToString().Contains(substring))
-        //        {
-        //            comboBox.SelectedItem = item;
-        //            break; // 目的のアイテムが見つかったらループを終了
-        //        }
-        //    }
-        //}
-
+      
         private void AudioCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
 
             if (AudioCodecBox.SelectedItem != null)
             {
 
                 qf.AudioCodecStrings = indexMake(AudioCodecBox);
 
-                qf.UpdateAllInput();
+                qf.UpdateAllInput(FileNameExtentionBox.Text);
             }
 
 
         }
 
 
-        private void testLabel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void testLabel_datacontextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
 
         }
@@ -272,19 +220,20 @@ namespace HaruaConvert.userintarface
         private void AudioCodecChecker_Checked(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(AudioCodecBox.Text))
-                qf.UpdateAllInput();
+                qf.UpdateAllInput(FileNameExtentionBox.Text);
         }
 
         private void OtherFileNameChecker_Checked(object sender, RoutedEventArgs e)
         {
+            
             if (FileNameExtentionBox.SelectedValue != null)
-                qf.UpdateAllInput();
+                qf.UpdateAllInput(FileNameExtentionBox.Text);
         }
 
         private void FileNameExtentionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            qf.UpdateAllInput();
+            qf.UpdateAllInput(FileNameExtentionBox.Text);
             if (FileNameExtentionBox.SelectedItem is null)
                 return;
 
@@ -295,20 +244,21 @@ namespace HaruaConvert.userintarface
                 qf.FfmpegVideoCacheDic = new Dictionary<string, string>();
                 //FileNameExtentionBox.ItemsSource =
 
-                VideoCodecBox.ItemsSource = null;
+              //  VideoCodecBox.ItemsSource = null;
 
-                List<string> mp4BindingList = new()
+                List<string> videoBindingList = new()
                 {
                     "libx264",
                     "libx265",
                     "mpeg4",
                     "vp9",
                     "av1",
+                    "webm"
                 };
 
 
-                Dictionary<string, string> mp3Bindin = new();
-                foreach (string token in mp4BindingList)
+                Dictionary<string, string> AudioBinding = new();
+                foreach (string token in videoBindingList)
                 {
                     var filtered = qf.FfmpegVideoCodecDic
                         .Where(x => x.Key.Contains(token))
@@ -322,16 +272,12 @@ namespace HaruaConvert.userintarface
                         if (kv.Key.Contains("msmpeg4")) //.wmv
                             continue;
 
-                        mp3Bindin[kv.Key] = kv.Value; // 重複キーは上書き
+                        AudioBinding[kv.Key] = kv.Value; // 重複キーは上書き
                     }
                 }
 
 
-                VideoCodecBox.ItemsSource = mp3Bindin;
-
-                /// return GetEqualityComponents()
-                // .Select(x => x != null ? x.GetHashCode() : 0)
-                //  .Aggregate((x, y) => x ^ y);
+                VideoCodecBox.ItemsSource = AudioBinding;
 
 
             }
@@ -400,7 +346,7 @@ namespace HaruaConvert.userintarface
 
         private void FileNameExtentionBox_Loaded(object sender, RoutedEventArgs e)
         {
-            VideoCodecBox.SelectedIndex = 1;
+            FileNameExtentionBox.SelectedIndex = 1;
         }
     }
 }

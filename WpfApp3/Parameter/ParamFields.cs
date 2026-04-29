@@ -37,6 +37,15 @@ namespace HaruaConvert.Parameter
 
         public delegate List<string> displayInfoDell(MainWindow main);
 
+        public static class CheckOptionStruct
+        {
+            public static bool isNoAudio { get; set; }
+            public static bool isForceFPS { get; set; }
+            public static bool isNoRotate { get; set; }
+            public static bool isRightRotate { get; set; }
+            public static bool isLeftRotate { get; set; }
+        }
+
         public List<string> displayMedia(MainWindow main)
         {
             IMediaInfoManager media = new MediaInfoService();

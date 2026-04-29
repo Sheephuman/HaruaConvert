@@ -19,10 +19,10 @@ namespace HaruaConvert.Parameter
         public double BackImageOpacity { get; set; }
 
 
+        internal ffmpegDetailsOptionsStateModel ffmpegOptionsStateModel { get; set; }
+
 
         private string sourcePath;
-        internal ffmpegDetailsOptionsStateModel ffmpegOptionsStateModel;
-
         //原因の切り分けのために例外を投げさせる実装
         public string SourcePathText
         {

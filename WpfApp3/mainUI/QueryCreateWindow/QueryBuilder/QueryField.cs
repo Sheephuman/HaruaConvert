@@ -1,45 +1,37 @@
-﻿using System;
+﻿using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
+using HaruaConvert.userintarface;
+using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Windows.Web.AtomPub;
 
 namespace HaruaConvert.QueryBuilder
 {
-    public class QueryField : INotifyPropertyChanged
+    public class QueryField : BindableBase
     {
+        public QueryWindowViewModel _queryWindowViewModel { get; set; } 
+
+        public QueryField()
+        {
+            //    _queryWindowViewModel = new(this);
+            _queryWindowViewModel = new(this);
+
+
+        }
 
         private string _bitRateInput = string.Empty;
         public string BitRateInput
         {
             get => _bitRateInput;
-            set => SetProperty(ref _bitRateInput, value, UpdateAllInput);
-        }
-
-        private string _fileExtentionName;
-        public string FileExtentionName
-        {
-            get => _fileExtentionName;
-            set => SetProperty(ref _fileExtentionName, value, UpdateAllInput);
-
+            set => SetProperty(ref _bitRateInput, value, null);
         }
 
 
-        private bool SetProperty<T>(ref T field, T Value, Action onChanged = null, [CallerMemberName] string propertyName = null)
-        {
-            ///ジェネリック型Tのフィールドfieldと、新しい値Valueが等しくないかどうかを確認
-            if (!EqualityComparer<T>.Default.Equals(field, Value))
-            {
-                field = Value;
 
-                // onChanged が指定されている場合、これを呼び出します
-                // これは値が変更された後に実行する追加のアクションを指定するために使用します
-                onChanged?.Invoke();
-
-                OnPropertyChanged(propertyName); //こちらの引数は省略出来ない？
-                return true;
-            }
-            return false;
-        }
 
         private bool _isBitrateChecked;
         public bool IsBitrateChecked
@@ -53,13 +45,20 @@ namespace HaruaConvert.QueryBuilder
         bool _isAudioCodec;
         public bool IsAudioCodec
         {
+
             get => _isAudioCodec;
             set => SetProperty(ref _isAudioCodec, value);
 
         }
 
-        public void UpdateAllInput()
+        public string SelectedFileExtension { get => field;
+            set => SetProperty(ref field, value); }
+
+        public void UpdateAllInput(string fileNameExtention )
         {
+            if (_queryWindowViewModel is null)
+                return;
+  
             var _bitRateQuery = _isBitrateChecked ? $"-b:v {_bitRateInput}k " : string.Empty;
             var _videoCodecesQuery = _isVideoCodec ? $"-codec:v {_videoCodecStrings} " : string.Empty;
 
@@ -74,16 +73,17 @@ namespace HaruaConvert.QueryBuilder
 
             })() : string.Empty;
 
-            var otherFileName_ExQuery = _isOtherFileNameEx ? new Func<string>(() =>
+
+
+            SelectedFileExtension = _isOtherFileNameEx ? new Func<string>(() =>
             {
-
-                return "{FileName}" + _fileExtentionName;
-
+                string hit = FileExtentions.FirstOrDefault(x => x == fileNameExtention);
+                return "{FileName}" + hit;
             })() : string.Empty;
 
-            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + otherFileName_ExQuery;
+            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + SelectedFileExtension;
 
-            OnPropertyChanged();
+            SetProperty(ref _allInput, AllInput);
         }
 
 
@@ -116,20 +116,18 @@ namespace HaruaConvert.QueryBuilder
 
 
 
-        private string _buildQueryes;
-
         public string BuildQueryes
         {
-            get { return _buildQueryes; }
+            get { return field; }
             set
             {
 
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentNullException(value);
-                if (_buildQueryes != value)
+                if (field != value)
                 {
-                    _buildQueryes = value;
-                    OnPropertyChanged(nameof(BuildQueryes));
+                    
+                    SetProperty(ref field, value);
                 }
 
             }
@@ -147,7 +145,7 @@ namespace HaruaConvert.QueryBuilder
                 audioIndex = makeIndexer(value);
                 if (!string.IsNullOrEmpty(videoIndex))
                     _audioCodecStrings = $"{audioIndex}";
-
+                SetProperty(ref _audioCodecStrings, value);
 
             }
         }
@@ -166,11 +164,31 @@ namespace HaruaConvert.QueryBuilder
                 if (!string.IsNullOrEmpty(videoIndex))
                     _videoCodecStrings = $"{videoIndex}";
 
+                SetProperty(ref _audioCodecStrings, value);
+
             }
 
 
         }
+
+        /// <summary>
+        /// _allInputはメソッドで使用しているので消せない
+        /// </summary>
         private string _allInput = string.Empty;
+
+        public ObservableCollection<string> FileExtentions { get; } = new ObservableCollection<string>
+        {
+           ".mp4",
+           ".mkv",
+           ".webm",
+            ".mov",
+           ".avi",
+           "ts",
+           ".flv",
+           ".wmv",
+        };
+
+
         public string AllInput
         {
             get => _allInput;
@@ -179,25 +197,14 @@ namespace HaruaConvert.QueryBuilder
 
 
 
-        private bool _isOtherFileNameEx;
+        private bool _isOtherFileNameEx; //メソッドで使用
         public bool IsOtherFileNameExtension
         {
             get => _isOtherFileNameEx;
             set => SetProperty(ref _isOtherFileNameEx, value);
         }
 
-        //public string AllInput
-        //{
-        //    get => _allInput;
-        //    private set
-        //    {
-        //        if (_allInput != value)
-        //        {
-        //            _allInput = value;
-        //            OnPropertyChanged(nameof(AllInput));
-        //        }
-        //    }
-        //}
+       
 
 
 
@@ -227,24 +234,13 @@ namespace HaruaConvert.QueryBuilder
                 if (_isVideoCodec != value)
                 {
                     _isVideoCodec = value;
-                    OnPropertyChanged(nameof(isVideoCodec));
+                    SetProperty(ref _isVideoCodec, value, null);
                 }
             }
         }
 
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            // プロパティ名が空またはnullの場合は例外を投げる。
-            if (string.IsNullOrEmpty(propertyName)) throw new ArgumentNullException(nameof(propertyName));
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-
-        }
 
 
     }

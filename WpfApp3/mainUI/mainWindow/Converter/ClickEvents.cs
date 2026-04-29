@@ -111,7 +111,7 @@ namespace HaruaConvert
                 main.ParamSave_Procedure(param.isParamEdited, param.isCheckerChanged);
 
                 // 終了処理が完了したことを通知する変数
-                var Completed = new TaskCompletionSource<bool>();
+               // var Completed = new TaskCompletionSource<bool>();
 
 
                 // Closeだけでは確実にプロセスが終了されない
@@ -127,14 +127,23 @@ namespace HaruaConvert
                     ///ffmpeg.exeの強制終了
                     if (ffmpegProcess != null)
                     {
-                        ffmpegProcess.CancelErrorRead();
+                        //イベントの購読を解除
+                        ffmpegProcess.ErrorDataReceived -= handler;
 
-                        //  ffmpegProcess.CancelOutputRead();
+                        //    ffmpegProcess.CancelErrorRead();
+                        //0x00007FFEFB905B8A (ntdll.dll) で例外がスロー 
+                        //CancelErrorRead() は、「プロセスを生かしたまま、読み取りだけ止めたい」ときに使うデリケートなメソッドです
 
-                        if (paramField.isExecuteProcessed)
-                            await killProcessDell(ffmpegProcess.Id);
+                        if (paramField.isExecuteProcessed && ffmpegProcess != null)
+                            try
+                            {
+                                await killProcessDell(ffmpegProcess.Id);
+                            }
+                            catch { /* 既に死んでいる場合は無視 */ }
 
+                        ffmpegProcess.Dispose();
                     }
+                
 
 
 
@@ -148,12 +157,14 @@ namespace HaruaConvert
 
 
 
-                    var exes = new ExplorerRestarterClass();
 
 
-                    if (ExplorerExitChecker.IsChecked.Value)
+                    if (ExplorerExitChecker.IsChecked == true)
+                    {
+                        var exes = new ExplorerRestarterClass();
+
                         await exes.ExPlorerRestarter(tpc);
-
+                    }
 
 
                     await Task.Delay(1000);
@@ -163,16 +174,17 @@ namespace HaruaConvert
 
 
                     // ここでタスクの完了を手動で設定
-                    Completed.SetResult(true);
+                    ///Completed.Task を await している箇所がないため、完了通知がどこにも使われていません。
+                    ///Completed.SetResult(true);
                 }
 
 
 
 
-                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
                 Application.Current.Shutdown();
-                //await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
+                await killProcessDell(mainProcess.Id);  // 非同期にプロセスを終了
 
 
             }

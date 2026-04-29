@@ -72,13 +72,18 @@
                 <TextBlock Text="別のファイル形式に変換"/>
             </CheckBox>
                 <ComboBox 
-                    IsEditable="True"
-                     SelectedIndex="0"
-                     Loaded="FileNameExtentionBox_Loaded"
-                    Text="{Binding FileExtentionName,UpdateSourceTrigger=PropertyChanged}"
-                    x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"
-                    SelectionChanged="FileNameExtentionBox_SelectionChanged"
-                    />
+                        IsEditable="True"
+                         SelectedIndex="0"
+                         Loaded="FileNameExtentionBox_Loaded"
+                        SelectedItem="{Binding SelectedFileExtension,Mode=TwoWay}"
+                    
+                        x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"
+                        
+                        
+                        >
+                 
+
+                </ComboBox>
             </StackPanel>
 
 
@@ -97,11 +102,11 @@
                         <ComboBox x:Name="VideoCodecBox"
                       IsEditable="True"
                       ItemsSource="{Binding FfmpegVideoCodecDic}"
-                      Text="{Binding VideoCodecStrings, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding VideoCodecStrings, Mode=TwoWay}"
                       SelectionChanged="VideoCodecBox_SelectionChanged"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Key"
-                      SelectedItem="Value"
+                      
                       SelectedIndex="0"
                       Width="150" Margin="20,0,0,0"/>
                     </StackPanel>
@@ -121,7 +126,7 @@
                       IsEditable="True"
                       Width="150" Margin="6"
                       ItemsSource="{Binding FfmpegAudioCodecDic}"
-                      Text="{Binding VideoCodecs, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding AudioCodecStrings,Mode=TwoWay}"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Key"
                       SelectedIndex="0"/>
@@ -129,7 +134,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <Label x:Name="testLabel"  DataContextChanged="testLabel_DataContextChanged"/>
+            <Label x:Name="testLabel"  />
             <StackPanel Orientation="Vertical" Margin="10,10,10,0">
           <Label Content="FFmpegコマンドのプレビュー" FontSize="20"/>
                 <TextBlock x:Name="PreviewBlock" Width="Auto" Height="25" Margin="20,-8,0,3" 

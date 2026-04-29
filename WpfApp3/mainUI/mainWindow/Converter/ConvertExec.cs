@@ -23,6 +23,7 @@ namespace HaruaConvert
     {
 
         public string _arguments { get; set; }
+        public static string staticArguments { get; set; }
 
         /// <summary>
         /// 共有箇所：LogWindowのConvertStopButton
@@ -115,13 +116,23 @@ namespace HaruaConvert
                 _arguments = _arguments.Replace("{FileName}" + extention, "");
 
 
+
+
+                ///NoAudio.IsChecked.HasValue は「値が入っているか」を返すだけで、通常は true/false のどちらでも ほぼ常に true になります。
+                // _arguments = AddOptionClass.AddOption(_arguments,NoAudio.IsChecked.HasValue) + " " + $"{escapes.outputPath}";
+
+
                 //オプションと出力先ファイル文字列の追加
-                _arguments = AddOptionClass.AddOption(_arguments) + " " + $"{escapes.outputPath}";
-                //  Debug.WriteLine(_arguments);
+                //チェック状態の判定を行う
+                _arguments = AddOptionClass.AddOption(_arguments, NoAudio.IsChecked == true) + " " + $"{escapes.outputPath}";
+                
             }
 
 
-            else if (isUserParameter.IsChecked.Value) //used Original paramerter
+            //IsChecked.HasValue は「値があるかどうか」だけを見る
+            //通常の2 - stateチェックボックスでは true / false どちらでも値はあるため、ほぼ常に true
+
+            else if (isUserParameter.IsChecked == true) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
                 bool isExecuteProcessed = isOrigenelParam.isUserOriginalParameter_Method(sender);
@@ -142,7 +153,7 @@ namespace HaruaConvert
             try
             {
 
-                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists(Lw);
+                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked == true) ? DialogMethod() : ifNoFiles.IfNoFileExsists(Lw);
 
                 paramField.isExecuteProcessed = checker;
 
@@ -249,9 +260,9 @@ namespace HaruaConvert
 
 
         public static LogWindow Lw { get; set; }
-        public bool IsDefaultQuerySet { get; internal set; }
 
 
+        public DataReceivedEventHandler handler { get; set; }
         //TaskCompletionSource<bool> tcs;
         public async Task FfmpegProcessingAsnc(CancellationToken cancellationToken = default)
         {
@@ -282,20 +293,33 @@ namespace HaruaConvert
                 //nullかどうか判定用
 
                 var tcs = new TaskCompletionSource<bool>();
-                ffmpegProcess.ErrorDataReceived += (sender, e) =>
-                {
-                    if (e.Data != null && Lw != null)
-                    {
-                        Dispatcher.InvokeAsync(() =>
-                        {
-                            Lw.RichTextRogs.AppendText(e.Data + Environment.NewLine);
-                            if (Lw.AutoScroll_Checker.IsChecked == true)
-                                Lw.RichTextRogs.ScrollToEnd();
-                        });
-                    }
 
 
-                };
+                ///DataReceivedEventHandler handle
+                //変数に保持
+                //ローカル(型名)をやめて、プロパティ this.handler を使います。
+                ///ローカル変数のままだと、そのローカルはスコープ外で参照できないため、解除対象がズレる可能性があります。
+                ////   DataReceivedEventHandler handler = (sender,
+                ///
+
+
+                ///ffmpegProcess.ErrorDataReceived -= handler;
+                //が、同じインスタンスを確実に解除できるようになる
+                handler = (sender, e) =>
+{
+    if (e.Data != null && Lw != null)
+    {
+        Dispatcher.InvokeAsync(() =>
+        {
+            Lw.RichTextRogs.AppendText(e.Data + Environment.NewLine);
+            if (Lw.AutoScroll_Checker.IsChecked == true)
+                Lw.RichTextRogs.ScrollToEnd();
+        });
+    }
+};
+
+                ffmpegProcess.ErrorDataReceived += handler;
+
 
                 ffmpegProcess.Exited += (sender, e) => tcs.TrySetResult(true);
 

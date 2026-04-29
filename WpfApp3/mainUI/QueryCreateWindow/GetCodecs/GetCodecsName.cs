@@ -112,7 +112,8 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.GetCodecs
                                         if (!lineDic.ContainsKey(codecDoc))
                                         {
 
-                                            //        Debug.WriteLine(codecName);
+                                            //
+                                            //        WriteLine(codecName);
                                             lineDic.Add(codecDoc, codecName);
                                         }
                                     }

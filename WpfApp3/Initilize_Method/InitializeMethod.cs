@@ -19,7 +19,7 @@ namespace HaruaConvert
 
                 //  Set Default Parameter on FfmpegQueryClass
                 var settingsService = new SettingsService(paramField.iniPath);
-                harua_View = new Harua_ViewModel(settingsService);
+                harua_View = new Harua_ViewModel(settingsService,this);
 
 
 

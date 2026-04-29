@@ -39,6 +39,9 @@ namespace HaruaConvert.UserControls
             else
             {
                 // 無効な入力を扱うロジック。
+                
+                
+                
                 NUDTextBox.Text = minValue.ToString(CultureInfo.CurrentCulture);
             }
             // フォーカスが外れたり、特定のキーが押された時にのみ実行される

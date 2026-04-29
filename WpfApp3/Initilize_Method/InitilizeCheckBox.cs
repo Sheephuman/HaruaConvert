@@ -1,6 +1,7 @@
 ﻿using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -81,6 +82,7 @@ namespace HaruaConvert.Initilize_Method
             {
                 // CheckBoxの状態をINIファイルから読み込む
                 checker.IsChecked = iniChecker.CheckBoxiniGetVallue(checker, paramField.iniPath);
+
             }
             return true;
         }

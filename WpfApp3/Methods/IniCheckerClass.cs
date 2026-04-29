@@ -19,8 +19,6 @@ namespace HaruaConvert.Methods
 
                 IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, isCheckedStrings);
                 ;
-
-                Debug.WriteLineIf(true, isCheckedStrings);
             }
             else if (checkControl is MenuItem menucheck)
             {
