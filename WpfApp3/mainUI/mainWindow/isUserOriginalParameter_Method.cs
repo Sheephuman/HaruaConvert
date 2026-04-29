@@ -38,7 +38,7 @@ namespace HaruaConvert.mainUI.mainWindow
                     #region foreach Scopes
                     foreach (ParamSelector sp in mw.selectorList)
                     {
-                        if (sp.SlectorRadio.IsChecked.Value)
+                        if (sp.SlectorRadio.IsChecked == true)
                         {
                             baseArguments = sp.ArgumentEditor.Text;
                         }
@@ -46,7 +46,7 @@ namespace HaruaConvert.mainUI.mainWindow
 
                     foreach (var sp in mw.selectorList)
                     {
-                        if (sp.SlectorRadio.IsChecked.Value && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
+                        if (sp.SlectorRadio.IsChecked == true && !string.IsNullOrEmpty(sp.ArgumentEditor.Text))
                         {
 
                             string inputFile = mw.InputSelector.FilePathBox.Text; ;
