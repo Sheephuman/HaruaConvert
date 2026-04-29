@@ -151,7 +151,7 @@ namespace HaruaConvert
                     var exes = new ExplorerRestarterClass();
 
 
-                    if (ExplorerExitChecker.IsChecked.Value)
+                    if (ExplorerExitChecker.IsChecked == true)
                         await exes.ExPlorerRestarter(tpc);
 
 

@@ -120,7 +120,7 @@ namespace HaruaConvert
             }
 
 
-            else if (isUserParameter.IsChecked.Value) //used Original paramerter
+            else if (isUserParameter.IsChecked == true) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
                 bool isExecuteProcessed = isOrigenelParam.isUserOriginalParameter_Method(sender);
@@ -141,7 +141,7 @@ namespace HaruaConvert
             try
             {
 
-                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked.Value) ? DialogMethod() : ifNoFiles.IfNoFileExsists(Lw);
+                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked == true ? DialogMethod() : ifNoFiles.IfNoFileExsists(Lw);
 
                 paramField.isExecuteProcessed = checker;
 
