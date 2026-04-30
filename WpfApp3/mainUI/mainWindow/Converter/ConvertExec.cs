@@ -1,6 +1,8 @@
 ﻿using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Methods;
+using HaruaConvert.Methods.Conversion;
 using HaruaConvert.Parameter;
 using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
 using HaruaConvert.ViewModel.ffmpegOptions.MainParameter;
@@ -33,6 +35,7 @@ namespace HaruaConvert
         public EscapePath escapes { get; set; }
 
         AddOptionClass _addOption = new();
+        private readonly IConversionExecutionPreparer _conversionExecutionPreparer = new ConversionExecutionPreparer();
         public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
@@ -80,52 +83,18 @@ namespace HaruaConvert
 
             if (ClassShearingMenbers.ButtonName == chButton.Name)
             {
-                //先頭パラメータを付ける
+                var prepared = _conversionExecutionPreparer.PrepareDropConversion(
+                    _fullPath,
+                    harua_View,
+                    paramField,
+                    NoAudio.IsChecked == true,
+                    main.harua_View.OutputPath,
+                    main.paramField.setFile);
 
-
-
-
-                var con = new ConvertFileNameClass();
-
-                //保存先パスの有無判定
-                if (!paramField.isOutputButtonChecked)
-                    paramField.check_output = Path.GetDirectoryName(_fullPath) + "\\" + con.ConvertFileName(Path.GetFileName(_fullPath), harua_View);
-                else
-                    paramField.check_output = main.harua_View.OutputPath + "\\" + con.ConvertFileName(Path.GetFileName(main.paramField.setFile), harua_View);
-
-
-                param = new ParamCreateClasss(_fullPath, paramField.check_output);
-
-
-                //string pattern = @"\{FileName\}\.(\w+)";
-                var target = main.harua_View.MainParams[0].StartQuery;
-                //System.Text.RegularExpressions.Match match = Regex.Match(target, pattern);
-
-                string extention = param.GetExtentionFileNamepattern(target);
-
-
-
-                escapes = param.AddParamEscape(escapes, extention);
-                if (!string.IsNullOrEmpty(extention))
-                    paramField.check_output = escapes.NonEscape_outputPath;
-
-                //_fullPath, harua_View
-                //StartQueryを追加する
-                _arguments = Ffmpc.AddsetQuery(escapes.inputPath, harua_View);
-
-                _arguments = _arguments.Replace("{FileName}" + extention, "");
-
-
-
-
-                ///NoAudio.IsChecked.HasValue は「値が入っているか」を返すだけで、通常は true/false のどちらでも ほぼ常に true になります。
-                // _arguments = AddOptionClass.AddOption(_arguments,NoAudio.IsChecked.HasValue) + " " + $"{escapes.outputPath}";
-
-
-                //オプションと出力先ファイル文字列の追加
-                //チェック状態の判定を行う
-                _arguments = AddOptionClass.AddOption(_arguments, NoAudio.IsChecked == true) + " " + $"{escapes.outputPath}";
-                
+                paramField.check_output = prepared.CheckOutputPath;
+                _arguments = prepared.Arguments;
+                escapes = prepared.Escapes;
+                param = prepared.ParameterCreator;
             }
 
 
