@@ -1,11 +1,9 @@
-﻿using HaruaConvert.mainUI.mainWindow;
+﻿using HaruaConvert.HaruaInterFace;
+using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
-using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Conversion;
 using HaruaConvert.Parameter;
-using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
-using HaruaConvert.ViewModel.ffmpegOptions.MainParameter;
 using NAudio.Wave;
 using System;
 using System.Diagnostics;
@@ -36,6 +34,7 @@ namespace HaruaConvert
 
         AddOptionClass _addOption = new();
         private readonly IConversionExecutionPreparer _conversionExecutionPreparer = new ConversionExecutionPreparer();
+        private readonly IFFmpegProcessRunner _ffmpegProcessRunner = new FFmpegProcessRunner();
         public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
@@ -239,44 +238,6 @@ namespace HaruaConvert
         {
             try
             {
-                using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                var ffProcessInfo = new ProcessStartInfo()
-                {
-
-                    FileName = Path.Combine("dll", "ffmpeg.exe"),
-                    Arguments = $"{_arguments}",
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardError = true,
-                    RedirectStandardInput = true
-                };
-
-                ffmpegProcess = new Process()
-                {
-                    StartInfo = ffProcessInfo,
-
-                };
-
-
-
-                ffmpegProcess.EnableRaisingEvents = true;
-
-                //nullかどうか判定用
-
-                var tcs = new TaskCompletionSource<bool>();
-
-
-                ///DataReceivedEventHandler handle
-                //変数に保持
-                //ローカル(型名)をやめて、プロパティ this.handler を使います。
-                ///ローカル変数のままだと、そのローカルはスコープ外で参照できないため、解除対象がズレる可能性があります。
-                ////   DataReceivedEventHandler handler = (sender,
-                ///
-
-
-                ///↓↓↓以下変更↓↓↓
-                ///
-
                 handler = (sender, e) =>
                 {
                     if (e.Data != null && Lw != null)
@@ -290,29 +251,14 @@ namespace HaruaConvert
                     }
                 };
 
-                ffmpegProcess.ErrorDataReceived += handler;
-
-
-                ffmpegProcess.Exited += (sender, e) => tcs.TrySetResult(true);
-
-                ffmpegProcess.Exited += new EventHandler(ffmpeg_Exited);
-
-                ffmpegProcess.Start();
-
+                ffmpegProcess = await _ffmpegProcessRunner.StartAndWaitAsync(
+                    _arguments,
+                    handler,
+                    ffmpeg_Exited,
+                    cancellationToken);
 
                 MainWindow.ffmpegProcess = ffmpegProcess;
                 paramField.ffmpeg_pid = ffmpegProcess.Id;
-                ffmpegProcess.BeginErrorReadLine();
-
-                await Task.WhenAny(
-                    Task.Delay(Timeout.Infinite, cts.Token),
-                    tcs.Task
-                );
-
-                if (cts.Token.IsCancellationRequested)
-                {
-                    cts.Token.ThrowIfCancellationRequested(); // キャンセル例外をスロー
-                }
             }
             catch (Exception ex)
             {
