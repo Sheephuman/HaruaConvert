@@ -35,6 +35,7 @@ namespace HaruaConvert
         AddOptionClass _addOption = new();
         private readonly IConversionExecutionPreparer _conversionExecutionPreparer = new ConversionExecutionPreparer();
         private readonly IFFmpegProcessRunner _ffmpegProcessRunner = new FFmpegProcessRunner();
+        private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator = new ConversionOutputConflictEvaluator();
         public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
@@ -123,7 +124,9 @@ namespace HaruaConvert
             try
             {
 
-                checker = FileExsosts_and_NoDialogCheck(paramField.check_output, NoDialogCheck.IsChecked == true) ? DialogMethod() : ifNoFiles.IfNoFileExsists(Lw);
+                checker = _outputConflictEvaluator.ShouldPromptOverwrite(paramField.check_output, NoDialogCheck.IsChecked == true)
+                    ? DialogMethod()
+                    : ifNoFiles.IfNoFileExsists(Lw);
 
                 paramField.isExecuteProcessed = checker;
 
@@ -208,26 +211,6 @@ namespace HaruaConvert
 
 
         }
-
-        bool FileExsosts_and_NoDialogCheck(string check_output, bool _DialogChecked)        //public async Task<string> CollectStandardOutput()
-        {
-
-            //-----------------
-            //  var alterExsists = new Alternate_FileExsists();
-
-            //bool exsisted = alterExsists.FileExsists(check_output);
-            bool exsisted = File.Exists(check_output);
-
-            bool DialogChecked = _DialogChecked;
-            bool satisfied = false;
-
-            if (exsisted && !DialogChecked)
-                satisfied = true;
-
-
-            return satisfied;
-        }
-
 
         public static LogWindow Lw { get; set; }
 
