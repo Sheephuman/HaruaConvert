@@ -1,5 +1,4 @@
 ﻿using HaruaConvert.HaruaInterFace;
-using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Conversion;
@@ -11,9 +10,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
-using WpfApp3.Parameter;
 
 namespace HaruaConvert
 {
@@ -41,6 +38,15 @@ namespace HaruaConvert
 
         private IConversionUiLauncher ConversionUiLauncher =>
             _conversionUiLauncher ??= new MainWindowConversionLauncher(this);
+
+        private IMainFileConversionOrchestrator? _mainFileConversionOrchestrator;
+
+        private IMainFileConversionOrchestrator MainFileConversionOrchestrator =>
+            _mainFileConversionOrchestrator ??= new MainFileConversionOrchestrator(
+                this,
+                _conversionExecutionPreparer,
+                _outputConflictEvaluator,
+                () => ConversionUiLauncher);
         public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
@@ -67,116 +73,8 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        public bool mainFileConvertExec(string _fullPath, object sender)
-        {
-
-            escapes = new EscapePath();
-
-
-
-            baseArguments = "";
-
-            if (_arguments == null)
-                _arguments = "";
-
-
-
-            //Whether to use Original Paramerter Query
-            var chButton = VisualTreeHelperWrapperHelpers.FindDescendant<Button>(Drop_Label);
-
-
-
-            if (ClassShearingMenbers.ButtonName == chButton.Name)
-            {
-                var prepared = _conversionExecutionPreparer.PrepareDropConversion(
-                    _fullPath,
-                    harua_View,
-                    paramField,
-                    NoAudio.IsChecked == true,
-                    main.harua_View.OutputPath,
-                    main.paramField.setFile);
-
-                paramField.check_output = prepared.CheckOutputPath;
-                _arguments = prepared.Arguments;
-                escapes = prepared.Escapes;
-                param = prepared.ParameterCreator;
-            }
-
-
-            //IsChecked.HasValue は「値があるかどうか」だけを見る
-            //通常の2 - stateチェックボックスでは true / false どちらでも値はあるため、ほぼ常に true
-
-            ///test
-
-            else if (isUserParameter.IsChecked == true) //used Original paramerter
-            {
-                var isOrigenelParam = new isUserOriginalParameter(this);
-                _ = isOrigenelParam.isUserOriginalParameter_Method(sender);
-
-                if (!paramField.isSuccessdbuildQuery)
-                    return false;
-                //fetch flag State
-            }
-
-            #region ファイル存在判定
-
-            //IDisposable alterr = new IDisposableBase();
-            //alterr.Dispose();
-            bool checker = false;
-            bool needsOverwritePrompt = _outputConflictEvaluator.ShouldPromptOverwrite(
-                paramField.check_output,
-                NoDialogCheck.IsChecked == true);
-
-            try
-            {
-                checker = needsOverwritePrompt
-                    ? DialogMethod()
-                    : ConversionUiLauncher.HandleConversionWhenNoOverwritePromptRequired();
-
-                if (needsOverwritePrompt)
-                {
-                    paramField.isExecuteProcessed = checker;
-                }
-                else
-                {
-                    if (!checker)
-                    {
-                        return false;
-                    }
-                }
-
-                if (!paramField.isExecuteProcessed)
-                    return false;
-                //   if(!checker) //pushed No
-                //    return false;
-
-                //th1.Start();
-
-
-
-
-                //th1 = new Thread(() => ffmpegProsseing());
-
-                //th1.Start();
-
-
-
-
-
-                return true;
-            }
-
-            #endregion
-
-            catch (Exception ex)
-            {
-                th1.Join();
-
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-
-        }
+        public bool mainFileConvertExec(string _fullPath, object sender) =>
+            MainFileConversionOrchestrator.Execute(_fullPath, sender);
 
         public void LogWindowShow()
         {
@@ -198,7 +96,7 @@ namespace HaruaConvert
 
         }
 
-        bool DialogMethod()
+        internal bool DialogMethod()
         {
             if (!_overwritePrompt.AskOverwriteExistingFile())
             {
