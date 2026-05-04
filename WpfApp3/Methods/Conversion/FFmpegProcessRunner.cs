@@ -13,7 +13,8 @@ namespace HaruaConvert.Methods.Conversion
             string arguments,
             DataReceivedEventHandler errorHandler,
             EventHandler exitedHandler,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            Action<Process>? onProcessStarted = null)
         {
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             var tcs = new TaskCompletionSource<bool>();
@@ -40,6 +41,8 @@ namespace HaruaConvert.Methods.Conversion
 
             process.Start();
             process.BeginErrorReadLine();
+
+            onProcessStarted?.Invoke(process);
 
             await Task.WhenAny(
                 Task.Delay(Timeout.Infinite, linkedCts.Token),
