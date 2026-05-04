@@ -75,37 +75,45 @@ namespace HaruaConvert
 
         private void ConvertStop_Click(object sender, RoutedEventArgs e)
         {
-
-            Lw_paramField.isExecuteProcessed = false;
-
             try
             {
-                if (MainWindow.ffmpegProcess == null)
+                Process? proc = MainWindow.ffmpegProcess;
+                if (proc == null)
                 {
                     return;
                 }
 
+                if (proc.HasExited)
+                {
+                    MainWindow.ffmpegProcess = null;
+                    return;
+                }
 
-
-                StreamWriter inputWriter = MainWindow.ffmpegProcess.StandardInput;
-
-
-                inputWriter.WriteLine("q");
-
+                try
+                {
+                    StreamWriter stdin = proc.StandardInput;
+                    if (stdin.BaseStream.CanWrite)
+                    {
+                        stdin.WriteLine("q");
+                        stdin.Flush();
+                    }
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(
+                        ex.Message + "\r\n停止コマンドの送信に失敗しました（プロセスは既に終了している可能性があります）。");
+                    if (proc.HasExited)
+                    {
+                        MainWindow.ffmpegProcess = null;
+                    }
+                }
 
                 Focus();
-
-                inputWriter.Dispose();
-
             }
-
-            catch (System.IO.IOException ex)
+            finally
             {
-                MessageBox.Show(ex.Message + "￥r\n未実行のときにStopButtonが押されました");
+                Lw_paramField.isExecuteProcessed = false;
             }
-
-
-
         }
 
 
