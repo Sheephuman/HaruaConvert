@@ -1,4 +1,6 @@
 ﻿using HaruaConvert.Command;
+using HaruaConvert.HaruaInterFace;
+using HaruaConvert.Methods.Conversion;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,9 +13,7 @@ namespace HaruaConvert
 {
     public partial class MainWindow
     {
-
-
-
+        private readonly IConversionRequestValidator _conversionRequestValidator = new ConversionRequestValidator();
 
         private void NUD_DownButton_Click(object sender, RoutedEventArgs e)
         {
@@ -219,34 +219,17 @@ namespace HaruaConvert
         {
             ClassShearingMenbers.ButtonName = ((Button)sender).Name;
 
-            if (paramField.isExecuteProcessed)
-            {
-                MessageBox.Show("ffmpwg.exeが実行中ですわ");
+            string validationError = _conversionRequestValidator.ValidateOriginalExecutionRequest(
+                paramField.isExecuteProcessed,
+                paramField.usedOriginalArgument,
+                InputSelector.FilePathBox.Text,
+                OutputSelector.FilePathBox.Text);
 
+            if (!string.IsNullOrEmpty(validationError))
+            {
+                MessageBox.Show(validationError);
                 return;
             }
-            //early return
-
-
-            else if (string.IsNullOrEmpty(paramField.usedOriginalArgument))
-            {
-                MessageBox.Show("ユーザーパラメータが空欄です");
-                return;
-            }
-
-
-            else if (string.IsNullOrEmpty(InputSelector.FilePathBox.Text))
-            {
-                MessageBox.Show("入力パスが空欄です");
-                return;
-            }
-
-            else if (string.IsNullOrEmpty(OutputSelector.FilePathBox.Text))
-            {
-                MessageBox.Show("出力パスが空欄です");
-                return;
-            }
-
 
             paramField.isExecuteProcessed = mainFileConvertExec(paramField.setFile, sender);
         }

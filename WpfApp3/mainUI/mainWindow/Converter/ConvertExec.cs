@@ -238,10 +238,12 @@ namespace HaruaConvert
                     _arguments,
                     handler,
                     ffmpeg_Exited,
-                    cancellationToken);
-
-                MainWindow.ffmpegProcess = ffmpegProcess;
-                paramField.ffmpeg_pid = ffmpegProcess.Id;
+                    cancellationToken,
+                    p =>
+                    {
+                        MainWindow.ffmpegProcess = p;
+                        paramField.ffmpeg_pid = p.Id;
+                    });
             }
             catch (Exception ex)
             {

@@ -14,7 +14,8 @@ namespace HaruaConvert.HaruaInterFace
             string inputFilePath,
             string outputFilePath,
             string triggerButtonName,
-            string executeButtonName);
+            string executeButtonName,
+            string? legacyBaseArgumentsForPercentCheck);
     }
 
     public readonly record struct SelectorState(bool IsChecked, string ArgumentText);
@@ -31,5 +32,7 @@ namespace HaruaConvert.HaruaInterFace
         bool IsSuccess,
         string Arguments,
         string OutputPath,
-        string ErrorMessage);
+        string ErrorMessage,
+        string ParamTabOutputSelectorDirectory,
+        bool SetQueryBuildFailedFlag);
 }

@@ -11,6 +11,7 @@ namespace HaruaConvert.HaruaInterFace
             string arguments,
             DataReceivedEventHandler errorHandler,
             EventHandler exitedHandler,
-            CancellationToken cancellationToken = default);
+            CancellationToken cancellationToken = default,
+            Action<Process>? onProcessStarted = null);
     }
 }
