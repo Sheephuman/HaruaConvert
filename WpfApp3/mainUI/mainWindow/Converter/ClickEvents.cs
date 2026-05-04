@@ -231,7 +231,10 @@ namespace HaruaConvert
                 return;
             }
 
-            paramField.isExecuteProcessed = mainFileConvertExec(paramField.setFile, sender);
+            if (mainFileConvertExec(paramField.setFile, sender))
+            {
+                paramField.isExecuteProcessed = true;
+            }
         }
 
 

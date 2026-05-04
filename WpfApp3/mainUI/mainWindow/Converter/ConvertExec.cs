@@ -36,6 +36,11 @@ namespace HaruaConvert
         private readonly IConversionExecutionPreparer _conversionExecutionPreparer = new ConversionExecutionPreparer();
         private readonly IFFmpegProcessRunner _ffmpegProcessRunner = new FFmpegProcessRunner();
         private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator = new ConversionOutputConflictEvaluator();
+        private readonly IOverwritePrompt _overwritePrompt = new WpfOverwritePrompt();
+        private IConversionUiLauncher? _conversionUiLauncher;
+
+        private IConversionUiLauncher ConversionUiLauncher =>
+            _conversionUiLauncher ??= new MainWindowConversionLauncher(this);
         public static Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
@@ -106,7 +111,7 @@ namespace HaruaConvert
             else if (isUserParameter.IsChecked == true) //used Original paramerter
             {
                 var isOrigenelParam = new isUserOriginalParameter(this);
-                bool isExecuteProcessed = isOrigenelParam.isUserOriginalParameter_Method(sender);
+                _ = isOrigenelParam.isUserOriginalParameter_Method(sender);
 
                 if (!paramField.isSuccessdbuildQuery)
                     return false;
@@ -118,17 +123,27 @@ namespace HaruaConvert
             //IDisposable alterr = new IDisposableBase();
             //alterr.Dispose();
             bool checker = false;
-
-            var ifNoFiles = new IfNoFileExsistsClass(this);
+            bool needsOverwritePrompt = _outputConflictEvaluator.ShouldPromptOverwrite(
+                paramField.check_output,
+                NoDialogCheck.IsChecked == true);
 
             try
             {
-
-                checker = _outputConflictEvaluator.ShouldPromptOverwrite(paramField.check_output, NoDialogCheck.IsChecked == true)
+                checker = needsOverwritePrompt
                     ? DialogMethod()
-                    : ifNoFiles.IfNoFileExsists(Lw);
+                    : ConversionUiLauncher.HandleConversionWhenNoOverwritePromptRequired();
 
-                paramField.isExecuteProcessed = checker;
+                if (needsOverwritePrompt)
+                {
+                    paramField.isExecuteProcessed = checker;
+                }
+                else
+                {
+                    if (!checker)
+                    {
+                        return false;
+                    }
+                }
 
                 if (!paramField.isExecuteProcessed)
                     return false;
@@ -185,31 +200,13 @@ namespace HaruaConvert
 
         bool DialogMethod()
         {
-
-            MessageBoxResult msbr = MessageBox.Show("ファイルが存在しますわ。上書きしますか？",
-                "メッセージボックス", MessageBoxButton.YesNo,
-                MessageBoxImage.Asterisk);
-
-
-            if (msbr == MessageBoxResult.Yes)
+            if (!_overwritePrompt.AskOverwriteExistingFile())
             {
-
-                LogWindowShow();
-                // Lw = new LogWindow(paramField);
-                main.paramField.isExecuteProcessed = true;
-
-                // ParamField.isExitProcessed = false;
-
-                th1 = new Thread(async () => await FfmpegProcessingAsnc());
-                th1.Start();
-
-                return true;
-
-            }
-            else
                 return false;
+            }
 
-
+            ConversionUiLauncher.BeginConversionAfterOverwriteAccepted();
+            return true;
         }
 
         public static LogWindow Lw { get; set; }
