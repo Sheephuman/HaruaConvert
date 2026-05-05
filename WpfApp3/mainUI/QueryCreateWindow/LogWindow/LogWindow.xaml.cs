@@ -77,7 +77,7 @@ namespace HaruaConvert
         {
             try
             {
-                Process? proc = MainWindow.ffmpegProcess;
+                Process proc = MainWindow.ffmpegProcess;
                 if (proc == null)
                 {
                     return;
