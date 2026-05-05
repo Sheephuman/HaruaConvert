@@ -1,5 +1,7 @@
 using HaruaConvert.HaruaInterFace;
 using System.Threading;
+using HaruaConvert;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace HaruaConvert.Methods.Conversion

@@ -11,7 +11,7 @@ namespace HaruaConvert.userintarface
 {
     public partial class QueryCreateWindow : Window
     {
-        private bool _isUpdatingSelection;
+       
 
         int Currentindex ;
         string currentItem;

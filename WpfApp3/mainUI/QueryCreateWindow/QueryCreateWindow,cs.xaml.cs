@@ -33,7 +33,6 @@ namespace HaruaConvert.userintarface
 
         MainWindow main;
 
-        bool isFirstLoad;
 
         public QueryCreateWindow(MainWindow _main)
         {
