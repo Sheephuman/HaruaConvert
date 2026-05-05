@@ -3,14 +3,14 @@ using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Conversion;
 using HaruaConvert.Parameter;
-using NAudio.Wave;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert
 {
@@ -32,6 +32,7 @@ namespace HaruaConvert
         AddOptionClass _addOption = new();
         private readonly IConversionExecutionPreparer _conversionExecutionPreparer = new ConversionExecutionPreparer();
         private readonly IFFmpegProcessRunner _ffmpegProcessRunner = new FFmpegProcessRunner();
+        private readonly IFFmpegPostProcessHandler _ffmpegPostProcessHandler = new FFmpegPostProcessHandler(new OpernExplorerClass());
         private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator = new ConversionOutputConflictEvaluator();
         private readonly IOverwritePrompt _overwritePrompt = new WpfOverwritePrompt();
         private IConversionUiLauncher? _conversionUiLauncher;
@@ -162,46 +163,7 @@ namespace HaruaConvert
         {
             try
             {
-                // プロセス終了時の処理
-                var tcs = new TaskCompletionSource<bool>();
-                tcs.TrySetResult(true); // プロセス終了を通知
-
-
-                var current = Directory.GetCurrentDirectory();
-
-
-
-                paramField.isExecuteProcessed = false;
-
-
-                //wave出力の初期化
-
-
-
-                using (WaveOutEvent outputDevice = new WaveOutEvent())
-                using (AudioFileReader afr = new AudioFileReader(current + @"\\dll\\しょどーる参上.wav"))
-                {
-                    outputDevice.Init(afr);
-                    var playbackCompleted = new TaskCompletionSource<bool>();
-                    outputDevice.PlaybackStopped += (sender, args) => playbackCompleted.TrySetResult(true);
-
-                    outputDevice.Play();
-
-
-
-                    var opex = new OpernExplorerClass();
-                    opex.OpenExplorer(paramField);
-
-
-
-
-                    //Usingステートメントを入れると即座に破棄されるため、鳴らなくなる　
-                    // 再生が完了するまで待機
-                    await playbackCompleted.Task;
-
-                }
-
-
+                await _ffmpegPostProcessHandler.HandleAfterProcessExitAsync(paramField);
             }
             catch (System.IO.FileNotFoundException ex)
             {
