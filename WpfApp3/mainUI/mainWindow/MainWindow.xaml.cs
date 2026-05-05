@@ -5,6 +5,7 @@ using HaruaConvert.Initilize_Method;
 using HaruaConvert.Json;
 using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.Methods;
+using HaruaConvert.Methods.Settings;
 using HaruaConvert.Parameter;
 using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
 using MakizunoSpellChecker;
@@ -36,6 +37,7 @@ namespace HaruaConvert
     [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
     public partial class MainWindow : Window
     {
+        private readonly IMainWindowSettingsPersistenceService _settingsPersistenceService = new MainWindowSettingsPersistenceService();
         public Harua_ViewModel harua_View { get; set; }
 
 
@@ -317,8 +319,7 @@ namespace HaruaConvert
         {
             try
             {
-                int i = 0;
-                if (isEdit)
+                _settingsPersistenceService.Save(this, isEdit, isChecked, childCheckBoxList);
             }
             catch (Exception ex)
             {

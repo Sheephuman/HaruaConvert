@@ -35,12 +35,12 @@ namespace HaruaConvert
         private readonly IFFmpegPostProcessHandler _ffmpegPostProcessHandler = new FFmpegPostProcessHandler(new OpernExplorerClass());
         private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator = new ConversionOutputConflictEvaluator();
         private readonly IOverwritePrompt _overwritePrompt = new WpfOverwritePrompt();
-        private IConversionUiLauncher? _conversionUiLauncher;
+        private IConversionUiLauncher _conversionUiLauncher;
 
         private IConversionUiLauncher ConversionUiLauncher =>
             _conversionUiLauncher ??= new MainWindowConversionLauncher(this);
 
-        private IMainFileConversionOrchestrator? _mainFileConversionOrchestrator;
+        private IMainFileConversionOrchestrator　　_mainFileConversionOrchestrator;
 
         private IMainFileConversionOrchestrator MainFileConversionOrchestrator =>
             _mainFileConversionOrchestrator ??= new MainFileConversionOrchestrator(
