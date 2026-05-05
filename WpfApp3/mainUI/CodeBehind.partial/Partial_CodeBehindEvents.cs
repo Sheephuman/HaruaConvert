@@ -1,6 +1,8 @@
 ﻿using HaruaConvert.Command;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Json;
 using HaruaConvert.Methods;
+using HaruaConvert.Methods.Settings;
 using HaruaConvert.Parameter;
 using MakizunoSpellChecker;
 using System;
@@ -43,6 +45,7 @@ namespace HaruaConvert
         /// 共有箇所：LogWindow
         /// </summary>
         public ParamField paramField { get; set; }
+        private readonly IMainWindowUiDataLoaderService _uiDataLoaderService = new MainWindowUiDataLoaderService();
 
 
 
@@ -76,49 +79,9 @@ namespace HaruaConvert
 
 
 
-        string rcount { get; set; }
-
         bool ParamSelector_SetText(object sender, bool _firstSet)
         {
-            int i = 0;
-            if (_firstSet)
-            {
-
-
-                foreach (var selector in selectorList)
-                {
-                    selector.ArgumentEditor.Text = IniDefinition.GetValueOrDefault
-                        (paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}", IniSettingsConst.Arguments_ + $"{i}",
-                        "");
-
-
-                    //selector.ArgumentEditor.Text);
-
-                    selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(paramField.iniPath, ParamField.ControlField.ParamSelector + "_" + $"{i}",
-                    IniSettingsConst.ParameterLabel + "_" + $"{i}",
-                 "パラメータ名").Replace("\r\n", "", StringComparison.Ordinal);
-
-                    rcount = IniDefinition.GetValueOrDefault(paramField.iniPath, ClassShearingMenbers.CheckState, ParamField.ControlField.ParamSelector + "_Check", "0");
-                    int rcountInt = int.Parse(rcount, CultureInfo.CurrentCulture);
-
-
-
-
-                    i++;
-
-                    if (selector.Name == ParamField.ControlField.ParamSelector + rcount)
-                    {
-                        selector.SlectorRadio.IsChecked = true;
-                        paramField.usedOriginalArgument = selector.ArgumentEditor.Text;
-                    }
-                }
-
-
-                _firstSet = false;
-                return _firstSet;
-            }
-
-            return _firstSet;
+            return _uiDataLoaderService.ApplySelectorInitialValues(this, _firstSet);
         }
 
 
@@ -241,20 +204,7 @@ namespace HaruaConvert
         {
             try
             {
-                var Jsonreader = new CommandHistoryIO();
-
-                string history = Path.Combine(AppContext.BaseDirectory, "CommandHistory.json");
-
-                if (!File.Exists(history))
-                    return;
-
-
-                var tokenList = Jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
-                foreach (string token in tokenList)
-                {
-                    if (!ParamText.Items.Contains(token))
-                        ParamText.Items.Add(token);
-                }
+                _uiDataLoaderService.LoadCommandHistoryItems(ParamText);
 
 
                 var combo = sender as ComboBox;
@@ -315,7 +265,7 @@ namespace HaruaConvert
 
         private void AtacchStringsList_Loaded(object sender, RoutedEventArgs e)
         {
-            int index = int.Parse(IniDefinition.GetValueOrDefault(paramField.iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, "0"), CultureInfo.CurrentCulture);
+            int index = _uiDataLoaderService.LoadPlaceholderIndex(paramField.iniPath);
             if (index >= 0)
                 placeHolderList.SelectedIndex = index;
 
