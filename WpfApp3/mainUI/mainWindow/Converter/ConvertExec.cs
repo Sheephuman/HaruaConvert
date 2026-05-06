@@ -8,9 +8,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
-using WpfApp3.Parameter;
 
 namespace HaruaConvert
 {
@@ -20,8 +18,6 @@ namespace HaruaConvert
     {
 
         public string _arguments { get; set; }
-        public static string staticArguments { get; set; }
-
         /// <summary>
         /// 共有箇所：LogWindowのConvertStopButton
         /// </summary>
@@ -59,12 +55,7 @@ namespace HaruaConvert
         /// </summary>
         public Thread th1 { get; set; } = null!;
 
-        public void GetLw()
-        {
-            //if(paramField != null)
-            //     Lw = new LogWindow(paramField);
-            //     return Lw;
-        }
+       
 
         //   delegate string addOptionDeligate(string _argument);
 
@@ -151,11 +142,7 @@ namespace HaruaConvert
 
         public IOpenExplorer _openExplorerTest { get; }
 
-        public MainWindow(IOpenExplorer openExplorer)
-        {
-            _openExplorerTest = openExplorer;
-        }
-
+ 
 
         private async void ffmpeg_Exited(object sender, EventArgs e)
         {
@@ -167,21 +154,6 @@ namespace HaruaConvert
             {
                 MessageBox.Show(ex.Message + "\r\n" + "Waveファイルが見つかりません");
             }
-
         }
-
-
-
-
-
-        private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            //Debug.WriteLine(e);
-        }
-
-
-
     }
-
-
 }
