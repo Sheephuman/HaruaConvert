@@ -1,5 +1,5 @@
 ﻿using HaruaConvert.HaruaInterFace;
-using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
+using HaruaConvert.mainUI.mainWindow.LogWindow;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Conversion;
 using HaruaConvert.Parameter;
@@ -44,7 +44,7 @@ namespace HaruaConvert
                 _conversionExecutionPreparer,
                 _outputConflictEvaluator,
                 () => ConversionUiLauncher);
-        public static Process ffmpegProcess { get; set; } = null!;
+        public Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
 #pragma warning restore CA1051 // 参F照可能なインスタンス フィールドを宣言しません
@@ -73,7 +73,7 @@ namespace HaruaConvert
             if (!firstlogWindow)
             {
                 th1 = new Thread(async () => await FfmpegProcessingAsnc());
-                Lw = new LogWindow(paramField);
+                Lw = new LogWindow(this,paramField);
                 Lw.Show();
                 firstlogWindow = true;
 
@@ -126,7 +126,7 @@ namespace HaruaConvert
                     cancellationToken,
                     p =>
                     {
-                        MainWindow.ffmpegProcess = p;
+                        ffmpegProcess = p;
                         paramField.ffmpeg_pid = p.Id;
                     });
             }

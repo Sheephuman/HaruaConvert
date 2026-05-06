@@ -1,6 +1,5 @@
 using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
-using HaruaConvert.Json;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Settings;
 using HaruaConvert.Parameter;
@@ -10,13 +9,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfApp3.Parameter;
-using static HaruaConvert.IniCreate;
-using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert
 {

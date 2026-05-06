@@ -1,9 +1,9 @@
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Parameter;
-using HaruaConvert.mainUI.QueryCreateWindow.LogWindow;
 using NAudio.Wave;
 using System.IO;
 using System.Threading.Tasks;
+using HaruaConvert.mainUI.mainWindow.LogWindow;
 
 namespace HaruaConvert.Methods.Conversion
 {
