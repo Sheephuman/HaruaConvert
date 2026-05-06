@@ -3,14 +3,16 @@ using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 
 namespace HaruaConvert
@@ -26,6 +28,10 @@ namespace HaruaConvert
 
     public partial class LogWindow : Window, IDisposable
     {
+        private const int MaxVisibleLogLines = 10000;
+        private readonly ConcurrentQueue<string> _pendingLogs = new();
+        private readonly ObservableCollection<LogEntry> _logEntries = new();
+        private readonly DispatcherTimer _flushTimer;
 
 
         List<MenuItem> MenuCheckBoxList { get; set; }
@@ -40,32 +46,16 @@ namespace HaruaConvert
             InitializeComponent();
 
             Lw_paramField = _paramField;
-            //Lw_paramField.isExecuteProcessed = _paramField.isExecuteProcessed;
-
-
-            //AutoScroll_Checker.IsChecked = true;
-
-            var textRange = RichTextRogs.Selection;
-            // 文字色
-            textRange.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(Colors.Blue));
-
-            string test = String.Empty;
-
-
-
-
             this.MouseLeftButtonDown += (sender, e) => { this.DragMove(); };
 
-
-
-            //PreTextColor = new Color();
-            //PreTextColor = Color.FromArgb(0, 43, 201, 47);
-
-            //TextColor = new SolidColorBrush(PreTextColor);
-
-
-
             Lw_paramField.isPaused = false;
+            LogGrid.ItemsSource = _logEntries;
+            _flushTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(100)
+            };
+            _flushTimer.Tick += FlushPendingLogs;
+            _flushTimer.Start();
 
         }
 
@@ -73,11 +63,46 @@ namespace HaruaConvert
 
         delegate void KillProcess_deligate(Process target);
 
+        public void AppendLogLine(string line)
+        {
+            if (string.IsNullOrEmpty(line))
+            {
+                return;
+            }
+
+            _pendingLogs.Enqueue(line);
+        }
+
+        private void FlushPendingLogs(object? sender, EventArgs e)
+        {
+            if (_pendingLogs.IsEmpty)
+            {
+                return;
+            }
+
+            bool hasNewLine = false;
+            while (_pendingLogs.TryDequeue(out string? line))
+            {
+                _logEntries.Add(new LogEntry(line));
+                hasNewLine = true;
+            }
+
+            while (_logEntries.Count > MaxVisibleLogLines)
+            {
+                _logEntries.RemoveAt(0);
+            }
+
+            if (hasNewLine && AutoScroll_Checker.IsChecked == true && _logEntries.Count > 0)
+            {
+                LogGrid.ScrollIntoView(_logEntries[_logEntries.Count - 1]);
+            }
+        }
+
         private void ConvertStop_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Process proc = MainWindow.ffmpegProcess;
+                Process? proc = MainWindow.ffmpegProcess;
                 if (proc == null)
                 {
                     return;
@@ -240,19 +265,23 @@ namespace HaruaConvert
 
                     image.Opacity = 0.4;
 
-                    RichTextRogs.Opacity = 1;
-                    RichTextRogs.Background = SystemColors.WindowBrush;
-                    RichTextRogs.Foreground = Brushes.Black;
+                    LogGrid.Opacity = 1;
+                    LogGrid.Background = SystemColors.WindowBrush;
+                    LogGrid.Foreground = Brushes.Black;
+                    LogGrid.RowStyle = (Style)FindResource("LogRowTransparentStyle");
+                    LogGrid.CellStyle = (Style)FindResource("LogCellTransparentStyle");
                     // ブラシを背景に設定する
-                    RichTextRogs.Background = image;
+                    LogGrid.Background = image;
 
                 }
                 else
                 {
                     image.Opacity = 0;
-                    RichTextRogs.Opacity = 0.6;
-                    RichTextRogs.Foreground = Brushes.White;
-                    RichTextRogs.Background = Brushes.Black;
+                    LogGrid.Opacity = 0.6;
+                    LogGrid.Foreground = Brushes.White;
+                    LogGrid.RowStyle = (Style)FindResource("LogRowDarkStyle");
+                    LogGrid.CellStyle = (Style)FindResource("LogCellDarkStyle");
+                    LogGrid.Background = Brushes.Black;
                 }
             }
             catch (DirectoryNotFoundException ex)
@@ -331,6 +360,8 @@ namespace HaruaConvert
             {
                 if (disposing)
                 {
+                    _flushTimer.Stop();
+                    _flushTimer.Tick -= FlushPendingLogs;
                     // マネージドリソースの解放
                     // 例えば、イベントハンドラーの解除や、IDisposableなオブジェクトのDispose呼び出しなど
                 }
@@ -340,6 +371,16 @@ namespace HaruaConvert
 
                 disposed = true; // 破棄済みフラグを設定
             }
+        }
+
+        public sealed class LogEntry
+        {
+            public LogEntry(string text)
+            {
+                Text = text;
+            }
+
+            public string Text { get; }
         }
     }
 
