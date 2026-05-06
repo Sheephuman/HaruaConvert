@@ -18,6 +18,7 @@ namespace HaruaConvert.Methods.Settings
         {
             int i = 0;
 
+            if (isEdit)
             {
                 // Add Number and Save setting.ini every selector
                 foreach (var selector in main.selectorList)

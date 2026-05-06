@@ -1,4 +1,4 @@
-﻿using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaInterFace;
 using System;
 using System.IO;
 using System.Windows;
@@ -157,7 +157,7 @@ namespace HaruaConvert.mainUI.mainWindow
 
         public void RegisterUIDropEvent()
         {
-            if (MainWindow.firstSet)
+            if (_main.firstSet)
             {
                 Button dropbutton = (Button)_main.Drop_Label.Template.FindName(ButtonNameField.Convert_DropButton, _main.Drop_Label);
                 if (dropbutton != null)
@@ -191,7 +191,7 @@ namespace HaruaConvert.mainUI.mainWindow
             // MainWindowがロードされたときの初期化処理
 
 
-            if (MainWindow.firstSet)
+            if (_main.firstSet)
             {
                 //get Button name from label template
                 RegisterUIDropEvent();
