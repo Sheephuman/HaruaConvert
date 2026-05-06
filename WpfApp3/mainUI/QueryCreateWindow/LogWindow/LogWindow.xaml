@@ -12,21 +12,66 @@
         Closing="window_Closing"
         Loaded="window_Loded"
         SizeToContent="Height"       >
+    <Window.Resources>
+        <Style x:Key="LogRowDarkStyle" TargetType="DataGridRow">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="AliceBlue" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style x:Key="LogCellDarkStyle" TargetType="DataGridCell">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="AliceBlue" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="2,0,2,0" />
+        </Style>
+        <Style x:Key="LogRowTransparentStyle" TargetType="DataGridRow" BasedOn="{StaticResource LogRowDarkStyle}">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style x:Key="LogCellTransparentStyle" TargetType="DataGridCell" BasedOn="{StaticResource LogCellDarkStyle}">
+            <Setter Property="Background" Value="#66000000" />
+        </Style>
+    </Window.Resources>
 
     <Grid >
         <Border Background="#FFFDEEF0" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
 
-        <RichTextBox x:Name="RichTextRogs"   
-                     VerticalAlignment="Top"
-            Width="500" Height="348"
-                     Margin="0,25,0,0"
-             FontSize="14"
-             Background="Black" Foreground= "AliceBlue" SelectionTextBrush="{Binding TextColor}" Opacity="0.5" Grid.ColumnSpan="1"
-               DataContextChanged="RichTextRogs_DataContextChanged"    
-                     TextChanged="RichTextRogs_TextChanged"
-                    
-                     >
-            <RichTextBox.ContextMenu>
+        <DataGrid x:Name="LogGrid"
+                  VerticalAlignment="Top"
+                  Width="500"
+                  Height="348"
+                  Margin="0,25,0,0"
+                  FontSize="14"
+                  Background="Black"
+                  Foreground="AliceBlue"
+                  Grid.ColumnSpan="1"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="None"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserSortColumns="False"
+                  SelectionMode="Extended"
+                  SelectionUnit="FullRow"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  EnableRowVirtualization="True"
+                  EnableColumnVirtualization="True"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  VirtualizingPanel.ScrollUnit="Pixel"
+                  ScrollViewer.CanContentScroll="True">
+            <DataGrid.RowStyle>
+                <StaticResource ResourceKey="LogRowDarkStyle" />
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <StaticResource ResourceKey="LogCellDarkStyle" />
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Text}" Width="*" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
                 <ContextMenu DataContext="{Binding RelativeSource={RelativeSource AncestorType=Window}}">
                     <MenuItem Header="Auto Scrool"
                               x:Name="AutoScroll_Checker"
@@ -41,23 +86,8 @@
                               Unchecked="BackImage_Checker_Checked"/>
 
                 </ContextMenu>
-            </RichTextBox.ContextMenu>
-            <!--<FlowDocument>
-                <Paragraph>
-
-                    <Run  Text="frame=" />
-                    <Run  FontStyle="Italic"
-            Foreground="Red"
-            Text="{Binding NormalText}" />
-            FontStyle="Italic"
-            Foreground="{Binding TextColor}"
-            Text="{Binding NormalText,UpdateSourceTrigger=PropertyChanged , Mode=OneWay}" />
-                </Paragraph>
-
-            </FlowDocument>-->
-
-
-        </RichTextBox>
+            </DataGrid.ContextMenu>
+        </DataGrid>
 
         <StackPanel Orientation="Horizontal">
         <TextBlock 
