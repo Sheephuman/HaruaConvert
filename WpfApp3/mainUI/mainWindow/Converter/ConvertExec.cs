@@ -35,12 +35,12 @@ namespace HaruaConvert
         private readonly IFFmpegPostProcessHandler _ffmpegPostProcessHandler = new FFmpegPostProcessHandler(new OpernExplorerClass());
         private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator = new ConversionOutputConflictEvaluator();
         private readonly IOverwritePrompt _overwritePrompt = new WpfOverwritePrompt();
-        private IConversionUiLauncher _conversionUiLauncher;
+        private IConversionUiLauncher? _conversionUiLauncher;
 
         private IConversionUiLauncher ConversionUiLauncher =>
             _conversionUiLauncher ??= new MainWindowConversionLauncher(this);
 
-        private IMainFileConversionOrchestrator　　_mainFileConversionOrchestrator;
+        private IMainFileConversionOrchestrator? _mainFileConversionOrchestrator;
 
         private IMainFileConversionOrchestrator MainFileConversionOrchestrator =>
             _mainFileConversionOrchestrator ??= new MainFileConversionOrchestrator(
@@ -123,9 +123,7 @@ namespace HaruaConvert
                     {
                         Dispatcher.InvokeAsync(() =>
                         {
-                            Lw.RichTextRogs.AppendText(e.Data + Environment.NewLine);
-                            if (Lw.AutoScroll_Checker.IsChecked == true)
-                                Lw.RichTextRogs.ScrollToEnd();
+                            Lw.AppendLogLine(e.Data);
                         });
                     }
                 };
@@ -146,7 +144,7 @@ namespace HaruaConvert
                 Debug.WriteLine($"Error: {ex.Message}");
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    Lw?.RichTextRogs.AppendText($"Error: {ex.Message}{Environment.NewLine}");
+                    Lw?.AppendLogLine($"Error: {ex.Message}");
                 });
             }
         }
