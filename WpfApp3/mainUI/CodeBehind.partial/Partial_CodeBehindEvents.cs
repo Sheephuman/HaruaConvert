@@ -1,4 +1,4 @@
-﻿using HaruaConvert.Command;
+using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Json;
 using HaruaConvert.Methods;
@@ -34,8 +34,8 @@ namespace HaruaConvert
 
 
 
-        public static bool firstSet { get; set; } //初回起動用
-        public static bool firstlogWindow { get; set; }
+        public bool firstSet { get; set; } //初回起動用
+        public bool firstlogWindow { get; set; }
 
         public string baseArguments { get; set; }
 

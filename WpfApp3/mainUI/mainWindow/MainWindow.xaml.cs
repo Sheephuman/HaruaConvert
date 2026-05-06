@@ -1,4 +1,4 @@
-﻿using Castle.Components.DictionaryAdapter.Xml;
+using Castle.Components.DictionaryAdapter.Xml;
 using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Initilize_Method;
@@ -74,7 +74,7 @@ namespace HaruaConvert
 
 
 
-        public static MainWindow main { get; set; }
+        public MainWindow main { get; set; }
 
 
         public MainWindow()

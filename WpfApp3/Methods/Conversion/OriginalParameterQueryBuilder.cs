@@ -17,7 +17,7 @@ namespace HaruaConvert.Methods.Conversion
             string outputFilePath,
             string triggerButtonName,
             string executeButtonName,
-            string legacyBaseArgumentsForPercentCheck)
+            string? legacyBaseArgumentsForPercentCheck)
         {
             if (executeButtonName != triggerButtonName)
             {
