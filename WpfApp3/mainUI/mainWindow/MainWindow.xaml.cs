@@ -81,7 +81,7 @@ namespace HaruaConvert
         {
             InitializeComponent();
 
-
+            _arguments = string.Empty;  
 
 
             main = this;
@@ -338,7 +338,7 @@ namespace HaruaConvert
         }
 
 
-        public CommonOpenDialogClass ofc { get; set; }
+        public CommonOpenDialogClass ofc { get; set; } = null!;
         internal FfmpegQueryClass Ffmpc { get; set; }
 
         public void FileSelector_MouseDown(object sender, RoutedEventArgs e)
@@ -428,7 +428,15 @@ namespace HaruaConvert
 
         }
 
+        private async void ExplorerRestarterButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var tpc = new Terminate_ProcessClass())
+            {
+                var exe = new ExplorerRestarterClass();
 
-      
+
+               await exe.ExPlorerRestarter(tpc);
+            }
+        }
     }
 }

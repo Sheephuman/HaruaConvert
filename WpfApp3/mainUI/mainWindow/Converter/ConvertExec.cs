@@ -1,5 +1,6 @@
-﻿using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.mainUI.mainWindow.LogWindow;
+
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Conversion;
 using HaruaConvert.Parameter;
@@ -8,7 +9,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
+using WpfApp3.Parameter;
 
 namespace HaruaConvert
 {
@@ -18,6 +21,8 @@ namespace HaruaConvert
     {
 
         public string _arguments { get; set; }
+       
+
         /// <summary>
         /// 共有箇所：LogWindowのConvertStopButton
         /// </summary>
@@ -31,12 +36,12 @@ namespace HaruaConvert
         private readonly IFFmpegPostProcessHandler _ffmpegPostProcessHandler = new FFmpegPostProcessHandler(new OpernExplorerClass());
         private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator = new ConversionOutputConflictEvaluator();
         private readonly IOverwritePrompt _overwritePrompt = new WpfOverwritePrompt();
-        private IConversionUiLauncher? _conversionUiLauncher;
+        private IConversionUiLauncher _conversionUiLauncher;
 
         private IConversionUiLauncher ConversionUiLauncher =>
             _conversionUiLauncher ??= new MainWindowConversionLauncher(this);
 
-        private IMainFileConversionOrchestrator? _mainFileConversionOrchestrator;
+        private IMainFileConversionOrchestrator _mainFileConversionOrchestrator;
 
         private IMainFileConversionOrchestrator MainFileConversionOrchestrator =>
             _mainFileConversionOrchestrator ??= new MainFileConversionOrchestrator(
@@ -55,7 +60,12 @@ namespace HaruaConvert
         /// </summary>
         public Thread th1 { get; set; } = null!;
 
-       
+        public void GetLw()
+        {
+            //if(paramField != null)
+            //     Lw = new LogWindow(paramField);
+            //     return Lw;
+        }
 
         //   delegate string addOptionDeligate(string _argument);
 
@@ -73,7 +83,7 @@ namespace HaruaConvert
             if (!firstlogWindow)
             {
                 th1 = new Thread(async () => await FfmpegProcessingAsnc());
-                Lw = new LogWindow(this,paramField);
+                Lw = new LogWindow(this, paramField);
                 Lw.Show();
                 firstlogWindow = true;
 
@@ -99,7 +109,7 @@ namespace HaruaConvert
             return true;
         }
 
-        public static LogWindow Lw { get; set; }
+        public LogWindow Lw { get; set; }
 
 
         public DataReceivedEventHandler handler { get; set; }
@@ -123,12 +133,13 @@ namespace HaruaConvert
                     _arguments,
                     handler,
                     ffmpeg_Exited,
-                    cancellationToken,
+                    
                     p =>
                     {
                         ffmpegProcess = p;
                         paramField.ffmpeg_pid = p.Id;
-                    });
+                    },
+                    cancellationToken);
             }
             catch (Exception ex)
             {
@@ -142,7 +153,17 @@ namespace HaruaConvert
 
         public IOpenExplorer _openExplorerTest { get; }
 
- 
+        public MainWindow(IOpenExplorer openExplorer)
+        {
+            _openExplorerTest = openExplorer ?? throw new ArgumentNullException(nameof(openExplorer));
+
+            _arguments = string.Empty;
+             InitializeComponent();
+             param = null!;
+             escapes = null!;
+             paramField = null!;
+        }
+
 
         private async void ffmpeg_Exited(object sender, EventArgs e)
         {
@@ -154,6 +175,21 @@ namespace HaruaConvert
             {
                 MessageBox.Show(ex.Message + "\r\n" + "Waveファイルが見つかりません");
             }
+
         }
+
+
+
+
+
+        private void process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            //Debug.WriteLine(e);
+        }
+
+
+
     }
+
+
 }
