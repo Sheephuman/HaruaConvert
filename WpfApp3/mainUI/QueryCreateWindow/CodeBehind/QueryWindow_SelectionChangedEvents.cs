@@ -13,11 +13,13 @@ namespace HaruaConvert.userintarface
     {
        
 
-        int Currentindex ;
-        string currentItem;
-
+        
         private void VideoCodecBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            if (VideoCodecBox.SelectedValue == null)
+                return;
+
             if (string.IsNullOrEmpty(VideoCodecBox.SelectedValue.ToString()))
                 return;
 
