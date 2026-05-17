@@ -19,14 +19,18 @@
        
        StateChanged="Window_StateChanged"
         Icon="/lib/harua.ico"
+
+
+        
         >
 
 
 
 
     <!-- 閉じる-->
-    <Grid x:Name="HaruaGrid" Background="#FFFDEEF0">
-        <Border Background="{Binding Background, ElementName=HaruaGrid}" CornerRadius="10" BorderThickness="1" BorderBrush="Green" Opacity="0.8"/>
+    <Grid x:Name="HaruaGrid" Background="{Binding harua_View.BackColorView.ResultColor, RelativeSource={RelativeSource AncestorType=Window}}">
+        <Border Background="{Binding harua_View.BackColorView.ResultColor, RelativeSource={RelativeSource AncestorType=Window}}" CornerRadius="10" BorderThickness="1"
+        BorderBrush="{Binding harua_View.BackColorView.ResultColor, RelativeSource={RelativeSource AncestorType=Window}}" Opacity="0.8"/>
 
         <StackPanel  
             VerticalAlignment="Top"
@@ -588,12 +592,18 @@ VerticalAlignment="Top"
                                         Content="Explorerを再起動する"
                                         Height="20" Width="130"
                                         Background="Transparent"
-                                    
+                                    Click="ExplorerRestarterButton_Click"
+                                   
+                                   
                                 />
 
                                 <GroupBox x:Name="appearanceGroup" Header="外観設定" BorderBrush="Black">
                                     <Grid>
                                         <Grid.RowDefinitions  >
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
                                             <RowDefinition />
                                             <RowDefinition />
                                             <RowDefinition />
@@ -615,17 +625,49 @@ IsMoveToPointEnabled ="True"
 FontSize="16" Content="ss" />
 
                                         </StackPanel>
+
                                         <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                            <Label Content="色調" FontSize="16" />
-                                            <Slider Width="150" Height="20"/>
+                                            <Label Content="R" FontSize="16" />
+                                            <Slider
+                                            Minimum="0" Maximum="255"
+                                            Value="{Binding harua_View.BackColorView.BackgroundRed, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="150" Height="20"/>
+                                            <Label Content="testView" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                            <Label Content="G" FontSize="16" />
+                                            <Slider
+                                            Minimum="0" Maximum="255"
+                                            Value="{Binding harua_View.BackColorView.BackgroundGreen, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="150" Height="20"/>
                                             <Label Content="testView" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                            <Label Content="彩度" FontSize="16" />
-                                            <Slider Width="150" Height="20"/>
+                                            <Label Content="B" FontSize="16" />
+                                            <Slider
+                                            Minimum="0" Maximum="255"
+                                            Value="{Binding harua_View.BackColorView.BackgroundBlue, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="150" Height="20"/>
                                             <Label Content="testView" />
                                         </StackPanel>
 
+                                        <StackPanel Orientation="Horizontal" Grid.Row="4">
+                                            <Label Content="明度" FontSize="16" />
+                                            <Slider x:Name="BrightnessSlider"
+                                            Minimum="0" Maximum="1"
+                                            Value="{Binding harua_View.BackColorView.Lightness, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="150" Height="20"/>
+                                            <Label Content="testView" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Grid.Row="5">
+                                            <Label Content="彩度" FontSize="16" />
+                                            <Slider x:Name="SaturationSlider"
+                                            Minimum="0" Maximum="1"
+                                            Value="{Binding harua_View.BackColorView.Saturation, RelativeSource={RelativeSource AncestorType=Window}, UpdateSourceTrigger=PropertyChanged}"
+                                            Width="150" Height="20"/>
+                                            <Label Content="testView" />
+                                        </StackPanel>
+                                        
                                     </Grid>
                                 </GroupBox>
                                 <GroupBox Header="ファイルパス設定" >
