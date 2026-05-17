@@ -29,8 +29,7 @@
 
     <!-- 閉じる-->
     <Grid x:Name="HaruaGrid" Background="{Binding harua_View.BackColorView.ResultColor, RelativeSource={RelativeSource AncestorType=Window}}">
-        <Border Background="{Binding harua_View.BackColorView.ResultColor, RelativeSource={RelativeSource AncestorType=Window}}" CornerRadius="10" BorderThickness="1"
-        BorderBrush="{Binding harua_View.BackColorView.ResultColor, RelativeSource={RelativeSource AncestorType=Window}}" Opacity="0.8"/>
+        <Border CornerRadius="10" BorderThickness="0"/>
 
         <StackPanel  
             VerticalAlignment="Top"
@@ -61,8 +60,7 @@
                 </TextBlock>
 
                 <StackPanel Grid.Column="1">
-                    <TextBlock Background="{Binding Background, ElementName=HaruaGrid}"             
-                    
+                    <TextBlock
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                   Height="25"
@@ -109,7 +107,7 @@ Click="minimzizeButton_Click"
    >
                     </Button>
                     <!-- 閉じる-->
-                    <Button Background="{Binding Background, ElementName=HaruaGrid}"                      
+                    <Button Background="Transparent"
                         BorderBrush="{x:Null}"  x:Name="CloseButton" 
                         Margin="0,5,3,0" Width="20" Height="20" 
     Click="CloseButton_Click"  HorizontalAlignment="Right" Content="✕" FontSize="15"/>
