@@ -1,5 +1,6 @@
 using HaruaConvert.Command;
 using HaruaConvert.HaruaInterFace;
+using HaruaConvert.Json;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Settings;
 using HaruaConvert.Parameter;
@@ -9,9 +10,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfApp3.Parameter;
+using static HaruaConvert.IniCreate;
+using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert
 {
@@ -38,8 +43,10 @@ namespace HaruaConvert
 
         /// <summary>
         /// 共有箇所：LogWindow
-        /// </summary>
-        public ParamField paramField { get; set; }
+        /// </summary> 
+        /// 
+        ///paramField　はInitializeParameters()で初期化される
+        public ParamField paramField { get; set; } = null!;
         private readonly IMainWindowUiDataLoaderService _uiDataLoaderService = new MainWindowUiDataLoaderService();
 
 
@@ -169,12 +176,12 @@ namespace HaruaConvert
 
         private void IsOpenFolderChecker_Checked(object sender, RoutedEventArgs e)
         {
-            paramField.isOpenFolder = IsOpenFolderChecker.IsChecked.Value ? true : false;
+            paramField.isOpenFolder = IsOpenFolderChecker.IsChecked!.Value ? true : false;
         }
 
         private void isFileOpenChecker_Checked(object sender, RoutedEventArgs e)
         {
-            paramField.isOpenFile = isFileOpenChecker.IsChecked.Value ? true : false;
+            paramField.isOpenFile = isFileOpenChecker.IsChecked!.Value ? true : false;
         }
 
         private void minimzizeButton_Click(object sender, RoutedEventArgs e)
@@ -281,7 +288,7 @@ namespace HaruaConvert
                 harua_View.MainParams[0].BackImageOpacity = opacitySlider.Value;
                 OpacityText.Content = $"{opacitySlider.Value:f1}";
 
-
+                
             }
         }
 
