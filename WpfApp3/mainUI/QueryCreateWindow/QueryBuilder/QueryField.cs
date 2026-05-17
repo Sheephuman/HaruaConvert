@@ -1,13 +1,9 @@
 ﻿using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
-using HaruaConvert.userintarface;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Windows.Web.AtomPub;
 
 namespace HaruaConvert.QueryBuilder
 {
@@ -20,14 +16,21 @@ namespace HaruaConvert.QueryBuilder
             //    _queryWindowViewModel = new(this);
             _queryWindowViewModel = new(this);
 
-
+            UserSelectedExtension = String.Empty;
+            FfmpegAudioCodecDic = new Dictionary<string, string>();
+            FfmpegAudioCodecDic = new Dictionary<string, string>();
+            FfmpegVideoCacheDic = new Dictionary<string, string>();
         }
 
         private string _bitRateInput = string.Empty;
         public string BitRateInput
         {
             get => _bitRateInput;
-            set => SetProperty(ref _bitRateInput, value, null);
+            set {
+                SetProperty(ref _bitRateInput, value, null);
+                UpdateAllInput(_bitRateInput);
+            }
+                    
         }
 
 
@@ -51,8 +54,26 @@ namespace HaruaConvert.QueryBuilder
 
         }
 
-        public string SelectedFileExtension { get => field;
-            set => SetProperty(ref field, value); }
+        public string UserSelectedExtension { get => field;
+            set
+            {
+                SetProperty(ref field, value);
+                UpdateAllInput(field);
+            }
+        
+        }
+
+
+        public string OutputFileSuffix
+        {
+            get => field;
+            set
+            {
+                SetProperty(ref field, value);             
+            }
+        }
+
+
 
         public void UpdateAllInput(string fileNameExtention )
         {
@@ -75,14 +96,13 @@ namespace HaruaConvert.QueryBuilder
 
 
 
-            SelectedFileExtension = _isOtherFileNameEx ? new Func<string>(() =>
+            OutputFileSuffix = _isOtherFileNameEx ? new Func<string>(() =>
             {
                 string hit = FileExtentions.FirstOrDefault(x => x == fileNameExtention);
                 return "{FileName}" + hit;
             })() : string.Empty;
 
-            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + SelectedFileExtension;
-
+            AllInput = _bitRateQuery + EnableTwitterQuery + _videoCodecesQuery + _audioCodecQuery + OutputFileSuffix;
             SetProperty(ref _allInput, AllInput);
         }
 
@@ -164,7 +184,7 @@ namespace HaruaConvert.QueryBuilder
                 if (!string.IsNullOrEmpty(videoIndex))
                     _videoCodecStrings = $"{videoIndex}";
 
-                SetProperty(ref _audioCodecStrings, value);
+                SetProperty(ref _videoCodecStrings, value);
 
             }
 
@@ -186,6 +206,9 @@ namespace HaruaConvert.QueryBuilder
            "ts",
            ".flv",
            ".wmv",
+           ".mpeg",
+           ".gif",
+           ".rmvb",
         };
 
 
