@@ -1,16 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <runtime>
-      <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-        <probing privatePath="dll" />
-      </assemblyBinding>
-    </runtime>
+  <PropertyGroup>    
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest-All</AnalysisLevel>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows10.0.22621.0</TargetFramework>
-    <UseWPF>true</UseWPF>
+    <UseWPF>true</UseWPF>    
     <AssemblyName>HaruaConvert</AssemblyName>
     <Platforms>AnyCPU;x86;x64;ARM64</Platforms>
     <RootNamespace>HaruaConvert</RootNamespace>
@@ -33,7 +27,8 @@
     <ApplicationIcon>lib\harua.ico</ApplicationIcon>
     <DelaySign>False</DelaySign>
     <PackageLicenseExpression>BSD-2-Clause-first-lines</PackageLicenseExpression>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>    
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -174,7 +169,7 @@
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Prism.Wpf" Version="9.0.537" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.8" />
+    
   </ItemGroup>
 
   <ItemGroup>
@@ -234,18 +229,7 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <EditorConfigFiles Remove="E:\Coding\WpfApp3 - Copy%281%29\WpfApp3\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EditorConfigFiles Remove="E:\Coding\WpfApp3 - Copy%281%29\WpfApp3\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="UserControls\NumericStyles.xaml" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <None Include="TransparentOtherProcess.cs" />
   </ItemGroup>
