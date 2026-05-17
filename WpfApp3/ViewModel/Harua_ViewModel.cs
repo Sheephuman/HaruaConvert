@@ -3,8 +3,6 @@ using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using WpfApp3.Parameter;
 using static HaruaConvert.IniCreate;
 using static HaruaConvert.Parameter.ParamField;

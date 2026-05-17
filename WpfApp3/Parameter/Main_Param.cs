@@ -7,16 +7,14 @@ namespace HaruaConvert.Parameter
     public class MainBindingParam
     {
         //public string iniPath { get; set; }
-        public string invisibleText { get; set; }
-        public string StartQuery { get; set; }
-        public string OutputPath { get; set; }
-        public string endString { get; set; }
+        public string invisibleText { get; set; } = null!;
+        public string StartQuery { get; set; } = null!;
+        public string OutputPath { get; set; } = null!;
+        public string endString { get; set; } = null!;
         public string placement { get; set; }
 
 
 
-
-        public double BackImageOpacity { get; set; }
 
 
         internal ffmpegDetailsOptionsStateModel ffmpegOptionsStateModel { get; set; }
@@ -42,5 +40,6 @@ namespace HaruaConvert.Parameter
 
         }
 
+        public double BackImageOpacity { get; set; }
     }
 }

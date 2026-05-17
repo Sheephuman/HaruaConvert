@@ -21,7 +21,8 @@ namespace HaruaConvert.Parameter
         {
             infoDelll = displayMedia;
             //Delegateを登録
-
+            usedOriginalArgument = string.Empty;
+            tooltipText = string.Empty;
         }
 
         public displayInfoDell infoDelll { get; set; }
