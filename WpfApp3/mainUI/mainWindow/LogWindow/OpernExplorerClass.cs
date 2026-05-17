@@ -80,8 +80,8 @@ namespace HaruaConvert.mainUI.mainWindow.LogWindow
             try
             {
                 // Shell.Applicationのインスタンスを作成
-                Type shellType = Type.GetTypeFromProgID("Shell.Application");
-                shell = Activator.CreateInstance(shellType);
+                Type shellType = Type.GetTypeFromProgID("Shell.Application")!;
+                shell = Activator.CreateInstance(shellType!)!;
 
 
 
