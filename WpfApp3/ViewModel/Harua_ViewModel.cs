@@ -1,4 +1,5 @@
-﻿using HaruaConvert.HaruaService;
+using HaruaConvert.HaruaService;
+using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
 using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
 using Prism.Mvvm;
 using System;
@@ -69,17 +70,30 @@ namespace HaruaConvert.Parameter
                 ffmpegOptionsStateModel = new ffmpegDetailsOptionsStateModel()
                 {
                     IsNoAudio = IniDefinition.GetValueOrDefault(iniPath,ClassShearingMenbers.CheckState,"NoAudio", false),
-                }
 
+                },
+                
                }
-            };
+
+
+            }; 
 
 
         }
 
+        
 
         private ObservableCollection<MainBindingParam> _mainParam = new ObservableCollection<MainBindingParam>();
 
+        public BackColorViewModels BackColorView
+        {
+            get => field;
+
+            set;
+        } = new BackColorViewModels();
+
+
+        //=> _backColorView;
 
         /// <summary>
         /// MainParamsプロパティは、MainBindingParamのコレクションを保持します。
@@ -104,10 +118,6 @@ namespace HaruaConvert.Parameter
 
 
 
-
-
-
-        
         //原因の切り分けのために例外を投げさせる実装
         public string SourcePathText
         {

@@ -1,5 +1,6 @@
-﻿
 
+
+using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
 using HaruaConvert.ViewModel.ffmpegOptions.CheckBox;
 
 namespace HaruaConvert.Parameter
@@ -13,9 +14,7 @@ namespace HaruaConvert.Parameter
         public string endString { get; set; } = null!;
         public string placement { get; set; }
 
-
-
-
+        
 
         internal ffmpegDetailsOptionsStateModel ffmpegOptionsStateModel { get; set; }
 
@@ -41,5 +40,8 @@ namespace HaruaConvert.Parameter
         }
 
         public double BackImageOpacity { get; set; }
+
+
+      
     }
 }
