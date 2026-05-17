@@ -10,8 +10,8 @@ namespace HaruaConvert.HaruaInterFace
         Task<Process> StartAndWaitAsync(
             string arguments,
             DataReceivedEventHandler errorHandler,
-            EventHandler exitedHandler,
-            CancellationToken cancellationToken = default,
-            Action<Process>? onProcessStarted = null);
+            EventHandler exitedHandler,            
+            Action<Process> onProcessStarted = null,
+            CancellationToken cancellationToken = default);
     }
 }

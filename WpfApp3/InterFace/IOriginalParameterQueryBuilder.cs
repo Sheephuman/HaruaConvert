@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace HaruaConvert.HaruaInterFace
 {
@@ -15,7 +15,7 @@ namespace HaruaConvert.HaruaInterFace
             string outputFilePath,
             string triggerButtonName,
             string executeButtonName,
-            string? legacyBaseArgumentsForPercentCheck);
+            string legacyBaseArgumentsForPercentCheck);
     }
 
     public readonly record struct SelectorState(bool IsChecked, string ArgumentText);
