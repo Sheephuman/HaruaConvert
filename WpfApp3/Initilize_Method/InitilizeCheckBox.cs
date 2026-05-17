@@ -1,5 +1,6 @@
 ﻿using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
@@ -12,7 +13,7 @@ namespace HaruaConvert.Initilize_Method
     {
         public InitilizeCheckBox(ParamField _paramfield)
         {
-            paramField = _paramfield;
+            paramField = _paramfield ?? throw new InvalidOperationException();
         }
         ParamField paramField { get; set; }
 
