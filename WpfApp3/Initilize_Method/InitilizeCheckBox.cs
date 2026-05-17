@@ -82,7 +82,7 @@ namespace HaruaConvert.Initilize_Method
             foreach (var checker in childCheckBoxList)
             {
                 // CheckBoxの状態をINIファイルから読み込む
-                checker.IsChecked = iniChecker.CheckBoxiniGetVallue(checker, paramField.iniPath);
+                checker.IsChecked = iniChecker.CheckBoxiniGetVallue(checker, paramField.SettingsStore);
 
             }
             return true;

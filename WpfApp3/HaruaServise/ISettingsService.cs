@@ -1,34 +1,29 @@
-﻿using System;
+﻿using HaruaConvert.Json;
+using System;
 
 namespace HaruaConvert.HaruaService
 {
     public interface ISettingsService
     {
-
-        string GetIniPath();
+        string GetSettingsPath();
+        AppSettingsStore Store { get; }
     }
 
     public class SettingsService : ISettingsService
     {
-        private readonly string _iniPath;
-
-        public SettingsService(string iniPath)
+        public SettingsService(AppSettingsStore store)
         {
-
-
-            _iniPath = iniPath;
-
-            _iniPath = iniPath ?? throw new ArgumentNullException(nameof(iniPath));
-
-
+            Store = store ?? throw new ArgumentNullException(nameof(store));
+            _settingsPath = store.JsonPath;
         }
 
-        public string GetIniPath()
+        private readonly string _settingsPath;
+
+        public AppSettingsStore Store { get; }
+
+        public string GetSettingsPath()
         {
-            return _iniPath;
+            return _settingsPath;
         }
-
-
     }
-
 }

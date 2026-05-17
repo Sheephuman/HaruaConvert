@@ -1,4 +1,5 @@
 ﻿using HaruaConvert.HaruaService;
+using HaruaConvert.Json;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
@@ -18,8 +19,8 @@ namespace HaruaConvert
             {
 
                 //  Set Default Parameter on FfmpegQueryClass
-                var settingsService = new SettingsService(paramField.iniPath);
-                harua_View = new Harua_ViewModel(settingsService,this);
+                var settingsService = new SettingsService(paramField.SettingsStore);
+                harua_View = new Harua_ViewModel(settingsService, this);
 
 
 
@@ -41,15 +42,19 @@ namespace HaruaConvert
         private void InitializeParameters()
         {
 
-            //iniPathにカレントディレクトリを設定
+            var baseDirectory = AppContext.BaseDirectory;
+            var settingsJsonPath = Path.Combine(baseDirectory, "Settings.json");
+            var legacyIniPath = Path.Combine(baseDirectory, ClassShearingMenbers.SettingsIni);
+
             paramField = new ParamField()
             {
                 isParamEdited = false,
                 isExecuteProcessed = false,
-
-                iniPath = Path.Combine(AppContext.BaseDirectory, ClassShearingMenbers.SettingsIni),
-                profileQueryIni = Path.Combine(AppContext.BaseDirectory, "QueryProfile.ini")
+                iniPath = settingsJsonPath,
+                SettingsStore = new AppSettingsStore(settingsJsonPath, legacyIniPath),
+                profileQueryIni = Path.Combine(baseDirectory, "QueryProfile.ini"),
             };
+            paramField.SettingsStore.Load();
 
             //Debug.WriteLine("Test" + paramField.iniPath);
             Ffmpc = new FfmpegQueryClass(this);
@@ -62,8 +67,8 @@ namespace HaruaConvert
         {
             isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
-            var setIniReader = new IniSettings_IOClass();
-            setIniReader.IniSettingReader(paramField, this);
+            var settingsReader = new Settings_IOClass();
+            settingsReader.JsonSettingReader(paramField, this);
 
 
         }
