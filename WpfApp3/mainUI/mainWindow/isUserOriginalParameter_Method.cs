@@ -1,4 +1,4 @@
-﻿using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Methods.Conversion;
 using HaruaConvert.Parameter;
 using System;
