@@ -201,7 +201,7 @@ namespace HaruaConvert.userintarface
             if (AudioCodecBox.SelectedItem != null)
             {
 
-                qf.AudioCodecStrings = indexMake(AudioCodecBox);
+                qf.AudioCodecStrings = AudioCodecBox.SelectedValue.ToString();
 
                 qf.UpdateAllInput(FileNameExtentionBox.Text);
             }
@@ -296,6 +296,10 @@ namespace HaruaConvert.userintarface
                 var combo = main.ParamText;
                 if (!combo.Items.Contains(combo.Text))
                     combo.Items.Add(combo.Text);
+
+                MessageBox.Show("Queryが正常に適用されましたましたわ");
+
+                main.Activate();
             }
             //メインウィンドウのBinding先がMainParamクラスであるため、
             //その中の変数に直接アクセスしてもBindingに反映されない

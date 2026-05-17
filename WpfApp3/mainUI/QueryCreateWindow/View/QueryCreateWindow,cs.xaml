@@ -75,8 +75,8 @@
                         IsEditable="True"
                          SelectedIndex="0"
                          Loaded="FileNameExtentionBox_Loaded"
-                        SelectedItem="{Binding SelectedFileExtension,Mode=TwoWay}"
-                    
+                         SelectedItem="{Binding UserSelectedExtension , Mode=TwoWay}"
+                        
                         x:Name="FileNameExtentionBox" Width="100" Margin="10,0,10,0"
                         
                         
@@ -102,7 +102,7 @@
                         <ComboBox x:Name="VideoCodecBox"
                       IsEditable="True"
                       ItemsSource="{Binding FfmpegVideoCodecDic}"
-                      SelectedItem="{Binding VideoCodecStrings, Mode=TwoWay}"
+                      SelectedValue="{Binding VideoCodecStrings, Mode=TwoWay}"
                       SelectionChanged="VideoCodecBox_SelectionChanged"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Key"
@@ -126,7 +126,7 @@
                       IsEditable="True"
                       Width="150" Margin="6"
                       ItemsSource="{Binding FfmpegAudioCodecDic}"
-                      SelectedItem="{Binding AudioCodecStrings,Mode=TwoWay}"
+                      SelectedValue="{Binding AudioCodecStrings,Mode=TwoWay}"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Key"
                       SelectedIndex="0"/>

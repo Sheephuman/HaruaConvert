@@ -380,3 +380,9 @@ FodyWeavers.xsd
 /Harua_MSIX/dll/NAudio.WinMM.dll
 /Harua_MSIX/dll/WinRT.Runtime.dll
 /Harua_MSIX/dll/しょどーる参上.wav
+/WpfApp3/Methods/Settings/MainWindowSettingsPersistenceService.cs
+/WpfApp3/Methods/Conversion/WpfOverwritePrompt.cs
+/WpfApp3/Methods/Conversion/OriginalParameterQueryBuilder.cs
+/WpfApp3/Methods/Conversion/MainWindowConversionLauncher.cs
+/WpfApp3/Methods/Conversion/FFmpegPostProcessHandler.cs
+/WpfApp3/Methods/Conversion/ConversionExecutionPreparer.cs

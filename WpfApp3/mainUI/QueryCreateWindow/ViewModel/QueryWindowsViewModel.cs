@@ -15,6 +15,8 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.ViewModel
         {
             _queryField = queryField;
 
+            VideoContainerName = string.Empty;
+             AudioName = string.Empty;
             // 初期値
             SelectedFileExtension = ".mp4";
         }

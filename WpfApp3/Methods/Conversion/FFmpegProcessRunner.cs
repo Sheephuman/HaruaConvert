@@ -12,9 +12,9 @@ namespace HaruaConvert.Methods.Conversion
         public async Task<Process> StartAndWaitAsync(
             string arguments,
             DataReceivedEventHandler errorHandler,
-            EventHandler exitedHandler,
-            CancellationToken cancellationToken = default,
-            Action<Process>? onProcessStarted = null)
+            EventHandler exitedHandler,            
+            Action<Process> onProcessStarted = null,
+            CancellationToken cancellationToken = default)
         {
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             var tcs = new TaskCompletionSource<bool>();
