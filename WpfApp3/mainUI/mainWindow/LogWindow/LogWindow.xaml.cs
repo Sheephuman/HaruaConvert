@@ -1,4 +1,4 @@
-﻿using HaruaConvert.Initilize_Method;
+using HaruaConvert.Initilize_Method;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
 using System;
@@ -75,7 +75,7 @@ namespace HaruaConvert
             _pendingLogs.Enqueue(line);
         }
 
-        private void FlushPendingLogs(object? sender, EventArgs e)
+        private void FlushPendingLogs(object sender, EventArgs e)
         {
             if (_pendingLogs.IsEmpty)
             {
@@ -83,7 +83,7 @@ namespace HaruaConvert
             }
 
             bool hasNewLine = false;
-            while (_pendingLogs.TryDequeue(out string? line))
+            while (_pendingLogs.TryDequeue(out string line))
             {
                 _logEntries.Add(new LogEntry(line));
                 hasNewLine = true;
@@ -104,7 +104,7 @@ namespace HaruaConvert
         {
             try
             {
-                Process? proc = _owner.ffmpegProcess;
+                Process proc = _owner.ffmpegProcess;
                 if (proc == null)
                 {
                     return;
