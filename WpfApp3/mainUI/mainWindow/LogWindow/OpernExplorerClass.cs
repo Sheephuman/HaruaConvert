@@ -15,7 +15,7 @@ namespace HaruaConvert.mainUI.mainWindow.LogWindow
     }
 
 
-    public class OpernExplorerClass : IOpenExplorer
+    public partial class OpernExplorerClass : IOpenExplorer
     {
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
@@ -23,7 +23,7 @@ namespace HaruaConvert.mainUI.mainWindow.LogWindow
 
 
         [LibraryImport("shell32.dll", StringMarshalling = StringMarshalling.Utf16)]
-        public static extern int SHParseDisplayName(
+        private static partial int SHParseDisplayName(
             string name,
             IntPtr bindingContext,
             out IntPtr pidl,

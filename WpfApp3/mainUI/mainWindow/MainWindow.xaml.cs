@@ -387,8 +387,6 @@ namespace HaruaConvert
 
 
 
-
-        bool isForceExec;
         private void isForceExec_
             (object sender, RoutedEventArgs e)
         {
