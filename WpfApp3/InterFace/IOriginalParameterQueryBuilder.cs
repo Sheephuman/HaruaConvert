@@ -22,6 +22,5 @@ namespace HaruaConvert.HaruaInterFace
         string ParamTabOutputSelectorDirectory,
         bool SetQueryBuildFailedFlag)
     {
-        public bool SetQueryBuildFailedFlag { get; }
     }
 }
