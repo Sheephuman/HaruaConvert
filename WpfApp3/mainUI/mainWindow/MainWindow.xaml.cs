@@ -4,6 +4,7 @@ using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Initilize_Method;
 using HaruaConvert.Json;
 using HaruaConvert.mainUI.mainWindow;
+using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
 using HaruaConvert.Methods;
 using HaruaConvert.Methods.Settings;
 using HaruaConvert.Parameter;
@@ -89,7 +90,7 @@ namespace HaruaConvert
             // MainWindow自身をIMediaInfoDisplayとしてMediaInfoServiceに渡す
 
             SetUIEvent uiManager = new SetUIEvent(main);
-            uiManager.RegisterUIDropEvent();
+           // uiManager.RegisterUIDropEvent();
 
             uiManager.SetupEventHandlers();
 
@@ -391,7 +392,7 @@ namespace HaruaConvert
         private void isForceExec_
             (object sender, RoutedEventArgs e)
         {
-            isForceExec = isForceExecCheckBox.IsChecked == true ? true : false;
+          //  isForceExec = isForceExecCheckBox.IsChecked == true ? true : false;
         }
 
 
@@ -437,6 +438,59 @@ namespace HaruaConvert
 
                await exe.ExPlorerRestarter(tpc);
             }
+        }
+
+        private void opacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (OpacityText != null && harua_View != null)
+            {
+
+                myBrush.Opacity = opacitySlider.Value;
+                OpacityText.Content = $"{opacitySlider.Value:f1}";
+
+
+            }
+        }
+
+
+
+        /// <summary>
+        /// 色初期化ボタン押下時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InitilizeColorButton_Click(object sender, RoutedEventArgs e)
+        {
+            ///new初期化
+
+
+        
+
+
+            var initColor = new AppearanceSettings();
+            if (main.harua_View.MainParams.Count > 0)
+            {
+                main.harua_View.MainParams[0].BackImageOpacity = initColor.BackImageOpacity;
+            }
+
+            // バインドだけでは ImageBrush / Slider に届かないことがあるため、以前と同様に UI へ直接反映する。
+            if (main.opacitySlider != null)
+            {
+                main.opacitySlider.Value = initColor.BackImageOpacity;
+            }
+
+            if (main.myBrush != null)
+            {
+                main.myBrush.Opacity = initColor.BackImageOpacity;
+                
+            }
+
+            main.redSlider?.Value = initColor.BackgroundColor.Red;
+            main.greenSlider?.Value = initColor.BackgroundColor.Green;
+            main.blueSlider?.Value = initColor.BackgroundColor.Blue;
+
+            main.SaturationSlider?.Value = initColor.Saturation;
+            main.LightnessSlider?.Value = initColor.Lightness;
         }
     }
 }

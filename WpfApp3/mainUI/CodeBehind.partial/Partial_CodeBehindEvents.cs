@@ -13,6 +13,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using WpfApp3.Parameter;
 using static HaruaConvert.IniCreate;
@@ -34,7 +35,7 @@ namespace HaruaConvert
 
 
 
-        public bool firstSet { get; set; } //初回起動用
+        public bool firstSet { get; set; } = true; //初回起動用
         public bool firstlogWindow { get; set; }
 
         public string baseArguments { get; set; }
@@ -206,6 +207,9 @@ namespace HaruaConvert
         {
             try
             {
+
+                
+
                 _uiDataLoaderService.LoadCommandHistoryItems(ParamText);
 
 
@@ -267,7 +271,7 @@ namespace HaruaConvert
 
         private void AtacchStringsList_Loaded(object sender, RoutedEventArgs e)
         {
-            int index = _uiDataLoaderService.LoadPlaceholderIndex(paramField.iniPath);
+            int index = _uiDataLoaderService.LoadPlaceholderIndex(paramField.SettingsStore);
             if (index >= 0)
                 placeHolderList.SelectedIndex = index;
 
@@ -280,17 +284,7 @@ namespace HaruaConvert
             return ToString();
         }
 
-        private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (OpacityText != null && harua_View != null)
-            {
-
-                harua_View.MainParams[0].BackImageOpacity = opacitySlider.Value;
-                OpacityText.Content = $"{opacitySlider.Value:f1}";
-
-                
-            }
-        }
+    
 
         TextBoxStylingHelper drawhelper;
         TextBox InnerTextBox;
@@ -352,11 +346,16 @@ namespace HaruaConvert
         {
             radioSel = sender as RadioButton;
 
+            int radioCount = 0;
 
             foreach (ParamSelector rd in selectorList)
             {
                 if (rd.SlectorRadio == radioSel)
                 {
+                    radioCount = selectorList.IndexOf(rd);
+
+                    main.paramField.SettingsStore.Current.SelectedParamSelectorIndex = radioCount.ToString(CultureInfo.CurrentCulture);
+
                     //baseArguments = rd.ArgumentEditor.Text;
                     if (isUserParameter.IsChecked.Value)
                     {

@@ -1,4 +1,4 @@
-﻿using HaruaConvert.HaruaService;
+using HaruaConvert.HaruaService;
 using HaruaConvert.Json;
 using HaruaConvert.Methods;
 using HaruaConvert.Parameter;
@@ -17,16 +17,17 @@ namespace HaruaConvert
         {
             try
             {
+                if (paramField.SettingsStore == null)
+                {
+                    throw new InvalidOperationException("SettingsStore is not initialized. Call InitializeParameters first.");
+                }
 
-                //  Set Default Parameter on FfmpegQueryClass
                 var settingsService = new SettingsService(paramField.SettingsStore);
                 harua_View = new Harua_ViewModel(settingsService, this);
 
-
-
-                ///MainWindowのパラメータボックスで読み込むquery
                 DataContext = harua_View.MainParams;
             }
+            
 
             catch (Exception ex)
             {
@@ -41,34 +42,29 @@ namespace HaruaConvert
 
         private void InitializeParameters()
         {
-
             var baseDirectory = AppContext.BaseDirectory;
             var settingsJsonPath = Path.Combine(baseDirectory, "Settings.json");
-            var legacyIniPath = Path.Combine(baseDirectory, ClassShearingMenbers.SettingsIni);
+            
 
             paramField = new ParamField()
             {
                 isParamEdited = false,
                 isExecuteProcessed = false,
                 iniPath = settingsJsonPath,
-                SettingsStore = new AppSettingsStore(settingsJsonPath, legacyIniPath),
-                profileQueryIni = Path.Combine(baseDirectory, "QueryProfile.ini"),
+                SettingsStore = new AppSettingsStore(settingsJsonPath),
+                profileQueryIni = Path.Combine(baseDirectory, "settings.json"),
             };
-            paramField.SettingsStore.Load();
 
-            //Debug.WriteLine("Test" + paramField.iniPath);
-            Ffmpc = new FfmpegQueryClass(this);
-            firstSet = true;
-            _arguments = string.Empty;
-            th1 = new Thread(() => { });
-            escapes = new EscapePath();
+            paramField.SettingsStore.Load();
         }
+
+
         public void LoadSettings()
         {
             isUseOriginalCheckProc(isUserParameter.IsChecked.Value);
 
-            var settingsReader = new Settings_IOClass();
-            settingsReader.JsonSettingReader(paramField, this);
+            var setIniReader = new Settings_IOClass();
+            setIniReader.JsonSettingReader(paramField, this);
 
 
         }

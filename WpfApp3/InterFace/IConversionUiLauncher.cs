@@ -10,9 +10,9 @@ namespace HaruaConvert.HaruaInterFace
         /// 上書き確認を出さない経路（旧 IfNoFileExsistsClass）。
         /// 新規に変換を開始した場合 true。既に実行中で開始しなかった場合 false。
         /// </summary>
-        bool HandleConversionWhenNoOverwritePromptRequired();
+        bool TryStartConversion(string arguments);
 
         /// <summary>上書きに同意したあと（旧 DialogMethod の Yes 部分）。</summary>
-        void BeginConversionAfterOverwriteAccepted();
+        void StartConversion();
     }
 }

@@ -1,4 +1,4 @@
-﻿using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
+using HaruaConvert.mainUI.QueryCreateWindow.ViewModel;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace HaruaConvert.QueryBuilder
             FfmpegAudioCodecDic = new Dictionary<string, string>();
             FfmpegAudioCodecDic = new Dictionary<string, string>();
             FfmpegVideoCacheDic = new Dictionary<string, string>();
+
         }
 
         private string _bitRateInput = string.Empty;
@@ -38,6 +39,8 @@ namespace HaruaConvert.QueryBuilder
 
         private bool _isBitrateChecked;
         public bool IsBitrateChecked
+
+
         {
             get => _isBitrateChecked;
             set => SetProperty(ref _isBitrateChecked, value);

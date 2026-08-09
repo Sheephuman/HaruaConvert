@@ -1,0 +1,101 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Fragment>
+    <UI Id="InstallDirUI">
+
+      <!-- インストール先選択ダイアログ -->
+      <Dialog Id="InstallDirDialog"
+              Width="370"
+              Height="270"
+              Title="HaruaConvert インストール">
+
+        <Control Id="Title"
+                 Type="Text"
+                 X="15" Y="15"
+                 Width="340" Height="30"
+                 Transparent="yes"
+                 NoPrefix="yes"
+                 Text="インストール先フォルダー" />
+
+        <Control Id="Description"
+                 Type="Text"
+                 X="20" Y="50"
+                 Width="330" Height="40"
+                 Transparent="yes"
+                 NoPrefix="yes"
+                 Text="HaruaConvert のインストール先となる親フォルダーを指定してください。" />
+
+        <Control Id="FolderLabel"
+                 Type="Text"
+                 X="20" Y="100"
+                 Width="330" Height="17"
+                 Transparent="yes"
+                 NoPrefix="yes"
+                 Text="親フォルダー:" />
+
+        <Control Id="Folder"
+                 Type="PathEdit"
+                 X="20" Y="120"
+                 Width="260" Height="18"
+                 Property="INSTALLPARENT"
+                 Indirect="yes" />
+
+        <Control Id="Browse"
+                 Type="PushButton"
+                 X="290" Y="119"
+                 Width="60" Height="20"
+                 Text="参照...">
+          <Publish Event="SpawnDialog" Value="BrowseDlg" Order="1" />
+          <Publish Property="_BrowseProperty" Value="INSTALLPARENT" Order="2" />
+        </Control>
+
+        <Control Id="ApplicationFolder"
+                 Type="Text"
+                 X="20" Y="155"
+                 Width="330" Height="40"
+                 Transparent="yes"
+                 NoPrefix="yes"
+                 Text="選択したフォルダーの下に「HaruaConvert」フォルダーが作成されます。" />
+
+        <!-- ボタン類 -->
+        <Control Id="Back"
+                 Type="PushButton"
+                 X="180" Y="243"
+                 Width="56" Height="17"
+                 Text="戻る">
+          <Publish Event="NewDialog" Value="WelcomeDlg" />
+        </Control>
+
+        <Control Id="Next"
+                 Type="PushButton"
+                 X="240" Y="243"
+                 Width="56" Height="17"
+                 Default="yes"
+                 Text="次へ">
+          <!-- ここが重要：括弧なしでディレクトリIDを指定 -->
+          <Publish Event="SetTargetPath" Value="INSTALLPARENT" Order="1" />
+          <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="2" />
+        </Control>
+
+        <Control Id="Cancel"
+                 Type="PushButton"
+                 X="300" Y="243"
+                 Width="56" Height="17"
+                 Cancel="yes"
+                 Text="キャンセル">
+          <Publish Event="SpawnDialog" Value="CancelDlg" />
+        </Control>
+
+      </Dialog>
+
+      <!-- WelcomeDlg → このカスタムダイアログへ遷移 -->
+      <Publish Dialog="WelcomeDlg"
+               Control="Next"
+               Event="NewDialog"
+               Value="InstallDirDialog"
+               Order="1" />
+
+    </UI>
+  </Fragment>
+
+</Wix>

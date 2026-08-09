@@ -10,18 +10,18 @@ using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.mainUI.mainWindow
 {
-    internal class isUserOriginalParameter
+    public class UserOriginalParameter
     {
-        private static readonly IOriginalParameterQueryBuilder QueryBuilder = new OriginalParameterQueryBuilder();
-
         MainWindow mw;
+        public OriginalQueryBuildResult paramResult { get; set; }
 
-        public isUserOriginalParameter(MainWindow _main)
+
+        public UserOriginalParameter(MainWindow _main)
         {
             mw = _main;
         }
 
-        public bool isUserOriginalParameter_Method(object sender)
+        public bool UserOriginalParameter_Method(object sender)
         {
             try
             {
@@ -34,56 +34,64 @@ namespace HaruaConvert.mainUI.mainWindow
                 var selectors = mw.selectorList.Select(sp =>
                     new SelectorState(sp.SlectorRadio.IsChecked == true, sp.ArgumentEditor.Text));
 
-                OriginalQueryBuildResult result = QueryBuilder.Build(
-                    selectors,
-                    dictionary,
-                    mw.harua_View.MainParams[0].placement,
-                    mw.InputSelector.FilePathBox.Text,
-                    mw.OutputSelector.FilePathBox.Text,
-                    ((Button)sender).Name,
-                    ButtonNameField._ExecButton,
-                    mw.baseArguments);
+                paramResult = new OriginalParameterQueryBuilder().Build(
+                   selectors,
+                   dictionary,
+                   mw.harua_View.MainParams[0].placement,
+                   mw.InputSelector.FilePathBox.Text,
+                   mw.OutputSelector.FilePathBox.Text,
+                   ((Button)sender).Name,
+                   ButtonNameField._ExecButton,
+                   mw.baseArguments);
 
-                if (!result.IsSuccess)
+                if (!paramResult.IsSuccess)
                 {
-                    if (!string.IsNullOrEmpty(result.ErrorMessage))
+                    if (!string.IsNullOrEmpty(paramResult.ErrorMessage))
                     {
-                        MessageBox.Show(result.ErrorMessage);
+                        MessageBox.Show(paramResult.ErrorMessage);
                     }
 
-                    if (result.SetQueryBuildFailedFlag)
+                    if (paramResult.SetQueryBuildFailedFlag)
                     {
-                        mw.paramField.isSuccessdbuildQuery = false;
+                        return true;
                     }
 
-                    if (!string.IsNullOrEmpty(result.OutputPath))
+                    if (!string.IsNullOrEmpty(paramResult.OutputPath))
                     {
-                        mw.paramField.check_output = result.OutputPath;
+                        mw.paramField.check_output = paramResult.OutputPath;
                     }
 
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(result.Arguments))
+
+
+                if (string.IsNullOrEmpty(paramResult.Arguments))
                 {
                     return true;
                 }
 
-                mw.th1.DisableComObjectEagerCleanup();
-                mw._arguments = result.Arguments;
-                mw.paramField.check_output = result.OutputPath;
-                mw.paramField.isSuccessdbuildQuery = true;
-                if (!string.IsNullOrEmpty(result.ParamTabOutputSelectorDirectory))
+
+                mw._arguments = paramResult.Arguments;
+                mw.paramField.check_output = paramResult.OutputPath;
+                mw.paramField.isQueryBuildFailed = true;
+                if (!string.IsNullOrEmpty(paramResult.ParamTabOutputSelectorDirectory))
                 {
-                    ParamField.ParamTab_OutputSelectorDirectory = result.ParamTabOutputSelectorDirectory;
+                    ParamField.ParamTab_OutputSelectorDirectory = paramResult.ParamTabOutputSelectorDirectory;
                 }
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
                 return false;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(paramResult.OutputPath + "\n" + paramResult.IsSuccess + "\n" + paramResult.ErrorMessage + "\n" + paramResult.Arguments);
+                return false;
+            }
+
+            finally
+            {
+                if (mw.th1 != null)
+                     mw.th1.DisableComObjectEagerCleanup();
             }
         }
     }

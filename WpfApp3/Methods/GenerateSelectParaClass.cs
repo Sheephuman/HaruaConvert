@@ -1,4 +1,4 @@
-﻿using HaruaConvert.mainUI.mainWindow;
+using HaruaConvert.mainUI.mainWindow;
 using System.Windows.Input;
 
 namespace HaruaConvert.Methods
@@ -36,6 +36,9 @@ namespace HaruaConvert.Methods
             selchild.KeyUp += uiManager.InvisibleText_KeyDown;
             selchild.LostFocus += main.InvisibleText_LostFocus;
             selchild.SelectorLabelCon.MouseDoubleClick += main.Tb_MouseDoubleClick;
+            
+            
+
             selchild.SelectorLabelCon.MouseMove += main.ParamSelector_MouseEnter;
 
          //   TextCompositionManager.AddPreviewTextInputHandler(selchild.invisibleText, main.OnPreviewTextInput);

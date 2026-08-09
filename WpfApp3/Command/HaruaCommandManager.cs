@@ -1,4 +1,4 @@
-﻿using HaruaConvert.userintarface;
+using HaruaConvert.userintarface;
 using System.Windows;
 using System.Windows.Input;
 using WpfApp3.Parameter;

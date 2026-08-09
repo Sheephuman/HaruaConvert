@@ -14,7 +14,7 @@ namespace HaruaConvert.Methods.Conversion
         private readonly IConversionExecutionPreparer _preparer;
         private readonly IConversionOutputConflictEvaluator _outputConflictEvaluator;
         private readonly Func<IConversionUiLauncher> _conversionUiLauncherFactory;
-
+        public UserOriginalParameter OrigenelParam { get; set; }
         public MainFileConversionOrchestrator(
             MainWindow host,
             IConversionExecutionPreparer preparer,
@@ -27,7 +27,7 @@ namespace HaruaConvert.Methods.Conversion
             _conversionUiLauncherFactory = conversionUiLauncherFactory;
         }
 
-        public bool Execute(string fullPath, object sender)
+        public bool Execute(string fullPath, string ButtonName, object sender)
         {
             _host.escapes = new EscapePath();
 
@@ -38,9 +38,9 @@ namespace HaruaConvert.Methods.Conversion
                 _host._arguments = string.Empty;
             }
 
-            var chButton = VisualTreeHelperWrapperHelpers.FindDescendant<Button>(_host.Drop_Label);
+            
 
-            if (ClassShearingMenbers.ButtonName == chButton.Name)
+            if (ParamField.ButtonNameField.Convert_DropButton == ButtonName)
             {
                 var prepared = _preparer.PrepareDropConversion(
                     fullPath,
@@ -55,30 +55,30 @@ namespace HaruaConvert.Methods.Conversion
                 _host.escapes = prepared.Escapes;
                 _host.param = prepared.ParameterCreator;
             }
-            else if (_host.isUserParameter.IsChecked == true)
+            else 
             {
-                var isOrigenelParam = new isUserOriginalParameter(_host);
-                _ = isOrigenelParam.isUserOriginalParameter_Method(sender);
+                 OrigenelParam = new UserOriginalParameter(_host);
+                _host.paramField.isQueryBuildFailed = OrigenelParam.UserOriginalParameter_Method(sender);
 
-                if (!_host.paramField.isSuccessdbuildQuery)
+                if (_host.paramField.isQueryBuildFailed)
                 {
                     return false;
                 }
             }
 
             bool checker = false;
-            bool needsOverwritePrompt = _outputConflictEvaluator.ShouldPromptOverwrite(
+            bool needsOverwrite = _outputConflictEvaluator.ShouldPromptOverwrite(
                 _host.paramField.check_output,
                 _host.NoDialogCheck.IsChecked == true);
 
             try
             {
                 IConversionUiLauncher launcher = _conversionUiLauncherFactory();
-                checker = needsOverwritePrompt
+                checker = needsOverwrite
                     ? _host.DialogMethod()
-                    : launcher.HandleConversionWhenNoOverwritePromptRequired();
+                    : launcher.TryStartConversion(_host._arguments);
 
-                if (needsOverwritePrompt)
+                if (needsOverwrite)
                 {
                     _host.paramField.isExecuteProcessed = checker;
                 }
@@ -99,9 +99,8 @@ namespace HaruaConvert.Methods.Conversion
             }
             catch (Exception ex)
             {
-                _host.th1.Join();
-
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
+                
                 return false;
             }
         }

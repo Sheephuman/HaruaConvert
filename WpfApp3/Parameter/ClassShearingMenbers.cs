@@ -1,4 +1,4 @@
-﻿namespace WpfApp3.Parameter
+namespace WpfApp3.Parameter
 {
     public static class ClassShearingMenbers
     {
@@ -10,6 +10,6 @@
         public static string extention { get; internal set; }
         public static string ffmpegQuery { get; internal set; }
         public static string CheckState { get; internal set; } = nameof(CheckState);
-        public static string SettingsIni { get; set; } = "Settings.ini";
+        public static string SettingsIni { get; set; } = "Settings.json";
     }
 }

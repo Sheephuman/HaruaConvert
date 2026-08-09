@@ -89,10 +89,7 @@ namespace HaruaConvert
 
         public void OnApplicationExit(object sender, ExitEventArgs e)
         {
-
-            //{
-            //    var exd = new ExitProcedureClass(main);
-            //    exd.ExitProcedure(sender,e);
+      
         }
 
 
@@ -217,23 +214,40 @@ namespace HaruaConvert
 
         private void OriginalParamExecButton_Click(object sender, RoutedEventArgs e)
         {
-            ClassShearingMenbers.ButtonName = ((Button)sender).Name;
-
-            string validationError = _conversionRequestValidator.ValidateOriginalExecutionRequest(
-                paramField.isExecuteProcessed,
-                paramField.usedOriginalArgument,
-                InputSelector.FilePathBox.Text,
-                OutputSelector.FilePathBox.Text);
-
-            if (!string.IsNullOrEmpty(validationError))
+            try
             {
-                MessageBox.Show(validationError);
-                return;
+
+
+                
+
+                ClassShearingMenbers.ButtonName = ((Button)sender).Name;
+
+                string validationError = _conversionRequestValidator.ValidateOriginalExecutionRequest(
+                    paramField.isExecuteProcessed,
+                    paramField.usedOriginalArgument,
+                    InputSelector.FilePathBox.Text,
+                    OutputSelector.FilePathBox.Text);
+
+                if (!string.IsNullOrEmpty(validationError))
+                {
+                    MessageBox.Show(validationError);
+                    return;
+                }
+
+                paramField?.setFile = InputSelector.FilePathBox.Text ?? string.Empty;
+
+                if (paramField.setFile == null)
+                    return;
+
+                if (mainFileConvertExec(paramField?.setFile, ClassShearingMenbers.ButtonName, sender))
+                {
+                    paramField.isExecuteProcessed = true;
+                }
+                           
             }
-
-            if (mainFileConvertExec(paramField.setFile, sender))
+            catch(NullReferenceException ex)
             {
-                paramField.isExecuteProcessed = true;
+                MessageBox.Show("NullReferenceException occurred: " + ex.Message);
             }
         }
 

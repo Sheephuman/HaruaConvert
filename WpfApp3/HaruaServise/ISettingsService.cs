@@ -1,4 +1,4 @@
-﻿using HaruaConvert.Json;
+using HaruaConvert.Json;
 using System;
 
 namespace HaruaConvert.HaruaService

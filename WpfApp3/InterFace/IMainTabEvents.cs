@@ -1,4 +1,4 @@
-﻿using FFMpegCore;
+using FFMpegCore;
 using HaruaConvert.HaruaServise;
 using HaruaConvert.Parameter;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -154,7 +154,7 @@ namespace HaruaConvert.HaruaInterFace
 
 
 
-                main.mainFileConvertExec(main.paramField.setFile, sender);
+                main.mainFileConvertExec(main.paramField.setFile, ClassShearingMenbers.ButtonName, sender);
 
                 //    main.paramField.infoDelll.Invoke(main);
 

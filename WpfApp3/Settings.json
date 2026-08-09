@@ -1,0 +1,31 @@
+{
+  "window": {
+    "left": 25,
+    "top": 50
+  },
+  "directories": {
+    "convert": "",
+    "output": "",
+    "outputSelector": "",
+    "inputSelector": ""
+  },
+  "selectorGenerateCount": "1",
+  "appearance": {
+    "backImageOpacity": 1,
+    "backgroundColor": {
+      "red": 253,
+      "green": 238,
+      "blue": 240
+    },
+    "lightness": 0.5,
+    "saturation": 1
+  },
+  "ffmpegQuery": {
+    "baseQuery": "",
+    "endStrings": "_Harua"
+  },
+  "placeHolderIndex": 0,
+  "selectedParamSelectorIndex": "0",
+  "selectors": [],
+  "checkState": {}
+}

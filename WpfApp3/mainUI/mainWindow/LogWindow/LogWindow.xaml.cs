@@ -150,8 +150,8 @@ namespace HaruaConvert
         public void window_Closed(object sender, EventArgs e)
         {
             var checkProcess = new IniCheckBoxSetClass();
-            checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
-            checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.iniPath);
+            checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.SettingsStore);
+            checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.SettingsStore);
 
             this.Close();
         }
@@ -162,10 +162,8 @@ namespace HaruaConvert
             this.Visibility = Visibility.Collapsed;
             var checkProcess = new IniCheckBoxSetClass();
 
-            checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.iniPath);
-            checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.iniPath);
-
-
+            checkProcess.CheckediniSetVallue(AutoScroll_Checker, Lw_paramField.SettingsStore);
+            checkProcess.CheckediniSetVallue(BackImage_Checker, Lw_paramField.SettingsStore);
         }
 
 
@@ -318,7 +316,7 @@ namespace HaruaConvert
             {
 
                 // コピーのMenuItemに対する操作
-                item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.iniPath);
+                item.IsChecked = checkedProcess.CheckBoxiniGetVallue(item, Lw_paramField.SettingsStore);
                 if (item.Name == AutoScroll_Checker.Name)
                     Lw_paramField.isAutoScroll = true;
             }

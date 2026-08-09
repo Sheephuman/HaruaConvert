@@ -1,60 +1,20 @@
-﻿using System.Diagnostics;
+using HaruaConvert.Json;
 using System.Windows.Controls;
-using WpfApp3.Parameter;
-using static HaruaConvert.IniCreate;
 
 namespace HaruaConvert.Methods
 {
     internal class IniCheckBoxSetClass
     {
+        private readonly CheckBoxSettingsPersistence _persistence = new();
 
-        public void CheckediniSetVallue<T>(T check, string iniPath)
-
+        public void CheckediniSetVallue<T>(T check, AppSettingsStore store)
         {
-            var checkControl = check as Control;
-
-            if (checkControl is CheckBox chk)
-            {
-                string isCheckedStrings = chk.IsChecked.Value.ToString();
-
-                IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, isCheckedStrings);
-                ;
-            }
-            else if (checkControl is MenuItem menucheck)
-            {
-                IniDefinition.SetValue(iniPath, ClassShearingMenbers.CheckState, checkControl.Name,
-                menucheck.IsChecked.ToString());
-
-
-                //  Debug.WriteLine(((MenuItem)checkControl).Name + $"{((MenuItem)checkControl).IsChecked}:Saved");
-
-
-            }
-
-
-
+            _persistence.SaveCheckState(check, store);
         }
 
-
-        public bool CheckBoxiniGetVallue<T>(T check, string iniPath)
+        public bool CheckBoxiniGetVallue<T>(T check, AppSettingsStore store)
         {
-            var checkControl = check as Control;
-
-
-
-            bool setbool = IniDefinition.GetValueOrDefault(iniPath, ClassShearingMenbers.CheckState, checkControl.Name, false);
-
-
-
-            //    Debug.WriteLine(checkControl.Name + ":" + ((CheckBox)checkControl).IsChecked.Value.ToString());
-
-
-
-            return setbool;
-
+            return _persistence.LoadCheckState(check, store);
         }
-
     }
-
-
 }

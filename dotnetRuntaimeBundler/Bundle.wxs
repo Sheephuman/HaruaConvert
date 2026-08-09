@@ -1,0 +1,57 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal"
+     xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx"
+     >
+
+  <Bundle Name="HaruaConvert"
+          Manufacturer="MakizunoProject"
+          Version="1.3.0.0"
+          UpgradeCode="{3C632EE4-C14C-41B2-AE71-7F3B553D5263}">
+
+
+
+
+    <!-- これがポイント：MSIのUIを主に使う -->
+    <BootstrapperApplication>
+      <bal:WixInternalUIBootstrapperApplication
+          
+      Theme="standard" />
+    </BootstrapperApplication>
+
+
+    <!-- これが必須 -->
+    <netfx:DotNetCoreSearch
+        RuntimeType="desktop"
+        MajorVersion="10"
+        Platform="x64"
+        Variable="DotNetDesktopVersion" />
+
+
+    <Chain>
+      <!-- .NET Desktop Runtime -->
+      <!-- .NET Runtime（サイレント推奨） -->
+      <ExePackage Id="DotNetRuntime"
+                  SourceFile= "C:\git\HaruaConvert2\dotnetRuntaimeBundler\windowsdesktop-runtime-10.0.10-win-x64.exe"
+                   DetectCondition="DotNetDesktopVersion &gt;= v10.0.0"
+      InstallArguments="/install /quiet /norestart"
+      Permanent="yes"
+      Vital="yes" />
+
+
+
+
+      <!-- アプリ本体（ここが重要） -->
+      <MsiPackage Id="HaruaConvert"
+                  SourceFile="$(var.HaruaConvertInstaller.TargetDir)HaruaConvertInstaller.msi"
+                  Vital="yes"
+                  Compressed="yes"
+                  bal:DisplayInternalUICondition="1">
+
+        <!-- 必要ならここでプロパティを渡す -->
+         <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
+      </MsiPackage>
+     
+    </Chain>
+
+  </Bundle>
+</Wix>

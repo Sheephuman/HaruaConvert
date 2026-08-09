@@ -5,6 +5,6 @@ namespace HaruaConvert.HaruaInterFace
     /// </summary>
     public interface IMainFileConversionOrchestrator
     {
-        bool Execute(string fullPath, object sender);
+        bool Execute(string fullPath,string ButtonName ,object sender);
     }
 }

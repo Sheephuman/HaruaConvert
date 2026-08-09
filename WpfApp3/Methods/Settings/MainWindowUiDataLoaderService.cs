@@ -2,11 +2,8 @@ using HaruaConvert.HaruaInterFace;
 using HaruaConvert.Json;
 using HaruaConvert.Parameter;
 using System;
-using System.Globalization;
 using System.IO;
 using System.Windows.Controls;
-using WpfApp3.Parameter;
-using static HaruaConvert.IniCreate;
 using static HaruaConvert.Parameter.ParamField;
 
 namespace HaruaConvert.Methods.Settings
@@ -15,39 +12,30 @@ namespace HaruaConvert.Methods.Settings
     {
         public bool ApplySelectorInitialValues(MainWindow main, bool firstSet)
         {
-            int i = 0;
+            var index = 0;
             if (!firstSet)
             {
                 return firstSet;
             }
 
+            var settings = main.paramField.SettingsStore.Current;
             foreach (var selector in main.selectorList)
             {
-                selector.ArgumentEditor.Text = IniDefinition.GetValueOrDefault(
-                    main.paramField.iniPath,
-                    ParamField.ControlField.ParamSelector + "_" + $"{i}",
-                    IniSettingsConst.Arguments_ + $"{i}",
-                    string.Empty);
+                var selectorSettings = index < settings.Selectors.Count
+                    ? settings.Selectors[index]
+                    : new ParamSelectorSettings();
 
-                selector.ParamLabel.Text = IniDefinition.GetValueOrDefault(
-                    main.paramField.iniPath,
-                    ParamField.ControlField.ParamSelector + "_" + $"{i}",
-                    IniSettingsConst.ParameterLabel + "_" + $"{i}",
-                    "パラメータ名").Replace("\r\n", string.Empty, StringComparison.Ordinal);
+                selector.ArgumentEditor.Text = selectorSettings.Arguments;
+                selector.ParamLabel.Text = selectorSettings.ParameterLabel.Replace("\r\n", string.Empty, StringComparison.Ordinal);
 
-                string rcount = IniDefinition.GetValueOrDefault(
-                    main.paramField.iniPath,
-                    ClassShearingMenbers.CheckState,
-                    ParamField.ControlField.ParamSelector + "_Check",
-                    "0");
-
-                if (selector.Name == ParamField.ControlField.ParamSelector + rcount)
+                var selectedIndex = settings.SelectedParamSelectorIndex;
+                if (selector.Name == ControlField.ParamSelector + selectedIndex)
                 {
                     selector.SlectorRadio.IsChecked = true;
                     main.paramField.usedOriginalArgument = selector.ArgumentEditor.Text;
                 }
 
-                i++;
+                index++;
             }
 
             return false;
@@ -56,13 +44,13 @@ namespace HaruaConvert.Methods.Settings
         public void LoadCommandHistoryItems(ComboBox paramText)
         {
             var jsonreader = new CommandHistoryIO();
-            string history = Path.Combine(AppContext.BaseDirectory, "CommandHistory.json");
+            var history = Path.Combine(AppContext.BaseDirectory, "CommandHistory.json");
             if (!File.Exists(history))
             {
                 return;
             }
 
-            var tokenList = jsonreader.ReadtoJsonFile<string>("CommandHistory.json");
+            var tokenList = jsonreader.ReadtoJsonFile<string>(history);
             foreach (string token in tokenList)
             {
                 if (!paramText.Items.Contains(token))
@@ -72,11 +60,9 @@ namespace HaruaConvert.Methods.Settings
             }
         }
 
-        public int LoadPlaceholderIndex(string iniPath)
+        public int LoadPlaceholderIndex(AppSettingsStore store)
         {
-            return int.Parse(
-                IniDefinition.GetValueOrDefault(iniPath, QueryNames.placeHolder, QueryNames.placeHolderCount, "0"),
-                CultureInfo.CurrentCulture);
+            return store.Current.PlaceHolderIndex;
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+  <Package Name="HaruaConvert"
+           Manufacturer="MakizunoProject"
+           Version="1.0.0.0"
+           UpgradeCode="0D3D7B7F-3766-4E56-9C71-57982B0BF845"
+           Codepage="65001">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version is already installed." />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <!-- ユーザーが選択する親フォルダ -->
+
+      <Directory Id="INSTALLFOLDER" Name="HaruaConvert">
+        <!-- 固定のアプリ名 -->
+        <Directory Id="APPFOLDER" Name="HaruaConvert">
+          <Files Include="$(var.HaruaConvert.TargetDir)**" />
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+
+  </Package>
+
+</Wix>

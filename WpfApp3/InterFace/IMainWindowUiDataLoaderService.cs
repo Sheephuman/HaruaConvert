@@ -1,3 +1,4 @@
+using HaruaConvert.Json;
 using System.Windows.Controls;
 
 namespace HaruaConvert.HaruaInterFace
@@ -8,6 +9,6 @@ namespace HaruaConvert.HaruaInterFace
 
         void LoadCommandHistoryItems(ComboBox paramText);
 
-        int LoadPlaceholderIndex(string iniPath);
+        int LoadPlaceholderIndex(AppSettingsStore store);
     }
 }

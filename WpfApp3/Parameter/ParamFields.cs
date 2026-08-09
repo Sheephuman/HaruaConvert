@@ -1,5 +1,6 @@
-﻿using HaruaConvert.HaruaInterFace;
+using HaruaConvert.HaruaInterFace;
 using HaruaConvert.HaruaServise;
+using HaruaConvert.Json;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -31,6 +32,7 @@ namespace HaruaConvert.Parameter
         public string check_output { get; set; }
 
         public string iniPath { get; set; }
+        public AppSettingsStore SettingsStore { get; set; }
         public string profileQueryIni { get; set; } = "";
 
         public string setFile { get; set; }
@@ -106,7 +108,7 @@ namespace HaruaConvert.Parameter
         public bool isPaused { get; set; }
         public bool isClosedQueryBuildWindow { get; set; }
         public List<int> explorerPrpcesslist { get; internal set; } = new List<int>();
-        public bool isSuccessdbuildQuery { get; internal set; }
+        public bool isQueryBuildFailed { get; internal set; }
 
         public bool isCheckerChanged { get; internal set; }
         public bool isParam_Edited { get; internal set; }

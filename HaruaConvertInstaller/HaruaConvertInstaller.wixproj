@@ -1,0 +1,25 @@
+﻿<Project Sdk="WixToolset.Sdk/7.0.0">
+
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <AcceptEula>wix7</AcceptEula>
+    
+    
+    
+    <!-- または全部抑制したい場合はこちら -->
+     <SuppressValidation>true</SuppressValidation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- UI拡張（必須） -->
+    <PackageReference Include="WixToolset.UI.wixext" Version="7.0.0" />
+    
+    <!-- Bootstrapperを使っている場合のみ必要 -->
+    <PackageReference Include="WixToolset.BootstrapperApplications.wixext" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WpfApp3\HaruaConvert.csproj" />
+  </ItemGroup>
+
+</Project>

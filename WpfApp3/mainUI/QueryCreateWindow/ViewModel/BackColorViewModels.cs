@@ -1,4 +1,4 @@
-﻿using Prism.Mvvm;
+using Prism.Mvvm;
 using System;
 using System.Windows.Media;
 
@@ -45,7 +45,7 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.ViewModel
                 SetProperty(ref field, value);
                 UpdateComputedBackground();
             }
-        } = 0.5;
+        } 
 
         //  ResultColor = new SolidColorBrush(Color.FromRgb(253, 238, 240)); 
 
@@ -56,7 +56,7 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.ViewModel
                 SetProperty(ref field, value);
                 UpdateComputedBackground();
             }
-        } = 1.0;
+        }
 
         public Brush ComputedBackground
         {
@@ -167,11 +167,11 @@ namespace HaruaConvert.mainUI.QueryCreateWindow.ViewModel
 
         public BackColorViewModels()
         {
-            BackgroundRed = 253;
-            BackgroundGreen = 238;
-            BackgroundBlue = 240;
-            BackgroundHueOffset = 0;
-            Saturation = 1.0;
+        //    BackgroundRed = 253;
+        //    BackgroundGreen = 238;
+        //    BackgroundBlue = 240;
+        //    BackgroundHueOffset = 0;
+        //    Saturation = 1.0;
             
             UpdateComputedBackground();
         }

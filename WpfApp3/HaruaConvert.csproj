@@ -24,7 +24,7 @@
     <SupportedOSPlatformVersion>10.0.18362.1</SupportedOSPlatformVersion>
     <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
-    <ApplicationIcon>lib\harua.ico</ApplicationIcon>
+    <ApplicationIcon>bin\Debug\net10.0-windows10.0.22621.0\dll\harua.ico</ApplicationIcon>
     <DelaySign>False</DelaySign>
     <PackageLicenseExpression>BSD-2-Clause-first-lines</PackageLicenseExpression>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -95,12 +95,16 @@
   <ItemGroup>
     <Compile Remove="bin\**" />
     <Compile Remove="MainWindow.Method_Group\**" />
+    <Compile Remove="MediaInfo\**" />
     <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="MainWindow.Method_Group\**" />
+    <EmbeddedResource Remove="MediaInfo\**" />
     <None Remove="bin\**" />
     <None Remove="MainWindow.Method_Group\**" />
+    <None Remove="MediaInfo\**" />
     <Page Remove="bin\**" />
     <Page Remove="MainWindow.Method_Group\**" />
+    <Page Remove="MediaInfo\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -115,7 +119,9 @@
     <None Remove="BackImage\sheep.png" />
     <None Remove="CustomDictionary.xml" />
     <None Remove="dll\DotNetProjects.Wpf.Extended.Toolkit&#xD;&#xA;    " />
+    <None Remove="dll\ffmpeg.exe" />
     <None Remove="dll\FFMpegCore.dll" />
+    <None Remove="dll\ffprobe.exe" />
     <None Remove="dll\Instances.dll" />
     <None Remove="dll\Microsoft.Windows.SDK.NET.dll" />
     <None Remove="dll\Microsoft.WindowsAPICodePack.dll" />
@@ -124,12 +130,14 @@
     <None Remove="dll\NAudio.Core.dll" />
     <None Remove="dll\NAudio.dll" />
     <None Remove="dll\NAudio.Midi.dll" />
-    <None Remove="dll\NAudio.Wasapi.dll" />    
+    <None Remove="dll\NAudio.Wasapi.dll" />
+    <None Remove="dll\NAudio.WinForms.dll" />    
     <None Remove="dll\NAudio.WinMM.dll" />
     <None Remove="dll\WinRT.Runtime.dll" />
-    <None Remove="dll\しょどーる参上.wav" />
+    <None Remove="dll\shodor.wav" />
     <None Remove="harua.jpg" />
     <None Remove="lib\harua_origin_test.png" />
+    <None Remove="Settings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -143,7 +151,17 @@
     <Resource Include="BackImage\\harua.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Content Include="dll\しょどーる参上.wav">
+    <Content Include="bin\Debug\net10.0-windows10.0.22621.0\dll\harua.ico" />
+    <Content Include="dll\ffmpeg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\ffprobe.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\NAudio.WinForms.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dll\shodor.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="lib\harua.ico">
@@ -205,15 +223,6 @@
     <None Update="CommandHistory.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="dll\ffmpeg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\ffprobe.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="dll\NAudio.WinForms.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="rules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -235,7 +244,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MediaInfo\" />
     <Folder Include="UserControls\QueryBuildwindow\" />
   </ItemGroup>
 

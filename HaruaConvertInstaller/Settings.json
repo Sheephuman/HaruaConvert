@@ -1,0 +1,39 @@
+{
+  "window": {
+    "left": 193.5,
+    "top": 138.5
+  },
+  "directories": {
+    "convert": "",
+    "output": "",
+    "outputSelector": "",
+    "inputSelector": ""
+  },
+  "selectorGenerateCount": "1",
+  "appearance": {
+    "backImageOpacity": 0.30000000000000004,
+    "backgroundColor": {
+      "red": 198.88129496402877,
+      "green": 183.8812949640287,
+      "blue": 240.0
+    },
+    "lightness": 0.902158273381295,
+    "saturation": 1.0
+  },
+  "ffmpegQuery": {
+    "baseQuery": "-codec:v libx265 -r 60 -vf yadif=0:-1:1 -pix_fmt yuv420p -acodec aac -threads 2",
+    "endStrings": "_Harua"
+  },
+  "placeHolderIndex": 0,
+  "selectedParamSelectorIndex": "0",
+  "selectors": [],
+  "checkState": {
+    "NoDialogCheck": false,
+    "NoAudio": false,
+    "Force30FPS": false,
+    "isUserParameter": true,
+    "IsOpenFolderChecker": true,
+    "ExplorerExitChecker": false,
+    "isFileOpenChecker": true
+  }
+}

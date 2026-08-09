@@ -1,4 +1,5 @@
 using HaruaConvert.HaruaInterFace;
+using HaruaConvert.mainUI.mainWindow;
 using HaruaConvert.mainUI.mainWindow.LogWindow;
 
 using HaruaConvert.Methods;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Windows.Networking.NetworkOperators;
 using WpfApp3.Parameter;
 
 namespace HaruaConvert
@@ -38,17 +40,26 @@ namespace HaruaConvert
         private readonly IOverwritePrompt _overwritePrompt = new WpfOverwritePrompt();
         private IConversionUiLauncher _conversionUiLauncher;
 
+
+        public MainFileConversionOrchestrator orcehstra { get; set; }
+
         private IConversionUiLauncher ConversionUiLauncher =>
             _conversionUiLauncher ??= new MainWindowConversionLauncher(this);
 
-        private IMainFileConversionOrchestrator _mainFileConversionOrchestrator;
+        public IMainFileConversionOrchestrator _mainFileConversionOrchestrator { get; set; }
 
-        private IMainFileConversionOrchestrator MainFileConversionOrchestrator =>
-            _mainFileConversionOrchestrator ??= new MainFileConversionOrchestrator(
+        private IMainFileConversionOrchestrator MainFileConversionOrchestrator()
+        {
+             orcehstra ??= new MainFileConversionOrchestrator(
                 this,
                 _conversionExecutionPreparer,
                 _outputConflictEvaluator,
                 () => ConversionUiLauncher);
+
+            _mainFileConversionOrchestrator ??= orcehstra;
+
+            return _mainFileConversionOrchestrator;
+        }
         public Process ffmpegProcess { get; set; } = null!;
 #pragma warning disable CA1051 // 参照可能なインスタンス フィールドを宣言しません
         public ParamCreateClasss param;
@@ -75,14 +86,16 @@ namespace HaruaConvert
         /// </summary>
         /// <param name="_fullPath"></param>
         /// <returns></returns>
-        public bool mainFileConvertExec(string _fullPath, object sender) =>
-            MainFileConversionOrchestrator.Execute(_fullPath, sender);
+        public bool mainFileConvertExec(string _fullPath, string ButtonName, object sender) =>
+            MainFileConversionOrchestrator().Execute(_fullPath, ButtonName, sender);
 
         public void LogWindowShow()
         {
             if (!firstlogWindow)
             {
-                th1 = new Thread(async () => await FfmpegProcessingAsnc());
+                //th1 = new Thread(async () => await FfmpegProcessingAsnc(orcehstra.OrigenelParam.paramResult.Arguments));
+
+
                 Lw = new LogWindow(this, paramField);
                 Lw.Show();
                 firstlogWindow = true;
@@ -105,7 +118,7 @@ namespace HaruaConvert
                 return false;
             }
 
-            ConversionUiLauncher.BeginConversionAfterOverwriteAccepted();
+            ConversionUiLauncher.StartConversion();
             return true;
         }
 
@@ -114,7 +127,7 @@ namespace HaruaConvert
 
         public DataReceivedEventHandler handler { get; set; }
         //TaskCompletionSource<bool> tcs;
-        public async Task FfmpegProcessingAsnc(CancellationToken cancellationToken = default)
+        public async Task FfmpegProcessingAsnc(string arguments,CancellationToken cancellationToken = default)
         {
             try
             {
@@ -130,7 +143,7 @@ namespace HaruaConvert
                 };
 
                 ffmpegProcess = await _ffmpegProcessRunner.StartAndWaitAsync(
-                    _arguments,
+                    arguments,
                     handler,
                     ffmpeg_Exited,
                     

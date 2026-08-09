@@ -2,21 +2,7 @@ using System.Collections.Generic;
 
 namespace HaruaConvert.HaruaInterFace
 {
-    public interface IOriginalParameterQueryBuilder
-    {
-        /// <summary>
-        /// ユーザー指定クエリから最終引数を生成する。
-        /// </summary>
-        OriginalQueryBuildResult Build(
-            IEnumerable<SelectorState> selectors,
-            IDictionary<string, List<string>> placeholders,
-            string selectedPlaceholderKey,
-            string inputFilePath,
-            string outputFilePath,
-            string triggerButtonName,
-            string executeButtonName,
-            string legacyBaseArgumentsForPercentCheck);
-    }
+ 
 
     public readonly record struct SelectorState(bool IsChecked, string ArgumentText);
 
@@ -34,5 +20,8 @@ namespace HaruaConvert.HaruaInterFace
         string OutputPath,
         string ErrorMessage,
         string ParamTabOutputSelectorDirectory,
-        bool SetQueryBuildFailedFlag);
+        bool SetQueryBuildFailedFlag)
+    {
+        public bool SetQueryBuildFailedFlag { get; }
+    }
 }
