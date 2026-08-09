@@ -1,4 +1,4 @@
-﻿using HaruaConvert.Parameter;
+using HaruaConvert.Parameter;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -22,7 +22,7 @@ namespace HaruaConvert.mainUI.mainWindow.LogWindow
 
 
 
-        [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+        [LibraryImport("shell32.dll", StringMarshalling = StringMarshalling.Utf16)]
         public static extern int SHParseDisplayName(
             string name,
             IntPtr bindingContext,
