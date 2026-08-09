@@ -224,6 +224,7 @@ namespace HaruaConvert
                 contextMenu.Items.Add(HaruaButtonCommand.SetDefaultQuery);
 
                 contextMenu.Items.Add(HaruaButtonCommand.QueryBuildWindow_Open);
+                contextMenu.Items.Add(HaruaButtonCommand.AddRuleQuery);
 
 
                 InnerTextBox.ContextMenu = contextMenu;

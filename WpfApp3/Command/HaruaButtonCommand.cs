@@ -1,4 +1,4 @@
-﻿using System.Windows.Input;
+using System.Windows.Input;
 
 namespace HaruaConvert.Command
 {
@@ -13,6 +13,12 @@ namespace HaruaConvert.Command
         public static readonly RoutedUICommand SetDefaultQuery = new RoutedUICommand(
        "Default Queryをセット", // コマンドの名前
        "defaultSetQueryBinding", // コマンドの識別名
+       typeof(HaruaButtonCommand)); // コマンドが定義されているクラス
+
+
+        public static readonly RoutedUICommand AddRuleQuery = new RoutedUICommand(
+       "Rule Queryをセット", // コマンドの名前
+       "AddRuleQueryBinding", // コマンドの識別名
        typeof(HaruaButtonCommand)); // コマンドが定義されているクラス
 
 

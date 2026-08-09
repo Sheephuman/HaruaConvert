@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
 namespace HaruaConvert.Json
 {
-    public class CommandHistoryIO
+    public class QuerySaver
     {
 
         public void SaveToJsonFile<T>(T data, string filePath)

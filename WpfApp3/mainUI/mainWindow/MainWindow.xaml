@@ -266,6 +266,8 @@ ToolTip="ffmpegに渡すオプションです。">
                                                                         <ContextMenu>
                                                                             <MenuItem x:Name="buildCommandItem" Header="ffmpegコマンド組み立て" Command="{x:Static local:HaruaButtonCommand.QueryBuildWindow_Open}" />
                                                                             <MenuItem x:Name="SetDefaultCommandItem" Header="defaultのコマンド" Command="{x:Static local:HaruaButtonCommand.SetDefaultQuery}" />
+                                                                            <MenuItem x:Name="AddRuleCommandItem" Header="Ruleのコマンド" Command="{x:Static local:HaruaButtonCommand.AddRuleQuery}" />
+
                                                                         </ContextMenu>
                                                                     </c:IdleComboBox.ContextMenu>
                                                                 </c:IdleComboBox>

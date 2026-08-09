@@ -1,4 +1,8 @@
+using HaruaConvert.Json;
 using HaruaConvert.userintarface;
+using Newtonsoft.Json;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using WpfApp3.Parameter;
@@ -45,6 +49,13 @@ namespace HaruaConvert.Command
                 CanExecuteSetDefaultQueryCommand);
 
 
+            CommandBinding AddRuleQueryBinding = new CommandBinding(
+               HaruaButtonCommand.AddRuleQuery,
+               addRuleQueryBinding,
+               CanExecuteAddRuleQueryCommand);
+
+
+
             CommandBinding ExplorerResterterComandBinding = new CommandBinding(
                HaruaButtonCommand.ExplorerRestarter,
                ExplorerResterterComand,
@@ -56,6 +67,11 @@ namespace HaruaConvert.Command
 
             _main.CommandBindings.Add(defaultQueryBinding);
             _main.CommandBindings.Add(ExplorerResterterComandBinding);
+        }
+
+        private void CanExecuteAddRuleQueryCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
 
         private async void ExplorerResterterComand(object sender, ExecutedRoutedEventArgs e)
@@ -76,22 +92,24 @@ namespace HaruaConvert.Command
         {
             e.CanExecute = true;
 
-            //MenuItem menueItem = sender as MenuItem;
-
-
-            //if (_main.SetDefaultCommandItem == menueItem)
-            //{
-            //    e.CanExecute = true;
-
-            //}
-            //else 
-            //{
-
-            //    e.CanExecute = false; // その他の場合は実行不可
-            //}
-
-            // e.Handled = true; // 他のバインディングに伝播しないようにする
+          
         }
+
+        private void addRuleQueryBinding(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBoxResult msbr = MessageBox.Show("rule.Jsonにqueryを追加しますか？\r\n",
+               "メッセージボックス", MessageBoxButton.YesNo,
+               MessageBoxImage.Asterisk);
+            if (msbr == MessageBoxResult.Yes)
+            {
+                var command = new QuerySaver();
+                command.SaveToJsonFile(_main.ParamText.Text, "rules.json");
+            }
+
+            else
+                return;
+        }
+
 
 
         private void defaultSetQueryBinding(object sender, ExecutedRoutedEventArgs e)

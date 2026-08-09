@@ -93,7 +93,7 @@ namespace HaruaConvert.QueryBuilder
             string EnableTwitterQuery = _isEnableTwitter ? new Func<string>(() =>
             {
                 _videoCodecesQuery = string.Empty;
-                return "-codec:v libx265 -vf yadif=0:-1:1 ";
+                return "-codec:v libx265 -r 60 -vf yadif=0:-1:1 ";
 
             })() : string.Empty;
 

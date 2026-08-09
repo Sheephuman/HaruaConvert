@@ -43,7 +43,7 @@ namespace HaruaConvert.Methods.Settings
 
         public void LoadCommandHistoryItems(ComboBox paramText)
         {
-            var jsonreader = new CommandHistoryIO();
+            var jsonreader = new QuerySaver();
             var history = Path.Combine(AppContext.BaseDirectory, "CommandHistory.json");
             if (!File.Exists(history))
             {
